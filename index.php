@@ -3,12 +3,12 @@ require("require/view_header.php");
 
 
 $ejercicios = array (
-    array ('id'=>1, 'titulo'=>'Ud2', 'descripcion'=>'Sintaxis básica', 'enlace'=>'ud2_sintaxis_basica/index.php'),
-    array ('id'=>2, 'titulo'=>'Ud3', 'descripcion'=>'Estructuras de control', 'enlace'=>'ud3_estructuras_de_control/index.php'),
-    array ('id'=>3, 'titulo'=>'Ud4', 'descripcion'=>'Cookies, sesiones, ficheros', 'enlace'=>'ud3_cookies_sesiones_ficheros/index.php'),
-    array ('id'=>4, 'titulo'=>'Ud5', 'descripcion'=>'POO', 'enlace'=>'ud5_poo/index.php'),
-    array ('id'=>5, 'titulo'=>'Ud4', 'descripcion'=>'Sesiones', 'enlace'=>'ud4_sesiones/index.php'),
-    array ('id'=>6, 'titulo'=>'Ud6', 'descripcion'=>'BBDD', 'enlace'=>'ud6_bbdd/index.php'),
+    array ('id'=>1, 'titulo'=>'Ud2', 'descripcion'=>'Sintaxis básica', 'enlace'=>'ud2/index.php'),
+    array ('id'=>2, 'titulo'=>'Ud3', 'descripcion'=>'Estructuras de control', 'enlace'=>'ud3/index.php'),
+    array ('id'=>3, 'titulo'=>'Ud4', 'descripcion'=>'Cookies, sesiones, ficheros', 'enlace'=>'ud4/index.php'),
+    array ('id'=>4, 'titulo'=>'Ud5', 'descripcion'=>'POO', 'enlace'=>'ud5/index.php'),
+    array ('id'=>5, 'titulo'=>'Ud4', 'descripcion'=>'Sesiones', 'enlace'=>'ud6/index.php'),
+    array ('id'=>6, 'titulo'=>'Ud6', 'descripcion'=>'BBDD', 'enlace'=>'ud7/index.php'),
     )
     ?>
 
