@@ -6,12 +6,15 @@
   --color5: #3f3e52;
 }
 
+.enunciado {
+  background-color: #2d8b85;
+}
+
 body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   background-color: #dfdce3;
-  *color: #2a5251;
   font-family: Arial, Helvetica, sans-serif;
 }
 

@@ -10,7 +10,8 @@
  * @date: September 2022 
  */
 
-require ("../../../require/view_home_units.php");
+require ("../../../require/view_home.php");
+
 
 $studentsDaw = array(
     array("name" => "Estudiante 1", 

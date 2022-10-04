@@ -1,5 +1,4 @@
 <?php
-require("../require/view_unit_header.php");
 require("../require/view_home.php");
 
 $ejercicios = array(
@@ -16,10 +15,12 @@ $ejercicios = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' type='text/css' href='../css/style_units.css' />
-    <title>Virginia Ordoño Bernier</title>
+    <title>Índice Ejercicios Unidad 2</title>
 </head>
 
 <body>
+    <h1>Ejercicios Desarrollo Web Entorno Servidor (2022/2023)</h1>
+    <h3>Ud2. Sintaxis general</h3>
     <main>
         <?php
         foreach ($ejercicios as $key => $value) {
