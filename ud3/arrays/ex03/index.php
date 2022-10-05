@@ -71,51 +71,51 @@ $randomArray = array(
         "Asia" => array(
             "Corea del Sur" => array(
                 "capital" => "Seúl",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/1200px-Flag_of_South_Korea.svg.png"
+                "flag" => "<img width='4%' src='../assets/corea.jpg'>"
             ),
             "Turquía" => array(
                 "capital" => "Ankara",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/1200px-Flag_of_Turkey.svg.png"
+                "flag" => "<img width='4%' src='../assets/turquia.jpg'>"
             )
         ),
         "Europa" => array(
             "España" => array(
                 "capital" => "Madrid",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/1200px-Flag_of_Spain.svg.png"
+                "flag" => "<img width='4%' src='../assets/spain.jpg'>"
             ),
             "Francia" => array(
                 "capital" => "París",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/1200px-Flag_of_France.svg.png"
+                "flag" => "<img width='4%' src='../assets/france.jpg'>"
             )
         ),
         "América" => array(
             "México" => array(
                 "capital" => "Ciudad de México",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1200px-Flag_of_Mexico.svg.png"
+                "flag" => "<img width='4%' src='../assets/mexico.jpg'>"
             ),
             "Estados Unidos" => array(
                 "capital" => "Washington D.C.",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"
+                "flag" => "<img width='4%' src='../assets/usa.jpg'>"
             )
         ),
         "Oceanía" => array(
             "Australia" => array(
                 "capital" => "Camberra",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/1200px-Flag_of_Australia_%28converted%29.svg.png"
+                "flag" => "<img width='4%' src='../assets/australia.jpg'>"
             ),
             "Nueva Zelanda" => array(
                 "capital" => "Wellington",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png"
+                "flag" => "<img width='4%' src='../assets/new_zeland.jpg'>"
             )
         ),
         "África" => array(
             "Egipto" => array(
                 "capital" => "El Cairo",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1200px-Flag_of_Egypt.svg.png"
+                "flag" => "<img width='4%' src='../assets/egypt.jpg'>"
             ),
             "Sudáfrica" => array(
                 "capital" => "Pretoria",
-                "flag" => "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1200px-Flag_of_South_Africa.svg.png"
+                "flag" => "<img width='4%' src='../assets/southafrica.jpg'>"
             )
         )
 
@@ -230,31 +230,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             } elseif ($selectedOption == "Geografía") {
                 echo "<h3>Información sobre continentes, países, capitales y banderas</h3>";
-                echo "<table>";
-                foreach ($randomArray['geography'] as $continent => $countries) {
-                    echo "<tr>";
-                    echo "<td>$continent</td>";
-                    echo "<td>";
-                    echo "<table>";
-                    foreach ($countries as $country => $info) {
-                        echo "<tr>";
-                        echo "<td>$country</td>";
-                        echo "<td>";
-                        echo "<table>";
-                        foreach ($info as $key => $value) {
-                            echo "<tr>";
-                            echo "<td>$key</td>";
-                            echo "<td>$value</td>";
-                            echo "</tr>";
+                foreach ($randomArray['geography'] as $key => $country) {
+                    echo "<h3>". $key ."</h3>" ;
+                    echo "<ul>";
+                    foreach ($country as $name => $countryContent) {
+                        echo "<h4 style='color:blue'>". $name ."</h4>" ;
+                        echo "<li><p>Capital: " . $countryContent['capital'] . "</p></li>";
+                        echo "<li>Bandera: " . $countryContent['flag'] ."</li>";
                         }
-                        echo "</table>";
-                        echo "</td>";
-                        echo "</tr>";
+                        echo "</ul>";
                     }
-                    echo "</table>";
-                    echo "</td>";
-                    echo "</tr>";
-                }
+                
             } elseif ($selectedOption == "verbs") {
                 echo "<h3>Verbos irregulares en inglés</h3>";
                 echo "<table>";
@@ -266,31 +252,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             } elseif ($selectedOption == "geography") {
                 echo "<h3>Información sobre continentes, países, capitales y banderas</h3>";
-                echo "<table>";
-                foreach ($randomArray['geography'] as $continent => $countries) {
-                    echo "<tr>";
-                    echo "<td>$continent</td>";
-                    echo "<td>";
-                    echo "<table>";
-                    foreach ($countries as $country => $info) {
-                        echo "<tr>";
-                        echo "<td>$country</td>";
-                        echo "<td>";
-                        echo "<table>";
-                        foreach ($info as $key => $value) {
-                            echo "<tr>";
-                            echo "<td>$key</td>";
-                            echo "<td>$value</td>";
-                            echo "</tr>";
+                
+                foreach ($randomArray['geography'] as $key => $country) {
+                    echo "<h3>". $key ."</h3>" ;
+                    echo "<ul>";
+                    foreach ($country as $name => $countryContent) {
+                        echo "<h4 style='color:blue'>". $name ."</h4>" ;
+                        echo "<li><p>Capital: " . $countryContent['capital'] . "</p></li>";
+                        echo "<li>Bandera: " . $countryContent['flag'] ."</li>";
                         }
-                        echo "</table>";
-                        echo "</td>";
-                        echo "</tr>";
+                        echo "</ul>";
                     }
-                    echo "</table>";
-                    echo "</td>";
-                    echo "</tr>";
-                }
+                
+
             }
         }
         ?>
