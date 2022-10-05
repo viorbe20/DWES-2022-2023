@@ -4,7 +4,7 @@ require("../require/view_home.php");
 
 $ejercicios = array(
     array('id' => 1, 'titulo' => 'Arrays', 'enlace' => './arrays/index.php'),
-    array('id' => 2, 'titulo' => 'Bucles', 'enlace' => './bucles/index.php'))
+    array('id' => 2, 'titulo' => 'Formularios', 'enlace' => './formularios/index.php'))
     ?>
 
 <!DOCTYPE html>
