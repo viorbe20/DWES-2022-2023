@@ -17,12 +17,76 @@
 require("../../../require/view_home.php");
 
 $formProcess = false;
+$error = false;
+
+//Variables para el formulario
+$name = $lastname = $borndate = $phoneNumber = $email = $gender;
+$nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genderErr;
+$required = "<span style='color:red'>*</span>";
+
+//Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
 $levels = ["Básico", "Intermedio", "Avanzado"];
-$required = "<span style='color:red'>*</span>";
+$gender = array(
+    "woman"=> "Mujer", "man"=>"Hombre", "other"=>"Prefiero no decirlo"
+);
+$selectedLanguages = [];
+$selectedLevels = [];
+$selectedHobbies = [];
+
+function clearData($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+};
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formProcess = true;
+
+    //Empty input validation
+    if (empty($_POST["name"])) {
+        $nameErr = "El nombre es obligatorio";
+        $error = true;
+    } else {
+        $name = clearData($_POST["name"]);
+    }
+
+    if (empty($_POST['lastname'])) {
+        $lastnameErr = "El apellido es obligatorio";
+        $error = true;
+    } else {
+        $lastname = clearData($_POST['lastname']);
+    }
+
+    if (empty($_POST['borndate'])) {
+        $borndateErr = "La fecha de nacimiento es obligatoria";
+        $error = true;
+    } else {
+        $borndate = clearData($_POST['borndate']);
+    }
+
+    if (empty($_POST['phoneNumber'])){
+        $phoneNumberErr = "El teléfono es obligatorio";
+        $error = true;
+    } else {
+        $phoneNumber = clearData($_POST['phoneNumber']);
+    }
+
+    if (empty($_POST['email'])) {
+        $emailErr = "El email es obligatorio";
+        $error = true;
+    } else {
+        $email = clearData($_POST['email']);
+    }
+
+    if (empty($_POST['gender'])){
+        $genderErr = "El género es obligatorio";
+        $error = true;
+    } else {
+        $gender = clearData($_POST['gender']);
+    }
+
 }
 ?>
 
@@ -69,9 +133,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<input type="email" name="email" value="a20orbevi@ies.grancapitan.es" size="70" required> ' . $required;
             // Checkbox genero
             echo '<br><br><label for="genero">Género </label>';
-            echo '<input type="radio" name="genre" id="genre" value="man" required>Hombre';
-            echo '<input type="radio" name="genre" id="genre" value="woman" required checked>Mujer';
-            echo '<input type="radio" name="genre" id="genre" value="other" required>Prefiero no decirlo';
+            //"woman"=> "Mujer", "man"=>"Hombre", "other"=>"Prefiero no decirlo"
+            
+            foreach ($gender as $key => $value) {
+                echo "<input type='radio' name='genre' value=". $key ." required>". $value ."";
+            }
             echo '</fieldset>';
 
             //Idiomas lista desplegable
