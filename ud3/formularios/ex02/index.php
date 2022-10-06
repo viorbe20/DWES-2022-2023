@@ -26,14 +26,11 @@ $borndate = "1979-12-01";
 $phoneNumber = 123456789;
 $email = "a20orbevi@ies.grancapitan.es";
 $gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genderErr = "";
-$required = "<span style='color:red'>*</span>";
 
 //Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
 $levels = ["Básico", "Intermedio", "Avanzado"];
-$gender = array(
-    "woman" => "Mujer", "man" => "Hombre", "other" => "Prefiero no decirlo"
-);
+$genreSelection = array("Mujer", "Hombre", "Prefiero no decirlo");
 $selectedLanguages = [];
 $selectedLevels = [];
 $selectedHobbies = [];
@@ -89,11 +86,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
     }
 
-    if (empty($_POST['gender'])) {
-        $genderErr = "El género es obligatorio";
+    if (empty($_POST['genre'])) {
+        $genreErr = "El género es obligatorio";
         $error = true;
     } else {
-        $gender = clearData($_POST['gender']);
+        //Aquí el usuario no escribe, es algo predefinido
+        $genre = clearData($_POST["genre"]);
     }
 
     if (isset($_POST['languages'])) {
@@ -146,23 +144,31 @@ if ($error) {
                 <fieldset>
                     <legend>Datos personales</legend>
                     <label for="name">Nombre </label>
-                    <input type="text" name="name" value="<?php echo $name; ?>"> <?php echo $required ?>
-                    <br><br><label for="lastname">Apellidos </label>
-                    <input type="text" name="lastname" size="100" value="<?php echo $lastname; ?>"> <?php echo $required ?>
-                    <br><br><label for="borndate">Fecha de nacimiento </label>
-                    <input type="date" name="borndate" value="<?php echo $borndate; ?>"> <?php echo $required ?>
-                    <br><br><label for="phoneNumber">Teléfono </label>
-                    <input type="number" name="phoneNumber" maxlength="9" value="<?php echo $phoneNumber; ?>"> <?php echo $required ?>
-                    <br><br><label for="email">Email </label>
-                    <input type="email" name="email" size="70" value="<?php echo $email; ?>"> <?php echo $required ?>
+                    <input type="text" name="name" value="<?php echo $name; ?>">
+                    <span class="error">*<?php echo $nameErr; ?></span><br/><br/>
+                    
+                    <label for="lastname">Apellidos </label>
+                    <input type="text" name="lastname" size="100" value="<?php echo $lastname; ?>"> 
+                    <span class="error">*<?php echo $lastnameErr; ?></span><br/><br/>
 
-                    <!--Checkbox genero-->
-                    <br><br><label for="genero">Género </label>
+                    <label for="borndate">Fecha de nacimiento </label>
+                    <input type="date" name="borndate" value="<?php echo $borndate; ?>"> 
+                    <span class="error">*<?php echo $borndateErr; ?></span><br/><br/>
+                    
+                    <label for="phoneNumber">Teléfono </label>
+                    <input type="number" name="phoneNumber" maxlength="9" value="<?php echo $phoneNumber; ?>"> 
+                    <span class="error">*<?php echo $phoneNumberErr; ?></span><br/><br/>
+                    
+                    <label for="email">Email </label>
+                    <input type="email" name="email" size="70" value="<?php echo $email; ?>"> 
+                    <span class="error">*<?php echo $emailErr; ?></span><br/><br/>
 
-                    <?php foreach ($gender as $key => $value) {
-                        echo "<input type='radio' name='genre' value=" . $key . ">" . $value . "";
+                    <!--Radiobutton genre-->
+                    <label for="genre">Género </label>
+                    <?php  foreach ($genreSelection as $value) {
+                    echo "<input type=\"radio\" name=\"genre\" value = \"$value\">$value";
                     } ?>
-                    <?php echo $required ?>
+                    <span class="error">*<?php echo $genreErr; ?></span><br/><br/>
                 </fieldset>
 
                 <!--Idiomas lista desplegable-->
@@ -223,7 +229,6 @@ if ($error) {
                 <!--Text and conditions checkbox-->
                 <br><br>
                 <fields>
-                    <legend>Condiciones</legend>
                     <input type="checkbox" name="conditions" id="conditions" required>
                     <label for="conditions">Acepto las condiciones</label>
                 </fields>
@@ -232,7 +237,8 @@ if ($error) {
             </form>
         <?php
         } else {
-            echo '<h1>CV</h1>';
+            echo $genre;
+            echo $name;
         }
 
         ?>

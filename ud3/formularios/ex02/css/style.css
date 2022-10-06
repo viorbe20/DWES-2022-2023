@@ -41,3 +41,6 @@
         border: 1px solid #ccc;
         padding: 1em;
     }
+    .error {
+        color: #f44336;
+    }
