@@ -66,6 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = true;
     } else {
         $borndate = clearData($_POST['borndate']);
+        $originalDate = $borndate;
+        $newDate = date("d/m/Y", strtotime($originalDate));
+        $borndate = $newDate;
     }
 
     if (empty($_POST['phoneNumber'])) {
