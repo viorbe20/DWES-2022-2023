@@ -25,7 +25,7 @@ $lastname = "Ordoño Bernier";
 $borndate = "1979-12-01";
 $phoneNumber = 123456789;
 $email = "a20orbevi@ies.grancapitan.es";
-$gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genreErr = "";
+$aboutme = $gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genreErr = "";
 
 //Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
@@ -107,6 +107,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['hobbies'])) {
         $selectedHobbies = $_POST['hobbies'];
+    }
+
+    if (isset($_POST['aboutme'])) {
+        $aboutme = $_POST['aboutme'];
     }
 };
 
@@ -203,14 +207,13 @@ if ($error) {
                 <br><br>
                 <fieldset>
                     <legend>Intereses</legend>
-                    <select name="interests[]" id="interests" multiple>
-                        <option value="reading">Leer</option>
-                        <option value="movies">Cine</option>
-                        <option value="music">Música</option>
-                        <option value="sports">Deportes</option>
-                        <option value="travelling">Viajar</option>
-                        <option value="cooking">Cocinar</option>
-                        <option value="others">Otros</option>
+                    <select name="hobbies[]" id="hobbies" multiple>
+                        <option value="Leer">Leer</option>
+                        <option value="Cine">Cine</option>
+                        <option value="Música">Música</option>
+                        <option value="Deportes">Deportes</option>
+                        <option value="Viajar">Viajar</option>
+                        <option value="Cocinar">Cocinar</option>
                     </select>
                 </fieldset>
 
@@ -225,7 +228,7 @@ if ($error) {
                 <br><br>
                 <fieldset>
                     <legend>Sobre mí</legend>
-                    <textarea name="about_me" id="about_me" cols="100" rows="10"></textarea>
+                    <textarea name="aboutme" id="aboutme" cols="100" rows="10"></textarea>
                 </fieldset>
 
                 <!--Text and conditions checkbox-->
@@ -269,24 +272,7 @@ if ($error) {
                 <fieldset>
                     <legend>Idiomas</legend>
                     <div class="languages">
-                        <select name="languages" id="languages">
-                            <option selected value=""></option>
-                            <?php
-                            foreach ($languages as $key) {
-                                echo '<option value="' . $key . '">' . $key . '</option>';
-                            } ?>
 
-                        </select>
-                        <select name="levels" id="levels">
-                            <option selected value=""></option>';
-
-                            <?php
-                            foreach ($levels as $key) {
-                                echo '<option value="' . $key . '">' . $key . '</option>';
-                            } ?>
-
-                        </select>
-                        <button name="add_language">Añadir</button>
                     </div>
                 </fieldset>
 
@@ -294,15 +280,12 @@ if ($error) {
                 <br><br>
                 <fieldset>
                     <legend>Intereses</legend>
-                    <select name="interests[]" id="interests" multiple>
-                        <option value="reading">Leer</option>
-                        <option value="movies">Cine</option>
-                        <option value="music">Música</option>
-                        <option value="sports">Deportes</option>
-                        <option value="travelling">Viajar</option>
-                        <option value="cooking">Cocinar</option>
-                        <option value="others">Otros</option>
-                    </select>
+                    <?php
+                    echo "<ul>";
+                    foreach ($selectedHobbies as $key) {
+                        echo '<li>' . $key . '</li><br>';
+                    } ?>
+                    </ul>
                 </fieldset>
 
                 <!--Add a picture-->
@@ -313,11 +296,11 @@ if ($error) {
                 </fieldset>
 
                 <!--Textarea-->
-                <!-- <br><br>
+                <br><br>
                 <fieldset>
                     <legend>Sobre mí</legend>
-                    <textarea name="about_me" id="about_me" cols="100" rows="10"></textarea>
-                </fieldset> -->
+                    <span> <?php echo $aboutme ?></span><br/><br/>
+                </fieldset>
 
                 <!--Text and conditions checkbox-->
                 <!-- <br><br>
