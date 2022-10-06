@@ -25,7 +25,7 @@ $lastname = "Ordoño Bernier";
 $borndate = "1979-12-01";
 $phoneNumber = 123456789;
 $email = "a20orbevi@ies.grancapitan.es";
-$gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genderErr = "";
+$gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genreErr = "";
 
 //Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
@@ -163,7 +163,6 @@ if ($error) {
                     <input type="email" name="email" size="70" value="<?php echo $email; ?>"> 
                     <span class="error">*<?php echo $emailErr; ?></span><br/><br/>
 
-                    <!--Radiobutton genre-->
                     <label for="genre">Género </label>
                     <?php  foreach ($genreSelection as $value) {
                     echo "<input type=\"radio\" name=\"genre\" value = \"$value\">$value";
@@ -237,10 +236,97 @@ if ($error) {
             </form>
         <?php
         } else {
-            echo $genre;
-            echo $name;
-        }
+            ?>
+            <h1>Plantilla CV</h1>
+            <form>
+                <!--Datos personales-->
+                <fieldset>
+                    <legend>Datos personales</legend>
+                    <label for="name">Nombre: </label>
+                    <span> <?php echo $name ?></span><br/><br/>
+                    
+                    <label for="lastname">Apellidos: </label>
+                    <span> <?php echo $lastname ?></span><br/><br/> 
 
+                    <label for="borndate">Fecha de nacimiento: </label>
+                    <span> <?php echo $borndate ?></span><br/><br/> 
+                    
+                    <label for="phoneNumber">Teléfono: </label>
+                    <span> <?php echo $phoneNumber ?></span><br/><br/> 
+                    
+                    <label for="email">Email: </label>
+                    <span> <?php echo $email ?></span><br/><br/> 
+
+                    <label for="genre">Género: </label>
+                    <span> <?php echo $genre ?></span><br/><br/> 
+                </fieldset>
+
+                <!--Idiomas lista desplegable-->
+                <br><br>
+                <fieldset>
+                    <legend>Idiomas</legend>
+                    <div class="languages">
+                        <select name="languages" id="languages">
+                            <option selected value=""></option>
+                            <?php
+                            foreach ($languages as $key) {
+                                echo '<option value="' . $key . '">' . $key . '</option>';
+                            } ?>
+
+                        </select>
+                        <select name="levels" id="levels">
+                            <option selected value=""></option>';
+
+                            <?php
+                            foreach ($levels as $key) {
+                                echo '<option value="' . $key . '">' . $key . '</option>';
+                            } ?>
+
+                        </select>
+                        <button name="add_language">Añadir</button>
+                    </div>
+                </fieldset>
+
+                <!--Multiple choice-->
+                <br><br>
+                <fieldset>
+                    <legend>Intereses</legend>
+                    <select name="interests[]" id="interests" multiple>
+                        <option value="reading">Leer</option>
+                        <option value="movies">Cine</option>
+                        <option value="music">Música</option>
+                        <option value="sports">Deportes</option>
+                        <option value="travelling">Viajar</option>
+                        <option value="cooking">Cocinar</option>
+                        <option value="others">Otros</option>
+                    </select>
+                </fieldset>
+
+                <!--Add a picture-->
+                <br><br>
+                <fieldset>
+                    <legend>Foto</legend>
+                    <input type="file" name="photo" id="photo">
+                </fieldset>
+
+                <!--Textarea-->
+                <!-- <br><br>
+                <fieldset>
+                    <legend>Sobre mí</legend>
+                    <textarea name="about_me" id="about_me" cols="100" rows="10"></textarea>
+                </fieldset> -->
+
+                <!--Text and conditions checkbox-->
+                <!-- <br><br>
+                <fields>
+                    <input type="checkbox" name="conditions" id="conditions" required>
+                    <label for="conditions">Acepto las condiciones</label>
+                </fields>
+                <br><br><input type="submit" value="Enviar" id="btn_submit">
+                <input type="reset" value="Borrar" id="btn_reset">  -->
+            </form>
+        <?php
+        }
         ?>
     </main>
 </body>
