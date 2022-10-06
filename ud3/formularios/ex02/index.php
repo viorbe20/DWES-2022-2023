@@ -20,21 +20,26 @@ $formProcess = false;
 $error = false;
 
 //Variables para el formulario
-$name = $lastname = $borndate = $phoneNumber = $email = $gender;
-$nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genderErr;
+$name = "Virginia";
+$lastname = "Ordoño Bernier";
+$borndate = "1979-12-01";
+$phoneNumber = 123456789;
+$email = "a20orbevi@ies.grancapitan.es";
+$gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genderErr = "";
 $required = "<span style='color:red'>*</span>";
 
 //Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
 $levels = ["Básico", "Intermedio", "Avanzado"];
 $gender = array(
-    "woman"=> "Mujer", "man"=>"Hombre", "other"=>"Prefiero no decirlo"
+    "woman" => "Mujer", "man" => "Hombre", "other" => "Prefiero no decirlo"
 );
 $selectedLanguages = [];
 $selectedLevels = [];
 $selectedHobbies = [];
 
-function clearData($data) {
+function clearData($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -66,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $borndate = clearData($_POST['borndate']);
     }
 
-    if (empty($_POST['phoneNumber'])){
+    if (empty($_POST['phoneNumber'])) {
         $phoneNumberErr = "El teléfono es obligatorio";
         $error = true;
     } else {
@@ -78,15 +83,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = true;
     } else {
         $email = clearData($_POST['email']);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Formato de email incorrecto";
+            $lerror = true;
+        };
     }
 
-    if (empty($_POST['gender'])){
+    if (empty($_POST['gender'])) {
         $genderErr = "El género es obligatorio";
         $error = true;
     } else {
         $gender = clearData($_POST['gender']);
     }
 
+    if (isset($_POST['languages'])) {
+        $selectedLanguages = $_POST['languages'];
+    }
+
+    if (isset($_POST['levels'])) {
+        $selectedLevels = $_POST['levels'];
+    }
+
+    if (isset($_POST['hobbies'])) {
+        $selectedHobbies = $_POST['hobbies'];
+    }
+};
+
+if ($error) {
+    $formProcess = false;
 }
 ?>
 
@@ -101,8 +125,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Formulario CV</title>
 </head>
 <style>
-<?php require("css/style.css")
-?></style>
+    <?php require("css/style.css")
+    ?>
+</style>
 
 <body>
     <main>
@@ -116,93 +141,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
             <h1>Plantilla CV</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <?php
 
-            // Datos personales
-            echo '<fieldset>';
-            echo '<legend>Datos personales</legend>';
-            echo '<label for="name">Nombre </label>';
-            echo '<input type="text" name="name" value="Virginia" required> ' . $required;
-            echo '<br><br><label for="lastname">Apellidos </label>';
-            echo '<input type="text" name="lastname" size="100" value="Ordoño Bernier" required> ' . $required;
-            echo '<br><br><label for="bornDate">Fecha de nacimiento </label>';
-            echo '<input type="date" name="bornDate" value="1979-12-01" required> ' . $required;
-            echo '<br><br><label for="phoneNumber">Teléfono </label>';
-            echo '<input type="number" name="phoneNumber" value="123456789" maxlength="9" required> ' . $required;
-            echo '<br><br><label for="email">Email </label>';
-            echo '<input type="email" name="email" value="a20orbevi@ies.grancapitan.es" size="70" required> ' . $required;
-            // Checkbox genero
-            echo '<br><br><label for="genero">Género </label>';
-            //"woman"=> "Mujer", "man"=>"Hombre", "other"=>"Prefiero no decirlo"
-            
-            foreach ($gender as $key => $value) {
-                echo "<input type='radio' name='genre' value=". $key ." required>". $value ."";
-            }
-            echo '</fieldset>';
+                <!--Datos personales-->
+                <fieldset>
+                    <legend>Datos personales</legend>
+                    <label for="name">Nombre </label>
+                    <input type="text" name="name" value="<?php echo $name; ?>"> <?php echo $required ?>
+                    <br><br><label for="lastname">Apellidos </label>
+                    <input type="text" name="lastname" size="100" value="<?php echo $lastname; ?>"> <?php echo $required ?>
+                    <br><br><label for="borndate">Fecha de nacimiento </label>
+                    <input type="date" name="borndate" value="<?php echo $borndate; ?>"> <?php echo $required ?>
+                    <br><br><label for="phoneNumber">Teléfono </label>
+                    <input type="number" name="phoneNumber" maxlength="9" value="<?php echo $phoneNumber; ?>"> <?php echo $required ?>
+                    <br><br><label for="email">Email </label>
+                    <input type="email" name="email" size="70" value="<?php echo $email; ?>"> <?php echo $required ?>
 
-            //Idiomas lista desplegable
-            echo '<br><br><fieldset>
-            <legend>Idiomas</legend>
-            <div class="languages">
-            <select name="languages" id="languages">
-            <option selected value=""</option>';
-            foreach ($languages as $key) {
-                echo '<option value="' . $key . '">' . $key . '</option>';
-            }
+                    <!--Checkbox genero-->
+                    <br><br><label for="genero">Género </label>
 
-            echo '</select>
-            <select name="levels" id="levels">
-            <option selected value=""</option>';
+                    <?php foreach ($gender as $key => $value) {
+                        echo "<input type='radio' name='genre' value=" . $key . ">" . $value . "";
+                    } ?>
+                    <?php echo $required ?>
+                </fieldset>
 
-            foreach ($levels as $key) {
-                echo '<option value="' . $key . '">' . $key . '</option>';
-            }
+                <!--Idiomas lista desplegable-->
+                <br><br>
+                <fieldset>
+                    <legend>Idiomas</legend>
+                    <div class="languages">
+                        <select name="languages" id="languages">
+                            <option selected value=""></option>
+                            <?php
+                            foreach ($languages as $key) {
+                                echo '<option value="' . $key . '">' . $key . '</option>';
+                            } ?>
 
-            echo '</select>
-            <button name="add_language">Añadir</button>
-            </div></fieldset>';
+                        </select>
+                        <select name="levels" id="levels">
+                            <option selected value=""></option>';
 
-            //Multiple choice
-            echo '<br><br><fieldset>';
-            echo '<legend>Intereses</legend>';
-            echo '<select name="interests[]" id="interests" multiple>';
-            echo '<option value="reading">Leer</option>';
-            echo '<option value="movies">Cine</option>';
-            echo '<option value="music">Música</option>';
-            echo '<option value="sports">Deportes</option>';
-            echo '<option value="travelling">Viajar</option>';
-            echo '<option value="cooking">Cocinar</option>';
-            echo '<option value="others">Otros</option>';
-            echo '</select>';
-            echo '</fieldset>';
+                            <?php
+                            foreach ($levels as $key) {
+                                echo '<option value="' . $key . '">' . $key . '</option>';
+                            } ?>
 
-            //Add a picture
-            echo '<br><br><fieldset>';
-            echo '<legend>Foto</legend>';
-            echo '<input type="file" name="photo" id="photo">';
-            echo '</fieldset>';
+                        </select>
+                        <button name="add_language">Añadir</button>
+                    </div>
+                </fieldset>
 
-            //Textarea
-            echo '<br><br><fieldset>';
-            echo '<legend>Sobre mí</legend>';
-            echo '<textarea name="about_me" id="about_me" cols="100" rows="10"></textarea>';
-            echo '</fieldset>';
+                <!--Multiple choice-->
+                <br><br>
+                <fieldset>
+                    <legend>Intereses</legend>
+                    <select name="interests[]" id="interests" multiple>
+                        <option value="reading">Leer</option>
+                        <option value="movies">Cine</option>
+                        <option value="music">Música</option>
+                        <option value="sports">Deportes</option>
+                        <option value="travelling">Viajar</option>
+                        <option value="cooking">Cocinar</option>
+                        <option value="others">Otros</option>
+                    </select>
+                </fieldset>
 
-            //Text and conditions checkbox
-            echo '<br><br><fieldset>';
-            echo '<legend>Condiciones</legend>';
-            echo '<input type="checkbox" name="conditions" id="conditions" required>';
-            echo '<label for="conditions">Acepto las condiciones</label>';
-            echo '</fieldset>';
+                <!--Add a picture-->
+                <br><br>
+                <fieldset>
+                    <legend>Foto</legend>
+                    <input type="file" name="photo" id="photo">
+                </fieldset>
 
-            echo '<br><br><input type="submit" value="Enviar" id="btn_submit">';
-            echo '<input type="reset" value="Borrar" id="btn_reset">';
-            echo '</form>';
+                <!--Textarea-->
+                <br><br>
+                <fieldset>
+                    <legend>Sobre mí</legend>
+                    <textarea name="about_me" id="about_me" cols="100" rows="10"></textarea>
+                </fieldset>
+
+                <!--Text and conditions checkbox-->
+                <br><br>
+                <fields>
+                    <legend>Condiciones</legend>
+                    <input type="checkbox" name="conditions" id="conditions" required>
+                    <label for="conditions">Acepto las condiciones</label>
+                </fields>
+                <br><br><input type="submit" value="Enviar" id="btn_submit">
+                <input type="reset" value="Borrar" id="btn_reset">
+            </form>
+        <?php
         } else {
             echo '<h1>CV</h1>';
         }
 
-            ?>
+        ?>
     </main>
 </body>
 
