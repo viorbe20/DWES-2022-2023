@@ -15,10 +15,15 @@
  */
 
 require("../../../require/view_home.php");
-$procesaFormulario = false;
+
+$formProcess = false;
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
 $levels = ["Básico", "Intermedio", "Avanzado"];
 $required = "<span style='color:red'>*</span>";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $formProcess = true;
+}
 ?>
 
 
@@ -32,90 +37,64 @@ $required = "<span style='color:red'>*</span>";
     <title>Formulario CV</title>
 </head>
 <style>
-    ::after,
-    ::before {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: sans-serif;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    #btn_reset{
-        background-color: #f44336;
-        color: white;
-        padding: 14px 20px;
-        margin-left: 1%;
-        margin-bottom: 1%;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    #btn_submit{
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin-left: 45%;
-        margin-bottom: 1%;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-</style>
+<?php require("css/style.css")
+?></style>
 
 <body>
     <main>
+        <div class='enunciado'>
+            <h3>Ejercicio 3</h3>
+            <p>Formulario para crear un currículum que incluya diferentes campos.</p>
+            <hr>
+        </div>
         <?php
-        if (!$procesaFormulario) {
-            echo '<h1>Plantilla CV</h1>';
-            echo '<form action="index.php" method="post">';
+        if (!$formProcess) {
+        ?>
+            <h1>Plantilla CV</h1>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <?php
+
             // Datos personales
             echo '<fieldset>';
             echo '<legend>Datos personales</legend>';
-            echo '<label for="nombre">Nombre </label>';
-            echo '<input type="text" name="nombre" id="nombre" required> ' . $required;
-            echo '<br><br><label for="apellidos">Apellidos </label>';
-            echo '<input type="text" name="apellidos" id="apellidos" size="100" required> ' . $required;
-            echo '<br><br><label for="fechaNacimiento">Fecha de nacimiento </label>';
-            echo '<input type="date" name="fechaNacimiento" id="fechaNacimiento" required> ' . $required;
-            echo '<br><br><label for="telefono">Teléfono </label>';
-            echo '<input type="number" name="telefono" id="telefono" maxlength="9" required> ' . $required;
+            echo '<label for="name">Nombre </label>';
+            echo '<input type="text" name="name" value="Virginia" required> ' . $required;
+            echo '<br><br><label for="lastname">Apellidos </label>';
+            echo '<input type="text" name="lastname" size="100" value="Ordoño Bernier" required> ' . $required;
+            echo '<br><br><label for="bornDate">Fecha de nacimiento </label>';
+            echo '<input type="date" name="bornDate" value="1979-12-01" required> ' . $required;
+            echo '<br><br><label for="phoneNumber">Teléfono </label>';
+            echo '<input type="number" name="phoneNumber" value="123456789" maxlength="9" required> ' . $required;
             echo '<br><br><label for="email">Email </label>';
-            echo '<input type="email" name="email" id="email" size="70" required> ' . $required;
+            echo '<input type="email" name="email" value="a20orbevi@ies.grancapitan.es" size="70" required> ' . $required;
             // Checkbox genero
             echo '<br><br><label for="genero">Género </label>';
             echo '<input type="radio" name="genre" id="genre" value="man" required>Hombre';
-            echo '<input type="radio" name="genre" id="genre" value="woman" required>Mujer';
+            echo '<input type="radio" name="genre" id="genre" value="woman" required checked>Mujer';
             echo '<input type="radio" name="genre" id="genre" value="other" required>Prefiero no decirlo';
             echo '</fieldset>';
 
             //Idiomas lista desplegable
             echo '<br><br><fieldset>
-        <legend>Idiomas</legend>
-        <div class="languages">
-        <select name="languages" id="languages">';
-
+            <legend>Idiomas</legend>
+            <div class="languages">
+            <select name="languages" id="languages">
+            <option selected value=""</option>';
             foreach ($languages as $key) {
                 echo '<option value="' . $key . '">' . $key . '</option>';
             }
 
             echo '</select>
-        <select name="levels" id="levels">';
+            <select name="levels" id="levels">
+            <option selected value=""</option>';
 
             foreach ($levels as $key) {
                 echo '<option value="' . $key . '">' . $key . '</option>';
             }
 
             echo '</select>
-        <button name="add_language">Añadir</button>
-        </div></fieldset>';
+            <button name="add_language">Añadir</button>
+            </div></fieldset>';
 
             //Multiple choice
             echo '<br><br><fieldset>';
@@ -154,10 +133,10 @@ $required = "<span style='color:red'>*</span>";
             echo '<input type="reset" value="Borrar" id="btn_reset">';
             echo '</form>';
         } else {
-            # code...
+            echo '<h1>CV</h1>';
         }
 
-        ?>
+            ?>
     </main>
 </body>
 
