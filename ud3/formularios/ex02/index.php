@@ -25,7 +25,7 @@ $lastname = "Ordoño Bernier";
 $borndate = "1979-12-01";
 $phoneNumber = 123456789;
 $email = "a20orbevi@ies.grancapitan.es";
-$aboutme = $gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genreErr = "";
+$image = $aboutme = $gender = $nameErr = $lastnameErr = $borndateErr = $phoneNumberErr = $emailErr = $genreErr = "";
 
 //Arrays datos para el formulario
 $languages = ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Chino", "Japonés", "Ruso", "Árabe"];
@@ -34,6 +34,7 @@ $genreSelection = array("Mujer", "Hombre", "Prefiero no decirlo");
 $selectedLanguages = [];
 $selectedLevels = [];
 $selectedHobbies = [];
+$pictures = [];
 
 function clearData($data)
 {
@@ -112,6 +113,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['aboutme'])) {
         $aboutme = $_POST['aboutme'];
     }
+
+    foreach ($_FILES["pictures"]["error"] as $key => $error) {
+        if ($error == UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES["pictures"]["tmp_name"][$key];
+            $name = basename($_FILES["pictures"]["name"][$key]);
+            move_uploaded_file($tmp_name, "./img/$name");
+        }
+    }
 };
 
 if ($error) {
@@ -152,29 +161,29 @@ if ($error) {
                     <legend>Datos personales</legend>
                     <label for="name">Nombre </label>
                     <input type="text" name="name" value="<?php echo $name; ?>">
-                    <span class="error">*<?php echo $nameErr; ?></span><br/><br/>
-                    
+                    <span class="error">*<?php echo $nameErr; ?></span><br /><br />
+
                     <label for="lastname">Apellidos </label>
-                    <input type="text" name="lastname" size="100" value="<?php echo $lastname; ?>"> 
-                    <span class="error">*<?php echo $lastnameErr; ?></span><br/><br/>
+                    <input type="text" name="lastname" size="100" value="<?php echo $lastname; ?>">
+                    <span class="error">*<?php echo $lastnameErr; ?></span><br /><br />
 
                     <label for="borndate">Fecha de nacimiento </label>
-                    <input type="date" name="borndate" value="<?php echo $borndate; ?>"> 
-                    <span class="error">*<?php echo $borndateErr; ?></span><br/><br/>
-                    
+                    <input type="date" name="borndate" value="<?php echo $borndate; ?>">
+                    <span class="error">*<?php echo $borndateErr; ?></span><br /><br />
+
                     <label for="phoneNumber">Teléfono </label>
-                    <input type="number" name="phoneNumber" maxlength="9" value="<?php echo $phoneNumber; ?>"> 
-                    <span class="error">*<?php echo $phoneNumberErr; ?></span><br/><br/>
-                    
+                    <input type="number" name="phoneNumber" maxlength="9" value="<?php echo $phoneNumber; ?>">
+                    <span class="error">*<?php echo $phoneNumberErr; ?></span><br /><br />
+
                     <label for="email">Email </label>
-                    <input type="email" name="email" size="70" value="<?php echo $email; ?>"> 
-                    <span class="error">*<?php echo $emailErr; ?></span><br/><br/>
+                    <input type="email" name="email" size="70" value="<?php echo $email; ?>">
+                    <span class="error">*<?php echo $emailErr; ?></span><br /><br />
 
                     <label for="genre">Género </label>
-                    <?php  foreach ($genreSelection as $value) {
-                    echo "<input type=\"radio\" name=\"genre\" value = \"$value\">$value";
+                    <?php foreach ($genreSelection as $value) {
+                        echo "<input type=\"radio\" name=\"genre\" value = \"$value\">$value";
                     } ?>
-                    <span class="error">*<?php echo $genreErr; ?></span><br/><br/>
+                    <span class="error">*<?php echo $genreErr; ?></span><br /><br />
                 </fieldset>
 
                 <!--Idiomas lista desplegable-->
@@ -221,7 +230,7 @@ if ($error) {
                 <br><br>
                 <fieldset>
                     <legend>Foto</legend>
-                    <input type="file" name="photo" id="photo">
+                    <input type="file" name="fileToUpload" id="fileToUpload">
                 </fieldset>
 
                 <!--Textarea-->
@@ -242,29 +251,32 @@ if ($error) {
             </form>
         <?php
         } else {
-            ?>
+        ?>
             <h1>Plantilla CV</h1>
             <form>
                 <!--Datos personales-->
                 <fieldset>
-                    <legend>Datos personales</legend>
-                    <label for="name">Nombre: </label>
-                    <span> <?php echo $name ?></span><br/><br/>
-                    
-                    <label for="lastname">Apellidos: </label>
-                    <span> <?php echo $lastname ?></span><br/><br/> 
+                    <div>
+                        <legend>Datos personales</legend>
+                        <label for="name">Nombre: </label>
+                        <span> <?php echo $name ?></span><br /><br />
 
-                    <label for="borndate">Fecha de nacimiento: </label>
-                    <span> <?php echo $borndate ?></span><br/><br/> 
-                    
-                    <label for="phoneNumber">Teléfono: </label>
-                    <span> <?php echo $phoneNumber ?></span><br/><br/> 
-                    
-                    <label for="email">Email: </label>
-                    <span> <?php echo $email ?></span><br/><br/> 
+                        <label for="lastname">Apellidos: </label>
+                        <span> <?php echo $lastname ?></span><br /><br />
 
-                    <label for="genre">Género: </label>
-                    <span> <?php echo $genre ?></span><br/><br/> 
+                        <label for="borndate">Fecha de nacimiento: </label>
+                        <span> <?php echo $borndate ?></span><br /><br />
+
+                        <label for="phoneNumber">Teléfono: </label>
+                        <span> <?php echo $phoneNumber ?></span><br /><br />
+
+                        <label for="email">Email: </label>
+                        <span> <?php echo $email ?></span><br /><br />
+
+                        <label for="genre">Género: </label>
+                        <span> <?php echo $genre ?></span><br /><br />
+                    </div>
+                    <img>
                 </fieldset>
 
                 <!--Idiomas lista desplegable-->
@@ -299,17 +311,8 @@ if ($error) {
                 <br><br>
                 <fieldset>
                     <legend>Sobre mí</legend>
-                    <span> <?php echo $aboutme ?></span><br/><br/>
+                    <span> <?php echo $aboutme ?></span><br /><br />
                 </fieldset>
-
-                <!--Text and conditions checkbox-->
-                <!-- <br><br>
-                <fields>
-                    <input type="checkbox" name="conditions" id="conditions" required>
-                    <label for="conditions">Acepto las condiciones</label>
-                </fields>
-                <br><br><input type="submit" value="Enviar" id="btn_submit">
-                <input type="reset" value="Borrar" id="btn_reset">  -->
             </form>
         <?php
         }
