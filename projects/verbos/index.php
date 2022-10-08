@@ -16,11 +16,36 @@ include 'irregular_verbs.php';
 $processTestType = False;
 $processResult = False;
 $selectedTestType = array();
+$generatedVerbsList = array();
+$indexList = array();
+
+function createVerbsList($level, $verbsNum, $list)
+{
+    $result = array();
+    $indexesList = array();
+
+
+    //Add verbs to the array
+    while (count($indexesList) < $verbsNum) {
+        $index = rand(0, (count($list)-1));
+
+        //Check non repeated indexes
+        if (!in_array($index, $indexesList)) {
+            array_push($indexesList, $index);
+            //Add verb to the new array
+            array_push($result, $list[$index]);
+        }
+    }
+    
+    return $result;
+}
 
 // Tipo de test seleccionado
 if (isset($_POST['submit_test_type'])) {
     $processTestType = True;
-    array_push($selectedTestType, $_POST['verbs_num'], $_POST['level']);
+    array_push($selectedTestType, $_POST['level'], $_POST['verbs_num']);
+    // Creamos la lista de verbos
+    $generatedVerbsList = createVerbsList($selectedTestType[0], $selectedTestType[1], $fakeVerbs);
 }
 
 ?>
@@ -47,41 +72,52 @@ if (isset($_POST['submit_test_type'])) {
         <?php
         if (!$processTestType && !$processResult) {
         ?>
-        <form action='index.php' method='post'>
-            <div id="option1">
-                <label for='verbs_num'>Número de verbos a mostrar:
-                    <input type='number' name='verbs_num' min='1' max='10' value='5'>
-                </label>
-                <br>
-                <label for='level'>Dificultad:
-                    <select name='level'>
-                        <option value='alta'>Alta</option>
-                        <option value='media'>Media</option>
-                        <option value='baja'>Baja</option>
-                    </select>
-                </label>
-                <br>
-                <input type="submit" name='submit_test_type' value='Enviar'>
-            </div>
-        </form>
+            <form action='index.php' method='post'>
+                <div id="option1">
+                    <label for='verbs_num'>Número de verbos a mostrar:
+                        <input type='number' name='verbs_num' min='1' max='10' value='5'>
+                    </label>
+                    <br>
+                    <label for='level'>Dificultad:
+                        <select name='level'>
+                            <option value='alta'>Alta</option>
+                            <option value='media'>Media</option>
+                            <option value='baja'>Baja</option>
+                        </select>
+                    </label>
+                    <br>
+                    <input type="submit" name='submit_test_type' value='Enviar'>
+                </div>
+            </form>
         <?php
-        } else if ($processTestType && !$processResult){
-            ?>
+        } else if ($processTestType && !$processResult) {
+        ?>
             <div id="test_description">
                 <div>
-                    <label>Nivel de dificultad: 
+                    <label>Nivel de dificultad:
                         <span><?php echo $selectedTestType[1]; ?></span>
                     </label>
                 </div>
                 <div>
-                    <label>Números de verbos: 
+                    <label>Números de verbos:
                         <span><?php echo $selectedTestType[0]; ?></span>
                     </label>
                 </div>
             </div>
-        <form action='index.php' method='post'>
-        </form>
+            <!-- Formulario que muestra los verbos -->
+            <form action='index.php' method='post'>
+                <?php
+                echo('<pre>');
+                var_dump($generatedVerbsList);
+                echo('</pre>');
+                ?>
+                <table>
+
+                </table>
+            </form>
         <?php
+        } else {
+            echo "hh";
         }
 
         ?>

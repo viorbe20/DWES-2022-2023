@@ -1,58 +1,40 @@
 <?php
-if (isset($_POST['upload'])) {
-    $target_dir = "./testAssets/";
-    $target_file = $target_dir . basename($_FILES["images"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$fakeVerbs = array (
+    array("infinitive1","past1","pastparticiple1","translation1"),
+    array("infinitive2","past2","pastparticiple2","translation2"),
+    array("infinitive3","past3","pastparticiple3","translation3"),
+    array("infinitive4","past4","pastparticiple4","translation4"),
+    array("infinitive5","past5","pastparticiple5","translation5"),
+    array("infinitive6","past6","pastparticiple6","translation6"),
+    array("infinitive7","past7","pastparticiple7","translation7"),
+    array("infinitive8","past8","pastparticiple8","translation8"),
+    array("infinitive9","past9","pastparticiple9","translation9"),
+    array("infinitive10","past10","pastparticiple10","translation10"),
+);
 
-    // Check if image file is a actual image or fake image
-    if (isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["images"]["tmp_name"]);
-        if ($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
+function createVerbsList($level, $verbsNum, $list)
+{
+    $result = array();
+    $indexesList = array();
+
+
+    //Add verbs to the array
+    while (count($indexesList) < $verbsNum) {
+        $index = rand(0, (count($list)-1));
+
+        //Check non repeated indexes
+        if (!in_array($index, $indexesList)) {
+            array_push($indexesList, $index);
+            //Add verb to the new array
+            array_push($result, $list[$index]);
         }
     }
 
-    // Check if file already exists
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-
-    // Check file size
-    if ($_FILES["images"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-
-    // Allow certain file formats
-    if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-    ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-    } else {
-        echo $target_file;
-        if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
-            echo "The file " . htmlspecialchars(basename($_FILES["images"]["name"])) . " has been uploaded.";
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-        }
-    }
+    return $result;
 }
+
+
+echo('<pre>');
+var_dump(createVerbsList('Alta', 9, $fakeVerbs));
+echo('</pre>');
 ?>
-<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <input type="file" name="images">
-    <button type="submit" name="upload">Click</button>
-</form>
