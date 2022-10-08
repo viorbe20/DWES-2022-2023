@@ -6,6 +6,7 @@ $ejercicios = array(
     array('id' => 4, 'titulo' => 'Ud5', 'descripcion' => 'POO', 'enlace' => 'ud5/index.php'),
     array('id' => 5, 'titulo' => 'Ud4', 'descripcion' => 'Sesiones', 'enlace' => 'ud6/index.php'),
     array('id' => 6, 'titulo' => 'Ud6', 'descripcion' => 'BBDD', 'enlace' => 'ud7/index.php'),
+    array('id' => 7, 'titulo' => 'Ud7', 'descripcion' => 'Proyectos', 'enlace' => 'projects/index.php'),
 )
 ?>
 
@@ -26,11 +27,11 @@ $ejercicios = array(
     <main>
         <?php
         foreach ($ejercicios as $key => $value) {
-            echo '<a target="_blank" href=' . $value['enlace'] . '>
+        echo '<a target="_blank" href=' . $value['enlace'] . '>
         <article id=art' . $value['id'] . '>
-                <p>' . $value['titulo'] . ': ' . $value['descripcion'] . '</p>
-                </article>
-                </a>';
+        <p>' . $value['titulo'] . ': ' . $value['descripcion'] . '</p>
+        </article>
+        </a>';
         }
         ?>
     </main>

@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['upload'])) {
-    $target_dir = "./testAssets";
+    $target_dir = "./testAssets/";
     $target_file = $target_dir . basename($_FILES["images"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -43,6 +43,7 @@ if (isset($_POST['upload'])) {
         echo "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
     } else {
+        echo $target_file;
         if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
             echo "The file " . htmlspecialchars(basename($_FILES["images"]["name"])) . " has been uploaded.";
         } else {
@@ -51,7 +52,7 @@ if (isset($_POST['upload'])) {
     }
 }
 ?>
-<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>>">
+<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <input type="file" name="images">
     <button type="submit" name="upload">Click</button>
 </form>
