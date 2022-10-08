@@ -6,16 +6,6 @@ h1 {
   text-align: center;
 }
 
-/* Language: css */
-/* Path: dwes\projects\verbos\css\style.css */
-h2 {
-  color: rgba(5, 5, 63, 0.8352941176);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-
 #option1 {
   background-color: #ccc;
   color: rgba(5, 5, 63, 0.8352941176);
@@ -90,4 +80,29 @@ h2 {
 }
 #table1 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+#submit_result {
+  background: rgba(5, 5, 63, 0.8352941176);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 10%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  cursor: pointer;
+}
+#submit_result:hover {
+  cursor: pointer;
+  background-color: #ccc;
+  color: rgba(5, 5, 63, 0.8352941176);
 }/*# sourceMappingURL=style.css.map */
