@@ -106,13 +106,23 @@ if (isset($_POST['submit_test_type'])) {
             </div>
             <!-- Formulario que muestra los verbos -->
             <form action='index.php' method='post'>
+                <table id='table1'>
+                    <tr>
+                        <th>Infinitivo</th>
+                        <th>Pasado</th>
+                        <th>Participio</th>
+                        <th>Traducción</th>
+                    </tr>
                 <?php
-                echo('<pre>');
-                var_dump($generatedVerbsList);
-                echo('</pre>');
+                foreach ($generatedVerbsList as $verb) {
+                    echo "<tr>";
+                    echo "<td>" . $verb[0] . "</td>";
+                    echo "<td>" . $verb[1] . "</td>";
+                    echo "<td>" . $verb[2] . "</td>";
+                    echo "<td>" . $verb[3] . "</td>";
+                    echo "</tr>";
+                }
                 ?>
-                <table>
-
                 </table>
             </form>
         <?php

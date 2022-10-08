@@ -70,4 +70,24 @@ h2 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: bold;
+}
+
+#table1 {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 2%;
+}
+#table1 td, #table1 th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+#table1 th {
+  background-color: rgba(5, 5, 63, 0.8352941176);
+  color: #fff;
+}
+#table1 tr:nth-child(even) {
+  background-color: #dddddd;
 }/*# sourceMappingURL=style.css.map */

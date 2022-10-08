@@ -29,7 +29,6 @@ function createVerbsList($level, $verbsNum, $list)
             array_push($result, $list[$index]);
         }
     }
-
     return $result;
 }
 
