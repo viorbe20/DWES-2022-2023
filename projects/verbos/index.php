@@ -9,15 +9,14 @@
  * Alta: hay que rellenar tres de cuatro huecos.
  */
 require("../../require/view_home.php");
-// Incluimos el fichero con la lista de verbos
 include 'irregular_verbs.php';
 
 //Variables
 $processForm1 = False;
 $processForm2 = False;
-$generatedVerbsList = array();
+//$generatedVerbsList = array();
 $indexList = array();
-$answersArray = array();
+$completedBlanks = array();
 
 //Start session
 //Iniciamos sesión
@@ -29,6 +28,9 @@ if (!isset($_SESSION['answers'])) {
 }
 if (!isset($_SESSION['test'])) {
     $_SESSION['test'] = array();
+}
+if (!isset($_SESSION['blanks'])) {
+    $_SESSION['blanks'] = array();
 }
 
 function createVerbsList($verbsNum, $list)
@@ -78,7 +80,6 @@ if (isset($_POST['submit_view1'])) {
         "verbs" => $_POST['verbs_num']
     );
     // Creamos la lista de verbos
-    //$generatedVerbsList = createVerbsList($selectedTestType['verbs'], $fakeVerbs);
     $_SESSION['test'] = createVerbsList($selectedTestType['verbs'], $fakeVerbs);
     // Create blanks array
     $blanksArray = getBlanksArray($selectedTestType['level']);
@@ -157,21 +158,36 @@ if (isset($_POST['submit_view2'])) {
                         <th>Traducción</th>
                     </tr>
                 <?php
-                foreach ($_SESSION['test'] as $verb) {
+                foreach ($_SESSION['test'] as $index => $value) {
                     echo "<tr>";
                     shuffle($blanksArray);
-                    $answersArray = array ($blanksArray);
-
+                    array_push($completedBlanks, $blanksArray);
                     for ($i = 0; $i < 4; $i++) {
                         //If True show the word, if False show an empty space
                         if ($blanksArray[$i]) {
-                            echo "<td>" . $verb[$i] . "</td>";
+                            //echo "<td>" . $value[$i] . "</td>";
+                            echo "<td><input type='text' value='$value[$i]' name='answers[$index][$i]'></td>";
                         } else {
-                            echo "<td><input type='text' value='' name='answers[]'></td>";
+                            echo "<td><input type='text' value='' name='answers[$index][$i]'></td>";
                         }
                     }
                     echo "</tr>";
                 }
+                //Save blanks array in session
+                $_SESSION['blanks'] = $completedBlanks;
+                // foreach ($_SESSION['test'] as $verb) {
+                //     echo "<tr>";
+                //     shuffle($blanksArray);
+                //     for ($i = 0; $i < 4; $i++) {
+                //         //If True show the word, if False show an empty space
+                //         if ($blanksArray[$i]) {
+                //             echo "<td>" . $verb[$i] . "</td>";
+                //         } else {
+                //             echo "<td><input type='text' value='' name='answers[]'></td>";
+                //         }
+                //     }
+                //     echo "</tr>";
+                // }
                 ?>
                 </table>
                 <input id='submit_view2' type="submit" name='submit_view2' value='Enviar'>
@@ -180,7 +196,7 @@ if (isset($_POST['submit_view2'])) {
         //VIEW 3
         } else if ($processForm1 && $processForm2){
             echo('<pre>');
-            var_dump($_SESSION['test']);
+            var_dump($_SESSION['blanks']);
             echo('</pre>');
         
         }
