@@ -13,12 +13,25 @@ require("../../require/view_home.php");
 include 'irregular_verbs.php';
 
 //Variables
-$processTestType = False;
-$processResult = False;
+$processForm1 = False;
+$processForm2 = False;
 $generatedVerbsList = array();
 $indexList = array();
+$answersArray = array();
 
-function createVerbsList($level, $verbsNum, $list)
+//Start session
+//Iniciamos sesión
+session_start();
+
+//Si la variable SESSION no se ha generado, le asignamos un array vacío
+if (!isset($_SESSION['answers'])) {
+    $_SESSION['answers'] = array();
+}
+if (!isset($_SESSION['test'])) {
+    $_SESSION['test'] = array();
+}
+
+function createVerbsList($verbsNum, $list)
 {
     $result = array();
     $indexesList = array();
@@ -58,16 +71,22 @@ function getBlanksArray ($level) {
 }
 
 // Tipo de test seleccionado
-if (isset($_POST['submit_test_type'])) {
-    $processTestType = True;
+if (isset($_POST['submit_view1'])) {
+    $processForm1 = True;
     $selectedTestType = array(
         "level"=> $_POST['level'], 
         "verbs" => $_POST['verbs_num']
     );
     // Creamos la lista de verbos
-    $generatedVerbsList = createVerbsList($selectedTestType['level'], $selectedTestType['verbs'], $fakeVerbs);
+    //$generatedVerbsList = createVerbsList($selectedTestType['verbs'], $fakeVerbs);
+    $_SESSION['test'] = createVerbsList($selectedTestType['verbs'], $fakeVerbs);
     // Create blanks array
     $blanksArray = getBlanksArray($selectedTestType['level']);
+}
+
+if (isset($_POST['submit_view2'])) {
+    $processForm1 = True;
+    $processForm2 = True;
 }
 
 ?>
@@ -92,12 +111,12 @@ if (isset($_POST['submit_test_type'])) {
         <h1>Test Verbos Irregulares</h1>
         <hr>
         <?php
-        if (!$processTestType && !$processResult) {
+        if (!$processForm1 && !$processForm2) {
         ?>
             <form action='index.php' method='post'>
-                <div id="option1">
+                <div id="test_info">
                     <label for='verbs_num'>Número de verbos a mostrar:
-                        <input type='number' name='verbs_num' min='1' max='10' value='5'>
+                        <input type='number' name='verbs_num' min='1' max='10' value='2'>
                     </label>
                     <br>
                     <label for='level'>Nivel de dificultad:
@@ -108,11 +127,13 @@ if (isset($_POST['submit_test_type'])) {
                         </select>
                     </label>
                     <br>
-                    <input type="submit" name='submit_test_type' value='Enviar'>
+                    <input type="submit" name='submit_view1' value='Enviar'>
                 </div>
             </form>
         <?php
-        } else if ($processTestType && !$processResult) {
+        
+        //VIEW 2
+        } else if ($processForm1 && !$processForm2) {
         ?>
             <div id="test_description">
                 <div>
@@ -136,26 +157,32 @@ if (isset($_POST['submit_test_type'])) {
                         <th>Traducción</th>
                     </tr>
                 <?php
-                foreach ($generatedVerbsList as $verb) {
+                foreach ($_SESSION['test'] as $verb) {
                     echo "<tr>";
                     shuffle($blanksArray);
+                    $answersArray = array ($blanksArray);
+
                     for ($i = 0; $i < 4; $i++) {
                         //If True show the word, if False show an empty space
                         if ($blanksArray[$i]) {
                             echo "<td>" . $verb[$i] . "</td>";
                         } else {
-                            echo "<td><input type='text' value=''></td>";
+                            echo "<td><input type='text' value='' name='answers[]'></td>";
                         }
                     }
                     echo "</tr>";
                 }
                 ?>
                 </table>
-                <input id='submit_result' type="submit" name='submit_result' value='Enviar'>
+                <input id='submit_view2' type="submit" name='submit_view2' value='Enviar'>
             </form>
         <?php
-        } else {
-            echo "hh";
+        //VIEW 3
+        } else if ($processForm1 && $processForm2){
+            echo('<pre>');
+            var_dump($_SESSION['test']);
+            echo('</pre>');
+        
         }
 
         ?>
