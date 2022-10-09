@@ -182,11 +182,37 @@ if (isset($_POST['submit_view2'])) {
         <?php
         //VIEW 3
         } else if ($processForm1 && $processForm2){
-            echo('<pre>');
             //Save answers in session
             $_SESSION['answers'] = $_POST['answers'];
-            var_dump($_SESSION['answers']);
-            echo('</pre>');
+            ?>
+            <table id='table1'>
+            <tr>
+                <th>Infinitivo</th>
+                <th>Pasado</th>
+                <th>Participio</th>
+                <th>Traducción</th>
+            </tr>
+            
+            <?php
+            $r = 0;
+            for ($i=0; $i < count($_SESSION['test']); $i++) { 
+                echo '<tr>';
+                for ($j=0; $j < 4; $j++){
+                    //If true show the word from the original array
+                    if ($_SESSION['blanks'][$i][$j] == 1) {
+                        echo "<td>". $_SESSION['test'][$i][$j] ."</td>";
+                    } else {
+                        //If false show the answer from the user
+                        echo "<td>". $_SESSION['answers'][$r] ."</td>";
+                        $r++;
+                        //echo "<td>". $_SESSION['blanks'][$i][$j] ."</td>";
+                    }
+                }
+                echo '</tr>';
+            }
+            ?>
+            </table>
+        <?php
         
         }
 
