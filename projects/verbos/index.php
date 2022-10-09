@@ -165,29 +165,16 @@ if (isset($_POST['submit_view2'])) {
                     for ($i = 0; $i < 4; $i++) {
                         //If True show the word, if False show an empty space
                         if ($blanksArray[$i]) {
-                            //echo "<td>" . $value[$i] . "</td>";
-                            echo "<td><input type='text' value='$value[$i]' name='answers[$index][$i]'></td>";
+                            echo "<td>" . $value[$i] . "</td>";
+                            //echo "<td><input type='text' value='$value[$i]' name='answers[$index][$i]'></td>";
                         } else {
-                            echo "<td><input type='text' value='' name='answers[$index][$i]'></td>";
+                            echo "<td><input type='text' value='' name='answers[]'></td>";
                         }
                     }
                     echo "</tr>";
                 }
                 //Save blanks array in session
-                $_SESSION['blanks'] = $completedBlanks;
-                // foreach ($_SESSION['test'] as $verb) {
-                //     echo "<tr>";
-                //     shuffle($blanksArray);
-                //     for ($i = 0; $i < 4; $i++) {
-                //         //If True show the word, if False show an empty space
-                //         if ($blanksArray[$i]) {
-                //             echo "<td>" . $verb[$i] . "</td>";
-                //         } else {
-                //             echo "<td><input type='text' value='' name='answers[]'></td>";
-                //         }
-                //     }
-                //     echo "</tr>";
-                // }
+                $_SESSION['blanks'] = $completedBlanks
                 ?>
                 </table>
                 <input id='submit_view2' type="submit" name='submit_view2' value='Enviar'>
@@ -196,7 +183,9 @@ if (isset($_POST['submit_view2'])) {
         //VIEW 3
         } else if ($processForm1 && $processForm2){
             echo('<pre>');
-            var_dump($_SESSION['blanks']);
+            //Save answers in session
+            $_SESSION['answers'] = $_POST['answers'];
+            var_dump($_SESSION['answers']);
             echo('</pre>');
         
         }
