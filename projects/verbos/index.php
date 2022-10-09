@@ -203,9 +203,12 @@ if (isset($_POST['submit_view2'])) {
                         echo "<td>". $_SESSION['test'][$i][$j] ."</td>";
                     } else {
                         //If false show the answer from the user
-                        echo "<td>". $_SESSION['answers'][$r] ."</td>";
+                        $solution = "right";
+                        if ($_SESSION['test'][$i][$j] != $_SESSION['answers'][$r]) {
+                            $solution = "wrong";
+                        }
+                        echo "<td class=$solution>". $_SESSION['answers'][$r] .'=>'.  $_SESSION['test'][$i][$j] ."</td>";
                         $r++;
-                        //echo "<td>". $_SESSION['blanks'][$i][$j] ."</td>";
                     }
                 }
                 echo '</tr>';

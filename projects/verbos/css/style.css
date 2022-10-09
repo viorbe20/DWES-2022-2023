@@ -105,4 +105,12 @@ h1 {
   cursor: pointer;
   background-color: #ccc;
   color: rgba(5, 5, 63, 0.8352941176);
+}
+
+.right {
+  color: green;
+}
+
+.wrong {
+  color: red;
 }/*# sourceMappingURL=style.css.map */
