@@ -80,7 +80,7 @@ if (isset($_POST['submit_view1'])) {
         "verbs" => $_POST['verbs_num']
     );
     // Creamos la lista de verbos
-    $_SESSION['test'] = createVerbsList($selectedTestType['verbs'], $fakeVerbs);
+    $_SESSION['test'] = createVerbsList($selectedTestType['verbs'], $irregularVerbs);
     // Create blanks array
     $blanksArray = getBlanksArray($selectedTestType['level']);
 }
@@ -206,8 +206,10 @@ if (isset($_POST['submit_view2'])) {
                         $solution = "right";
                         if ($_SESSION['test'][$i][$j] != $_SESSION['answers'][$r]) {
                             $solution = "wrong";
+                            echo "<td class=$solution>". $_SESSION['answers'][$r] .'-'.  $_SESSION['test'][$i][$j] ."</td>";
+                        } else {
+                            echo "<td class=$solution>". $_SESSION['answers'][$r] ."</td>";
                         }
-                        echo "<td class=$solution>". $_SESSION['answers'][$r] .'=>'.  $_SESSION['test'][$i][$j] ."</td>";
                         $r++;
                     }
                 }
