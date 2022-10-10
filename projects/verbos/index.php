@@ -4,7 +4,7 @@
  * App que muestra un test sobre la lista de verbos irregulares en inglés.
  * Se pueden elegir la cantidad de verbos que se pueden mostrar.
  * El test tiene 3 niveles de dificultad: baja, media, alta.
- * Baja: muestra verbo en español, hay que rellenar un hueco aleatorio en inglés.
+ * Baja: hay que rellenar uno de cuatro huecos.
  * Media: hay que rellenar dos de cuatro huecos.
  * Alta: hay que rellenar tres de cuatro huecos.
  */

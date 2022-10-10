@@ -19,7 +19,7 @@ $ejercicios = array(
 
 <body>
     <h1>Ejercicios Desarrollo Web Entorno Servidor (2022/2023)</h1>
-    <h3>Ud2. Sintaxis general</h3>
+    <h3>Proyectos</h3>
     <main>
         <?php
         foreach ($ejercicios as $key => $value) {
