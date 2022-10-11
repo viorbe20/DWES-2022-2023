@@ -1,0 +1,63 @@
+header {
+  background-color: #eae3ea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h2 {
+  color: #056571;
+  padding-left: 4%;
+}
+header #auth {
+  width: 20%;
+}
+header #auth div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  color: #3c3c3c;
+}
+header #auth div:nth-child(1) section:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5%;
+}
+header #auth div:nth-child(1) section:nth-child(1) span {
+  margin-bottom: 20%;
+}
+header #auth div:nth-child(1) section:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5%;
+  width: 50%;
+}
+header #auth div:nth-child(1) section:nth-child(2) a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header #auth div:nth-child(1) section:nth-child(2) a:hover {
+  color: #056571;
+  font-weight: bold;
+}
+header #auth div:nth-child(1) section:nth-child(2) a:hover span,
+header #auth div:nth-child(1) section:nth-child(2) a:hover label {
+  color: #056571;
+  font-weight: bold;
+}
+header #auth div:nth-child(1) section:nth-child(2) a span {
+  color: #3c3c3c;
+}
+header #auth div:nth-child(1) section:nth-child(2) a label {
+  color: #3c3c3c;
+}
+header #auth div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3c3c3c;
+  font-size: 12px;
+}/*# sourceMappingURL=header_style.css.map */

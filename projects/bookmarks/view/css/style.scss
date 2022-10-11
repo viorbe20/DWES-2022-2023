@@ -1,0 +1,72 @@
+:root {
+  --color1: #3c3c3c;
+  --title: #056571;
+  --negro: #192231;
+  --color-form: #a9b7c0;
+
+  --color3: #945d60;
+  --color4: #b56357;
+  --color5: #af473c;
+  --color6: #f53240;
+
+  --color7: #b4dbc0;
+  --color8: #eae3ea;
+  --color9: #a7b3a5;
+  --color10: #cdcdcd;
+  --color11: #fff7c0;
+  --color12: #66ab8c;
+
+  --color15: #c7d8c6;
+  --color16: #e9e7da;
+  --color17: #cda34f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#loginForm {
+  background-color: var(--color-form);
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 0%;
+
+    div:nth-child(1) {
+      padding-right: 15%;
+    }
+
+    div:nth-child(2) {
+      a {
+        text-decoration: none;
+        color: white;
+        background-color: var(--title);
+        background: linear-gradient(#056571, #677e81);
+        padding: 10%;
+
+        &:hover {
+          background: linear-gradient(#677e81, #056571);
+        }
+      }
+    }
+  }
+}
+
+#blocked {
+  color: #9f6000;
+  background-color: #feefb3;
+  text-align: center;
+  padding: 1% 0%;
+  margin: 2% 35%;
+  label {
+    font-weight: bolder;
+  }
+}

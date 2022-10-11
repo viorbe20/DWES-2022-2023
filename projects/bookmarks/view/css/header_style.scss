@@ -1,0 +1,76 @@
+header {
+  background-color: #eae3ea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    color: #056571;
+    padding-left: 4%;
+  }
+
+  #auth {
+    width: 20%;
+
+    div:nth-child(1) {
+      display: flex;
+      justify-content: center;
+      color: #3c3c3c;
+
+      section:nth-child(1) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5%;
+
+        span {
+          margin-bottom: 20%;
+        }
+      }
+
+      //Icono usuario e icono salir
+      section:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5%;
+        width: 50%;
+
+        a {
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            color: #056571;
+            font-weight: bold;
+
+            span,
+            label {
+              color: #056571;
+              font-weight: bold;
+            }
+          }
+
+          span {
+            color: #3c3c3c;
+          }
+          label {
+            color: #3c3c3c;
+          }
+        }
+      }
+    }
+
+    //Fecha y hora
+    div:nth-child(2) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #3c3c3c;
+      font-size: 12px;
+    }
+  }
+}

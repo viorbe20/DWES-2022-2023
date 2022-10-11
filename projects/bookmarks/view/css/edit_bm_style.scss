@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
+
+  #editForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    form {
+      width: 50%;
+      margin-top: 2%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #dbdbdb;
+      color: #3c3c3c;
+  
+      h2 {
+        margin: 0%;
+        color: #056571;
+      }
+      /* Full-width input fields */
+      input[type="text"],
+      input[type="password"],
+      input[type="url"],
+      textarea {
+        width: 100%;
+        padding: 5px;
+        margin: 2px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #ffffff;
+  
+        &:focus {
+          background-color: #b4dbc0;
+          outline: none;
+        }
+      }
+  
+      hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+      }
+      /* Set a style for all buttons */
+      button {
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        *width: 80%;
+        opacity: 0.9;
+  
+        &:hover {
+          opacity: 1;
+        }
+      }
+  
+      /* Extra styles for the cancel button */
+      .btn_signup {
+        padding: 14px 20px;
+        background: linear-gradient(#77b55a, #72b352);
+        &:hover {
+          background: linear-gradient(#72b352, #77b55a);
+        }
+      }
+      .btn_cancel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 100px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        background: linear-gradient(#e4685d, #d0451b);
+        &:hover {
+          background: linear-gradient(#d0451b #e4685d);
+        }
+      }
+  
+      /* Float cancel and signup buttons and add an equal width */
+      .btn_cancel,
+      .btn_signup {
+        float: left;
+        width: 40%;
+      }
+      /* Add padding to container elements */
+      .container {
+        padding: 16px;
+      }
+  
+      .clearfix {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+    }
+  }
+  

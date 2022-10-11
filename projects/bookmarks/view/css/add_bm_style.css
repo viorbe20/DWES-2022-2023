@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#addBmForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2% 0%;
+}
+#addBmForm form {
+  width: 70%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbdbdb;
+  color: #3c3c3c;
+  /* Full-width input fields */
+  /* Set a style for all buttons */
+  /* Extra styles for the cancel button */
+  /* Float cancel and signup buttons and add an equal width */
+  /* Add padding to container elements */
+}
+#addBmForm form h2 {
+  margin: 0%;
+  color: #056571;
+}
+#addBmForm form input[type=text],
+#addBmForm form input[type=password],
+#addBmForm form input[type=url],
+#addBmForm form textarea {
+  width: 100%;
+  padding: 5px;
+  margin: 2px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #ffffff;
+}
+#addBmForm form input[type=text]:focus,
+#addBmForm form input[type=password]:focus,
+#addBmForm form input[type=url]:focus,
+#addBmForm form textarea:focus {
+  background-color: #b4dbc0;
+  outline: none;
+}
+#addBmForm form hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+#addBmForm form button {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  *width: 80%;
+  opacity: 0.9;
+}
+#addBmForm form button:hover {
+  opacity: 1;
+}
+#addBmForm form .btn_signup {
+  padding: 14px 20px;
+  background: linear-gradient(#77b55a, #72b352);
+}
+#addBmForm form .btn_signup:hover {
+  background: linear-gradient(#72b352, #77b55a);
+}
+#addBmForm form .btn_cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 100px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(#e4685d, #d0451b);
+}
+#addBmForm form .btn_cancel:hover {
+  background: linear-gradient(#d0451b #e4685d);
+}
+#addBmForm form .btn_cancel,
+#addBmForm form .btn_signup {
+  float: left;
+  width: 40%;
+}
+#addBmForm form .container {
+  padding: 16px;
+}
+#addBmForm form .clearfix {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}/*# sourceMappingURL=add_bm_style.css.map */
