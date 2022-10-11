@@ -55,6 +55,26 @@ class Company extends DBAbstractModel
         return $result;
     }
 
+    //Métodos de creación
+    public function set($company_data = array())
+    {
+        foreach ($company_data as $campo => $valor) {
+            $$campo = $valor;
+        }
+        $this->query = "INSERT INTO companies (company_cif, company_name, company_description, company_address, company_email, company_phone, company_logo, created_at, updated_at) VALUES (:company_cif, :company_name, :company_description, :company_address, :company_email, :company_phone, :company_logo, :created_at, :updated_at)";
+        $this->parametros['company_cif'] = $company_cif;
+        $this->parametros['company_name'] = $company_name;
+        $this->parametros['company_description'] = $company_description;
+        $this->parametros['company_address'] = $company_address;
+        $this->parametros['company_email'] = $company_email;
+        $this->parametros['company_phone'] = $company_phone;
+        $this->parametros['company_logo'] = $company_logo;
+        $this->parametros['created_at'] = $created_at;
+        $this->parametros['updated_at'] = $updated_at;
+        $this->get_results_from_query();
+        $this->mensaje = 'Company added successfully';
+    }
+
 
     //Getters & setters
     public function get_company_id()
@@ -187,33 +207,16 @@ class Company extends DBAbstractModel
     }
     public function setEntity()
     {
-        $this->query = "INSERT INTO bookmarks(bm_url, descripcion, id_usuario)
-        VALUES(:bm_url, :descripcion, :id_usuario)";
-        $this->parametros['bm_url'] = $this->bm_url;
-        $this->parametros['descripcion'] = $this->descripcion;
-        $this->parametros['id_usuario'] = $this->id_usuario;
-        $this->get_results_from_query();
     }
 
     public function deleteById()
     {
-        $this->query = "DELETE FROM bookmarks WHERE id=:id";
-        $this->parametros['id'] = $this->id;
-        $this->get_results_from_query();
     }
 
     public function deleteEntity($id)
     {
     }
     public function editEntity()
-    {
-        $this->query = "UPDATE bookmarks SET bm_url=:bm_url, descripcion=:descripcion WHERE id=:id";
-        $this->parametros['bm_url'] = $this->bm_url;
-        $this->parametros['descripcion'] = $this->descripcion;
-        $this->parametros['id'] = $this->id;
-        $this->get_results_from_query();
-    }
-    public function set()
     {
     }
     public function get()
