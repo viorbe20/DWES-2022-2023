@@ -56,23 +56,37 @@ class Company extends DBAbstractModel
     }
 
     //Métodos de creación
-    public function set($company_data = array())
+    public function set()
     {
-        foreach ($company_data as $campo => $valor) {
-            $$campo = $valor;
-        }
         $this->query = "INSERT INTO companies (company_cif, company_name, company_description, company_address, company_email, company_phone, company_logo, created_at, updated_at) VALUES (:company_cif, :company_name, :company_description, :company_address, :company_email, :company_phone, :company_logo, :created_at, :updated_at)";
-        $this->parametros['company_cif'] = $company_cif;
-        $this->parametros['company_name'] = $company_name;
-        $this->parametros['company_description'] = $company_description;
-        $this->parametros['company_address'] = $company_address;
-        $this->parametros['company_email'] = $company_email;
-        $this->parametros['company_phone'] = $company_phone;
-        $this->parametros['company_logo'] = $company_logo;
-        $this->parametros['created_at'] = $created_at;
-        $this->parametros['updated_at'] = $updated_at;
+        $this->parametros['company_cif'] = $this->company_cif;
+        $this->parametros['company_name'] = $this->company_name;
+        $this->parametros['company_description'] = $this->company_description;
+        $this->parametros['company_address'] = $this->company_address;
+        $this->parametros['company_email'] = $this->company_email;
+        $this->parametros['company_phone'] = $this->company_phone;
+        $this->parametros['company_logo'] = $this->company_logo;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
-        $this->mensaje = 'Company added successfully';
+        echo $this->mensaje = 'Empresa añadida.';
+    }
+
+    //Métodos de modificación
+    public function edit()
+    {
+        $this->query = "UPDATE companies SET company_cif=:company_cif, company_name=:company_name, company_description=:company_description, company_address=:company_address, company_email=:company_email, company_phone=:company_phone, company_logo=:company_logo, updated_at=:updated_at WHERE company_id=:company_id";
+        $this->parametros['company_cif'] = $this->company_cif;
+        $this->parametros['company_name'] = $this->company_name;
+        $this->parametros['company_description'] = $this->company_description;
+        $this->parametros['company_address'] = $this->company_address;
+        $this->parametros['company_email'] = $this->company_email;
+        $this->parametros['company_phone'] = $this->company_phone;
+        $this->parametros['company_logo'] = $this->company_logo;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->parametros['company_id'] = $this->company_id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Company modified successfully';
     }
 
 
@@ -223,9 +237,6 @@ class Company extends DBAbstractModel
     {
     }
     public function delete($user_data = array())
-    {
-    }
-    public function edit()
     {
     }
 }
