@@ -72,16 +72,26 @@ class Company extends DBAbstractModel
     //Métodos de modificación
     public function edit()
     {
-        $this->query = "UPDATE companies SET company_cif=:company_cif, company_name=:company_name, company_description=:company_description, company_address=:company_address, company_email=:company_email, company_phone=:company_phone, company_logo=:c_logo, c_updated_at=:c_updated_at WHERE c_id=:c_id";
-        $this->parametros['company_cif'] = $this->company_cif;
-        $this->parametros['company_name'] = $this->company_name;
-        $this->parametros['company_description'] = $this->company_description;
-        $this->parametros['company_address'] = $this->company_address;
-        $this->parametros['company_email'] = $this->company_email;
-        $this->parametros['company_phone'] = $this->company_phone;
-        $this->parametros['company_logo'] = $this->company_logo;
-        $this->parametros['updated_at'] = $this->updated_at;
-        $this->parametros['company_id'] = $this->company_id;
+        $this->query = "UPDATE companies SET c_cif=:c_cif, c_name=:c_name, c_description=:c_description, c_address=:c_address, 
+        c_email=:c_email, c_phone=:c_phone, c_logo=:c_logo, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
+        $this->parametros['c_cif'] = $this->c_cif;
+        $this->parametros['c_name'] = $this->c_name;
+        $this->parametros['c_description'] = $this->c_description;
+        $this->parametros['c_address'] = $this->c_address;
+        $this->parametros['c_email'] = $this->c_email;
+        $this->parametros['c_phone'] = $this->c_phone;
+        $this->parametros['c_logo'] = $this->c_logo;
+        $this->parametros['c_updated_at'] = $this->c_updated_at;
+        $this->get_results_from_query();
+    }
+
+    public function editName()
+    {
+        $this->query = "UPDATE companies SET c_name=:c_name, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
+        $this->parametros['c_name'] = $this->c_name;
+        $this->parametros['c_updated_at'] = $this->c_updated_at;
         $this->get_results_from_query();
     }
 
@@ -203,6 +213,7 @@ class Company extends DBAbstractModel
     public function setEntity()
     {
     }
+
     public function deleteEntity($id)
     {
     }
