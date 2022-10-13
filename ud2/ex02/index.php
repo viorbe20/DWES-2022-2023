@@ -1,5 +1,5 @@
 <?php
-require ("../../require/view_home_units.php");
+require("../../require/view_home.php");
 /**
  * Ejercicio 2. Ficha personal con los datos cargados en variables. 
  * @author: Virginia Ordoño Bernier
