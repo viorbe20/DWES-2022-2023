@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 5. Script que escriba el resultado de la suma de dos números almacenados en dos variables.
  * @author: Virginia Ordoño Bernier

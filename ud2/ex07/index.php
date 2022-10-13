@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 7: Escribir un script que declare una variable 
  * y muestre la siguiente información en pantalla:

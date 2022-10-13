@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 3. Script que, a partir del radio almacenado en una variable y la definición de la constante PI, 
  * calcule el área del círculo y la longitud de la circunferencia. 

@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 8: A veces es necesario conocer exactamente el contenido de una variable. 
  * Piensa como puedes hacer esto y escribe un script con la siguiente salida:

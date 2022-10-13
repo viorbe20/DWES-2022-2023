@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 10. Pon ejemplo de uso de la sintaxis heredoc en el manejo de cadenas.
  * @author: Virginia Ordoño Bernier

@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 4: ¿Cuál es la salida del siguiente script?.
  * Prueba el script y modifícalo para las palabras DAW y DWES apararezcan en negrita.

@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 6: Script que cargue las siguientes variables:
  * $x=10; $y=7; 

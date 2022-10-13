@@ -1,4 +1,6 @@
 <?php
+require("../../require/view_home.php");
+echo "</br>";
 /**
  * Ejercicio 9. Escribir un script que utilizando variables permita obtener el siguiente resultado:
  * Valor es string. 
