@@ -25,31 +25,29 @@ class Company extends DBAbstractModel
     /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
 
     //Propiedades del objeto
-    private $company_id;
-    private $company_cif;
-    private $descripcion;
-    private $id_usuario;
-    private $company_name;
-    private $company_description;
-    private $company_address;
-    private $company_email;
-    private $company_phone;
-    private $company_logo;
-    private $created_at;
-    private $updated_at;
+    private $c_id;
+    private $c_cif;
+    private $c_name;
+    private $c_description;
+    private $c_address;
+    private $c_email;
+    private $c_phone;
+    private $c_logo;
+    private $c_created_at;
+    private $c_updated_at;
 
 
     //Métodos de acceso
-    public function get_all(){
+    public function get(){
         $this->query = "SELECT * FROM companies";
         $this->get_results_from_query();
         return $this->rows;
     }
 
-    public function get_by_id()
+    public function getById()
     {
-        $this->query = "SELECT * FROM companies WHERE id=:id";
-        $this->parametros['id'] = $this->id;
+        $this->query = "SELECT * FROM companies WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
         $this->get_results_from_query();
         $result = $this->rows;
         return $result;
@@ -58,16 +56,16 @@ class Company extends DBAbstractModel
     //Métodos de creación
     public function set()
     {
-        $this->query = "INSERT INTO companies (company_cif, company_name, company_description, company_address, company_email, company_phone, company_logo, created_at, updated_at) VALUES (:company_cif, :company_name, :company_description, :company_address, :company_email, :company_phone, :company_logo, :created_at, :updated_at)";
-        $this->parametros['company_cif'] = $this->company_cif;
-        $this->parametros['company_name'] = $this->company_name;
-        $this->parametros['company_description'] = $this->company_description;
-        $this->parametros['company_address'] = $this->company_address;
-        $this->parametros['company_email'] = $this->company_email;
-        $this->parametros['company_phone'] = $this->company_phone;
-        $this->parametros['company_logo'] = $this->company_logo;
-        $this->parametros['created_at'] = $this->created_at;
-        $this->parametros['updated_at'] = $this->updated_at;
+        $this->query = "INSERT INTO companies (c_cif, c_name, c_description, c_address, c_email, c_phone, c_logo, c_created_at, c_updated_at) VALUES (:c_cif, :c_name, :c_description, :c_address, :c_email, :c_phone, :c_logo, :c_created_at, :c_updated_at)";
+        $this->parametros['c_cif'] = $this->c_cif;
+        $this->parametros['c_name'] = $this->c_name;
+        $this->parametros['c_description'] = $this->c_description;
+        $this->parametros['c_address'] = $this->c_address;
+        $this->parametros['c_email'] = $this->c_email;
+        $this->parametros['c_phone'] = $this->c_phone;
+        $this->parametros['c_logo'] = $this->c_logo;
+        $this->parametros['c_created_at'] = $this->c_created_at;
+        $this->parametros['c_updated_at'] = $this->c_updated_at;
         $this->get_results_from_query();
         echo $this->mensaje = 'Empresa añadida.';
     }
@@ -86,134 +84,110 @@ class Company extends DBAbstractModel
         $this->parametros['updated_at'] = $this->updated_at;
         $this->parametros['company_id'] = $this->company_id;
         $this->get_results_from_query();
-        $this->mensaje = 'Company modified successfully';
+        echo $this->mensaje = 'Empresa modificada.';
     }
 
 
     //Getters & setters
-    public function get_company_id()
+    public function getId()
     {
-        return $this->company_id;
+        return $this->c_id;
     }
 
-    public function set_company_id($company_id)
+    public function setId($c_id)
     {
-        $this->company_id = $company_id;
+        $this->c_id = $c_id;
     }
 
-    public function get_company_cif()
+    public function getCif()
     {
-        return $this->company_cif;
+        return $this->c_cif;
     }
 
-    public function set_company_cif($company_cif)
+    public function setCif($c_cif)
     {
-        $this->company_cif = $company_cif;
+        $this->c_cif = $c_cif;
     }
 
-    public function get_descripcion()
+    public function getName()
     {
-        return $this->descripcion;
+        return $this->c_name;
     }
 
-    public function set_descripcion($descripcion)
+    public function setName($c_name)
     {
-        $this->descripcion = $descripcion;
+        $this->c_name = $c_name;
     }
 
-    public function get_id_usuario()
+    public function getDescription()
     {
-        return $this->id_usuario;
+        return $this->c_description;
     }
 
-    public function set_id_usuario($id_usuario)
+    public function setDescription($c_description)
     {
-        $this->id_usuario = $id_usuario;
+        $this->c_description = $c_description;
     }
 
-    public function get_company_name()
+    public function getAddress()
     {
-        return $this->company_name;
+        return $this->c_address;
     }
 
-    public function set_company_name($company_name)
+    public function setAddress($c_address)
     {
-        $this->company_name = $company_name;
+        $this->c_address = $c_address;
     }
 
-    public function get_company_description()
+    public function getEmail()
     {
-        return $this->company_description;
+        return $this->c_email;
     }
 
-    public function set_company_description($company_description)
+    public function setEmail($c_email)
     {
-        $this->company_description = $company_description;
+        $this->c_email = $c_email;
     }
 
-    public function get_company_address()
+    public function getPhone()
     {
-        return $this->company_address;
+        return $this->c_phone;
     }
 
-    public function set_company_address($company_address)
+    public function setPhone($c_phone)
     {
-        $this->company_address = $company_address;
+        $this->c_phone = $c_phone;
     }
 
-    public function get_company_email()
+    public function getLogo()
     {
-        return $this->company_email;
+        return $this->c_logo;
     }
 
-    public function set_company_email($company_email)
+    public function setLogo($c_logo)
     {
-        $this->company_email = $company_email;
+        $this->c_logo = $c_logo;
     }
 
-    public function get_company_phone()
+    public function getCreatedAt()
     {
-        return $this->company_phone;
+        return $this->c_created_at;
     }
 
-    public function set_company_phone($company_phone)
+    public function setCreatedAt($c_created_at)
     {
-        $this->company_phone = $company_phone;
+        $this->c_created_at = $c_created_at;
     }
 
-    public function get_company_logo()
+    public function getUpdatedAt()
     {
-        return $this->company_logo;
+        return $this->c_updated_at;
     }
 
-    public function set_company_logo($company_logo)
+    public function setUpdatedAt($c_updated_at)
     {
-        $this->company_logo = $company_logo;
+        $this->c_updated_at = $c_updated_at;
     }
-
-    public function get_created_at()
-    {
-        return $this->created_at;
-    }
-
-    public function set_created_at($created_at)
-    {
-        $this->created_at = $created_at;
-    }
-
-    public function get_updated_at()
-    {
-        return $this->updated_at;
-    }
-
-    public function set_updated_at($updated_at)
-    {
-        $this->updated_at = $updated_at;
-    }
-
-
-
-
 
     //Métodos que pide la clase para no dar error
     public function getEntity($id)
@@ -231,9 +205,6 @@ class Company extends DBAbstractModel
     {
     }
     public function editEntity()
-    {
-    }
-    public function get()
     {
     }
     public function delete($user_data = array())

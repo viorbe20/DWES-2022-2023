@@ -5,24 +5,35 @@ require_once('..\vendor\autoload.php');
 
 use App\Models\Company;
 
-$company = Company::getInstancia();
+$c1 = Company::getInstancia();
+$c2 = Company::getInstancia();
 
 // Get companies list
-// $companiesList = $company->get_all();
-// foreach ($companiesList as $key => $value) {
-//     print_r($companiesList[$key]);
-//     echo "</br></br>";
+$companiesList = $c1->get();
+// foreach ($companiesList as $key => $item) {
+//     foreach ($item as $key2 => $value) {
+//         print_r($value);
+//         print_r(' --- ');
+//     }
+//     print_r('</br></br>');
+
 // }
 
-// Set a company 
-$company->set_company_cif("B-12345678");
-$company->set_company_name("Company 1");
-$company->set_company_description("Company 1 description");
-$company->set_company_address("Company 1 address");
-$company->set_company_email("company1@gmail.com");
-$company->set_company_phone(957456789);
-$company->set_company_logo("company1.png");
-$company->set_created_at(date('Y-m-d H:i:s'));
-$company->set_updated_at(date('Y-m-d H:i:s'));
-$company->set();
+//Create a company
+$c2->setCif('B-12345678');
+$c2->setName('Company 2');
+$c2->setDescription('Company 2 description');
+$c2->setAddress('Address 2');
+$c2->setEmail('rmail2@gmail.com');
+$c2->setPhone(957123456);
+$c2->setLogo('logo.png');
+$c2->setCreatedAt(date('Y-m-d H:i:s'));
+$c2->setUpdatedAt(date('Y-m-d H:i:s'));
+if ($c2->set()) {
+    print_r('Empresa creada');
+} else {
+    print_r('Empresa no creada');
+}
+
+
 ?>
