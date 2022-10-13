@@ -67,13 +67,12 @@ class Company extends DBAbstractModel
         $this->parametros['c_created_at'] = $this->c_created_at;
         $this->parametros['c_updated_at'] = $this->c_updated_at;
         $this->get_results_from_query();
-        echo $this->mensaje = 'Empresa añadida.';
     }
 
     //Métodos de modificación
     public function edit()
     {
-        $this->query = "UPDATE companies SET company_cif=:company_cif, company_name=:company_name, company_description=:company_description, company_address=:company_address, company_email=:company_email, company_phone=:company_phone, company_logo=:company_logo, updated_at=:updated_at WHERE company_id=:company_id";
+        $this->query = "UPDATE companies SET company_cif=:company_cif, company_name=:company_name, company_description=:company_description, company_address=:company_address, company_email=:company_email, company_phone=:company_phone, company_logo=:c_logo, c_updated_at=:c_updated_at WHERE c_id=:c_id";
         $this->parametros['company_cif'] = $this->company_cif;
         $this->parametros['company_name'] = $this->company_name;
         $this->parametros['company_description'] = $this->company_description;
@@ -84,8 +83,16 @@ class Company extends DBAbstractModel
         $this->parametros['updated_at'] = $this->updated_at;
         $this->parametros['company_id'] = $this->company_id;
         $this->get_results_from_query();
-        echo $this->mensaje = 'Empresa modificada.';
     }
+
+    //Métodos de eliminación
+    public function delete()
+    {
+        $this->query = "DELETE FROM companies WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
+        $this->get_results_from_query();
+    }
+    
 
 
     //Getters & setters
@@ -196,18 +203,10 @@ class Company extends DBAbstractModel
     public function setEntity()
     {
     }
-
-    public function deleteById()
-    {
-    }
-
     public function deleteEntity($id)
     {
     }
     public function editEntity()
-    {
-    }
-    public function delete($user_data = array())
     {
     }
 }
