@@ -4,7 +4,15 @@ require("../require/view_home.php");
 $ejercicios = array(
     array('id' => 1, 'titulo' => 'Ejercicio 1', 'descripcion' => 'Script que muestre el mensaje -Hola Mundo- entrecomillado.', 'enlace' => 'ex01/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex01/index.php'),
     array('id' => 2, 'titulo' => 'Ejercicio 2', 'descripcion' => 'Ficha personal con los datos cargados en variables.', 'enlace' => 'ex02/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex02/index.php'),
-)
+    array('id' => 3, 'titulo' => 'Ejercicio 3', 'descripcion' => 'Programa que calcula el área del círculo y la longitud de la circunferencia.', 'enlace' => 'ex03/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex03/index.php'),
+    array('id' => 4, 'titulo' => 'Ejercicio 4', 'descripcion' => 'Programa que prueba los usos de print y printf.', 'enlace' => 'ex04/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex04/index.php'),
+    array('id' => 5, 'titulo' => 'Ejercicio 5', 'descripcion' => 'Script que escribe el resultado de la suma de dos números almacenados en dos variables.', 'enlace' => 'ex05/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex05/index.php'),
+    array('id' => 6, 'titulo' => 'Ejercicio 6', 'descripcion' => 'Script que carga dos enteros y muestra diferentes operaciones con ambos números.', 'enlace' => 'ex06/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex06/index.php'),
+    array('id' => 7, 'titulo' => 'Ejercicio 7', 'descripcion' => 'Script que declara una variable y muestra diferentes resultados por pantalla.', 'enlace' => 'ex07/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex07/index.php'),
+    array('id' => 8, 'titulo' => 'Ejercicio 8', 'descripcion' => 'Ejercicios con uso de variables.', 'enlace' => 'ex08/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex08/index.php'),
+    array('id' => 9, 'titulo' => 'Ejercicio 9', 'descripcion' => 'Programa que muestra el tipo de dato de cada variable.', 'enlace' => 'ex09/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex09/index.php'),
+    array('id' => 10, 'titulo' => 'Ejercicio 10', 'descripcion' => 'Ejemplo de uso de la sintaxis heredoc en el manejo de cadenas.', 'enlace' => 'ex10/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud2/ex10/index.php'),
+    )
 ?>
 
 <!DOCTYPE html>
