@@ -1,5 +1,5 @@
 <?php
-require("../../require/view_home.php");
+require("../../require/view_exercise.php");
 /**
  * Ejercicio 1. Script que muestre el mensaje Hola Mundo entrecomillado.
  * @author: Virginia Ordoño Bernier
