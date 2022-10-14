@@ -38,7 +38,8 @@ class Company extends DBAbstractModel
 
 
     //Métodos de acceso
-    public function get(){
+    public function get()
+    {
         $this->query = "SELECT * FROM companies";
         $this->get_results_from_query();
         return $this->rows;
@@ -102,7 +103,7 @@ class Company extends DBAbstractModel
         $this->parametros['c_id'] = $this->c_id;
         $this->get_results_from_query();
     }
-    
+
 
 
     //Getters & setters

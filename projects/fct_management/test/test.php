@@ -8,7 +8,7 @@ use App\Models\Company;
 $c1 = Company::getInstancia();
 
 // Get companies list
-$companiesList = $c1->get();
+//$companiesList = $c1->get();
 // foreach ($companiesList as $key => $item) {
     //     foreach ($item as $key2 => $value) {
         //         print_r($value);
