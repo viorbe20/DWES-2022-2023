@@ -1,3 +1,9 @@
+:root {
+    --light-grey : #ddd;
+    --dark-grey : #330;
+    --medium-grey : #666;
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -8,7 +14,7 @@
 #form-login {
     border: 3px solid #f1f1f1;
     margin: 5% 20%;
-    background-color: rgb(223, 217, 217);
+    background-color: var(--light-grey);
 
     .imgcontainer {
         text-align: center;
@@ -16,7 +22,7 @@
 
         span {
             font-size: 4rem;
-            color: grey;
+            color: var(--medium-grey);
         }
 
     }
@@ -53,8 +59,8 @@
 
     //HEADER
     header {
-        background-color: #ddd;
-        color: #aaa;
+        background-color: var(--light-grey);
+        color: var(--medium-grey);
         padding: 15px 5px;
         font-family: 'Roboto', sans-serif;
         font-weight: bold;
