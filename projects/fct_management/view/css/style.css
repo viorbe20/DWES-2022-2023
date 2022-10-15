@@ -6,6 +6,45 @@
   height: fit-content;
 }
 
+#form-login {
+  border: 3px solid #f1f1f1;
+  margin: 5% 20%;
+  background-color: rgb(223, 217, 217);
+  /* Set a style for all buttons */
+}
+#form-login .imgcontainer {
+  text-align: center;
+  margin: 2% 0%;
+}
+#form-login .imgcontainer span {
+  font-size: 4rem;
+  color: grey;
+}
+#form-login .container {
+  padding: 16px;
+}
+#form-login input[type=text],
+#form-login input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+#form-login button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+#form-login button:hover {
+  opacity: 0.8;
+}
+
 header {
   background-color: #ddd;
   color: #aaa;

@@ -14,7 +14,6 @@ class Router
 
     public function matchs(string $request)
     {
-
         $matches = array();
         foreach ($this->routes as $route) {
             $patron = $route['path'];
