@@ -1,5 +1,5 @@
 <?php
-require ('../view/require/header_view_php');
+require ('../view/require/header_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 ?>
