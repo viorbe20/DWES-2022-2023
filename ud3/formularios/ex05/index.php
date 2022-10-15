@@ -9,11 +9,12 @@
 
 require("../../../require/view_home.php");
 
-
 $showSolution = false;
 define("BLANKSNUMBER", 5);
 
-
+/**
+ * Función que devuelve un array con las posiciones de los huecos
+ */
 function getBlanks($number)
 {
     $blanks = array();
@@ -35,11 +36,9 @@ function getBlanks($number)
 
 if (isset($_POST['check'])) {
     $showSolution = true;
+    //Array with user answers
     $answers = $_POST['answers'];
 } 
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +48,7 @@ if (isset($_POST['check'])) {
     <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title></title>
+    <title>Ud3 Ex5. Tabla de multiplicar</title>
 </head>
 <style>
     table {
@@ -74,14 +73,11 @@ if (isset($_POST['check'])) {
 </style>
 
 <body>
-
-
     <main>
         <h1>Tabla de multiplicar</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <table>
                 <tr>
-                    <!-- th del 0 al 10 -->
                     <?php
                     for ($i = 0; $i <= 10; $i++) {
                         echo "<th>$i</th>";
@@ -89,33 +85,32 @@ if (isset($_POST['check'])) {
                     ?>
                 </tr>
                 <?php
-                // // Cargamos array de espacios en blanco
-                if (!isset($_POST['answers'])) {
+                
+                if (!isset($_POST['answers'])) { //Si no se ha enviado el formulario
                     $blanks = getBlanks(BLANKSNUMBER);
                 } else {
-                    //$blanks = $_POST['blanks']
                     $blanks = array();
                     foreach ($_POST['blanks'] as $key => $value) {
                         array_push($blanks, $key);
                     }
                 }
-                //Cargamos espacios en post
-                foreach ($blanks as $key => $value) {
+                
+                foreach ($blanks as $key => $value) { //Cargamos los huecos en post
                     echo "<input type='hidden' name='blanks[$value]' value=''>";
                 
                 }
         
-                $index = 0;
+                $index = 0; //Índice para obtener las respuestas cargadas en el array
                 for ($i = 1; $i <= 10; $i++) {
                     echo "<tr>";
                     echo "<th>$i</th>";
                     for ($j = 1; $j <= 10; $j++) {
                         $position = $i . "." . $j;
-                        if (($index < BLANKSNUMBER) and (in_array($position, $blanks))) {
+                        if (($index < BLANKSNUMBER) and (in_array($position, $blanks))) { //Si es un hueco
                             $showSolution ? $value = $answers[$index] : $value = " ";
-                            echo "<td><input type='text' name='answers[]' value='$value'></td>";
+                            echo "<td><input type='text' name='answers[]' value='$value' size='1'></td>";
                             $index++;
-                        } else {
+                        } else { //Si no es un hueco
                             echo "<td>" . $i * $j . "</td>";
                         }
                     }
@@ -126,14 +121,28 @@ if (isset($_POST['check'])) {
             </table>
             <br>
             <input type="submit" value="Comprobar" name="check">
-
-
+            <a href="<?php $_SERVER['PHP_SELF']; ?>"><input type='button' value='Comenzar'/></a>
         </form>
-    </main>
 
-    <?php
-    //var_dump($_POST['answers']);
-    ?>
+        <?php
+        if ($showSolution) { //Comprueba las respuestas
+            $index = 0;
+            $correctAnswers = 0;
+            for ($i = 1; $i <= 10; $i++) {
+                for ($j = 1; $j <= 10; $j++) {
+                    $position = $i . "." . $j;
+                    if (($index < BLANKSNUMBER) and (in_array($position, $blanks))) {
+                        if ($answers[$index] == $i * $j) {
+                            $correctAnswers++;
+                        }
+                        $index++;
+                    }
+                }
+            }
+            echo "<p>Has acertado $correctAnswers respuestas</p>";
+        }
+        ?>
+    </main>
 </body>
 
 </html>
