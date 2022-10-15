@@ -9,8 +9,8 @@ class IndexController extends BaseController {
     
     public function indexAction() {
         $data = array();
-        // $company = Company::getInstancia();
-        // $data = $company->get();
-        //$this->renderHTML('../../view/home_view.php', $data);
+        $company = Company::getInstancia();
+        $data = $company->get();
+        $this->renderHTML('../view/home_view.php', $data);
     }
 }

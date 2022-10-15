@@ -1,5 +1,6 @@
 <?php
 require ('require/header_view_php');
+echo "<h1>Companies</h1>";
 ?>
 <!DOCTYPE html>
 <html lang='en'>

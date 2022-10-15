@@ -14,8 +14,8 @@ $router = new Router();
 
 
 $router->add(array(
-    'name'=>'home', 
-    'path'=>'/^\/$/home', 
+    'name'=>'home',
+    'path'=>'/^\/home$/',
     'action'=>[IndexController::class, 'indexAction'],
     'auth'=>["admin"]
 ));
