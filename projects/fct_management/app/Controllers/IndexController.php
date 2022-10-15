@@ -11,7 +11,6 @@ class IndexController extends BaseController {
         $data = array();
         // $company = Company::getInstancia();
         // $data = $company->get();
-        $this->renderHTML('../../view/home_view.php', $data);
-        //header('location:' . DIRBASEURL);
+        //$this->renderHTML('../../view/home_view.php', $data);
     }
 }
