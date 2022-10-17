@@ -18,8 +18,10 @@ if (!isset($data['cifError'])) {
     $cifError = $data['cifError'];
 }
 
-if (!isset($addressError)) {
+if (!isset($data['addressError'])) {
     $addressError = '';
+} else {
+    $addressError = $data['addressError'];
 }
 
 if (!isset($phoneError)) {
