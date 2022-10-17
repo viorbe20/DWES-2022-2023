@@ -36,6 +36,13 @@ $router->add(array(
     'auth'=>["admin"]
 ));
 
+$router->add(array(
+    'name'=>'add_companies',
+    'path'=>'/^\/home\/companies\/add_company$/',
+    'action'=>[AdminController::class, 'addCompanyAction'],
+    'auth'=>["admin"]
+));
+
 
 $request = str_replace(DIRBASEURL,'',$_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);
