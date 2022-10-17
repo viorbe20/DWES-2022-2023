@@ -45,6 +45,16 @@ class Company extends DBAbstractModel
         return $this->rows;
     }
 
+    //Get last companies
+    public function getSome()
+    {
+        $this->query = "SELECT * FROM companies";
+        $this->get_results_from_query();
+        //Show last 5 users
+        $last = array_slice(array_reverse($this->rows), 0, 5);
+        return $last;
+    }
+
     public function getById()
     {
         $this->query = "SELECT * FROM companies WHERE c_id=:c_id";
