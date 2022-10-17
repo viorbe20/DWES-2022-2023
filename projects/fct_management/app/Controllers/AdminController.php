@@ -8,8 +8,11 @@ class AdminController extends BaseController {
     
     public function adminAction() {
         $data = array();
-        // $company = Company::getInstancia();
-        // $data = $company->get();
+        
+        //Shows last 5 companies
+        $company = Company::getInstancia();
+        $data['lastCompanies'] = $company->getSome();
+
         $this->renderHTML('../view/companies_view.php', $data);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Company;
 use App\Models\User;
 
 require_once('..\app\Config\constantes.php');
@@ -31,7 +30,8 @@ class IndexController extends BaseController
                 //User validation
                 $result = $user->getByLogin(); //If user exists, $result is an array with user data
                 if (!empty($result)) {
-                    $this->renderHTML('../view/companies_view.php');
+                    header('location: ' . DIRBASEURL. '/home/companies'); //If user exists, redirect to companies page
+
                 } else {
                     $data['loginMsg'] = 'Campos incorrectos';
                     $this->renderHTML('../view/home_view.php', $data);
