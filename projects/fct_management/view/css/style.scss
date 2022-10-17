@@ -65,7 +65,7 @@
     align-items: center;
 }
 
-//Company page
+//Companies page
 #main_companies {
     display: flex;
     flex-direction: column;
@@ -127,7 +127,7 @@
     cursor: pointer;
     width: 8%;
     margin: 2% 0%;
-    
+
     a {
         text-decoration: none;
         color: #ccc;
@@ -135,18 +135,84 @@
         &:hover {
             opacity: 0.8;
         }
-    
+
 
         span {
-            color: rgb(136, 136, 204);;
+            color: rgb(136, 136, 204);
+            ;
             font-size: 3rem;
-            
+
         }
     }
 
 
     &:hover {
         opacity: 0.8;
+    }
+}
+
+//Add company page
+#form_add_company {
+    font-family: sans-serif;
+    margin: 4% 10%;
+    border: 1px solid #a2a2a2;
+    padding: 1em;
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+        padding: 2% 6%;
+        margin: 2% 0%;
+        border: 1px solid #ccc;
+
+        legend {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5em;
+        }
+
+            div {
+                input {
+                    width: 98%;
+                    padding: 0.5em;
+                    margin: 0.5em 0;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    
+                }
+                span {
+                    color: #f44336;
+                    font-weight: bold;
+                    font-size: 1rem;
+                }
+
+        }
+    }
+
+    #btn_reset {
+        background-color: #f44336;
+        color: white;
+        padding: 14px 20px;
+        margin-left: 1%;
+        margin-bottom: 1%;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #btn_submit {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin-left: 45%;
+        margin-bottom: 1%;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
 }
 
@@ -243,7 +309,7 @@ footer {
             color: var(--dark-grey);
             font-size: 12px;
         }
-        
+
         div {
             display: flex;
 
@@ -251,12 +317,13 @@ footer {
                 text-decoration: none;
                 color: var(--dark-grey);
                 font-size: 12px;
-                
+
                 label {
                     cursor: pointer;
-                        &:hover {
-                            text-decoration: underline;
-                        }
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
