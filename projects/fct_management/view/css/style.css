@@ -8,14 +8,13 @@
 * {
   margin: 0px;
   padding: 0px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
+  *height: -webkit-fit-content;
+  *height: -moz-fit-content;
+  *height: fit-content;
 }
 
 #form-login {
   border: 3px solid #f1f1f1;
-  margin: 2% 20%;
   background-color: var(--light-grey);
 }
 #form-login .imgcontainer {
@@ -60,33 +59,33 @@
 }
 
 #form-search-company {
-  width: 100%;
+  margin-top: 1%;
 }
 #form-search-company form {
-  border: 1px solid #f1f1f1;
+  *border: 1px solid #f1f1f1;
   margin: 0%;
-  padding: 0% 2%;
-  background-color: var(--light-grey);
+  padding: 0%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #form-search-company form input[type=text] {
   width: 100%;
+  margin: 0% 1%;
   padding: 1.5% 2%;
-  margin: 1% 1%;
   display: inline-block;
   border: 2px solid #ccc;
   border-radius: 15px;
 }
 #form-search-company form button {
+  width: 20%;
+  margin: 0% 1%;
+  padding: 1.5% 2%;
   background-color: #04AA6D;
   color: white;
-  padding: 14px 20px;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,12 +93,9 @@
 #form-search-company form button:hover {
   opacity: 0.8;
 }
-#form-search-company form button span {
-  *font-size: 2.5rem;
-  margin-right: 8%;
-}
 
 header {
+  position: relative;
   background-color: var(--light-grey);
   color: var(--medium-grey);
   padding: 15px 5px;
@@ -141,10 +137,9 @@ nav ul li a {
 
 main {
   margin: 0%;
-  padding: 0%;
+  padding: 0% 3%;
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 footer {
@@ -155,26 +150,32 @@ footer {
   height: 5%;
 }
 
-#user_info {
+#user-info {
+  position: absolute;
+  right: 0.5%;
+  top: 0.5%;
+  margin: 1%;
+  padding: 0%;
+  background-color: pink;
   display: flex;
   width: 20%;
 }
-#user_info #user_avatar {
+#user-info #user_avatar {
   width: 40%;
   text-align: center;
 }
-#user_info #user_avatar span {
+#user-info #user_avatar span {
   font-size: 30px;
 }
-#user_info #user_data {
+#user-info #user_data {
   width: 60%;
   text-align: left;
   line-height: 15px;
 }
-#user_info #user_data p {
+#user-info #user_data p {
   font-size: 10px;
 }
-#user_info #user_data a {
+#user-info #user_data a {
   text-decoration: none;
   color: #aaa;
   font-size: 10px;
@@ -198,7 +199,7 @@ footer {
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid #ccc;
-  margin: 4%;
+  margin-top: 2%;
 }
 .table th {
   background-color: var(--light-blue);
@@ -219,4 +220,7 @@ footer {
 .table td span:hover {
   color: white;
   background-color: var(--medium-grey);
+}
+.table tr:hover {
+  background-color: var(--light-blue);
 }/*# sourceMappingURL=style.css.map */
