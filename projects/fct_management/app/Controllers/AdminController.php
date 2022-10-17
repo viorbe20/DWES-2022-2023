@@ -27,6 +27,8 @@ class AdminController extends BaseController
             //Name validation
             if (empty($_POST["c_name"])) {
                 $data['nameError'] = "El nombre es obligatorio";
+            } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", clearData($_POST["c_name"]))) {
+                $data['nameError'] = "Solo letras y espacios en blanco.";
             } else {
                 $company->setName(clearData($_POST["c_name"]));
                 $data['c_name'] = clearData($_POST["c_name"]);
@@ -52,7 +54,6 @@ class AdminController extends BaseController
             }
 
             //Phone validation
-            //spanish phone number validation
             if (empty($_POST["c_phone"])) {
                 $data['phoneError'] = "El teléfono es obligatorio";
             } elseif (!preg_match("/^[0-9]{9}$/", clearData($_POST["c_phone"]))) {
@@ -62,7 +63,18 @@ class AdminController extends BaseController
                 $company->setPhone(clearData($_POST["c_phone"]));
                 $data['c_phone'] = clearData($_POST["c_phone"]);
             }
-            
+
+            //Email validation
+            if (empty($_POST["c_email"])) {
+                $data['emailError'] = "El email es obligatorio";
+            } elseif (!filter_var(clearData($_POST["c_email"]), FILTER_VALIDATE_EMAIL)) {
+                $data['emailError'] = "El email no es válido";
+                $data['c_email'] = clearData($_POST["c_email"]);
+            } else {
+                $company->setEmail(clearData($_POST["c_email"]));
+                $data['c_email'] = clearData($_POST["c_email"]);
+            }
+
             $this->renderHTML('../view/companies_add.php', $data);
         } else {
             $this->renderHTML('../view/companies_add.php');
