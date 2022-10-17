@@ -51,8 +51,8 @@ print("NOmbre" . $nameError);
         <!--Datos personales-->
         <fieldset>
             <legend>Datos Empresa</legend>
-            <div><label for="c_name">Nombre </label><span class="error"><?php echo $nameError; ?></span></div>
-            <div><input type="text" name="c_name" value="" ><span> *</span></div>
+            <div><label for="c_name">Nombre </label><span class="error"><?php echo $nameError?></span></div>
+            <div><input type="text" name="c_name" value="" ><span> * <?php if (isset($data['c_name'])) echo $data['c_name']; ?></span></div>
             
 
             <div><label for="c_cif">Cif </label><span class="error"><?php echo $cifError; ?></span></div>
@@ -87,8 +87,8 @@ print("NOmbre" . $nameError);
         <!--Text and conditions checkbox-->
 
         <section>
-            <input type="submit" value="Enviar" id="btn_add_company">
-            <a href="companies_add.php" id="btn_reset">Borrar</a>
+            <input type="submit" value="Enviar" name="add_new_company" id="btn_add_company">
+            <a href="<?php echo DIRBASEURL . '/home/companies/add_company' ?>" id="btn_reset">Borrar</a>
         </section>
 
     </form>
