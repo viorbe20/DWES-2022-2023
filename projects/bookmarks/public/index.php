@@ -10,10 +10,10 @@ use App\Controllers\AdminController;
 
 session_start();
 
-if (!isset($_SESSION['user']['profile'] )) {
-    $_SESSION['user']['profile'] = "guest";
-    $_SESSION['user']['name'] = "guest";
-}
+// if (!isset($_SESSION['user']['profile'] )) {
+//     $_SESSION['user']['profile'] = "guest";
+//     $_SESSION['user']['name'] = "guest";
+// }
 
 $router = new Router();
 
@@ -92,6 +92,11 @@ $router->add(array(
 $request = str_replace(DIRBASEURL,'',$_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);
 
+print(DIRBASEURL);
+echo "<BR>";
+print($_SERVER['REQUEST_URI']);
+echo "<BR>";
+
 if ($route) {
     if (!in_array($_SESSION['user']['profile'] , $route['auth'])) {
         header("location:" . DIRBASEURL . "/home");
@@ -103,4 +108,5 @@ if ($route) {
     }
 }else{
     echo "No route";
+    echo "<br>";
 }
