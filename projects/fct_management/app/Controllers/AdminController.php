@@ -15,4 +15,12 @@ class AdminController extends BaseController {
 
         $this->renderHTML('../view/companies_view.php', $data);
     }
+
+    public function logoutAction()
+    {
+        //Close session and redirect to home
+        unset($_SESSION);
+        session_destroy();
+        header('Location:' . DIRBASEURL . '/home');
+    }
 }

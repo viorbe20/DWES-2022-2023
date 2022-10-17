@@ -180,12 +180,11 @@ footer {
     top: 0.5%;
     margin: 1%;
     padding: 0%;
-    background-color: pink;
     display: flex;
     width: 20%;
 
     #user_avatar {
-        width: 40%;
+        width: 20%;
         text-align: center;
 
         span {
@@ -194,19 +193,33 @@ footer {
     }
 
     #user_data {
-        width: 60%;
+        width: 80%;
+        padding: 0% 2%;
         text-align: left;
-        line-height: 15px;
+        line-height: 100%;
 
         p {
-            font-size: 10px;
+            color: var(--dark-grey);
+            font-size: 12px;
+        }
+        
+        div {
+            display: flex;
+
+            a {
+                text-decoration: none;
+                color: var(--dark-grey);
+                font-size: 12px;
+                
+                label {
+                    cursor: pointer;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                }
+            }
         }
 
-        a {
-            text-decoration: none;
-            color: #aaa;
-            font-size: 10px;
-        }
     }
 
 

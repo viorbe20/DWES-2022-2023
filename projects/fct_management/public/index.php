@@ -15,6 +15,13 @@ if (!isset($_SESSION['user']['profile'] )) {
 $router = new Router();
 
 $router->add(array(
+    'name'=>'logout',
+    'path'=>'/^\/home\/companies\/logout$/',
+    'action'=>[AdminController::class, 'logoutAction'],
+    'auth'=>["admin", "company", "student"]
+));
+
+$router->add(array(
     'name'=>'home',
     'path'=>'/^\/home$/',
     'action'=>[IndexController::class, 'indexAction'],

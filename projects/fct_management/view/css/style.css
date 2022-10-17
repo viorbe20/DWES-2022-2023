@@ -157,29 +157,39 @@ footer {
   top: 0.5%;
   margin: 1%;
   padding: 0%;
-  background-color: pink;
   display: flex;
   width: 20%;
 }
 #user-info #user_avatar {
-  width: 40%;
+  width: 20%;
   text-align: center;
 }
 #user-info #user_avatar span {
   font-size: 30px;
 }
 #user-info #user_data {
-  width: 60%;
+  width: 80%;
+  padding: 0% 2%;
   text-align: left;
-  line-height: 15px;
+  line-height: 100%;
 }
 #user-info #user_data p {
-  font-size: 10px;
+  color: var(--dark-grey);
+  font-size: 12px;
 }
-#user-info #user_data a {
+#user-info #user_data div {
+  display: flex;
+}
+#user-info #user_data div a {
   text-decoration: none;
-  color: #aaa;
-  font-size: 10px;
+  color: var(--dark-grey);
+  font-size: 12px;
+}
+#user-info #user_data div a label {
+  cursor: pointer;
+}
+#user-info #user_data div a label:hover {
+  text-decoration: underline;
 }
 
 .error-message {
