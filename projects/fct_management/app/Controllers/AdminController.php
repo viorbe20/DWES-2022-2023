@@ -75,6 +75,62 @@ class AdminController extends BaseController
                 $data['c_email'] = clearData($_POST["c_email"]);
             }
 
+            //Logo upload
+            if (isset($_FILES['c_logo'])) {
+                $target_dir = "../assets/img/logos/";
+                $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                // Check if image file is a actual image or fake image
+                if (isset($_POST["submit"])) {
+                    $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
+                    if ($check !== false) {
+                        $data['logoError'] = "El archivo e suan imagen - " . $check["mime"] . ".";
+                        $uploadOk = 1;
+                    } else {
+                        $data['logoError'] = "El archivo no es una imagen.";
+                        $uploadOk = 0;
+                    }
+                }
+
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    $data['logoError'] = "El archivo ya existe.";
+                    $uploadOk = 0;
+                }
+
+                // Check file size
+                if ($_FILES["c_logo"]["size"] > 500000) {
+                    $data['logoError'] = "El archivo es demasiado pesado.";
+                    $uploadOk = 0;
+                }
+
+                // Allow certain file formats
+                if (
+                    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif"
+                ) {
+                    $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
+                    $uploadOk = 0;
+                }
+
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    $data['logoError'] = "No se ha subido el archivo.";
+
+
+                    // if everything is ok, try to upload file
+                } else {
+                    echo $target_file;
+                    if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
+                        $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
+                    } else {
+                        $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
+                    }
+                }
+            }
+
             $this->renderHTML('../view/companies_add.php', $data);
         } else {
             $this->renderHTML('../view/companies_add.php');

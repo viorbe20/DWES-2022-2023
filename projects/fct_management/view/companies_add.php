@@ -36,6 +36,12 @@ if (!isset($data['emailError'])) {
     $emailError = $data['emailError'];
 }
 
+if (!isset($data['logoError'])) {
+    $logoError = '';
+} else {
+    $logoError = $data['logoError'];
+}
+
 if (isset($data)) {
     var_dump($data);
 }
@@ -55,7 +61,7 @@ if (isset($data)) {
 
 <body>
 
-    <form method="post" action="" id="form_add_company">
+    <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
         <!--Datos personales-->
         <fieldset>
             <legend>Datos Empresa</legend>
@@ -92,7 +98,8 @@ if (isset($data)) {
         <!--Add a picture-->
         <fieldset>
             <legend>Logo</legend>
-            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="file" name="c_logo">
+            <span class="error"><?php echo $logoError; ?></span>
         </fieldset>
 
         <fieldset>
