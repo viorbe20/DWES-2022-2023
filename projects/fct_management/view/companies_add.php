@@ -24,8 +24,10 @@ if (!isset($data['addressError'])) {
     $addressError = $data['addressError'];
 }
 
-if (!isset($phoneError)) {
+if (!isset($data['phoneError'])) {
     $phoneError = '';
+} else {
+    $phoneError = $data['phoneError'];
 }
 
 if (!isset($emailError)) {
@@ -75,7 +77,7 @@ if (isset($data)) {
 
             <div><label for="c_phone">Teléfono </label><span> *</span>
             <span class="error"><?php echo $phoneError; ?></span></div>
-            <div><input type="number" name="c_phone" maxlength="9" value=""></div>
+            <div><input type="number" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>"></div>
 
 
             <div><label for="c_email">Email </label><span> *</span>

@@ -46,11 +46,23 @@ class AdminController extends BaseController
             //Addres validation
             if (empty($_POST["c_address"])) {
                 $data['addressError'] = "La dirección es obligatoria";
-            }  else {
+            } else {
                 $company->setAddress(clearData($_POST["c_address"]));
                 $data['c_address'] = clearData($_POST["c_address"]);
             }
 
+            //Phone validation
+            //spanish phone number validation
+            if (empty($_POST["c_phone"])) {
+                $data['phoneError'] = "El teléfono es obligatorio";
+            } elseif (!preg_match("/^[0-9]{9}$/", clearData($_POST["c_phone"]))) {
+                $data['phoneError'] = "El teléfono no es válido";
+                $data['c_phone'] = clearData($_POST["c_phone"]);
+            } else {
+                $company->setPhone(clearData($_POST["c_phone"]));
+                $data['c_phone'] = clearData($_POST["c_phone"]);
+            }
+            
             $this->renderHTML('../view/companies_add.php', $data);
         } else {
             $this->renderHTML('../view/companies_add.php');
