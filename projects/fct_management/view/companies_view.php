@@ -1,5 +1,5 @@
 <?php
-require ('require/header_view_php');
+require ('../view/require/header_view.html');
 echo "<h1>Companies</h1>";
 ?>
 <!DOCTYPE html>

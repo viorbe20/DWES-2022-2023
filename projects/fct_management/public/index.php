@@ -5,13 +5,14 @@ use App\Core\Router;
 use App\Controllers\IndexController;
 use App\Controllers\AdminController;
 
-//session_start();
-// if (!isset($_SESSION['user']['profile'] )) {
-//     $_SESSION['user']['profile'] = "guest";
-//     $_SESSION['user']['name'] = "guest";
-// }
-$router = new Router();
+session_start();
+//Siempre se abre sesión como invitado
+if (!isset($_SESSION['user']['profile'] )) {
+    $_SESSION['user']['profile'] = "guest";
+    $_SESSION['user']['name'] = "guest";
+}
 
+$router = new Router();
 
 $router->add(array(
     'name'=>'home',

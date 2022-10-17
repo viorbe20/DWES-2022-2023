@@ -12,13 +12,14 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
         </div>
 
         <div class="container">
+            
             <label for="uname"><b>Usuario</b></label>
             <input type="text" name="user_name" required>
 
             <label for="psw"><b>Contraseña</b></label>
             <input type="password"name="user_psw" required>
 
-            <button type="submit">Login</button>
+            <button type="submit" name="login">Login</button>
         </div>
     </form>
 
