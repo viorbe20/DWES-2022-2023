@@ -26,16 +26,26 @@ if (isset($data['lastCompanies'])) {
 </head>
 
 <body>
-    <main>
+    <main id='main_companies'>
+
         <section class="search-box" id="form-search-company">
-            <form action="" method="post">
-                <input type="text" name="search" id="search" placeholder="Buscar...">
+            
+        <form action="" method="post">
+                <input type="text" name="search" id="search" placeholder="Nombre empresa...">
                 <button type="submit" name="submit-search">
                     <span class="material-symbols-outlined">
-                        add_circle
+                        search
                     </span>
-                    Añadir empresa</button>
-            </form>
+                    Buscar</button>
+
+        </form>
+        <section id='add_company'>
+                    <a href="<?php echo DIRBASEURL . '/home/companies/add_company' ?>">
+                    <span class="material-symbols-outlined">
+                        add_circle
+                    </span></a>
+                </section>
+
         </section>
 
         <table class="table" id="table-companies">
@@ -49,21 +59,25 @@ if (isset($data['lastCompanies'])) {
             <tr>
                 <?php
                 foreach ($lastCompanies as $key => $value) {
-                    echo "<td>". $value['c_logo'] . "</td>";
-                    echo "<td>". $value['c_name'] . "</td>";
-                    echo "<td>". $value['c_phone'] . "</td>";
-                    ?>
+                    //Shows an image inside a td
+                    echo "<td><img src='" . DIRFCT . "/assets/img/logos/" . $value['c_logo'] . "' alt='Logo de la empresa' width='50px' height='50px'></td>";
+                    
+
+                    echo "<td>" . $value['c_name'] . "</td>";
+                    echo "<td>" . $value['c_phone'] . "</td>";
+                ?>
                     <td><a href=""><span class="material-symbols-outlined">
-                        delete
-                    </span></a></td>
+                                delete
+                            </span></a></td>
                     <td><a href=""><span class="material-symbols-outlined">
-                        edit
-                    </span></a></td>
-                </tr>
-            <?php
+                                edit
+                            </span></a></td>
+            </tr>
+        <?php
                 }
-            ?>
+        ?>
         </table>
+
     </main>
 </body>
 

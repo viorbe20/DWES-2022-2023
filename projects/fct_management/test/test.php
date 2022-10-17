@@ -7,9 +7,8 @@ use App\Models\Company;
 
 $c = Company::getInstancia();
 
-foreach ($c->getSome() as $key => $value) {
-    echo $value['c_name'] . '<br>';
-}
+$c->setName('Edi');
+print_r($c->getByName());
 
 
 ?>

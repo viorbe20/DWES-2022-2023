@@ -59,27 +59,35 @@
   align-items: center;
 }
 
+#main_companies {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-grey);
+}
+
 #form-search-company {
-  margin-top: 1%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0% 20%;
 }
 #form-search-company form {
-  *border: 1px solid #f1f1f1;
-  margin: 0%;
-  padding: 0%;
+  border: 1px solid #f1f1f1;
+  width: 80%;
+  padding: 1% 0%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #form-search-company form input[type=text] {
-  width: 100%;
-  margin: 0% 1%;
+  width: 90%;
+  *margin: 0% 1%;
   padding: 1.5% 2%;
-  display: inline-block;
+  *display: inline-block;
   border: 2px solid #ccc;
   border-radius: 15px;
 }
 #form-search-company form button {
-  width: 20%;
+  *width: 10%;
   margin: 0% 1%;
   padding: 1.5% 2%;
   background-color: #04AA6D;
@@ -92,6 +100,33 @@
   align-items: center;
 }
 #form-search-company form button:hover {
+  opacity: 0.8;
+}
+
+#add_company {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  *background-color: rgb(136, 136, 204);
+  color: #ccc;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 8%;
+  margin: 2% 0%;
+}
+#add_company a {
+  text-decoration: none;
+  color: #ccc;
+}
+#add_company a:hover {
+  opacity: 0.8;
+}
+#add_company a span {
+  color: rgb(136, 136, 204);
+  font-size: 3rem;
+}
+#add_company:hover {
   opacity: 0.8;
 }
 

@@ -64,6 +64,16 @@ class Company extends DBAbstractModel
         return $result;
     }
 
+    //GEt company through search bar
+    public function getByName()
+    {
+        $this->query = "SELECT * FROM companies WHERE c_name LIKE :c_name";
+        $this->parametros['c_name'] = "%" . $this->c_name . "%";
+        $this->get_results_from_query();
+        $result = $this->rows;
+        return $result;
+    }
+
     //Métodos de creación
     public function set()
     {
