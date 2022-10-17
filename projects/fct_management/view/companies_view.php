@@ -1,5 +1,6 @@
 <?php
 require('../view/require/header_view.html');
+require('../view/require/footer_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 
@@ -25,6 +26,37 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
                     Añadir empresa</button>
             </form>
         </section>
+        <table class="table" id="table-companies">
+                <tr>
+                    <th>Logo</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                <tr>
+                    <td>Logo</td>
+                    <td>Nombre</td>
+                    <td>Teléfono</td>
+                    <td><a href=""><span class="material-symbols-outlined">
+                        delete
+                        </span></a></td>
+                    <td><a href=""><span class="material-symbols-outlined">
+                        edit
+                        </span></a></td>
+                </tr>
+                <tr>
+                    <td>Logo</td>
+                    <td>Nombre</td>
+                    <td>Teléfono</td>
+                    <td><a href=""><span class="material-symbols-outlined">
+                        delete
+                        </span></a></td>
+                    <td><a href=""><span class="material-symbols-outlined">
+                        edit
+                        </span></a></td>
+                </tr>
+        </table>
     </main>
 </body>
 </html>
