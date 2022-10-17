@@ -1,6 +1,8 @@
 <?php
-require ('../view/require/header_view.html');
-echo "<h1>Companies</h1>";
+require('../view/require/header_view.html');
+echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
+echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
+
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -12,9 +14,17 @@ echo "<h1>Companies</h1>";
 <title>Companies view</title>
 </head>
 <body>
-
-<section>
-<h1>Companies</h1>
-</section>
+<main>
+        <section class="search-box" id="form-search-company">
+            <form action="" method="post">
+                <input type="text" name="search" id="search" placeholder="Buscar...">
+                <button type="submit" name="submit-search">
+                    <span class="material-symbols-outlined">
+                        add_circle
+                        </span>
+                    Añadir empresa</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

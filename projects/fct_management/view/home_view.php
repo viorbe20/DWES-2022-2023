@@ -28,10 +28,10 @@ if (isset($data['loginMsg'])) {
 
     <div class="container">
 
-        <label for="uname"><b>Usuario</b></label>
-        <input type="text" name="user_name" value="admin1" required >
+        <label for="user_name"><b>Usuario</b></label>
+        <input type="text" name="user_name" required >
 
-        <label for="psw"><b>Contraseña</b></label>
+        <label for="user_psw"><b>Contraseña</b></label>
         <input type="password" name="user_psw" value="admin1" required>
 
         <button type="submit" name="login">Login</button>

@@ -58,6 +58,46 @@
   align-items: center;
 }
 
+#form-search-company {
+  width: 100%;
+}
+#form-search-company form {
+  border: 1px solid #f1f1f1;
+  margin: 0%;
+  padding: 0% 2%;
+  background-color: var(--light-grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#form-search-company form input[type=text] {
+  width: 100%;
+  padding: 1.5% 2%;
+  margin: 1% 1%;
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+}
+#form-search-company form button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#form-search-company form button:hover {
+  opacity: 0.8;
+}
+#form-search-company form button span {
+  *font-size: 2.5rem;
+  margin-right: 8%;
+}
+
 header {
   background-color: var(--light-grey);
   color: var(--medium-grey);

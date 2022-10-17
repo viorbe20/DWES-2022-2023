@@ -17,10 +17,12 @@ class IndexController extends BaseController
 
         //Login validation
         if (isset($_POST['login'])) {
-
+            
             //Empty validation
-            if ((!empty($_POST['user_name'])) && (!empty($_POST['user_psw']))) {
-
+            if ((empty($_POST['user_name'])) || (empty($_POST['user_psw']))) {
+                    $data['loginMsg'] = 'Rellena todos los campos';
+                    $this->renderHTML('../view/home_view.php', $data);
+            } else {
                 //User instance
                 $user = User::getInstancia();
                 $user->setUser($_POST['user_name']);
@@ -34,11 +36,7 @@ class IndexController extends BaseController
                     $data['loginMsg'] = 'Campos incorrectos';
                     $this->renderHTML('../view/home_view.php', $data);
                 }
-            } else {
-                $data['loginMsg'] = 'Rellena todos los campos';
-                $this->renderHTML('../view/home_view.php', $data);
-            } 
-
+            }
         } else {
             $this->renderHTML('../view/home_view.php', $data);
         }
