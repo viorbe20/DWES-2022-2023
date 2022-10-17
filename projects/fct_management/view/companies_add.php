@@ -12,8 +12,10 @@ if (!isset($data['nameError'])) {
     $nameError = $data['nameError'];
 }
 
-if (!isset($cifError)) {
+if (!isset($data['cifError'])) {
     $cifError = '';
+} else {
+    $cifError = $data['cifError'];
 }
 
 if (!isset($addressError)) {
@@ -60,7 +62,7 @@ if (isset($data)) {
             <div><label for="c_cif">Cif</label><span> *</span>
                 <span class="error"><?php echo $cifError; ?></span>
             </div>
-            <div><input type="text" name="c_cif" size="100" value=""></div>
+            <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>"></div>
 
 
             <div><label for="c_address">Dirección</label><span> *</span>
