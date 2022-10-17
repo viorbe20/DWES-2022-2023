@@ -8,6 +8,8 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
 
 if (!isset($nameError)) {
     $nameError = '';
+} else {
+    $nameError = $data['nameError'];
 }
 
 if (!isset($cifError)) {
@@ -25,6 +27,11 @@ if (!isset($phoneError)) {
 if (!isset($emailError)) {
     $emailError = '';
 }
+
+if (isset($data)) {
+    var_dump($data);
+}
+print("NOmbre" . $nameError);
 ?>
 
 <!DOCTYPE html>
@@ -45,23 +52,23 @@ if (!isset($emailError)) {
         <fieldset>
             <legend>Datos Empresa</legend>
             <div><label for="c_name">Nombre </label><span class="error"><?php echo $nameError; ?></span></div>
-            <div><input type="text" name="c_name" value="" required><span> *</span></div>
+            <div><input type="text" name="c_name" value="" ><span> *</span></div>
             
 
             <div><label for="c_cif">Cif </label><span class="error"><?php echo $cifError; ?></span></div>
-            <div><input type="text" name="c_cif" size="100" value="" required><span> *</span></div>
+            <div><input type="text" name="c_cif" size="100" value="" ><span> *</span></div>
             
 
             <div><label for="c_address">Dirección</label><span class="error"><?php echo $addressError; ?></span></div>
-            <div><input type="text" name="c_address" value="" required><span> *</span></div>
+            <div><input type="text" name="c_address" value="" ><span> *</span></div>
             
 
             <div><label for="c_phone">Teléfono </label><span class="error"><?php echo $phoneError; ?></span></div>
-            <div><input type="number" name="c_phone" maxlength="9" value="" required><span> *</span></div>
+            <div><input type="number" name="c_phone" maxlength="9" value="" ><span> *</span></div>
             
 
             <div><label for="c_email">Email </label><span class="error"><?php echo $emailError; ?></span></div>
-            <div><input type="email" name="c_email" size="100" value="" required><span> *</span></div>
+            <div><input type="email" name="c_email" size="100" value="" ><span> *</span></div>
             
         </fieldset>
 
@@ -79,14 +86,9 @@ if (!isset($emailError)) {
 
         <!--Text and conditions checkbox-->
 
-        <fields>
-            <input type="checkbox" name="conditions" id="conditions" required>
-            <label for="conditions">Acepto términos y condiciones</label>
-        </fields>
-
         <section>
-            <input type="submit" value="Enviar" id="btn_submit">
-            <input type="reset" value="Borrar" id="btn_reset">
+            <input type="submit" value="Enviar" id="btn_add_company">
+            <a href="companies_add.php" id="btn_reset">Borrar</a>
         </section>
 
     </form>

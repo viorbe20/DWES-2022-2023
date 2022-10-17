@@ -29,8 +29,8 @@ if (isset($data['lastCompanies'])) {
     <main id='main_companies'>
 
         <section class="search-box" id="form-search-company">
-            
-        <form action="" method="post">
+
+            <form action="" method="post">
                 <input type="text" name="search" id="search" placeholder="Nombre empresa...">
                 <button type="submit" name="submit-search">
                     <span class="material-symbols-outlined">
@@ -38,13 +38,13 @@ if (isset($data['lastCompanies'])) {
                     </span>
                     Buscar</button>
 
-        </form>
-        <section id='add_company'>
-                    <a href="<?php echo DIRBASEURL . '/home/companies/add_company' ?>">
-                    <span class="material-symbols-outlined">
+            </form>
+            <section id='add_company'>
+                <a href="<?php echo DIRBASEURL . '/home/companies/add_company' ?>"> <span class="material-symbols-outlined">
                         add_circle
-                    </span></a>
-                </section>
+                    </span>
+                </a>
+            </section>
 
         </section>
 
@@ -61,7 +61,7 @@ if (isset($data['lastCompanies'])) {
                 foreach ($lastCompanies as $key => $value) {
                     //Shows an image inside a td
                     echo "<td><img src='" . DIRFCT . "/assets/img/logos/" . $value['c_logo'] . "' alt='Logo de la empresa' width='50px' height='50px'></td>";
-                    
+
 
                     echo "<td>" . $value['c_name'] . "</td>";
                     echo "<td>" . $value['c_phone'] . "</td>";
