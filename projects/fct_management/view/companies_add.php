@@ -6,7 +6,7 @@ require('../view/require/footer_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 
-if (!isset($nameError)) {
+if (!isset($data['nameError'])) {
     $nameError = '';
 } else {
     $nameError = $data['nameError'];
@@ -31,7 +31,7 @@ if (!isset($emailError)) {
 if (isset($data)) {
     var_dump($data);
 }
-print("NOmbre" . $nameError);
+
 ?>
 
 <!DOCTYPE html>
@@ -51,25 +51,33 @@ print("NOmbre" . $nameError);
         <!--Datos personales-->
         <fieldset>
             <legend>Datos Empresa</legend>
-            <div><label for="c_name">Nombre </label><span class="error"><?php echo $nameError?></span></div>
-            <div><input type="text" name="c_name" value="" ><span> * <?php if (isset($data['c_name'])) echo $data['c_name']; ?></span></div>
-            
+            <div><label for="c_name">Nombre</label><span> *</span>
+                <span class="error"><?php echo $nameError ?></span>
+            </div>
+            <div><input type="text" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>"></div>
 
-            <div><label for="c_cif">Cif </label><span class="error"><?php echo $cifError; ?></span></div>
-            <div><input type="text" name="c_cif" size="100" value="" ><span> *</span></div>
-            
 
-            <div><label for="c_address">Dirección</label><span class="error"><?php echo $addressError; ?></span></div>
-            <div><input type="text" name="c_address" value="" ><span> *</span></div>
-            
+            <div><label for="c_cif">Cif</label><span> *</span>
+                <span class="error"><?php echo $cifError; ?></span>
+            </div>
+            <div><input type="text" name="c_cif" size="100" value=""></div>
 
-            <div><label for="c_phone">Teléfono </label><span class="error"><?php echo $phoneError; ?></span></div>
-            <div><input type="number" name="c_phone" maxlength="9" value="" ><span> *</span></div>
-            
 
-            <div><label for="c_email">Email </label><span class="error"><?php echo $emailError; ?></span></div>
-            <div><input type="email" name="c_email" size="100" value="" ><span> *</span></div>
-            
+            <div><label for="c_address">Dirección</label><span> *</span>
+                <span class="error"><?php echo $addressError; ?></span>
+            </div>
+            <div><input type="text" name="c_address" value=""></div>
+
+
+            <div><label for="c_phone">Teléfono </label><span> *</span>
+            <span class="error"><?php echo $phoneError; ?></span></div>
+            <div><input type="number" name="c_phone" maxlength="9" value=""></div>
+
+
+            <div><label for="c_email">Email </label><span> *</span>
+            <span class="error"><?php echo $emailError; ?></span></div>
+            <div><input type="email" name="c_email" size="100" value=""></div>
+
         </fieldset>
 
 
