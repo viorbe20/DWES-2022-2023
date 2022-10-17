@@ -5,9 +5,7 @@ namespace App\Controllers;
 use App\Models\Company;
 use App\Models\User;
 
-
 require_once('..\app\Config\constantes.php');
-//require_once('..\vendor\autoload.php');
 
 class IndexController extends BaseController
 {
@@ -21,7 +19,7 @@ class IndexController extends BaseController
         if (isset($_POST['login'])) {
 
             //Empty validation
-            if ((!empty($_POST['user_name'])) and (!empty($_POST['user_psw']))) {
+            if ((!empty($_POST['user_name'])) && (!empty($_POST['user_psw']))) {
 
                 //User instance
                 $user = User::getInstancia();
@@ -33,10 +31,14 @@ class IndexController extends BaseController
                 if (!empty($result)) {
                     $this->renderHTML('../view/companies_view.php');
                 } else {
-                    $data['error'] = 'Rellene todos los campos';
-                    $this->renderHTML('home_view.php', $data);
+                    $data['loginMsg'] = 'Campos incorrectos';
+                    $this->renderHTML('../view/home_view.php', $data);
                 }
-            }
+            } else {
+                $data['loginMsg'] = 'Rellena todos los campos';
+                $this->renderHTML('../view/home_view.php', $data);
+            } 
+
         } else {
             $this->renderHTML('../view/home_view.php', $data);
         }
