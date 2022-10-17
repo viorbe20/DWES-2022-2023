@@ -29,7 +29,14 @@ class IndexController extends BaseController
 
                 //User validation
                 $result = $user->getByLogin(); //If user exists, $result is an array with user data
+                
+                //Session creation with user data
                 if (!empty($result)) {
+                    foreach ($result as $value) {
+                        $_SESSION['user']['profile'] = $value['u_profile'];
+                        $_SESSION['user']['id'] = $value['u_id']; 
+                        $_SESSION['user']['name'] = $value['u_name']; 
+                    }
                     header('location: ' . DIRBASEURL. '/home/companies'); //If user exists, redirect to companies page
 
                 } else {

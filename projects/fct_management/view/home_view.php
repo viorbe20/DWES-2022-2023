@@ -7,7 +7,6 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
 if (isset($data['loginMsg'])) {
     $loginMsg = $data['loginMsg'];
     $class = "class='error-message'";
-    //var_dump($data['loginMsg']);
 } else {
     $class = $loginMsg = '';
 }

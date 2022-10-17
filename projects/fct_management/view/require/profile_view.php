@@ -1,10 +1,13 @@
+<?php
+
+?>
 <div id="user-info">
     <div id="user_avatar">
         <span class="material-symbols-outlined">account_circle</span>
     </div>
     <div id="user_data">
-        <p>Usuario: <span id="user_name">Virginia</span></p>
-        <p>Fecha <span id="date">2021-05-10</span></p>
+        <p>Usuario: <span id="user_name"><?php echo $_SESSION['user']['name']; ?></span></p>
+        <p>Fecha: <span id="date"><?php echo date('d-m-Y') ?></span></p>
         <a href="http://">Salir</a>
     </div>
 </div>

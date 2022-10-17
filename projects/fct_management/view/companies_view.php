@@ -1,6 +1,6 @@
 <?php
 require('../view/require/header_view.html');
-require('../view/require/profile_view.html');
+require('../view/require/profile_view.php');
 require('../view/require/nav_view.html');
 require('../view/require/footer_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
