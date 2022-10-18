@@ -27,6 +27,20 @@ class Validation extends DBAbstractModel
     //Propiedades del objeto
     private $id;
 
+    //Validate phone-number
+    public function validatePhone($phone)
+    {
+        if (empty($phone)) {
+            $data['phoneError'] = "El teléfono es obligatorio";
+        } elseif (!preg_match("/^[0-9]{9}$/", $phone)) {
+            $data['phoneError'] = "El teléfono no es válido";
+        } else {
+            $data['phoneError'] = "";
+        }
+
+        return $data['phoneError'];
+    }
+
     //Validate company name
     public function validateName($name)
     {

@@ -50,18 +50,15 @@ class AdminController extends BaseController
             } else {
                 $company->setAddress(clearData($_POST["c_address"]));
                 $data['c_address'] = clearData($_POST["c_address"]);
+                $data['addressError'] = "";
             }
 
             //Phone validation
-            if (empty($_POST["c_phone"])) {
-                $data['phoneError'] = "El teléfono es obligatorio";
-            } elseif (!preg_match("/^[0-9]{9}$/", clearData($_POST["c_phone"]))) {
-                $data['phoneError'] = "El teléfono no es válido";
+            $data['phoneError'] = $validation->validatePhone($_POST["c_phone"]);
+            if ($validation->validatePhone($_POST["c_phone"]) == "") {
                 $data['c_phone'] = clearData($_POST["c_phone"]);
-            } else {
                 $company->setPhone(clearData($_POST["c_phone"]));
-                $data['c_phone'] = clearData($_POST["c_phone"]);
-            }
+            } 
 
             //Email validation
             if (empty($_POST["c_email"])) {
