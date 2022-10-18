@@ -151,14 +151,17 @@
     }
 }
 
-//Add company page
+//Company info view
 #form_add_company {
     font-family: sans-serif;
-    margin: 4% 10%;
+    margin: 4% 2%;
     border: 1px solid #a2a2a2;
-    padding: 1em;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
 
     fieldset {
+        background-color: var(--light-blue);
         display: flex;
         flex-direction: column;
         padding: 2% 6%;
@@ -175,56 +178,86 @@
             margin-bottom: 0.5em;
         }
 
-            div {
-                input {
-                    width: 98%;
-                    padding: 0.5em;
-                    margin: 0.5em 0;
-                    border: 1px solid #ccc;
-                    border-radius: 3px;
+        div {
+            input {
+                width: 98%;
+                padding: 0.5em;
+                margin: 0.5em 0;
+                border: 1px solid #ccc;
+                border-radius: 3px;
 
-                }
-                span {
-                    color: #f44336;
-                    font-weight: bold;
-                    font-size: 1rem;
-                }
+            }
+
+            span {
+                color: #f44336;
+                font-weight: bold;
+                font-size: 1rem;
+            }
 
         }
     }
 
-    #btn_reset {
-        background-color: #f44336;
-        color: white;
-        padding: 14px 20px;
-        margin-left: 1%;
-        margin-bottom: 1%;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        font-size: 1rem;
+    #form_company_section_up {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        margin: 0%;
+        padding: 0%;
+        border-bottom: 1px solid #a2a2a2;
+        *background-color: yellow;
 
-        &:hover {
-            opacity: 0.8;
+        #form_company_section_up_left {
+            *background-color: #04AA6D;
+            width: 60%;
+        }
+
+        #form_company_section_up_right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: stretch;
+            *background-color: blue;
+            width: 30%;
+        }
+
+    }
+
+    #form_company_section_down {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        #btn_reset,
+        #btn_add_company {
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            padding: 1em 1.5em;
+            text-align: center;
+            margin: 2% 2%;
+
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        #btn_reset,
+        #btn_add_company {
+            background-color: #f44336;
+        }
+
+        #btn_add_company {
+            background-color: #4CAF50;
         }
     }
 
-    #btn_add_company {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin-left: 45%;
-        margin-bottom: 1%;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1rem;
 
-        &:hover {
-            opacity: 0.8;
-        }
-    }
+
+
 }
 
 //General CSS

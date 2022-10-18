@@ -13,6 +13,13 @@ if (isset($data['lastCompanies'])) {
     $lastCompanies = array();
 }
 
+if (isset($data['matchCompanies'])) {
+    $matchCompanies = $data['matchCompanies'];
+    var_dump($matchCompanies);
+} else {
+    $matchCompanies = array();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -31,8 +38,8 @@ if (isset($data['lastCompanies'])) {
         <section class="search-box" id="form-search-company">
 
             <form action="" method="post">
-                <input type="text" name="search" id="search" placeholder="Nombre empresa...">
-                <button type="submit" name="search_company">
+                <input type="text" name="search_company" id="search" placeholder="Nombre empresa...">
+                <button type="submit" name="search_company_button">
                     <span class="material-symbols-outlined">
                         search
                     </span>
@@ -40,7 +47,7 @@ if (isset($data['lastCompanies'])) {
 
             </form>
             <section id='add_company'>
-                <a href="<?php echo DIRBASEURL . '/home/companies/add_company' ?>"> <span class="material-symbols-outlined">
+                <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>"> <span class="material-symbols-outlined">
                         add_circle
                     </span>
                 </a>
