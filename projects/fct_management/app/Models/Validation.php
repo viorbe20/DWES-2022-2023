@@ -27,6 +27,23 @@ class Validation extends DBAbstractModel
     //Propiedades del objeto
     private $id;
 
+    //Validate email
+    public function validateEmail($email)
+    {
+        if (empty($email)) {
+            $data['emailError'] = "El email es obligatorio";
+        } else {
+            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+            
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $data['emailError'] = "El email no es válido";
+            } else {
+                $data['emailError'] = "";
+            }
+        }
+        return $data['emailError'];
+    }
+
     //Validate phone-number
     public function validatePhone($phone)
     {

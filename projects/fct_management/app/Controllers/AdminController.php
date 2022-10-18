@@ -31,14 +31,14 @@ class AdminController extends BaseController
             };
 
             //Name validation
-            $data['nameError'] = $validation->validateName($_POST["c_name"]);
+            $data['nameError'] = $validation->validateName(clearData($_POST["c_name"]));
             if ($validation->validateName($_POST["c_name"]) == "") {
                 $data['c_name'] = clearData($_POST["c_name"]);
                 $company->setName(clearData($_POST["c_name"]));
             } 
                 
             //Cif validation
-            $data['cifError'] = $validation->validateCif($_POST["c_cif"]);
+            $data['cifError'] = $validation->validateCif(clearData($_POST["c_cif"]));
             if ($validation->validateCif($_POST["c_cif"]) == "") {
                 $data['c_cif'] = clearData($_POST["c_cif"]);
                 $company->setCif(clearData($_POST["c_cif"]));
@@ -54,22 +54,18 @@ class AdminController extends BaseController
             }
 
             //Phone validation
-            $data['phoneError'] = $validation->validatePhone($_POST["c_phone"]);
+            $data['phoneError'] = $validation->validatePhone(clearData($_POST["c_phone"]));
             if ($validation->validatePhone($_POST["c_phone"]) == "") {
                 $data['c_phone'] = clearData($_POST["c_phone"]);
                 $company->setPhone(clearData($_POST["c_phone"]));
             } 
 
             //Email validation
-            if (empty($_POST["c_email"])) {
-                $data['emailError'] = "El email es obligatorio";
-            } elseif (!filter_var(clearData($_POST["c_email"]), FILTER_VALIDATE_EMAIL)) {
-                $data['emailError'] = "El email no es válido";
+            $data['emailError'] = $validation->validateEmail(clearData($_POST["c_email"]));
+            if ($validation->validateEmail($_POST["c_email"]) == "") {
                 $data['c_email'] = clearData($_POST["c_email"]);
-            } else {
                 $company->setEmail(clearData($_POST["c_email"]));
-                $data['c_email'] = clearData($_POST["c_email"]);
-            }
+            } 
 
             //Logo upload
             if (isset($_FILES['c_logo'])) {
