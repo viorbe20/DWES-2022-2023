@@ -23,7 +23,7 @@ if (isset($data)) {
     <title>Añade empresa</title>
 </head>
 
-<body>
+<body id='body_company_info'>
 
     <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
 
@@ -32,6 +32,7 @@ if (isset($data)) {
             <section id='form_company_section_up_left'>
                 <fieldset>
                     <legend>Datos Empresa</legend>
+
                     <div><label for="c_name">Nombre</label><span> *</span>
                         <span class="error"><?php if (isset($data['nameError'])) echo $data['nameError'];  ?></span>
                     </div>
@@ -44,7 +45,6 @@ if (isset($data)) {
 
                     <div><label for="c_address">Dirección</label><span> *</span>
                         <span class="error"><?php if (isset($data['addressError'])) echo $data['addressError'];  ?></span>
-
                     </div>
                     <div><input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>"></div>
 

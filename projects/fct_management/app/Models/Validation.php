@@ -40,6 +40,50 @@ class Validation extends DBAbstractModel
         return $data['nameError'];
     }
 
+    function cifValidation($cif)
+    {
+        $cif = strtoupper($cif);
+
+        if (preg_match('~(^[XYZ\d]\d{7})([TRWAGMYFPDXBNJZSQVHLCKE]$)~', $cif, $parts)) {
+            $control = 'TRWAGMYFPDXBNJZSQVHLCKE';
+            $nie = array('X', 'Y', 'Z');
+            $parts[1] = str_replace(array_values($nie), array_keys($nie), $parts[1]);
+            $cheksum = substr($control, $parts[1] % 23, 1);
+            return ($parts[2] == $cheksum);
+        } elseif (preg_match('~(^[ABCDEFGHIJKLMUV])(\d{7})(\d$)~', $cif, $parts)) {
+            $checksum = 0;
+            foreach (str_split($parts[2]) as $pos => $val) {
+                $checksum += array_sum(str_split($val * (2 - ($pos % 2))));
+            }
+            $checksum = ((10 - ($checksum % 10)) % 10);
+            return ($parts[3] == $checksum);
+        } elseif (preg_match('~(^[KLMNPQRSW])(\d{7})([JABCDEFGHI]$)~', $cif, $parts)) {
+            $control = 'JABCDEFGHI';
+            $checksum = 0;
+            foreach (str_split($parts[2]) as $pos => $val) {
+                $checksum += array_sum(str_split($val * (2 - ($pos % 2))));
+            }
+            $checksum = substr($control, ((10 - ($checksum % 10)) % 10), 1);
+            return ($parts[3] == $checksum);
+        }
+        return false;
+    }
+
+    //Validate company cif
+    public function validateCif($cif)
+    {
+        $cifResult = $this->cifValidation($cif);
+
+        if (empty($cif)) {
+            $data['cifError'] = "El CIF es obligatorio";
+        } elseif ($cifResult != 1) {
+            $data['cifError'] = "El CIF no es válido";
+        } else {
+            $data['cifError'] = "";
+        }
+        return $data['cifError'];
+    }
+
     //Métodos que pide la clase para no dar error
     public function get()
     {

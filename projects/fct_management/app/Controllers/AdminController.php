@@ -31,30 +31,18 @@ class AdminController extends BaseController
             };
 
             //Name validation
-            // if (empty($_POST["c_name"])) {
-            //     $data['nameError'] = "El nombre es obligatorio";
-            // } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", clearData($_POST["c_name"]))) {
-            //     $data['nameError'] = "Solo letras y espacios en blanco.";
-            // } else {
-            //     $company->setName(clearData($_POST["c_name"]));
-            //     $data['c_name'] = clearData($_POST["c_name"]);
-            // }
             $data['nameError'] = $validation->validateName($_POST["c_name"]);
             if ($validation->validateName($_POST["c_name"]) == "") {
-                $company->setName(clearData($_POST["c_name"]));
                 $data['c_name'] = clearData($_POST["c_name"]);
+                $company->setName(clearData($_POST["c_name"]));
             } 
                 
             //Cif validation
-            if (empty($_POST["c_cif"])) {
-                $data['cifError'] = "El CIF es obligatorio";
-            } elseif (cif_validation(clearData($_POST["c_cif"])) != 1) {
-                $data['cifError'] = "El CIF no es válido";
+            $data['cifError'] = $validation->validateCif($_POST["c_cif"]);
+            if ($validation->validateCif($_POST["c_cif"]) == "") {
                 $data['c_cif'] = clearData($_POST["c_cif"]);
-            } else {
                 $company->setCif(clearData($_POST["c_cif"]));
-                $data['c_cif'] = clearData($_POST["c_cif"]);
-            }
+            } 
 
             //Addres validation
             if (empty($_POST["c_address"])) {
