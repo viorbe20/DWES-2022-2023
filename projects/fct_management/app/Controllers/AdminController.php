@@ -9,6 +9,10 @@ require_once('..\require\cif_validation.php');
 
 class AdminController extends BaseController
 {
+    public function workerInfoAction()
+    {
+        $this->renderHTML('../view/worker_info.php');
+    }
 
     public function companyInfoAction()
     {
@@ -131,21 +135,27 @@ class AdminController extends BaseController
                 }
             }
 
-            $this->renderHTML('../view/companies_add.php', $data);
+            $this->renderHTML('../view/company_info.php', $data);
         } else {
-            $this->renderHTML('../view/companies_add.php');
+            $this->renderHTML('../view/company_info.php');
         }
     }
 
     public function adminAction()
     {
         $data = array();
-
-        //Shows last 5 companies
         $company = Company::getInstancia();
-        $data['lastCompanies'] = $company->getSome();
 
-        $this->renderHTML('../view/companies_view.php', $data);
+        if (isset($_POST['search_company_button']) && !empty($_POST['search_company'])) {
+            $data['matchCompanies'] = $company->getByName($_POST['search_company']);
+            $this->renderHTML('../view/companies_view.php', $data);    
+        } else {
+            //Shows last 5 companies
+            $data['lastCompanies'] = $company->getSome();
+            $this->renderHTML('../view/companies_view.php', $data);
+        }
+        
+
     }
 
     public function logoutAction()
