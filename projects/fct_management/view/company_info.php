@@ -6,42 +6,6 @@ require('../view/require/footer_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 
-if (!isset($data['nameError'])) {
-    $nameError = '';
-} else {
-    $nameError = $data['nameError'];
-}
-
-if (!isset($data['cifError'])) {
-    $cifError = '';
-} else {
-    $cifError = $data['cifError'];
-}
-
-if (!isset($data['addressError'])) {
-    $addressError = '';
-} else {
-    $addressError = $data['addressError'];
-}
-
-if (!isset($data['phoneError'])) {
-    $phoneError = '';
-} else {
-    $phoneError = $data['phoneError'];
-}
-
-if (!isset($data['emailError'])) {
-    $emailError = '';
-} else {
-    $emailError = $data['emailError'];
-}
-
-if (!isset($data['logoError'])) {
-    $logoError = '';
-} else {
-    $logoError = $data['logoError'];
-}
-
 if (isset($data)) {
     var_dump($data);
 }
@@ -69,31 +33,28 @@ if (isset($data)) {
                 <fieldset>
                     <legend>Datos Empresa</legend>
                     <div><label for="c_name">Nombre</label><span> *</span>
-                        <span class="error"><?php echo $nameError ?></span>
+                        <span class="error"><?php if (isset($data['nameError'])) echo $data['nameError'];  ?></span>
                     </div>
                     <div><input type="text" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>"></div>
 
-
                     <div><label for="c_cif">Cif</label><span> *</span>
-                        <span class="error"><?php echo $cifError; ?></span>
+                        <span class="error"><?php if (isset($data['cifError'])) echo $data['cifError'];  ?></span>
                     </div>
                     <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>"></div>
 
-
                     <div><label for="c_address">Dirección</label><span> *</span>
-                        <span class="error"><?php echo $addressError; ?></span>
+                        <span class="error"><?php if (isset($data['addressError'])) echo $data['addressError'];  ?></span>
+
                     </div>
                     <div><input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>"></div>
 
-
                     <div><label for="c_phone">Teléfono </label><span> *</span>
-                        <span class="error"><?php echo $phoneError; ?></span>
+                        <span class="error"><?php if (isset($data['phoneError'])) echo $data['phoneError'];  ?></span>
                     </div>
                     <div><input type="number" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>"></div>
 
-
                     <div><label for="c_email">Email </label><span> *</span>
-                        <span class="error"><?php echo $emailError; ?></span>
+                        <span class="error"><?php if (isset($data['emailError'])) echo $data['emailError']; ?></span>
                     </div>
                     <div><input type="email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>"></div>
 
@@ -104,12 +65,12 @@ if (isset($data)) {
                 <fieldset>
                     <legend>Logo</legend>
                     <input type="file" name="c_logo">
-                    <span class="error"><?php echo $logoError; ?></span>
+                    <span class="error"><?php if (isset($data['logoError'])) echo $data['logoError']; ?></span>
                 </fieldset>
 
                 <fieldset>
                     <legend>Empleados</legend>
-                    <a href= "<?php echo DIRBASEURL . '/home/companies/worker_info'?>;" > <input type="button" value="Añadir empleado" id="add_employee"></a>
+                    <a href="<?php echo DIRBASEURL . '/home/companies/worker_info' ?>;"> <input type="button" value="Añadir empleado" id="add_employee"></a>
                 </fieldset>
 
                 <fieldset>

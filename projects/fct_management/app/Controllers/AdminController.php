@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Company;
+use App\Models\Validation;
 
 require_once('..\app\Config\constantes.php');
 require_once('..\require\cif_validation.php');
@@ -19,6 +20,7 @@ class AdminController extends BaseController
         if (isset($_POST['add_new_company'])) {
             $data = array();
             $company = Company::getInstancia();
+            $validation = Validation::getInstancia();
 
             function clearData($data)
             {
@@ -29,15 +31,20 @@ class AdminController extends BaseController
             };
 
             //Name validation
-            if (empty($_POST["c_name"])) {
-                $data['nameError'] = "El nombre es obligatorio";
-            } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", clearData($_POST["c_name"]))) {
-                $data['nameError'] = "Solo letras y espacios en blanco.";
-            } else {
+            // if (empty($_POST["c_name"])) {
+            //     $data['nameError'] = "El nombre es obligatorio";
+            // } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", clearData($_POST["c_name"]))) {
+            //     $data['nameError'] = "Solo letras y espacios en blanco.";
+            // } else {
+            //     $company->setName(clearData($_POST["c_name"]));
+            //     $data['c_name'] = clearData($_POST["c_name"]);
+            // }
+            $data['nameError'] = $validation->validateName($_POST["c_name"]);
+            if ($validation->validateName($_POST["c_name"]) == "") {
                 $company->setName(clearData($_POST["c_name"]));
                 $data['c_name'] = clearData($_POST["c_name"]);
-            }
-
+            } 
+                
             //Cif validation
             if (empty($_POST["c_cif"])) {
                 $data['cifError'] = "El CIF es obligatorio";

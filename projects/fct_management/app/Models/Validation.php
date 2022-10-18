@@ -27,6 +27,19 @@ class Validation extends DBAbstractModel
     //Propiedades del objeto
     private $id;
 
+    //Validate company name
+    public function validateName($name)
+    {
+        if (empty($name)) {
+            $data['nameError'] = "El nombre es obligatorio";
+        } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", $name)) {
+            $data['nameError'] = "Solo letras y espacios en blanco.";
+        } else {
+            $data['nameError'] = "";
+        }
+        return $data['nameError'];
+    }
+
     //Métodos que pide la clase para no dar error
     public function get()
     {
