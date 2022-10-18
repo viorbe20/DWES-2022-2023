@@ -53,8 +53,8 @@ if (isset($data['lastCompanies'])) {
                 <th>Logo</th>
                 <th>Nombre</th>
                 <th>Teléfono</th>
-                <th>Editar</th>
                 <th>Eliminar</th>
+                <th>Editar</th>
             </tr>
             <tr>
                 <?php

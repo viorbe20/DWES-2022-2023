@@ -31,7 +31,7 @@ if (isset($data['loginMsg'])) {
         <input type="text" name="user_name" required >
 
         <label for="user_psw"><b>Contraseña</b></label>
-        <input type="password" name="user_psw" value="admin1" required>
+        <input type="password" name="user_psw" value="" required>
 
         <button type="submit" name="login">Login</button>
     </div>

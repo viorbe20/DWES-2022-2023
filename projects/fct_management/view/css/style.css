@@ -16,7 +16,8 @@
 #form-login {
   border: 3px solid #f1f1f1;
   background-color: var(--light-grey);
-  margin: 0% 10%;
+  margin: 0% 30%;
+  box-shadow: 2px 2px rgb(201, 196, 196);
 }
 #form-login .imgcontainer {
   text-align: center;
