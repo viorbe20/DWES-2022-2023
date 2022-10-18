@@ -9,6 +9,7 @@
  */
 
 require ("../../../require/view_home.php");
+echo "</br>";
 
 //Tipos de perfiles
 $adminProfile = "admin";

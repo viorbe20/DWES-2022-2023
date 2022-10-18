@@ -1,6 +1,6 @@
 <?php
 /**
- * Ejercicio 3. Define un array que permita almacenar y mostrar la siguiente información.
+ * Ejercicio 2. Define un array que permita almacenar y mostrar la siguiente información.
  * a. Meses del año.
  * b. Tablero para jugar al juego de los barcos.
  * c. Nota de los alumnos de 2º DAW para el módulo DWES. 
@@ -11,6 +11,7 @@
  */
 
 require ("../../../require/view_home.php");
+echo "</br>";
 
 
 $studentsDaw = array(

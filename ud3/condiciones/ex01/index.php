@@ -6,6 +6,8 @@
  * @date: October 2022
  */
 require ("../../../require/view_home.php");
+echo "</br>";
+
 $num1 = 5;
 $num2 = 2;
 $num3 = 3;

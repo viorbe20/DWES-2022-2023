@@ -1,116 +1,91 @@
 <?php
-
 /**
- * Ejercicio 4. 
- * Un restaurante dispone de una carta de 3 primeros, 5 segundos y 3 postres. 
- * Almacenar información incluyendo image y mostrar los menús disponibles. 
- * Mostrar el precio del menú suponiendo que éste se calcula 
- * sumando el precio de cada uno de los platos incluidos y con un descuento del 20 %.
+ * Unidad 3. Act 3.
+ * Ejercicio 4. Un restaurante dispone de una carta de 3 primeros, 5 segundos y 3 postres. 
+ * Almacenar información incluyendo foto y mostrar los menús disponibles.
+ *  Mostrar el precio del menú suponiendo que éste se calcula 
+ * sumando el precio de cada uno de los platos incluidos y con un descuento del 20 %. 
  * @author: Virginia Ordoño Bernier
- * @date: September 2022 
+ * @date: October 2021st
+ * http://192.168.10.10/ud3/ud3_act3/ej4/index.php
  */
-require("../../../require/view_home.php");
 
 $menu = array(
-    array(    
+
+    $starters = array(
         array(
-        "name" => "Ensalada",
-        "price" => 5,
-        "image" => "ensalada.jpg"
+            "name" => "Ensalada César",
+            "price" => 4,
+            "img" => "caesarSalad.jpg"
         ),
         array(
-        "name" => "Sopa",
-        "price" => 4,
-        "image" => "sopa.jpg"
+            "name" => "Nachos con Hummus",
+            "price" => 5,
+            "img" => "hummusNachos.jpg"
         ),
         array(
-        "name" => "Crema",
-        "price" => 3,
-        "image" => "crema.jpg"
+            "name" => "Poke de Salmón",
+            "price" => 6,
+            "img" => "salmonPoke.jpg"
         )
-        ),
-    array(
+    ),
+    $mainDishes = array(
         array(
-        "name" => "Lentejas",
-        "price" => 6,
-        "image" => "lentejas.jpg"
-        ),
-        array(
-        "name" => "Arroz",
-        "price" => 7,
-        "image" => "arroz.jpg"
+            "name" => "Costillas a la Barbacos",
+            "price" => 8.50,
+            "img" => "bbqRibs.jpg"
         ),
         array(
-        "name" => "Pasta",
-        "price" => 8,
-        "image" => "pasta.jpg"
+            "name" => "Pollo Villaroy",
+            "price" => 6.75,
+            "img" => "villaroyChicken.jpg"
         ),
         array(
-        "name" => "Pollo",
-        "price" => 9,
-        "image" => "pollo.jpg"
-        ),
-        array(
-        "name" => "Carne",
-        "price" => 10,
-        "image" => "carne.jpg"
+            "name" => "Entrecot",
+            "price" => 9,
+            "img" => "entrecote.jpg"
         )
-        ),
-    array(
+    ),
+    $desserts = array(
         array(
-        "name" => "Flan",
-        "price" => 4,
-        "image" => "flan.jpg"
-        ),
-        array(
-        "name" => "Tarta",
-        "price" => 5,
-        "image" => "tarta.jpg"
+            "name" => "Brownie",
+            "price" => 3,
+            "img" => "brownie.jpg"
         ),
         array(
-        "name" => "Helado",
-        "price" => 6,
-        "image" => "helado.jpg"
+            "name" => "Tarta de Chocolate",
+            "price" => 4.75,
+            "img" => "chocolateCake.jpg"
         ),
         array(
-        "name" => "Natillas",
-        "price" => 3,
-        "image" => "natillas.jpg"
-        ),
-        array(
-        "name" => "Yogur",
-        "price" => 2,
-        "image" => "yogur.jpg"
+            "name" => "Croissant de Frutas",
+            "price" => 2,25,
+            "img" => "fruitCroissant.jpg"
         )
     )
 );
 
+/**
+ * Función que recibe un array con platos y muestra las posibles combinaciones
+ * 
+ * @param array
+ */
+function showMenus($array)
+{   echo("<h1>Menús del Día</h1>");
+    
+    foreach ($array[0] as $comida1) {
+        foreach ($array[1] as $comida2) {
+            foreach ($array[2] as $comida3) {
+                $totalBill = ($comida1["price"] + $comida2["price"] +$comida3["price"]);
+                $discountBill = ($totalBill - ($totalBill*0.20));
+                echo("<img src= ./img/>". $comida1["img"] . $comida1["name"]."<br>");
+                echo("<img src= ./img/>". $comida2["img"] . $comida2["name"]."<br>");
+                echo("<img src= ./img/>". $comida3["img"] . $comida3["name"]." Precio: ".$discountBill." €"."<br><br>");
+            }
+        }
+    }
+}
+
+//Muestra por pantalla
+showMenus($menu);
 ?>
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta name='author' content='Virginia Ordoño Bernier'>
-    <title></title>
-</head>
-
-<body>
-    <main>
-    <div class='enunciado'>
-                <h3>Ejercicio 4</h3>
-                <p>Un restaurante dispone de una carta de 3 primeros, 5 segundos y 3 postres.</p>
-                <ol>
-                    <li>Almacenar información incluyendo image y mostrar los menús disponibles.</li>
-                    <li>Mostrar el price del menú.</li>
-                    <li>El price se calcula sumando el price de cada uno de los platos incluidos y con un descuento del 20 %.</li>
-                </ol>
-                <hr>
-    </div>
-
-    </main>
-</body>
-
-</html>

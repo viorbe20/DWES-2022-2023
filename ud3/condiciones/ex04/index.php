@@ -9,6 +9,7 @@
  */
 
 require ("../../../require/view_home.php");
+echo "</br>";
 
 //Mis datos
 $name = "Virginia";

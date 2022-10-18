@@ -64,18 +64,17 @@ class Company extends DBAbstractModel
         return $result;
     }
 
-    //GEt company through search bar
-    // public function getByName()
-    // {
-    //     $this->query = "SELECT * FROM companies WHERE c_name LIKE '%c_name%'";
-    //     $this->parametros['c_name'] = $this->c_name;
-    //     $this->get_results_from_query();
-    //     return $this->rows;
-    // }
     public function getByName()
     {
         $this->query = "SELECT * FROM companies WHERE c_name LIKE CONCAT('%',:c_name,'%')";
         $this->parametros['c_name'] = $this->c_name;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function lastInsert()
+    {
+        $this->query = "SELECT * FROM companies ORDER BY c_id DESC LIMIT 1";
         $this->get_results_from_query();
         return $this->rows;
     }

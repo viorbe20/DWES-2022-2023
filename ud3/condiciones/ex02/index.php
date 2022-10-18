@@ -12,6 +12,7 @@
  */
 
 require ("../../../require/view_home.php");
+echo "</br>";
 
 $month = strtolower("octubre");
 $year = 2020;

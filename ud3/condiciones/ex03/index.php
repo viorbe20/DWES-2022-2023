@@ -7,6 +7,7 @@
  */
 
 require ("../../../require/view_home.php");
+echo "</br>";
 
 $day = 8;
 $month = 10;

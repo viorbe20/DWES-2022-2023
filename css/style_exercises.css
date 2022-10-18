@@ -6,6 +6,10 @@
   --color5: #3f3e52;
 }
 
+* {
+  background-color: #dfdce3;
+}
+
 #icon-home {
   color: var(--color1);
   position: fixed;

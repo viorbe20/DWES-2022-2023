@@ -9,7 +9,7 @@ $ejercicios = array(
     formulario que permita seleccionar un país y nos muestre el nombre de la capital y la bandera.', 'enlace' => 'ex03/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud3/formularios/ex03/index.php'),
     array('id' => 4, 'titulo' => 'Ejercicio 4', 'descripcion' => 'Crear un script para sumar una serie de números. El número de números a sumar será introducido en
     un formulario.', 'enlace' => 'ex04/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud3/formularios/ex04/index.php'),
-    
+    array('id' => 5, 'titulo' => 'Ejercicio 5', 'descripcion' => ' Tabla de multiplicar del 1 al 10. El programa muestra huecos para completar. Comprueba que los números introducidos son correctos y muestra resultado.', 'enlace' => 'ex05/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/ud3/formularios/ex05/index.php'),
     )
 ?>
 

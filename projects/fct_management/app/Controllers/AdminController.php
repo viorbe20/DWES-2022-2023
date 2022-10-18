@@ -6,7 +6,6 @@ use App\Models\Company;
 use App\Models\Validation;
 
 require_once('..\app\Config\constantes.php');
-require_once('..\require\cif_validation.php');
 
 class AdminController extends BaseController
 {
@@ -123,6 +122,29 @@ class AdminController extends BaseController
                 }
             }
 
+            //Company creation
+            $company->setName($_POST['c_name']);
+            $company->setCif($_POST['c_cif']);
+            $company->setAddress($_POST['c_address']);
+            $company->setPhone($_POST['c_phone']);
+            $company->setEmail($_POST['c_email']);
+            $company->setCreatedAt(date('Y-m-d H:i:s'));
+            $company->setUpdatedAt(date('Y-m-d H:i:s'));
+            
+            if (isset($_POST['c_description'])) {
+                $company->setDescription($_POST['c_description']);
+            } else {
+                $company->setDescription("");
+            }
+            if (isset($_POST['c_logo'])) {
+                $id = $company->lastInsert();
+                $number = $id[0]['c_id'] + 1;
+                $company->setLogo(($number . "." .$imageFileType));
+            } else {
+                $company->setLogo("unknown.png");
+            }
+
+            $company->set();
             $this->renderHTML('../view/company_info.php', $data);
         } else {
             $this->renderHTML('../view/company_info.php');

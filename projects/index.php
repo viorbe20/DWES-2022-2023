@@ -2,8 +2,9 @@
 require("../require/view_home.php");
 
 $ejercicios = array(
-    array('id' => 1, 'titulo' => 'Ejercicio 1', 'descripcion' => 'Verbos irregulares.', 'enlace' => 'verbos//index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/projects/verbs/index.php'),
-)
+    array('id' => 1, 'titulo' => 'Ejercicio 1', 'descripcion' => 'Verbos irregulares.', 'enlace' => 'verbos/index.php', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/projects/verbs/index.php'),
+    array('id' => 2, 'titulo' => 'Ejercicio 2', 'descripcion' => 'FCT Management.', 'enlace' => 'fct_management/public/index.php/home', 'github' => 'https://github.com/viorbe20/DWES-2022-2023/tree/main/projects/fct_managemente/public/index.php'),
+    )
 ?>
 
 <!DOCTYPE html>

@@ -11,6 +11,7 @@
  * @date: September 2022 
  */
 require("../../../require/view_home.php");
+echo "</br>";
 
 $randomArray = array(
     "months" => array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"),

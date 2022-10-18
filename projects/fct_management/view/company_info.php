@@ -51,7 +51,7 @@ if (isset($data)) {
                     <div><label for="c_phone">Teléfono </label><span> *</span>
                         <span class="error"><?php if (isset($data['phoneError'])) echo $data['phoneError'];  ?></span>
                     </div>
-                    <div><input type="number" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>"></div>
+                    <div><input type="phone" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>"></div>
 
                     <div><label for="c_email">Email </label><span> *</span>
                         <span class="error"><?php if (isset($data['emailError'])) echo $data['emailError']; ?></span>
