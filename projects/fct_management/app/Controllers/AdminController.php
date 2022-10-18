@@ -10,7 +10,7 @@ require_once('..\require\cif_validation.php');
 class AdminController extends BaseController
 {
 
-    public function addCompanyAction()
+    public function companyInfoAction()
     {
         if (isset($_POST['add_new_company'])) {
             $data = array();
@@ -86,7 +86,7 @@ class AdminController extends BaseController
                 if (isset($_POST["submit"])) {
                     $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
                     if ($check !== false) {
-                        $data['logoError'] = "El archivo e suan imagen - " . $check["mime"] . ".";
+                        $data['logoError'] = "El archivo es una imagen - " . $check["mime"] . ".";
                         $uploadOk = 1;
                     } else {
                         $data['logoError'] = "El archivo no es una imagen.";
@@ -155,4 +155,5 @@ class AdminController extends BaseController
         session_destroy();
         header('Location:' . DIRBASEURL . '/home');
     }
+
 }

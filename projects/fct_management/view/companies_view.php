@@ -32,7 +32,7 @@ if (isset($data['lastCompanies'])) {
 
             <form action="" method="post">
                 <input type="text" name="search" id="search" placeholder="Nombre empresa...">
-                <button type="submit" name="submit-search">
+                <button type="submit" name="search_company">
                     <span class="material-symbols-outlined">
                         search
                     </span>
