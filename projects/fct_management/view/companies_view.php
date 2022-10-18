@@ -53,6 +53,7 @@ if (isset($data['lastCompanies'])) {
                 <th>Logo</th>
                 <th>Nombre</th>
                 <th>Teléfono</th>
+                <th>Empleados</th>
                 <th>Eliminar</th>
                 <th>Editar</th>
             </tr>
@@ -66,6 +67,9 @@ if (isset($data['lastCompanies'])) {
                     echo "<td>" . $value['c_name'] . "</td>";
                     echo "<td>" . $value['c_phone'] . "</td>";
                 ?>
+                <td><a href=""><span class="material-symbols-outlined">
+                                group
+                            </span></a></td>
                     <td><a href=""><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>

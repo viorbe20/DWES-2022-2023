@@ -7,6 +7,7 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
 if (isset($data['loginMsg'])) {
     $loginMsg = $data['loginMsg'];
     $class = "class='error-message'";
+    var_dump($loginMsg);
 } else {
     $class = $loginMsg = '';
 }
@@ -26,7 +27,6 @@ if (isset($data['loginMsg'])) {
     </div>
 
     <div class="container">
-
         <label for="user_name"><b>Usuario</b></label>
         <input type="text" name="user_name" required >
 
