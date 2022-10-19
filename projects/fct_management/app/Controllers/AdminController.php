@@ -23,6 +23,7 @@ class AdminController extends BaseController
         $company->setId($companyId);
         
         if (isset($_POST['delete_current_company'])) {
+            $company->delete($companyId);
             $this->renderHTML('../view/companies_view.php', $data);
         } else { //Only show the form
             foreach ($company->getById() as $key => $value) {
@@ -171,7 +172,7 @@ class AdminController extends BaseController
                 $company->setUpdatedAt(date('Y-m-d H:i:s'));
                 $company->edit();
             }
-            
+
             $this->renderHTML('../view/companies_view.php', $data);
         } else {
             //First time we load the page
