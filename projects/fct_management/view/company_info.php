@@ -89,7 +89,7 @@ if (isset($data['newCompany'])) {
 
                 <fieldset>
                     <legend>Empleados</legend>
-                    <a href="<?php echo DIRBASEURL . '/home/companies/worker_info' ?>;"> <input type="button" value="Añadir empleado" id="add_employee"></a>
+                    <a href="<?php echo DIRBASEURL . '/home/companies/employee_profile' ?>;"> <input type="button" value="Añadir empleado" id="add_employee"></a>
                 </fieldset>
 
                 <fieldset>
