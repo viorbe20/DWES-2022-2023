@@ -72,6 +72,20 @@ class Company extends DBAbstractModel
         return $this->rows;
     }
 
+    public function getAllEmployees() {
+        $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getEmployeesFromOneCompany() {
+        $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+
     public function lastInsert()
     {
         $this->query = "SELECT * FROM companies ORDER BY c_id DESC LIMIT 1";

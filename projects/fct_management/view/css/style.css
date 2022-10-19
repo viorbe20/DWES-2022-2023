@@ -65,12 +65,12 @@
   flex-direction: column;
 }
 
-#form-search-company {
+#form-search-company, #form_search_employee {
   display: flex;
   justify-content: space-around;
   margin: 0% 20%;
 }
-#form-search-company form {
+#form-search-company form, #form_search_employee form {
   border: 1px solid #f1f1f1;
   width: 80%;
   padding: 1% 0%;
@@ -78,7 +78,7 @@
   justify-content: center;
   align-items: center;
 }
-#form-search-company form input[type=text] {
+#form-search-company form input[type=text], #form_search_employee form input[type=text] {
   width: 90%;
   *margin: 0% 1%;
   padding: 1.5% 2%;
@@ -86,7 +86,7 @@
   border: 2px solid #ccc;
   border-radius: 15px;
 }
-#form-search-company form button {
+#form-search-company form button, #form_search_employee form button {
   *width: 10%;
   margin: 0% 1%;
   padding: 1.5% 2%;
@@ -99,7 +99,7 @@
   justify-content: center;
   align-items: center;
 }
-#form-search-company form button:hover {
+#form-search-company form button:hover, #form_search_employee form button:hover {
   opacity: 0.8;
 }
 

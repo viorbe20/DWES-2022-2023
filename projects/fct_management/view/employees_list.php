@@ -27,11 +27,11 @@ if (isset($data)) {
 
 <main id='main_companies'>
 
-<section class="search-box" id="form-search-company">
+<section class="search-box" id="form_search_employee">
 
     <form action="" method="post">
-        <input type="text" name="search_company" id="search" placeholder="Nombre empresa...">
-        <button type="submit" name="search_company_button">
+        <input type="text" name="search_employee" id="search" placeholder="Nombre empleado...">
+        <button type="submit" name="search_employee_button">
             <span class="material-symbols-outlined">
                 search
             </span>
@@ -51,29 +51,22 @@ if (isset($data)) {
     <tr>
         <th>Nombre</th>
         <th>Puesto</th>
+        <th>Eliminar</th>
+        <th>Editar</th>
     </tr>
     <tr>
         <?php
-        foreach ($lastCompanies as $key => $value) {
-            //Shows an image inside a td
-            echo "<td><img src='" . DIRFCT . "/assets/img/logos/" . $value['c_logo'] . "' alt='Logo de la empresa' width='50px' height='50px'></td>";
-
-
-            echo "<td>" . $value['c_name'] . "</td>";
-            echo "<td>" . $value['c_phone'] . "</td>";
+        foreach ($data['employees'] as $key => $value) {
+            echo "<td>" . $value['emp_name'] . "</td>";
+            echo "<td>" . $value['emp_job'] . "</td>";
         ?>
             </a></td>
-            <!--Employees-->
-            <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
-                        group
-                    </span></a></td>
-
-            <!--Delete company-->
-            <td><a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+            <!--Delete employee-->
+            <td><a href="<?php echo DIRBASEURL . '/home/employees_list/employee_delete/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
                         delete
                     </span></a></td>
-            <!--Edit company-->
-            <td><a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+            <!--Edit employee-->
+            <td><a href="<?php echo DIRBASEURL . '/home/employees_list/employee_edit/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
                         edit
                     </span></a></td>
     </tr>

@@ -14,9 +14,15 @@ class AdminController extends BaseController
         $this->renderHTML('../view/employee_profile.php');
     }
 
-    public function employeesListAction()
+    public function employeesListAction($request)
     {
-        $this->renderHTML('../view/employees_list.php');
+        $data = array();
+        $company = Company::getInstancia();
+        $rest = explode("/", $request);
+        $companyId = (int)end($rest);
+        $company->setId($companyId);   
+        $data['employees'] = $company->getEmployeesFromOneCompany();
+        $this->renderHTML('../view/employees_list.php', $data);
     }
 
     public function companyDeleteAction ($request)
