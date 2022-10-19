@@ -14,13 +14,22 @@ class AdminController extends BaseController
         $this->renderHTML('../view/worker_info.php');
     }
 
-    public function companyInfoAction()
+    public function companyEditAction($request)
     {
         $company = Company::getInstancia();
-        var_dump($company->lastInsert()[0]['c_id']);
+        $rest = explode("/", $request);
+        $companyId = end($rest); //Get id from url
+        $company->setId($companyId);
 
+        $this->renderHTML('../view/company_info.php');
+    }
+
+    public function companyInfoAction()
+    {
+        
         if (isset($_POST['add_new_company'])) {
             $data = array();
+            $company = Company::getInstancia();
             $validation = Validation::getInstancia();
 
             function clearData($data)
@@ -148,9 +157,8 @@ class AdminController extends BaseController
                 $company->set();
             }
 
-            //$data['readonly'] = "readonly";
-
-            //$data['newCompany'] = $_POST['c_name'];
+            $data['readonly'] = "readonly";
+            $data['newCompany'] = $_POST['c_name'];
 
             $this->renderHTML('../view/company_info.php', $data);
         } else {

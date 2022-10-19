@@ -80,7 +80,8 @@ if (isset($data['matchCompanies'])) {
                     <td><a href=""><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
-                    <td><a href=""><span class="material-symbols-outlined">
+                    <!--redirect to company_info giving an id-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_info/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 edit
                             </span></a></td>
             </tr>
