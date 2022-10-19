@@ -84,7 +84,7 @@ if (isset($data['deletedCompany'])) {
                 ?>
                     </a></td>
                     <!--Employees-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees_info/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 group
                             </span></a></td>
 

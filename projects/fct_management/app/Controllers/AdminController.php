@@ -9,9 +9,14 @@ require_once('..\app\Config\constantes.php');
 
 class AdminController extends BaseController
 {
-    public function employeesInfoAction()
+    public function employeeProfileAction()
     {
-        $this->renderHTML('../view/employees_info.php');
+        $this->renderHTML('../view/employee_profile.php');
+    }
+
+    public function employeesListAction()
+    {
+        $this->renderHTML('../view/employees_list.php');
     }
 
     public function companyDeleteAction ($request)

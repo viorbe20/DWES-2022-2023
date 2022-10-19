@@ -58,9 +58,16 @@ $router->add(array(
 ));
 
 $router->add(array(
-    'name'=>'worker_info',
-    'path'=>'/^\/home\/employees_info\/\d{1,3}$/',
-    'action'=>[AdminController::class, 'employeesInfoAction'],
+    'name'=>'employees_list',
+    'path'=>'/^\/home\/employees_list\/\d{1,3}$/',
+    'action'=>[AdminController::class, 'employeesListAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
+    'name'=>'employee_profile',
+    'path'=>'/^\/home\/employee_profile\/\d{1,3}$/',
+    'action'=>[AdminController::class, 'employeeProfileAction'],
     'auth'=>["admin"]
 ));
 
