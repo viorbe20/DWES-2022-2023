@@ -109,6 +109,11 @@ if (isset($data['newCompany'])) {
             <input type="submit" value="Eliminar" name="delete_current_company" id="btn_add_company">
             <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
             <?php
+        } elseif (isset($data['editCompany'])) {
+        ?>
+        <input type="submit" value="Editar" name="edit_current_company" id="btn_add_company">
+        <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
+        <?php 
         } else {
             ?>
             <input type="submit" value="Enviar" name="add_new_company" id="btn_add_company">

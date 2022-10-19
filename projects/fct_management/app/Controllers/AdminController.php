@@ -46,7 +46,7 @@ class AdminController extends BaseController
         $companyId = (int)end($rest);
         $company->setId($companyId);
 
-        if (isset($_POST['add_new_company'])) {
+        if (isset($_POST['edit_current_company'])) {
             $validation = Validation::getInstancia();
 
             function clearData($data)
@@ -171,7 +171,8 @@ class AdminController extends BaseController
                 $company->setUpdatedAt(date('Y-m-d H:i:s'));
                 $company->edit();
             }
-            $this->renderHTML('../view/company_info.php', $data);
+            
+            $this->renderHTML('../view/companies_view.php', $data);
         } else {
             //First time we load the page
             $company->setId($companyId);
@@ -183,6 +184,7 @@ class AdminController extends BaseController
                 $data['c_email'] = $value['c_email'];
                 $data['c_logo'] = $value['c_logo'];
                 $data['c_description'] = $value['c_description'];
+                $data['editCompany'] = $value['c_name'];
             }
             $this->renderHTML('../view/company_info.php', $data);
         }
