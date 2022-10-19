@@ -45,8 +45,15 @@ $router->add(array(
 
 $router->add(array(
     'name'=>'company_edit',
-    'path'=>'/^\/home\/companies\/company_info\/\d{1,3}$/',
-    'action'=>[AdminController::class, 'companyInfoAction'],
+    'path'=>'/^\/home\/companies\/company_edit\/\d{1,3}$/',
+    'action'=>[AdminController::class, 'companyEditAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
+    'name'=>'company_delete',
+    'path'=>'/^\/home\/companies\/company_delete\/\d{1,3}$/',
+    'action'=>[AdminController::class, 'companyDeleteAction'],
     'auth'=>["admin"]
 ));
 

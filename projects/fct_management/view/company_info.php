@@ -103,10 +103,17 @@ if (isset($data['newCompany'])) {
         </section>
 
         <section id='form_company_section_down'>
-
+    <?php
+        if (isset($data['deleteCompany'])) {
+            ?>
+            <input type="submit" value="Eliminar" name="delete_current_company" id="btn_add_company">
+            <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
+            <?php
+        } else {
+            ?>
             <input type="submit" value="Enviar" name="add_new_company" id="btn_add_company">
-            <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" id="btn_reset">Borrar</a>
-
+            <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" id="btn_reset">Cancelar</a>
+        <?php } ?>
         </section>
 
     </form>

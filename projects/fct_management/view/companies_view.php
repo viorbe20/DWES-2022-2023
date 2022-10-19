@@ -33,6 +33,14 @@ if (isset($data['matchCompanies'])) {
 </head>
 
 <body>
+<?php
+if (isset($data['deletedCompany'])) {
+    //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
+    echo "<script>
+        alert(Empresa " . $data['deletedCompany'] . " eliminada correctamente.);
+    </script>";
+}
+?>
     <main id='main_companies'>
 
         <section class="search-box" id="form-search-company">
@@ -74,14 +82,18 @@ if (isset($data['matchCompanies'])) {
                     echo "<td>" . $value['c_name'] . "</td>";
                     echo "<td>" . $value['c_phone'] . "</td>";
                 ?>
-                <td><a href=""><span class="material-symbols-outlined">
+                    </a></td>
+                    <!--Employees-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees_info/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 group
                             </span></a></td>
-                    <td><a href=""><span class="material-symbols-outlined">
+
+                    <!--Delete company-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
-                    <!--redirect to company_info giving an id-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_info/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <!--Edit company-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 edit
                             </span></a></td>
             </tr>
