@@ -14,22 +14,32 @@ class AdminController extends BaseController
         $this->renderHTML('../view/worker_info.php');
     }
 
-    public function companyEditAction($request)
+    public function companyInfoAction($request)
     {
+        $data = array();
         $company = Company::getInstancia();
+        $editionMode = false;
+
+        //Edit mode
         $rest = explode("/", $request);
-        $companyId = end($rest); //Get id from url
-        $company->setId($companyId);
+        if (end($rest) != "company_info") {
+            $editionMode = true;
+            $companyId = (int)end($rest); //Get id from url
+            $company->setId($companyId);
+            foreach ($company->getById() as $key => $value) {
+                $data['c_name'] = $value['c_name'];
+                $data['c_cif'] = $value['c_cif'];
+                $data['c_address'] = $value['c_address'];
+                $data['c_phone'] = $value['c_phone'];
+                $data['c_email'] = $value['c_email'];
+                $data['c_logo'] = $value['c_logo'];
+                $data['c_description'] = $value['c_description'];
+            }
 
-        $this->renderHTML('../view/company_info.php');
-    }
+            $this->renderHTML('../view/company_info.php', $data);
+        }
 
-    public function companyInfoAction()
-    {
-        
         if (isset($_POST['add_new_company'])) {
-            $data = array();
-            $company = Company::getInstancia();
             $validation = Validation::getInstancia();
 
             function clearData($data)
@@ -42,13 +52,14 @@ class AdminController extends BaseController
 
             $data['nameError'] = $data['cifError'] = $data['addressError'] = $data['phoneError'] = $data['emailError'] = "Error";
 
-            //Name validation            
+            //Name validation
+
             $data['c_name'] = clearData($_POST["c_name"]);
             $company->setName($_POST["c_name"]);
-            
+
             if (!$data['nameError'] == "") {
                 $data['nameError'] = $validation->validateName(clearData($_POST["c_name"]));
-            } 
+            }
 
             //Cif validation
             $data['c_cif'] = clearData($_POST["c_cif"]);
@@ -56,31 +67,31 @@ class AdminController extends BaseController
 
             if (!$data['cifError'] == "") {
                 $data['cifError'] = $validation->validateCif(clearData($_POST["c_cif"]));
-            } 
+            }
 
             //Address validation
             $data['c_address'] = clearData($_POST["c_address"]);
             $company->setAddress($_POST['c_address']);
-            
+
             if (!$data['addressError'] == "") {
                 $data['addressError'] = $validation->validateAddress(clearData($_POST["c_address"]));
-            } 
+            }
 
             //Phone validation
             $data['c_phone'] = clearData($_POST["c_phone"]);
             $company->setPhone($_POST['c_phone']);
-            
+
             if (!$data['phoneError'] == "") {
                 $data['phoneError'] = $validation->validatePhone(clearData($_POST["c_phone"]));
-            } 
+            }
 
             //Email validation
             $data['c_email'] = clearData($_POST["c_email"]);
             $company->setEmail($_POST['c_email']);
-            
+
             if (!$data['emailError'] == "") {
                 $data['emailError'] = $validation->validateEmail(clearData($_POST["c_email"]));
-            } 
+            }
 
             //Description validation
             $company->setDescription("");
@@ -88,10 +99,10 @@ class AdminController extends BaseController
             if (isset($data['c_description'])) {
                 $data['c_description'] = clearData($_POST["c_description"]);
                 $company->setDescription($_POST['c_description']);
-            } 
+            }
 
             //Logo upload
-        
+
             $company->setLogo("unknown.png");
 
             if (isset($_FILES['c_logo'])) {
@@ -148,20 +159,21 @@ class AdminController extends BaseController
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
                     }
                 }
-            } 
+            }
 
             //If no errors, insert data
-            if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "" ) {
+            if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "") {
                 $company->setCreatedAt(date('Y-m-d H:i:s'));
                 $company->setUpdatedAt(date('Y-m-d H:i:s'));
-                $company->set();
+                //Create or edit company
+                $editionMode ? $company->edit() : $company->set();
             }
 
             $data['readonly'] = "readonly";
             $data['newCompany'] = $_POST['c_name'];
 
             $this->renderHTML('../view/company_info.php', $data);
-        } else {
+        } else { //If no data, show form
             $this->renderHTML('../view/company_info.php');
         }
     }

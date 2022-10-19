@@ -1,7 +1,7 @@
 <?php
 require('../view/require/header_view.html');
 require('../view/require/profile_view.php');
-require('../view/require/nav_view.html');
+require('../view/require/nav_view.php');
 require('../view/require/footer_view.html');
 echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
