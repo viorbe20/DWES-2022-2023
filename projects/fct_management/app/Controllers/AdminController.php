@@ -16,9 +16,11 @@ class AdminController extends BaseController
 
     public function companyInfoAction()
     {
+        $company = Company::getInstancia();
+        var_dump($company->lastInsert()[0]['c_id']);
+
         if (isset($_POST['add_new_company'])) {
             $data = array();
-            $company = Company::getInstancia();
             $validation = Validation::getInstancia();
 
             function clearData($data)
@@ -29,44 +31,60 @@ class AdminController extends BaseController
                 return $data;
             };
 
-            //Name validation
-            $data['nameError'] = $validation->validateName(clearData($_POST["c_name"]));
-            if ($validation->validateName($_POST["c_name"]) == "") {
-                $data['c_name'] = clearData($_POST["c_name"]);
-                $company->setName(clearData($_POST["c_name"]));
-            } 
-                
-            //Cif validation
-            $data['cifError'] = $validation->validateCif(clearData($_POST["c_cif"]));
-            if ($validation->validateCif($_POST["c_cif"]) == "") {
-                $data['c_cif'] = clearData($_POST["c_cif"]);
-                $company->setCif(clearData($_POST["c_cif"]));
+            $data['nameError'] = $data['cifError'] = $data['addressError'] = $data['phoneError'] = $data['emailError'] = "Error";
+
+            //Name validation            
+            $data['c_name'] = clearData($_POST["c_name"]);
+            $company->setName($_POST["c_name"]);
+            
+            if (!$data['nameError'] == "") {
+                $data['nameError'] = $validation->validateName(clearData($_POST["c_name"]));
             } 
 
-            //Addres validation
-            if (empty($_POST["c_address"])) {
-                $data['addressError'] = "La dirección es obligatoria";
-            } else {
-                $company->setAddress(clearData($_POST["c_address"]));
-                $data['c_address'] = clearData($_POST["c_address"]);
-                $data['addressError'] = "";
-            }
+            //Cif validation
+            $data['c_cif'] = clearData($_POST["c_cif"]);
+            $company->setCif($_POST['c_cif']);
+
+            if (!$data['cifError'] == "") {
+                $data['cifError'] = $validation->validateCif(clearData($_POST["c_cif"]));
+            } 
+
+            //Address validation
+            $data['c_address'] = clearData($_POST["c_address"]);
+            $company->setAddress($_POST['c_address']);
+            
+            if (!$data['addressError'] == "") {
+                $data['addressError'] = $validation->validateAddress(clearData($_POST["c_address"]));
+            } 
 
             //Phone validation
-            $data['phoneError'] = $validation->validatePhone(clearData($_POST["c_phone"]));
-            if ($validation->validatePhone($_POST["c_phone"]) == "") {
-                $data['c_phone'] = clearData($_POST["c_phone"]);
-                $company->setPhone(clearData($_POST["c_phone"]));
+            $data['c_phone'] = clearData($_POST["c_phone"]);
+            $company->setPhone($_POST['c_phone']);
+            
+            if (!$data['phoneError'] == "") {
+                $data['phoneError'] = $validation->validatePhone(clearData($_POST["c_phone"]));
             } 
 
             //Email validation
-            $data['emailError'] = $validation->validateEmail(clearData($_POST["c_email"]));
-            if ($validation->validateEmail($_POST["c_email"]) == "") {
-                $data['c_email'] = clearData($_POST["c_email"]);
-                $company->setEmail(clearData($_POST["c_email"]));
+            $data['c_email'] = clearData($_POST["c_email"]);
+            $company->setEmail($_POST['c_email']);
+            
+            if (!$data['emailError'] == "") {
+                $data['emailError'] = $validation->validateEmail(clearData($_POST["c_email"]));
+            } 
+
+            //Description validation
+            $company->setDescription("");
+
+            if (isset($data['c_description'])) {
+                $data['c_description'] = clearData($_POST["c_description"]);
+                $company->setDescription($_POST['c_description']);
             } 
 
             //Logo upload
+        
+            $company->setLogo("unknown.png");
+
             if (isset($_FILES['c_logo'])) {
                 $target_dir = "../assets/img/logos/";
                 $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
@@ -116,35 +134,24 @@ class AdminController extends BaseController
                     echo $target_file;
                     if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
                         $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
+                        $company->setLogo(basename($_FILES["c_logo"]["name"]));
                     } else {
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
                     }
                 }
+            } 
+
+            //If no errors, insert data
+            if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "" ) {
+                $company->setCreatedAt(date('Y-m-d H:i:s'));
+                $company->setUpdatedAt(date('Y-m-d H:i:s'));
+                $company->set();
             }
 
-            //Company creation
-            $company->setName($_POST['c_name']);
-            $company->setCif($_POST['c_cif']);
-            $company->setAddress($_POST['c_address']);
-            $company->setPhone($_POST['c_phone']);
-            $company->setEmail($_POST['c_email']);
-            $company->setCreatedAt(date('Y-m-d H:i:s'));
-            $company->setUpdatedAt(date('Y-m-d H:i:s'));
-            
-            if (isset($_POST['c_description'])) {
-                $company->setDescription($_POST['c_description']);
-            } else {
-                $company->setDescription("");
-            }
-            if (isset($_POST['c_logo'])) {
-                $id = $company->lastInsert();
-                $number = $id[0]['c_id'] + 1;
-                $company->setLogo(($number . "." .$imageFileType));
-            } else {
-                $company->setLogo("unknown.png");
-            }
+            //$data['readonly'] = "readonly";
 
-            $company->set();
+            //$data['newCompany'] = $_POST['c_name'];
+
             $this->renderHTML('../view/company_info.php', $data);
         } else {
             $this->renderHTML('../view/company_info.php');
@@ -158,14 +165,12 @@ class AdminController extends BaseController
 
         if (isset($_POST['search_company_button']) && !empty($_POST['search_company'])) {
             $data['matchCompanies'] = $company->getByName($_POST['search_company']);
-            $this->renderHTML('../view/companies_view.php', $data);    
+            $this->renderHTML('../view/companies_view.php', $data);
         } else {
             //Shows last 5 companies
             $data['lastCompanies'] = $company->getSome();
             $this->renderHTML('../view/companies_view.php', $data);
         }
-        
-
     }
 
     public function logoutAction()
@@ -175,5 +180,4 @@ class AdminController extends BaseController
         session_destroy();
         header('Location:' . DIRBASEURL . '/home');
     }
-
 }

@@ -31,44 +31,55 @@ class Validation extends DBAbstractModel
     public function validateEmail($email)
     {
         if (empty($email)) {
-            $data['emailError'] = "El email es obligatorio";
+            $message = "El email es obligatorio";
         } else {
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-            
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $data['emailError'] = "El email no es válido";
+                $message = "El email no es válido";
             } else {
-                $data['emailError'] = "";
+                $message = "";
             }
         }
-        return $data['emailError'];
+        return $message;
     }
 
     //Validate phone-number
     public function validatePhone($phone)
     {
         if (empty($phone)) {
-            $data['phoneError'] = "El teléfono es obligatorio";
+            $message = "El teléfono es obligatorio";
         } elseif (!preg_match("/^[0-9]{9}$/", $phone)) {
-            $data['phoneError'] = "El teléfono no es válido";
+            $message = "El teléfono no es válido";
         } else {
-            $data['phoneError'] = "";
+            $message = "";
         }
 
-        return $data['phoneError'];
+        return $message;
     }
 
     //Validate company name
     public function validateName($name)
     {
         if (empty($name)) {
-            $data['nameError'] = "El nombre es obligatorio";
+            $message = "El nombre es obligatorio";
         } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", $name)) {
-            $data['nameError'] = "Solo letras y espacios en blanco.";
+            $message = "Solo letras y espacios en blanco.";
         } else {
-            $data['nameError'] = "";
+            $message = "";
         }
-        return $data['nameError'];
+        return $message;
+    }
+
+    //Validate address
+    public function validateAddress($address)
+    {
+        if (empty($address)) {
+            $message = "La dirección es obligatoria";
+        } else {
+            $message = "";
+        }
+        return $message;
     }
 
     function cifValidation($cif)
@@ -106,13 +117,13 @@ class Validation extends DBAbstractModel
         $cifResult = $this->cifValidation($cif);
 
         if (empty($cif)) {
-            $data['cifError'] = "El CIF es obligatorio";
+            $message = "El CIF es obligatorio";
         } elseif ($cifResult != 1) {
-            $data['cifError'] = "El CIF no es válido";
+            $message = "El CIF no es válido";
         } else {
-            $data['cifError'] = "";
+            $message = "";
         }
-        return $data['cifError'];
+        return $message;
     }
 
     //Métodos que pide la clase para no dar error
