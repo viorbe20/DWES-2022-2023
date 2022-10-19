@@ -59,8 +59,8 @@ $router->add(array(
 
 $router->add(array(
     'name'=>'worker_info',
-    'path'=>'/^\/home\/companies\/worker_info$/',
-    'action'=>[AdminController::class, 'workerInfoAction'],
+    'path'=>'/^\/home\/employees_info\/\d{1,3}$/',
+    'action'=>[AdminController::class, 'employeesInfoAction'],
     'auth'=>["admin"]
 ));
 
