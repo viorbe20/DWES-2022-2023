@@ -71,6 +71,14 @@ $router->add(array(
     'auth'=>["admin"]
 ));
 
+$router->add(array(
+    'name'=>'employee_profile',
+    'path'=>'/^\/home\/employee_profile$/',
+    'action'=>[AdminController::class, 'employeeProfileAction'],
+    'auth'=>["admin"]
+));
+
+
 
 $request = str_replace(DIRBASEURL,'',$_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);
