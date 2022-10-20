@@ -31,16 +31,16 @@ if (isset($data['readonly'])) {
 
 <body id='body_company_info'>
 <?php
-if (isset($data['newCompany'])) {
-    //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
-    echo "<script>
-    if (confirm('Empresa " . $data['newCompany'] . " añadida correctamente. ¿Desea añadir otra empresa?')) {
-        window.location.href = '" . DIRBASEURL . "/home/companies/company_info';
-    } else {
-        window.location.href = '" . DIRBASEURL . "/home/companies';
-    }
-    </script>";
-}
+// if (isset($data['newCompany'])) {
+//     //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
+//     echo "<script>
+//     if (confirm('Empresa " . $data['newCompany'] . " añadida correctamente. ¿Desea añadir otra empresa?')) {
+//         window.location.href = '" . DIRBASEURL . "/home/companies/company_info';
+//     } else {
+//         window.location.href = '" . DIRBASEURL . "/home/companies';
+//     }
+//     </script>";
+// }
 ?>
     <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
 

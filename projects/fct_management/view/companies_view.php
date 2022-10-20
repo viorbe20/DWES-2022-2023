@@ -28,12 +28,13 @@ if (isset($data['companiesList'])) {
 
 <body>
 <?php
-if (isset($data['deletedCompany'])) {
-    //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
-    echo "<script>
-        alert(Empresa " . $data['deletedCompany'] . " eliminada correctamente.);
-    </script>";
-}
+// if (isset($data['deletedCompany'])) {
+//     echo "<script>
+//     if (confirm('Empresa " . $data['deletedCompany'] . " eliminada correctamente.)) {
+//         window.location.href = '" . DIRBASEURL . "/home/companies';
+//     } 
+//     </script>";
+// }
 ?>
     <main id='main_companies'>
 

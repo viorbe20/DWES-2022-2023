@@ -35,6 +35,7 @@ class AdminController extends BaseController
         $company->setId($companyId);
 
         if (isset($_POST['delete_current_company'])) {
+            $data['deleteCompany'] = $company->getName();
             $company->delete($companyId);
             $this->renderHTML('../view/companies_view.php', $data);
         } else { //Only show the form
@@ -272,10 +273,9 @@ class AdminController extends BaseController
             }
 
             //Logo upload
-
-
-            if (isset($_FILES['c_logo'])) {
-    
+            
+            
+            if(file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
                 //Logo name is the company id
                 $lastCompany = $company->lastInsert();
                 $lastCompanyId = $lastCompany[0]['c_id'];
@@ -332,20 +332,18 @@ class AdminController extends BaseController
                         // if everything is ok, try to upload file
                     } else {
                         //When save in the database, the name of the logo is the same as the id of de company
-                    if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
-                        $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
-                        $company->setLogo($_FILES['c_logo']['name']);
+                        if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
+                            $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
+                            $company->setLogo($_FILES['c_logo']['name']);
                     } else {
-                        $company->setLogo("unknown.png");
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
                         
                     }
                 }
-            } 
-
-
-
-
+            } else {
+                $company->setLogo("unknown.png");
+            }
+            
             //If no errors, insert data
             if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "") {
                 $company->setCreatedAt(date('Y-m-d H:i:s'));
@@ -354,7 +352,7 @@ class AdminController extends BaseController
                 $data['newCompany'] = $_POST['c_name'];
             }
 
-            $this->renderHTML('../view/company_info.php', $data);
+            $this->renderHTML('../view/companies_view.php', $data);
         } else { //If no data, show form
             $this->renderHTML('../view/company_info.php');
         }
