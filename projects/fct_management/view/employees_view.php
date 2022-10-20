@@ -65,24 +65,18 @@ if (isset($data['deleteEmployee'])) {
                 <th>Eliminar</th>
                 <th>Editar</th>
             </tr>
-            <tr>
                 <?php
                 foreach ($employeesList as $key => $value) {
                     echo "<td>" . $value['emp_name'] . "</td>";
                     echo "<td>" . $value['emp_job'] . "</td>";
+                    echo "<td>" . $value['emp_company_name'] . "</td>";
                 ?>
-                    </a></td>
-                    <!--Company-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
-                                group
-                            </span></a></td>
-
                     <!--Delete employee-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_delete/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_delete/' ?>"><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
                     <!--Edit employee-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_edit/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_edit/' ?>"><span class="material-symbols-outlined">
                                 edit
                             </span></a></td>
             </tr>

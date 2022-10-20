@@ -21,19 +21,19 @@ class AdminController extends BaseController
         $company = Company::getInstancia();
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
-        $company->setId($companyId);   
+        $company->setId($companyId);
         $data['employees'] = $company->getEmployeesFromOneCompany();
         $this->renderHTML('../view/employees_list.php', $data);
     }
 
-    public function companyDeleteAction ($request)
+    public function companyDeleteAction($request)
     {
         $data = array();
         $company = Company::getInstancia();
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
         $company->setId($companyId);
-        
+
         if (isset($_POST['delete_current_company'])) {
             $company->delete($companyId);
             $this->renderHTML('../view/companies_view.php', $data);
@@ -365,14 +365,38 @@ class AdminController extends BaseController
     {
         $data = array();
         $employee = Employee::getInstancia();
+        $employee2 = Employee::getInstancia();
+        //$company = Company::getInstancia();
 
         if (isset($_POST['search_employee_button']) && !empty($_POST['search_employee'])) {
             $employee->setName($_POST['search_employee']);
             $data['employeesList'] = $employee->getByName();
+            $data['companiesNames'] = array();
+
+            //Create an array with the companies names of the employees
+            foreach ($data['employeesList'] as $key => $value) {
+                $employee2->setId($value['emp_id']);
+                array_push($data['companiesNames'], $employee2->getCompanyByEmployee());
+            }
+
+
             $this->renderHTML('../view/employees_view.php', $data);
         } else {
-            //Shows last 5 companies
-            $data['employeesList'] = $employee->getSome();
+            //Shows last 5 employees
+            $data['employeesList'] = array();
+            foreach ($employee->getSome() as $key => $value) {
+                $employee2->setId($value['emp_id']);
+
+                foreach ($employee2->getCompanyByEmployee() as $key => $value2) {
+                    $row = array(
+                        'emp_name' => $value['emp_name'],
+                        'emp_job' => $value['emp_job'],
+                        'emp_company_name' => $value2['c_name']
+                    );
+                }
+                //Array with the employees and the companies names
+                array_push($data['employeesList'], $row);
+            }
             $this->renderHTML('../view/employees_view.php', $data);
         }
     }
