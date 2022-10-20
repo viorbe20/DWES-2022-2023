@@ -80,7 +80,7 @@
     margin: 0% 20%;
     
     form {
-        border: 1px solid #f1f1f1;
+        border: 1px  #f1f1f1;
         width: 80%;
         padding: 1% 0%;
         display: flex;
@@ -89,15 +89,14 @@
         
         input[type=text] {
             width: 90%;
-            *margin: 0% 1%;
-            padding: 1.5% 2%;
-            *display: inline-block;
+            padding: 2% 2%;
             border: 2px solid #ccc;
             border-radius: 15px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
         }
 
         button {
-            *width: 10%;
             margin: 0% 1%;
             padding: 1.5% 2%;
             background-color: #04AA6D;
@@ -108,6 +107,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            //add depth to button
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
             &:hover {
                 opacity: 0.8;
@@ -122,8 +123,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    *background-color: rgb(136, 136, 204);
     color: #ccc;
+    text-shadow:1px 1px #ccc;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -289,12 +290,12 @@ nav {
     padding: 0%;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-
+    
     ul {
         margin: 0%;
         padding: 0%;
         display: flex;
-
+        
         li {
             margin: 0%;
             padding: 1% 3%;
@@ -311,7 +312,7 @@ nav {
             a {
                 text-decoration: none;
                 color: #ddd;
-                font-size: 15px;
+                font-size: 1.2rem;
             }
         }
     }
@@ -347,9 +348,12 @@ footer {
         width: 20%;
         text-align: center;
         color: var(--medium-grey);
-
+        
+        
         span {
-            font-size: 40px;
+            font-size: 3rem;
+            //add depth to font
+            text-shadow:1px 1px grey;
         }
     }
 
@@ -404,7 +408,7 @@ footer {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                color: var(--dark-grey);
+                color: var(--medium-grey);
 
             }
             
