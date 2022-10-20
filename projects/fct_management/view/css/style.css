@@ -9,9 +9,6 @@
 * {
   margin: 0px;
   padding: 0px;
-  *height: -webkit-fit-content;
-  *height: -moz-fit-content;
-  *height: fit-content;
   font-family: "Roboto";
   font-size: 16px;
 }
@@ -226,13 +223,14 @@
 header {
   position: relative;
   background-color: var(--light-grey);
-  color: var(--medium-grey);
   padding: 15px 5px;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
 }
 header h1 {
+  color: var(--medium-grey);
   text-align: center;
+  font-size: 2rem;
 }
 
 nav {
@@ -279,45 +277,69 @@ footer {
   height: 5%;
 }
 
-#user-info {
+#user_info {
   position: absolute;
   right: 0.5%;
   top: 0.5%;
   margin: 1%;
   padding: 0%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20%;
 }
-#user-info #user_avatar {
+#user_info #user_avatar {
   width: 20%;
   text-align: center;
+  color: var(--medium-grey);
 }
-#user-info #user_avatar span {
-  font-size: 30px;
+#user_info #user_avatar span {
+  font-size: 40px;
 }
-#user-info #user_data {
+#user_info #user_data {
   width: 80%;
   padding: 0% 2%;
-  text-align: left;
+  text-align: center;
   line-height: 100%;
 }
-#user-info #user_data p {
-  color: var(--dark-grey);
-  font-size: 12px;
+#user_info #user_data p {
+  color: var(--medium-grey);
+  font-size: 14px;
+  font-family: "Roboto";
 }
-#user-info #user_data div {
+#user_info #user_data div {
   display: flex;
 }
-#user-info #user_data div a {
+#user_info #user_data div a {
   text-decoration: none;
   color: var(--dark-grey);
   font-size: 12px;
 }
-#user-info #user_data div a label {
+#user_info #user_data div a label {
   cursor: pointer;
 }
-#user-info #user_data div a label:hover {
+#user_info #user_data div a label:hover {
   text-decoration: underline;
+}
+#user_info #user_logout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#user_info #user_logout a {
+  text-decoration: none;
+}
+#user_info #user_logout a:hover {
+  opacity: 0.8;
+}
+#user_info #user_logout a label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark-grey);
 }
 
 .error-message {
