@@ -3,12 +3,15 @@
     --dark-grey: #330;
     --medium-grey: #666;
     --light-blue: #E7E9EB;
+    --purple-icons: rgb(136, 136, 204);
 }
 
 * {
     margin: 0px;
     padding: 0px;
     *height: fit-content;
+    font-family: 'Roboto';
+    font-size: 16px;
 }
 
 //Home page
@@ -76,7 +79,7 @@
     display: flex;
     justify-content: space-around;
     margin: 0% 20%;
-
+    
     form {
         border: 1px solid #f1f1f1;
         width: 80%;
@@ -84,7 +87,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
+        
         input[type=text] {
             width: 90%;
             *margin: 0% 1%;
@@ -149,6 +152,10 @@
     &:hover {
         opacity: 0.8;
     }
+}
+
+#table_companies {
+margin-bottom: 5%;
 }
 
 //Company info view
@@ -401,8 +408,8 @@ footer {
 
 
     th {
-        background-color: var(--light-blue);
-        color: var(--dark-grey);
+        background: var(--purple-icons);
+        color: white;
         padding: 1% 0%;
         text-align: center;
         font-size: 1.2rem;
@@ -412,15 +419,17 @@ footer {
         padding: 1% 0%;
         text-align: center;
         font-size: 1.2rem;
+        cursor: pointer;
 
         span {
-            color: var(blue);
+            color: var(--purple-icons);
             font-size: 2rem;
 
 
             &:hover {
-                color: white;
-                background-color: var(--medium-grey);
+                transform: scale(1.5);
+                // color: white;
+                // background-color: var(--medium-grey);
             }
         }
     }

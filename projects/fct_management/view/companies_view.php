@@ -58,7 +58,7 @@ if (isset($data['companiesList'])) {
 
         </section>
 
-        <table class="table" id="table-companies">
+        <table class="table" id="table_companies">
             <tr>
                 <th>Logo</th>
                 <th>Nombre</th>

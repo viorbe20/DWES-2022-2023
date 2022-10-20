@@ -3,6 +3,7 @@
   --dark-grey: #330;
   --medium-grey: #666;
   --light-blue: #E7E9EB;
+  --purple-icons: rgb(136, 136, 204);
 }
 
 * {
@@ -11,6 +12,8 @@
   *height: -webkit-fit-content;
   *height: -moz-fit-content;
   *height: fit-content;
+  font-family: "Roboto";
+  font-size: 16px;
 }
 
 #form-login {
@@ -128,6 +131,10 @@
 }
 #add_company:hover, #add_employee:hover {
   opacity: 0.8;
+}
+
+#table_companies {
+  margin-bottom: 5%;
 }
 
 #form_add_company {
@@ -334,8 +341,8 @@ footer {
   margin-top: 2%;
 }
 .table th {
-  background-color: var(--light-blue);
-  color: var(--dark-grey);
+  background: var(--purple-icons);
+  color: white;
   padding: 1% 0%;
   text-align: center;
   font-size: 1.2rem;
@@ -344,14 +351,14 @@ footer {
   padding: 1% 0%;
   text-align: center;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 .table td span {
-  color: var(blue);
+  color: var(--purple-icons);
   font-size: 2rem;
 }
 .table td span:hover {
-  color: white;
-  background-color: var(--medium-grey);
+  transform: scale(1.5);
 }
 .table tr:hover {
   background-color: var(--light-blue);
