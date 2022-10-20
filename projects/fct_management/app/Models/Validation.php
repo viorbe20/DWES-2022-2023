@@ -95,8 +95,6 @@ class Validation extends DBAbstractModel
     {
         if (empty($name)) {
             $message = "El nombre es obligatorio";
-        } elseif (!preg_match("/^[a-zA-Z-'üñÜÑ ]*$/", $name)) {
-            $message = "Solo letras y espacios en blanco.";
         } else {
             $message = "";
         }

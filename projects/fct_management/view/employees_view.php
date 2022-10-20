@@ -40,7 +40,7 @@ if (isset($data['deleteEmployee'])) {
         <section class="search-box" id="form-search-company">
 
             <form action="" method="post">
-                <input type="text" name="search_employee" id="search" placeholder="Nombre empleado...">
+                <input type="text" name="search_employee" placeholder="Nombre empleado...">
                 <button type="submit" name="search_employee_button">
                     <span class="material-symbols-outlined">
                         search
@@ -49,7 +49,7 @@ if (isset($data['deleteEmployee'])) {
 
             </form>
             <section id='add_employee'>
-                <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>"> <span class="material-symbols-outlined">
+                <a href="<?php echo DIRBASEURL . '/home/employees/employee_profile' ?>"> <span class="material-symbols-outlined">
                         add_circle
                     </span>
                 </a>

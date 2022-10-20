@@ -60,7 +60,7 @@
   align-items: center;
 }
 
-#main_companies {
+#main_companies, #main_employees {
   display: flex;
   flex-direction: column;
 }
@@ -103,7 +103,7 @@
   opacity: 0.8;
 }
 
-#add_company {
+#add_company, #add_employee {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,18 +115,18 @@
   width: 8%;
   margin: 2% 0%;
 }
-#add_company a {
+#add_company a, #add_employee a {
   text-decoration: none;
   color: #ccc;
 }
-#add_company a:hover {
+#add_company a:hover, #add_employee a:hover {
   opacity: 0.8;
 }
-#add_company a span {
+#add_company a span, #add_employee a span {
   color: rgb(136, 136, 204);
   font-size: 3rem;
 }
-#add_company:hover {
+#add_company:hover, #add_employee:hover {
   opacity: 0.8;
 }
 
