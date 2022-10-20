@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Company;
 use App\Models\Validation;
+use App\Models\Employee;
 
 require_once('..\app\Config\constantes.php');
 
@@ -344,17 +345,34 @@ class AdminController extends BaseController
         }
     }
 
-    public function adminAction()
+    public function companyAction()
     {
         $data = array();
         $company = Company::getInstancia();
 
         if (isset($_POST['search_company_button']) && !empty($_POST['search_company'])) {
-            $data['matchCompanies'] = $company->getByName($_POST['search_company']);
+            $company->setName($_POST['search_company']);
+            $data['companiesList'] = $company->getByName();
             $this->renderHTML('../view/companies_view.php', $data);
         } else {
             //Shows last 5 companies
-            $data['lastCompanies'] = $company->getSome();
+            $data['companiesList'] = $company->getSome();
+            $this->renderHTML('../view/companies_view.php', $data);
+        }
+    }
+
+    public function employeeAction()
+    {
+        $data = array();
+        $company = Company::getInstancia();
+
+        if (isset($_POST['search_employee_button']) && !empty($_POST['search_employee'])) {
+            $company->setName($_POST['search_company']);
+            $data['companiesList'] = $company->getByName();
+            $this->renderHTML('../view/companies_view.php', $data);
+        } else {
+            //Shows last 5 companies
+            $data['companiesList'] = $company->getSome();
             $this->renderHTML('../view/companies_view.php', $data);
         }
     }

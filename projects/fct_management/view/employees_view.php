@@ -13,7 +13,6 @@ if (isset($data['companiesList'])) {
     $companiesList = array();
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -23,19 +22,19 @@ if (isset($data['companiesList'])) {
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' href='css/style.css'>
-    <title>Companies View</title>
+    <title>Employees View</title>
 </head>
 
 <body>
 <?php
-if (isset($data['deletedCompany'])) {
+if (isset($data['deleteEmployee'])) {
     //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
     echo "<script>
-        alert(Empresa " . $data['deletedCompany'] . " eliminada correctamente.);
+        alert(Empleado " . $data['deletedEmployee'] . " eliminado correctamente.);
     </script>";
 }
 ?>
-    <main id='main_companies'>
+    <main id='main_employees'>
 
         <section class="search-box" id="form-search-company">
 

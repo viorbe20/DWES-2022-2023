@@ -7,6 +7,12 @@ require_once('..\app\Config\constantes.php');
 require_once('..\vendor\autoload.php');
 use App\Models\Company;
 $c = Company::getInstancia();
+$c->setName('m');
+$c->getByName();
+foreach ($c->getByName() as $key => $value) {
+    echo $value['c_name'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +25,5 @@ $c = Company::getInstancia();
 </head>
 
 <body>
-
 </body>
 </html>

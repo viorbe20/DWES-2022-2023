@@ -28,11 +28,17 @@ $router->add(array(
     'auth'=>["admin"]
 ));
 
-//Enrutamiento a la página donde el user gestiona sus bookmarks
 $router->add(array(
     'name'=>'companies',
     'path'=>'/^\/home\/companies$/',
-    'action'=>[AdminController::class, 'adminAction'],
+    'action'=>[AdminController::class, 'companyAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
+    'name'=>'employees',
+    'path'=>'/^\/home\/employees$/',
+    'action'=>[AdminController::class, 'employeeAction'],
     'auth'=>["admin"]
 ));
 
