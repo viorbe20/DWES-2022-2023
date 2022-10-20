@@ -364,16 +364,16 @@ class AdminController extends BaseController
     public function employeeAction()
     {
         $data = array();
-        $company = Company::getInstancia();
+        $employee = Employee::getInstancia();
 
         if (isset($_POST['search_employee_button']) && !empty($_POST['search_employee'])) {
-            $company->setName($_POST['search_company']);
-            $data['companiesList'] = $company->getByName();
-            $this->renderHTML('../view/companies_view.php', $data);
+            $employee->setName($_POST['search_employee']);
+            $data['employeesList'] = $employee->getByName();
+            $this->renderHTML('../view/employees_view.php', $data);
         } else {
             //Shows last 5 companies
-            $data['companiesList'] = $company->getSome();
-            $this->renderHTML('../view/companies_view.php', $data);
+            $data['employeesList'] = $employee->getSome();
+            $this->renderHTML('../view/employees_view.php', $data);
         }
     }
 

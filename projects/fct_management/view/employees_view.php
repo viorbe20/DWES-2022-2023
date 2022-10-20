@@ -7,10 +7,10 @@ echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 
 //Data array content
-if (isset($data['companiesList'])) {
-    $companiesList = $data['companiesList'];
+if (isset($data['employeesList'])) {
+    $employeesList = $data['employeesList'];
 } else {
-    $companiesList = array();
+    $employeesList = array();
 }
 
 ?>
@@ -34,20 +34,21 @@ if (isset($data['deleteEmployee'])) {
     </script>";
 }
 ?>
+
     <main id='main_employees'>
 
         <section class="search-box" id="form-search-company">
 
             <form action="" method="post">
-                <input type="text" name="search_company" id="search" placeholder="Nombre empresa...">
-                <button type="submit" name="search_company_button">
+                <input type="text" name="search_employee" id="search" placeholder="Nombre empleado...">
+                <button type="submit" name="search_employee_button">
                     <span class="material-symbols-outlined">
                         search
                     </span>
                     Buscar</button>
 
             </form>
-            <section id='add_company'>
+            <section id='add_employee'>
                 <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>"> <span class="material-symbols-outlined">
                         add_circle
                     </span>
@@ -58,35 +59,30 @@ if (isset($data['deleteEmployee'])) {
 
         <table class="table" id="table-companies">
             <tr>
-                <th>Logo</th>
                 <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Empleados</th>
+                <th>Cargo</th>
+                <th>Empresa</th>
                 <th>Eliminar</th>
                 <th>Editar</th>
             </tr>
             <tr>
                 <?php
-                foreach ($companiesList as $key => $value) {
-                    //Shows an image inside a td
-                    echo "<td><img src='" . DIRFCT . "/assets/img/logos/" . $value['c_logo'] . "' alt='Logo de la empresa' width='50px' height='50px'></td>";
-
-
-                    echo "<td>" . $value['c_name'] . "</td>";
-                    echo "<td>" . $value['c_phone'] . "</td>";
+                foreach ($employeesList as $key => $value) {
+                    echo "<td>" . $value['emp_name'] . "</td>";
+                    echo "<td>" . $value['emp_job'] . "</td>";
                 ?>
                     </a></td>
-                    <!--Employees-->
+                    <!--Company-->
                     <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 group
                             </span></a></td>
 
-                    <!--Delete company-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <!--Delete employee-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_delete/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
-                    <!--Edit company-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <!--Edit employee-->
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_edit/' . $value['emp_id'] ?>"><span class="material-symbols-outlined">
                                 edit
                             </span></a></td>
             </tr>

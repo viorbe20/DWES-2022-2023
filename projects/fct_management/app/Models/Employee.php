@@ -76,6 +76,15 @@ class Employee extends DBAbstractModel
         return $this->rows;
     }
 
+    //Get a company by employee id
+    public function getCompanyByEmployee()
+    {
+        $this->query = "SELECT * FROM employees INNER JOIN companies ON employees.emp_company_id = companies.c_id WHERE emp_id=:emp_id";
+        $this->parametros['emp_id'] = $this->emp_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     //Métodos de creación
     public function set()
     {

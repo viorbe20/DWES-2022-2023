@@ -79,6 +79,7 @@ class Company extends DBAbstractModel
         return $this->rows;
     }
 
+    //Get an employee by company id
     public function getEmployeesFromOneCompany()
     {
         $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id WHERE c_id=:c_id";
@@ -93,6 +94,7 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
         return $this->rows;
     }
+
 
     //Métodos de creación
     public function set()

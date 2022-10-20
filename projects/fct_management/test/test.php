@@ -6,12 +6,20 @@
 require_once('..\app\Config\constantes.php');
 require_once('..\vendor\autoload.php');
 use App\Models\Company;
+use App\Models\Employee;
 $c = Company::getInstancia();
-$c->setName('m');
-$c->getByName();
-foreach ($c->getByName() as $key => $value) {
+$e = Employee::getInstancia();
+
+$e->setId(1);
+//$e->getCompanyByEmployeeId();
+//$c->getCompanyByEmployee();
+// 1480
+
+foreach ($e->getCompanyByEmployee() as $key => $value) {
     echo $value['c_name'];
 }
+
+
 
 ?>
 
