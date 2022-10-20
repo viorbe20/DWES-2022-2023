@@ -273,14 +273,25 @@ class AdminController extends BaseController
 
             //Logo upload
 
-            $company->setLogo("unknown.png");
 
             if (isset($_FILES['c_logo'])) {
+    
+                //Logo name is the company id
+                $lastCompany = $company->lastInsert();
+                $lastCompanyId = $lastCompany[0]['c_id'];
+                $logoId = $lastCompanyId + 1;
+                
+                //Get logo extension
+                $pieces = explode(".", $_FILES['c_logo']['name']);
+                $logoExtension = $pieces[1];
+                
+                //Complete logo name
+                $_FILES["c_logo"]["name"] = $logoId . "." . $logoExtension;
                 $target_dir = "../assets/img/logos/";
-                $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
                 $uploadOk = 1;
+                $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
+        
                 // Check if image file is a actual image or fake image
                 if (isset($_POST["submit"])) {
                     $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
@@ -292,44 +303,48 @@ class AdminController extends BaseController
                         $uploadOk = 0;
                     }
                 }
-
+                
                 // Check if file already exists
                 if (file_exists($target_file)) {
                     $data['logoError'] = "El archivo ya existe.";
                     $uploadOk = 0;
                 }
-
-                // Check file size
+                
                 if ($_FILES["c_logo"]["size"] > 500000) {
                     $data['logoError'] = "El archivo es demasiado pesado.";
                     $uploadOk = 0;
                 }
-
+                
                 // Allow certain file formats
                 if (
                     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif"
-                ) {
-                    $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
-                    $uploadOk = 0;
-                }
-
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                    $data['logoError'] = "No se ha subido el archivo.";
-
-
-                    // if everything is ok, try to upload file
-                } else {
-                    echo $target_file;
+                    ) {
+                        $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
+                        $uploadOk = 0;
+                    }
+                    
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        $data['logoError'] = "No se ha subido el archivo.";
+                        
+                        
+                        // if everything is ok, try to upload file
+                    } else {
+                        //When save in the database, the name of the logo is the same as the id of de company
                     if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
                         $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
-                        $company->setLogo(basename($_FILES["c_logo"]["name"]));
+                        $company->setLogo($_FILES['c_logo']['name']);
                     } else {
+                        $company->setLogo("unknown.png");
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
+                        
                     }
                 }
-            }
+            } 
+
+
+
 
             //If no errors, insert data
             if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "") {
