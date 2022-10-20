@@ -153,7 +153,6 @@
 
 #form_add_company {
   font-family: sans-serif;
-  margin: 4% 2%;
   border: 1px solid #a2a2a2;
   padding: 0%;
   display: flex;
@@ -208,6 +207,10 @@
   align-items: stretch;
   *background-color: blue;
   width: 30%;
+}
+#form_add_company #form_company_section_up #form_company_section_up_right fieldset a input {
+  background-color: #AAAAAA;
+  color: whitesmoke;
 }
 #form_add_company #form_company_section_down {
   display: flex;
@@ -562,4 +565,12 @@ footer {
 }
 .myIcon:hover {
   transform: scale(1.5);
+}
+
+.page_title {
+  background-color: var(--purple-icons);
+  color: white;
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 1% 0%;
 }/*# sourceMappingURL=style.css.map */

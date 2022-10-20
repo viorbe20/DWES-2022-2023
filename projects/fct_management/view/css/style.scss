@@ -178,7 +178,6 @@
 //Company info view
 #form_add_company {
     font-family: sans-serif;
-    margin: 4% 2%;
     border: 1px solid #a2a2a2;
     padding: 0%;
     display: flex;
@@ -244,6 +243,18 @@
             align-items: stretch;
             *background-color: blue;
             width: 30%;
+
+            fieldset {
+
+                a {
+
+                    input {
+                        background-color: #AAAAAA;
+                        color: whitesmoke;
+                    }
+                }
+            }
+
         }
 
     }
@@ -342,7 +353,7 @@
         margin: 0%;
         padding: 0%;
         border-bottom: 1px solid #a2a2a2;
-        
+
         //Logo and company name
         #form_company_section_up_1 {
             display: flex;
@@ -351,14 +362,14 @@
             background-color: var(--purple-icons);
             width: 100%;
 
-            h2{
+            h2 {
                 color: whitesmoke;
                 font-size: 2rem;
                 margin: 0% 2%;
 
             }
         }
-        
+
         #form_company_section_up_2 {
             *background-color: pink;
             display: flex;
@@ -401,8 +412,8 @@
                             span {
                                 color: var(--purple-icons);
                                 font-size: 2rem;
-                            
-                            
+
+
                                 &:hover {
                                     transform: scale(1.5);
                                 }
@@ -698,4 +709,12 @@ footer {
         transform: scale(1.5);
     }
 
+}
+
+.page_title {
+    background-color: var(--purple-icons);
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 1% 0%;
 }

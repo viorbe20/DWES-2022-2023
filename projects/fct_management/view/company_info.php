@@ -42,6 +42,10 @@ if (isset($data['readonly'])) {
 //     </script>";
 // }
 ?>
+<!--Title-->
+<h2 class='page_title'>
+    <?php echo $data['mode'] ?>
+</h2>
     <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
 
         <section id='form_company_section_up'>
@@ -89,7 +93,12 @@ if (isset($data['readonly'])) {
 
                 <fieldset>
                     <legend>Empleados</legend>
-                    <a href="<?php echo DIRBASEURL . '/home/employee_profile' ?>"> <input class="btn_standard" type="button" value="Añadir empleado" id="add_employee_to_this"></a>
+                    <?php
+                    if ($data['mode'] = 'Alta empresa') {?>
+                    <a href="<?php echo DIRBASEURL . '/home/employees/employee_add' ?>"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>
+                    <?php } else { ?>
+                        <a href="<?php echo DIRBASEURL . '/home/employees/employee_info/' . $data['c_id'] ?>"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>
+                    <?php } ?>
                 </fieldset>
 
                 <fieldset>

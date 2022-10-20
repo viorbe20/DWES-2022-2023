@@ -11,12 +11,29 @@ require_once('..\app\Config\constantes.php');
 class AdminController extends BaseController
 {
 
+    public function employeeDeleteAction ($request) {
+        $data = array();
+        $data['mode'] = "Elimina empleado";
+        $this->renderHTML('../view/employee_info.php', $data); 
+    }
+
+    public function employeeEditAction ($request) {
+        $data = array();
+        $data['mode'] = "Edita empleado";
+        $this->renderHTML('../view/employee_info.php', $data); 
+    }
+
+    public function employeeAddAction () {
+        $data = array();
+        $data['mode'] = "Alta empleado";
+        $this->renderHTML('../view/employee_info.php', $data); 
+    }
+
     public function employeeAction()
     {
         $data = array();
         $employee = Employee::getInstancia();
         $employee2 = Employee::getInstancia();
-        //$company = Company::getInstancia();
 
         if (isset($_POST['search_employee_button']) && !empty($_POST['search_employee'])) {
             $employee->setName($_POST['search_employee']);
@@ -41,7 +58,8 @@ class AdminController extends BaseController
                     $row = array(
                         'emp_name' => $value['emp_name'],
                         'emp_job' => $value['emp_job'],
-                        'emp_company_name' => $value2['c_name']
+                        'emp_company_name' => $value2['c_name'],
+                        'emp_id' => $value['emp_id']
                     );
                 }
                 //Array with the employees and the companies names
@@ -58,6 +76,8 @@ class AdminController extends BaseController
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
         $company->setId($companyId);
+        $data['mode'] = 'Elimina empresa';
+        $data['c_id'] = $companyId;
 
         if (isset($_POST['delete_current_company'])) {
             $data['deleteCompany'] = $company->getName();
@@ -85,6 +105,8 @@ class AdminController extends BaseController
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
         $company->setId($companyId);
+        $data['mode'] = 'Edita empresa';
+        $data['c_id'] = $companyId;
 
         if (isset($_POST['edit_current_company'])) {
             $validation = Validation::getInstancia();
@@ -254,10 +276,11 @@ class AdminController extends BaseController
         $this->renderHTML('../view/company_profile.php', $data);
     }
 
-    public function companyInfoAction()
+    public function companyAddAction()
     {
         $data = array();
         $company = Company::getInstancia();
+        $data['mode'] = 'Alta empresa';
 
 
         if (isset($_POST['add_new_company'])) {
@@ -403,7 +426,8 @@ class AdminController extends BaseController
 
             $this->renderHTML('../view/companies_view.php', $data);
         } else { //If no data, show form
-            $this->renderHTML('../view/company_info.php');
+            $data['mode'] = "Alta empresa";
+            $this->renderHTML('../view/company_info.php', $data);
         }
     }
 
@@ -422,8 +446,6 @@ class AdminController extends BaseController
             $this->renderHTML('../view/companies_view.php', $data);
         }
     }
-
-
 
     public function logoutAction()
     {

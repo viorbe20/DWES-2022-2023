@@ -43,7 +43,7 @@ if (!isset($data['logoError'])) {
 }
 
 if (isset($data)) {
-    var_dump($data);
+    //var_dump($data);
 }
 
 ?>
@@ -60,7 +60,10 @@ if (isset($data)) {
 </head>
 
 <body>
-
+<!--Title-->
+<h2 class='page_title'>
+    <?php echo $data['mode'] ?>
+</h2>
     <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
 
         <section id='form_company_section_up'>

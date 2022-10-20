@@ -26,14 +26,6 @@ if (isset($data['employeesList'])) {
 </head>
 
 <body>
-<?php
-if (isset($data['deleteEmployee'])) {
-    //javascript popup confirmation. If user clicks 'Confirm' then it reload the page. If click "Cancel" then it redirects to admin page
-    echo "<script>
-        alert(Empleado " . $data['deletedEmployee'] . " eliminado correctamente.);
-    </script>";
-}
-?>
 
     <main id='main_employees'>
 
@@ -72,11 +64,11 @@ if (isset($data['deleteEmployee'])) {
                     echo "<td>" . $value['emp_company_name'] . "</td>";
                 ?>
                     <!--Delete employee-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_delete/' ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_delete/'. $value['emp_id'] ?>"><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
                     <!--Edit employee-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_edit/' ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/employees/employee_edit/'. $value['emp_id']  ?>"><span class="material-symbols-outlined">
                                 edit
                             </span></a></td>
             </tr>

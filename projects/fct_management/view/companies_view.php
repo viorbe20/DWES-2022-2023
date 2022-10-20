@@ -50,7 +50,7 @@ if (isset($data['companiesList'])) {
 
             </form>
             <section id='add_company'>
-                <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>"> <span class="material-symbols-outlined">
+                <a href="<?php echo DIRBASEURL . '/home/companies/company_add' ?>"> <span class="material-symbols-outlined">
                         add_circle
                     </span>
                 </a>
@@ -77,7 +77,7 @@ if (isset($data['companiesList'])) {
                     <td><?php echo $value['c_phone']?></td>
             
                     <!--Employees-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_profile/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 group
                             </span></a></td>
 
