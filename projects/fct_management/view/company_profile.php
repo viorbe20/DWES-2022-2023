@@ -40,8 +40,8 @@ if (isset($data['readonly'])) {
 
             <section id='form_company_section_up_1'>
                 <!-- company logo -->
-                <img src="<?php echo DIRFCT . '/assets/img/logos/' . $data['c_logo'] ?>" alt="company logo" id="company_logo">
-                <h1><?php echo $data['c_name'] ?></h1>
+                <img src="<?php echo DIRFCT . '/assets/img/logos/' . $data['c_logo'] ?>" alt="company logo" id="profile_company_logo">
+                <h2><?php echo $data['c_name'] ?></h2>
             </section>
 
             <section id='form_company_section_up_2'>
@@ -49,46 +49,42 @@ if (isset($data['readonly'])) {
                 <section id='form_company_section_up_2_left'>
                     <fieldset>
                         <legend>Información general</legend>
-                        <div><label for="c_cif">Cif</label><span> *</span>
-                            <span class="error"><?php if (isset($data['cifError'])) echo $data['cifError'];  ?></span>
+                        <div><label for="c_cif">Cif</label>
+                            <input type="text" value="<?php echo $data['c_cif'];?>" readonly/>
                         </div>
-                        <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>" <?php echo $readonly ?>></div>
 
-                        <div><label for="c_address">Dirección</label><span> *</span>
-                            <span class="error"><?php if (isset($data['addressError'])) echo $data['addressError'];  ?></span>
+                        <div><label for="c_address">Dirección</label>
+                            <input type="text" value="<?php echo $data['c_address'];?>" readonly/>
                         </div>
-                        <div><input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>" <?php echo $readonly ?>></div>
 
-                        <div><label for="c_phone">Teléfono </label><span> *</span>
-                            <span class="error"><?php if (isset($data['phoneError'])) echo $data['phoneError'];  ?></span>
+                        <div><label for="c_phone">Teléfono</label>
+                            <input type="text" value="<?php echo $data['c_phone'];?>" readonly/>
                         </div>
-                        <div><input type="phone" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>" <?php echo $readonly ?>></div>
 
-                        <div><label for="c_email">Email </label><span> *</span>
-                            <span class="error"><?php if (isset($data['emailError'])) echo $data['emailError']; ?></span>
+                        <div><label for="c_email">Email</label>
+                            <input type="email" value="<?php echo $data['c_email'];?>" readonly/>
                         </div>
-                        <div><input type="email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>" <?php echo $readonly ?>></div>
                     </fieldset>
                 </section>
 
                 <section id='form_company_section_up_2_right'>
                     <fieldset>
                         <legend>Descripción de la empresa</legend>
-                        <textarea name="c_description" id="c_description" cols="4" rows="10" <?php echo $readonly ?>></textarea>
+                        <textarea name="c_description" id="c_description" cols="4" rows="10" <?php echo $readonly ?> readonly></textarea>
                     </fieldset>
 
                     <fieldset id='actions'>
                         <legend>Acciones</legend>
                         <section id="actions">
                             <!--Edit company-->
-                            <td><a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $value['c_id'] ?>">
-                                    <span class="material-symbols-outlined">
-                                        edit
-                                    </span></a></td>
-                            <!--Edit and delete company material icons-->
                             <a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $data['c_id'] ?>">
                                 <span class="material-symbols-outlined">
                                     delete
+                                </span></a>
+                            <!--Edit and delete company material icons-->
+                            <a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $data['c_id'] ?>">
+                                <span class="material-symbols-outlined">
+                                    edit
                                 </span></a>
                         </section>
 

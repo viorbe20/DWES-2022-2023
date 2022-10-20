@@ -348,6 +348,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: var(--purple-icons);
+            width: 100%;
+
+            h2{
+                color: whitesmoke;
+                font-size: 2rem;
+                margin: 0% 2%;
+
+            }
         }
         
         #form_company_section_up_2 {
