@@ -54,8 +54,8 @@ class Employee extends DBAbstractModel
 
     public function getById()
     {
-        $this->query = "SELECT * FROM employees WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
+        $this->query = "SELECT * FROM employees WHERE emp_id=:emp_id";
+        $this->parametros['emp_id'] = $this->emp_id;
         $this->get_results_from_query();
         $result = $this->rows;
         return $result;
@@ -63,15 +63,15 @@ class Employee extends DBAbstractModel
 
     public function getByName()
     {
-        $this->query = "SELECT * FROM employees WHERE c_name LIKE CONCAT('%',:c_name,'%')";
-        $this->parametros['c_name'] = $this->c_name;
+        $this->query = "SELECT * FROM employees WHERE emp_name LIKE CONCAT('%',:emp_name,'%')";
+        $this->parametros['emp_name'] = $this->emp_name;
         $this->get_results_from_query();
         return $this->rows;
     }
 
     public function lastInsert()
     {
-        $this->query = "SELECT * FROM employees ORDER BY c_id DESC LIMIT 1";
+        $this->query = "SELECT * FROM employees ORDER BY emp_id DESC LIMIT 1";
         $this->get_results_from_query();
         return $this->rows;
     }
@@ -114,8 +114,8 @@ class Employee extends DBAbstractModel
     //Métodos de eliminación
     public function delete()
     {
-        $this->query = "DELETE FROM employees WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
+        $this->query = "DELETE FROM employees WHERE emp_id=:emp_id";
+        $this->parametros['emp_id'] = $this->emp_id;
         $this->get_results_from_query();
     }
 

@@ -11,8 +11,7 @@ $c = Company::getInstancia();
 $e = Employee::getInstancia();
 
 $e->setId(1);
-//$e->getCompanyByEmployeeId();
-//$c->getCompanyByEmployee();
+$e->getCompanyByEmployee();
 // 1480
 
 foreach ($e->getCompanyByEmployee() as $key => $value) {
