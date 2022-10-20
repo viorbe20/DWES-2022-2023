@@ -71,13 +71,11 @@ if (isset($data['companiesList'])) {
                 <?php
                 foreach ($companiesList as $key => $value) {
                     //Shows an image inside a td
-                    echo "<td><img src='" . DIRFCT . "/assets/img/logos/" . $value['c_logo'] . "' alt='Logo de la empresa' width='50px' height='50px'></td>";
-
-
-                    echo "<td>" . $value['c_name'] . "</td>";
-                    echo "<td>" . $value['c_phone'] . "</td>";
-                ?>
-                    </a></td>
+                    ?>
+                    <td><img src="<?php echo  DIRFCT . "/assets/img/logos/" . $value['c_logo'] ?>" alt='Logo de la empresa' width='50px' height='50px'></td>
+                    <td><a class="link_standard" href="<?php echo DIRBASEURL .'/home/companies/company_profile/' . $value['c_id'] ?>"><?php echo $value['c_name']?></a></td>
+                    <td><?php echo $value['c_phone']?></td>
+            
                     <!--Employees-->
                     <td><a href="<?php echo DIRBASEURL . '/home/employees_list/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
                                 group

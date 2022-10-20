@@ -50,6 +50,20 @@ $router->add(array(
 ));
 
 $router->add(array(
+    'name'=>'company_profile',
+    'path'=>'/^\/home\/companies\/company_profile$/',
+    'action'=>[AdminController::class, 'companyProfileAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
+    'name'=>'employee_info',
+    'path'=>'/^\/home\/employees\/employee_info$/',
+    'action'=>[AdminController::class, 'employeeInfoAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
     'name'=>'company_edit',
     'path'=>'/^\/home\/companies\/company_edit\/\d{1,3}$/',
     'action'=>[AdminController::class, 'companyEditAction'],
@@ -60,27 +74,6 @@ $router->add(array(
     'name'=>'company_delete',
     'path'=>'/^\/home\/companies\/company_delete\/\d{1,3}$/',
     'action'=>[AdminController::class, 'companyDeleteAction'],
-    'auth'=>["admin"]
-));
-
-$router->add(array(
-    'name'=>'employees_list',
-    'path'=>'/^\/home\/employees_list\/\d{1,3}$/',
-    'action'=>[AdminController::class, 'employeesListAction'],
-    'auth'=>["admin"]
-));
-
-$router->add(array(
-    'name'=>'employee_profile',
-    'path'=>'/^\/home\/employee_profile\/\d{1,3}$/',
-    'action'=>[AdminController::class, 'employeeProfileAction'],
-    'auth'=>["admin"]
-));
-
-$router->add(array(
-    'name'=>'employee_profile',
-    'path'=>'/^\/home\/employee_profile$/',
-    'action'=>[AdminController::class, 'employeeProfileAction'],
     'auth'=>["admin"]
 ));
 

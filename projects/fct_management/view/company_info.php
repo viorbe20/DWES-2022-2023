@@ -89,7 +89,7 @@ if (isset($data['readonly'])) {
 
                 <fieldset>
                     <legend>Empleados</legend>
-                    <a href="<?php echo DIRBASEURL . '/home/employee_profile' ?>"> <input type="button" value="Añadir empleado" id="add_employee"></a>
+                    <a href="<?php echo DIRBASEURL . '/home/employee_profile' ?>"> <input class="btn_standard" type="button" value="Añadir empleado" id="add_employee_to_this"></a>
                 </fieldset>
 
                 <fieldset>
@@ -116,7 +116,7 @@ if (isset($data['readonly'])) {
         <?php 
         } else {
             ?>
-            <input type="submit" value="Enviar" name="add_new_company" id="btn_add_company">
+            <input type="submit" value="Crear" name="add_new_company" id="btn_add_company">
             <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" id="btn_reset">Cancelar</a>
         <?php } ?>
         </section>

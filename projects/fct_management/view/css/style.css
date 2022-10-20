@@ -60,17 +60,20 @@
   align-items: center;
 }
 
-#main_companies, #main_employees {
+#main_companies,
+#main_employees {
   display: flex;
   flex-direction: column;
 }
 
-#form-search-company, #form_search_employee {
+#form-search-company,
+#form_search_employee {
   display: flex;
   justify-content: space-around;
   margin: 0% 20%;
 }
-#form-search-company form, #form_search_employee form {
+#form-search-company form,
+#form_search_employee form {
   border: 1px #f1f1f1;
   width: 80%;
   padding: 1% 0%;
@@ -78,14 +81,16 @@
   justify-content: center;
   align-items: center;
 }
-#form-search-company form input[type=text], #form_search_employee form input[type=text] {
+#form-search-company form input[type=text],
+#form_search_employee form input[type=text] {
   width: 90%;
   padding: 2% 2%;
   border: 2px solid #ccc;
   border-radius: 15px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#form-search-company form button, #form_search_employee form button {
+#form-search-company form button,
+#form_search_employee form button {
   margin: 0% 1%;
   padding: 1.5% 2%;
   background-color: #04AA6D;
@@ -98,11 +103,13 @@
   align-items: center;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#form-search-company form button:hover, #form_search_employee form button:hover {
+#form-search-company form button:hover,
+#form_search_employee form button:hover {
   opacity: 0.8;
 }
 
-#add_company, #add_employee {
+#add_company,
+#add_employee {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,23 +121,34 @@
   width: 8%;
   margin: 2% 0%;
 }
-#add_company a, #add_employee a {
+#add_company a,
+#add_employee a {
   text-decoration: none;
   color: #ccc;
 }
-#add_company a:hover, #add_employee a:hover {
+#add_company a:hover,
+#add_employee a:hover {
   opacity: 0.8;
 }
-#add_company a span, #add_employee a span {
+#add_company a span,
+#add_employee a span {
   color: rgb(136, 136, 204);
   font-size: 3rem;
 }
-#add_company:hover, #add_employee:hover {
+#add_company:hover,
+#add_employee:hover {
   opacity: 0.8;
 }
 
 #table_companies {
   margin-bottom: 5%;
+}
+#table_companies tr td a {
+  color: var(--dark-grey);
+  font-size: 1.3rem;
+}
+#table_companies tr td a:hover {
+  font-weight: bold;
 }
 
 #form_add_company {
@@ -163,6 +181,7 @@
   margin: 0.5em 0;
   border: 1px solid #ccc;
   border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 #form_add_company fieldset div span {
   color: #f44336;
@@ -384,4 +403,26 @@ footer {
 }
 .table tr:hover {
   background-color: var(--light-blue);
+}
+
+.btn_standard {
+  color: var(--dark-grey);
+  background-color: whitesmoke;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 1em 1.5em;
+  text-align: center;
+  margin: 2% 2%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.btn_standard:hover {
+  opacity: 0.8;
+}
+
+.link_standard {
+  cursor: pointer;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */
