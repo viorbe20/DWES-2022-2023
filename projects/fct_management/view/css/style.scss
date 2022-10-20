@@ -166,7 +166,7 @@
                 //Company names on companies general list
                 color: var(--dark-grey);
                 font-size: 1.3rem;
-            
+
                 &:hover {
                     font-weight: bold;
                 }
@@ -176,7 +176,6 @@
 }
 
 //Company info view
-
 #form_add_company {
     font-family: sans-serif;
     margin: 4% 2%;
@@ -211,7 +210,7 @@
                 border: 1px solid #ccc;
                 border-radius: 3px;
                 box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    
+
 
             }
 
@@ -246,6 +245,166 @@
             *background-color: blue;
             width: 30%;
         }
+
+    }
+
+    #form_company_section_down {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        #btn_reset,
+        #btn_add_company {
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            padding: 1em 1.5em;
+            text-align: center;
+            margin: 2% 2%;
+
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        #btn_reset,
+        #btn_add_company {
+            background-color: #f44336;
+        }
+
+        #btn_add_company {
+            background-color: #4CAF50;
+        }
+    }
+
+
+
+
+}
+
+//COMPANY PROFILE PAGE
+#form_company_profile {
+    font-family: sans-serif;
+    margin: 4% 2%;
+    border: 1px solid #a2a2a2;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+
+    fieldset {
+        background-color: var(--light-blue);
+        display: flex;
+        flex-direction: column;
+        padding: 2% 6%;
+        margin: 2% 0%;
+        border: 1px solid #ccc;
+
+        legend {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5em;
+        }
+
+        div {
+            input {
+                width: 98%;
+                padding: 0.5em;
+                margin: 0.5em 0;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+
+            }
+
+            span {
+                color: #f44336;
+                font-weight: bold;
+                font-size: 1rem;
+            }
+
+        }
+    }
+
+    #form_company_section_up {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0%;
+        padding: 0%;
+        border-bottom: 1px solid #a2a2a2;
+        
+        //Logo and company name
+        #form_company_section_up_1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #form_company_section_up_2 {
+            *background-color: pink;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            *background-color: #04AA6D;
+            width: 100%;
+
+            #form_company_section_up_2_left {
+                *background-color: yellow;
+                display: flex;
+                justify-content: center;
+                width: 70%;
+
+                fieldset {
+                    width: 100%;
+
+                }
+            }
+
+            #form_company_section_up_2_right {
+                *background-color: blue;
+                display: flex;
+                flex-direction: column;
+                width: 30%;
+                justify-content: center;
+
+                fieldset {
+                    margin: 0% 2%;
+
+                    #actions {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        margin: 0%;
+                        padding: 0%;
+
+                        a {
+                            span {
+                                color: var(--purple-icons);
+                                font-size: 2rem;
+                            
+                            
+                                &:hover {
+                                    transform: scale(1.5);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
 
     }
 
@@ -519,3 +678,15 @@ footer {
     text-decoration: none;
 }
 
+//It´s a span
+.myIcon {
+
+    color: var(--purple-icons);
+    font-size: 2rem;
+
+
+    &:hover {
+        transform: scale(1.5);
+    }
+
+}

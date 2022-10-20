@@ -230,13 +230,27 @@ class AdminController extends BaseController
         }
     }
 
-    public function companyProfileAction ($request) {
-        
+    public function companyProfileAction($request)
+    {
+
         $data = array();
         $company = new Company();
-        $companyId = $request->getParams()['id'];
+        $rest = explode('/', $request);
+        $companyId = (int)end($rest);
         $company->setId($companyId);
-        $data['company_id'] = $company->getById();
+        $data['c_id'] = $companyId;
+
+        foreach($company->getById() as $key => $value){
+            $data['c_name'] = $value['c_name'];
+            $data['c_cif'] = $value['c_cif'];
+            $data['c_address'] = $value['c_address'];
+            $data['c_phone'] = $value['c_phone'];
+            $data['c_email'] = $value['c_email'];
+            $data['c_logo'] = $value['c_logo'];
+            $data['c_description'] = $value['c_description'];
+        }
+
+
         $this->renderHTML('../view/company_profile.php', $data);
     }
 
@@ -309,25 +323,25 @@ class AdminController extends BaseController
             }
 
             //Logo upload
-            
-            
-            if(file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
+
+
+            if (file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
                 //Logo name is the company id
                 $lastCompany = $company->lastInsert();
                 $lastCompanyId = $lastCompany[0]['c_id'];
                 $logoId = $lastCompanyId + 1;
-                
+
                 //Get logo extension
                 $pieces = explode(".", $_FILES['c_logo']['name']);
                 $logoExtension = $pieces[1];
-                
+
                 //Complete logo name
                 $_FILES["c_logo"]["name"] = $logoId . "." . $logoExtension;
                 $target_dir = "../assets/img/logos/";
                 $uploadOk = 1;
                 $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        
+
                 // Check if image file is a actual image or fake image
                 if (isset($_POST["submit"])) {
                     $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
@@ -339,47 +353,46 @@ class AdminController extends BaseController
                         $uploadOk = 0;
                     }
                 }
-                
+
                 // Check if file already exists
                 if (file_exists($target_file)) {
                     $data['logoError'] = "El archivo ya existe.";
                     $uploadOk = 0;
                 }
-                
+
                 if ($_FILES["c_logo"]["size"] > 500000) {
                     $data['logoError'] = "El archivo es demasiado pesado.";
                     $uploadOk = 0;
                 }
-                
+
                 // Allow certain file formats
                 if (
                     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif"
-                    ) {
-                        $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
-                        $uploadOk = 0;
-                    }
-                    
-                    // Check if $uploadOk is set to 0 by an error
-                    if ($uploadOk == 0) {
-                        $data['logoError'] = "No se ha subido el archivo.";
-                        
-                        
-                        // if everything is ok, try to upload file
-                    } else {
-                        //When save in the database, the name of the logo is the same as the id of de company
-                        if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
-                            $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
-                            $company->setLogo($_FILES['c_logo']['name']);
+                ) {
+                    $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
+                    $uploadOk = 0;
+                }
+
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    $data['logoError'] = "No se ha subido el archivo.";
+
+
+                    // if everything is ok, try to upload file
+                } else {
+                    //When save in the database, the name of the logo is the same as the id of de company
+                    if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
+                        $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
+                        $company->setLogo($_FILES['c_logo']['name']);
                     } else {
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
-                        
                     }
                 }
             } else {
                 $company->setLogo("unknown.png");
             }
-            
+
             //If no errors, insert data
             if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "") {
                 $company->setCreatedAt(date('Y-m-d H:i:s'));

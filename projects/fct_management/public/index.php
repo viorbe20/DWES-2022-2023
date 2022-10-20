@@ -51,14 +51,14 @@ $router->add(array(
 
 $router->add(array(
     'name'=>'company_profile',
-    'path'=>'/^\/home\/companies\/company_profile$/',
+    'path'=>'/^\/home\/companies\/company_profile\/\d{1,3}$/',
     'action'=>[AdminController::class, 'companyProfileAction'],
     'auth'=>["admin"]
 ));
 
 $router->add(array(
     'name'=>'employee_info',
-    'path'=>'/^\/home\/employees\/employee_info$/',
+    'path'=>'/^\/home\/employees\/employee_info\/\d{1,3}$/',
     'action'=>[AdminController::class, 'employeeInfoAction'],
     'auth'=>["admin"]
 ));
