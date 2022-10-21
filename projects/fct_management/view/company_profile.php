@@ -40,7 +40,7 @@ if (isset($data['readonly'])) {
 
             <section id='form_company_section_up_1'>
                 <!-- company logo -->
-                <img src="<?php echo DIRFCT . '/assets/img/logos/' . $data['c_logo'] ?>" alt="company logo" id="profile_company_logo">
+                <img width="5%" src="<?php echo DIRFCT . '/assets/img/logos/' . $data['c_logo'] ?>" alt="company logo" id="profile_company_logo">
                 <h2><?php echo $data['c_name'] ?></h2>
             </section>
 
