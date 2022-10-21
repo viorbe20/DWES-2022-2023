@@ -77,6 +77,7 @@ class AdminController extends BaseController
         $companyId = (int)end($rest);
         $company->setId($companyId);
         $data['mode'] = 'Elimina empresa';
+        $data['readonly'] = 'readonly';
         $data['c_id'] = $companyId;
 
         if (isset($_POST['delete_current_company'])) {
@@ -281,6 +282,11 @@ class AdminController extends BaseController
         $data = array();
         $company = Company::getInstancia();
         $data['mode'] = 'Alta empresa';
+        //Next id for the new company
+        $lastCompany = $company->lastInsert();
+        $lastCompanyId = $lastCompany[0]['c_id'];
+        $logoId = $lastCompanyId + 1;
+        $data['c_id_next'] = $logoId;
 
 
         if (isset($_POST['add_new_company'])) {
@@ -346,8 +352,6 @@ class AdminController extends BaseController
             }
 
             //Logo upload
-
-
             if (file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
                 //Logo name is the company id
                 $lastCompany = $company->lastInsert();

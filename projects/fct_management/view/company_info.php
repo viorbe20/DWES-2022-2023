@@ -10,10 +10,13 @@ if (isset($data)) {
 //var_dump($data);
 }
 
+//Mode delete disables edition
 if (isset($data['readonly'])) {
     $readonly = $data['readonly'];
+    $disabled = "disabled = 'disabled'";
 } else {
     $readonly = " ";
+    $disabled = "disabled = ''";
 }
 ?>
 
@@ -87,23 +90,34 @@ if (isset($data['readonly'])) {
             <section id='form_company_section_up_right'>
                 <fieldset>
                     <legend>Logo</legend>
-                    <input type="file" name="c_logo" <?php echo $readonly ?>>
+                    <input type="file" name="c_logo" <?php echo $disabled?>;>
                     <span class="error"><?php if (isset($data['logoError'])) echo $data['logoError']; ?></span>
                 </fieldset>
 
                 <fieldset>
                     <legend>Empleados</legend>
                     <?php
-                    if ($data['mode'] = 'Alta empresa') {?>
-                    <a href="<?php echo DIRBASEURL . '/home/employees/employee_add' ?>"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>
-                    <?php } else { ?>
-                        <a href="<?php echo DIRBASEURL . '/home/employees/employee_info/' . $data['c_id'] ?>"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>
-                    <?php } ?>
+                    if ($data['mode'] = 'Alta empresa') {
+                    echo "<a href='" . DIRBASEURL . "/home/employees/employee_add/". $data['c_id_next'] ."'> <input class='btn_standard' type='button' value='Añadir empleados' id='add_employee_to_this'></a>";
+                    }
+                //     elseif ($data['mode'] = 'Elimina empresa') { 
+                //     echo "<a href= \"DIRBASEURL .\"/home/employees/employee_info/"\" $data['c_id'] \"> <input class=\"btn_standard\" type=\"button\" value=\"Empleados\" id=\"add_employee_to_this\"></a>";
+
+                // } else { 
+                //         echo "<a href="DIRBASEURL . '/home/employees/employee_info/' . $data['c_id']"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>";"
+                // } 
+                ?>
                 </fieldset>
 
                 <fieldset>
                     <legend>Descripción de la empresa</legend>
-                    <textarea name="c_description" id="c_description" cols="40" rows="12" <?php echo $readonly ?>></textarea>
+                    <textarea name="c_description" id="c_description" cols="40" rows="12" <?php echo $readonly ?>> 
+                    <?php if (isset($data['c_description']))
+                        { 
+                            echo $data['c_description'];
+                        }
+                    ?>
+                    </textarea>
                 </fieldset>
                 
 

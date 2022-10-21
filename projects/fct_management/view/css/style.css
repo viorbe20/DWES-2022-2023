@@ -212,6 +212,12 @@
   background-color: #AAAAAA;
   color: whitesmoke;
 }
+#form_add_company #form_company_section_up #form_company_section_up_right fieldset textarea {
+  padding: 2%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
 #form_add_company #form_company_section_down {
   display: flex;
   justify-content: center;
@@ -328,7 +334,6 @@
 }
 #form_company_profile #form_company_section_up #form_company_section_up_2 #form_company_section_up_2_right fieldset textarea {
   padding: 2%;
-  *background-color: #04AA6D;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
