@@ -151,14 +151,14 @@
   font-weight: bold;
 }
 
-#form_add_company {
+#form_add_company, #form_add_employee {
   font-family: sans-serif;
   border: 1px solid #a2a2a2;
   padding: 0%;
   display: flex;
   flex-direction: column;
 }
-#form_add_company fieldset {
+#form_add_company fieldset, #form_add_employee fieldset {
   background-color: var(--light-blue);
   display: flex;
   flex-direction: column;
@@ -166,15 +166,15 @@
   margin: 2% 0%;
   border: 1px solid #ccc;
 }
-#form_add_company fieldset legend {
+#form_add_company fieldset legend, #form_add_employee fieldset legend {
   font-size: 1rem;
   font-weight: bold;
 }
-#form_add_company fieldset label {
+#form_add_company fieldset label, #form_add_employee fieldset label {
   font-size: 0.9rem;
   margin-bottom: 0.5em;
 }
-#form_add_company fieldset div input {
+#form_add_company fieldset div input, #form_add_employee fieldset div input {
   width: 98%;
   padding: 0.5em;
   margin: 0.5em 0;
@@ -182,12 +182,12 @@
   border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#form_add_company fieldset div span {
+#form_add_company fieldset div span, #form_add_employee fieldset div span {
   color: #f44336;
   font-weight: bold;
   font-size: 1rem;
 }
-#form_add_company #form_company_section_up {
+#form_add_company #form_company_section_up, #form_add_employee #form_company_section_up {
   display: flex;
   justify-content: space-around;
   align-items: stretch;
@@ -196,11 +196,11 @@
   border-bottom: 1px solid #a2a2a2;
   *background-color: yellow;
 }
-#form_add_company #form_company_section_up #form_company_section_up_left {
+#form_add_company #form_company_section_up #form_company_section_up_left, #form_add_employee #form_company_section_up #form_company_section_up_left {
   *background-color: #04AA6D;
   width: 60%;
 }
-#form_add_company #form_company_section_up #form_company_section_up_right {
+#form_add_company #form_company_section_up #form_company_section_up_right, #form_add_employee #form_company_section_up #form_company_section_up_right {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -208,23 +208,24 @@
   *background-color: blue;
   width: 30%;
 }
-#form_add_company #form_company_section_up #form_company_section_up_right fieldset a input {
+#form_add_company #form_company_section_up #form_company_section_up_right fieldset a input, #form_add_employee #form_company_section_up #form_company_section_up_right fieldset a input {
   background-color: #AAAAAA;
   color: whitesmoke;
 }
-#form_add_company #form_company_section_up #form_company_section_up_right fieldset textarea {
+#form_add_company #form_company_section_up #form_company_section_up_right fieldset textarea, #form_add_employee #form_company_section_up #form_company_section_up_right fieldset textarea {
   padding: 2%;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#form_add_company #form_company_section_down {
+#form_add_company #form_company_section_down, #form_add_employee #form_company_section_down {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #form_add_company #form_company_section_down #btn_reset,
-#form_add_company #form_company_section_down #btn_add_company {
+#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_reset,
+#form_add_employee #form_company_section_down #btn_add_company {
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -236,14 +237,16 @@
   margin: 2% 2%;
 }
 #form_add_company #form_company_section_down #btn_reset:hover,
-#form_add_company #form_company_section_down #btn_add_company:hover {
+#form_add_company #form_company_section_down #btn_add_company:hover, #form_add_employee #form_company_section_down #btn_reset:hover,
+#form_add_employee #form_company_section_down #btn_add_company:hover {
   opacity: 0.8;
 }
 #form_add_company #form_company_section_down #btn_reset,
-#form_add_company #form_company_section_down #btn_add_company {
+#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_reset,
+#form_add_employee #form_company_section_down #btn_add_company {
   background-color: #f44336;
 }
-#form_add_company #form_company_section_down #btn_add_company {
+#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_add_company {
   background-color: #4CAF50;
 }
 

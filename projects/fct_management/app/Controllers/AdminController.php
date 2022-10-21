@@ -23,9 +23,13 @@ class AdminController extends BaseController
         $this->renderHTML('../view/employee_info.php', $data); 
     }
 
-    public function employeeAddAction () {
+    public function employeeAddAction ($request) {
         $data = array();
         $data['mode'] = "Alta empleado";
+        //$data['nameError'] = $data['nifError'] = $data['jobError']  = "Error";
+        $data['nameError'] = $data['nifError'] = $data['jobError']  = "";
+
+
         $this->renderHTML('../view/employee_info.php', $data); 
     }
 

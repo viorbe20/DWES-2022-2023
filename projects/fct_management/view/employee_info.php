@@ -12,35 +12,18 @@ if (!isset($data['nameError'])) {
     $nameError = $data['nameError'];
 }
 
-if (!isset($data['cifError'])) {
-    $cifError = '';
+if (!isset($data['nifError'])) {
+    $nifError = '';
 } else {
-    $cifError = $data['cifError'];
+    $nifError = $data['nifError'];
 }
 
-if (!isset($data['addressError'])) {
-    $addressError = '';
+if (!isset($data['jobError'])) {
+    $jobError = '';
 } else {
-    $addressError = $data['addressError'];
+    $jobError = $data['jobError'];
 }
 
-if (!isset($data['phoneError'])) {
-    $phoneError = '';
-} else {
-    $phoneError = $data['phoneError'];
-}
-
-if (!isset($data['emailError'])) {
-    $emailError = '';
-} else {
-    $emailError = $data['emailError'];
-}
-
-if (!isset($data['logoError'])) {
-    $logoError = '';
-} else {
-    $logoError = $data['logoError'];
-}
 
 if (isset($data)) {
     //var_dump($data);
@@ -64,63 +47,32 @@ if (isset($data)) {
 <h2 class='page_title'>
     <?php echo $data['mode'] ?>
 </h2>
-    <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
+    <form method="post" action="" enctype="multipart/form-data" id="form_add_employee">
 
         <section id='form_company_section_up'>
 
             <section id='form_company_section_up_left'>
                 <fieldset>
                     <legend>Datos Trabajador</legend>
-                    <div><label for="c_name">Nombre</label><span> *</span>
+                    <div><label for="emp_name">Nombre</label><span> *</span>
                         <span class="error"><?php echo $nameError ?></span>
                     </div>
-                    <div><input type="text" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>"></div>
+                    <div><input type="text" name="emp_name" value="<?php if (isset($data['emp_name'])) echo $data['emp_name']; ?>"></div>
 
 
-                    <div><label for="c_cif">Cif</label><span> *</span>
-                        <span class="error"><?php echo $cifError; ?></span>
+                    <div><label for="emp_nif">Nif</label><span> *</span>
+                        <span class="error"><?php echo $nifError; ?></span>
                     </div>
-                    <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>"></div>
+                    <div><input type="text" name="emp_nif" value="<?php if (isset($data['emp_nif'])) echo $data['emp_nif']; ?>"></div>
 
 
-                    <div><label for="c_address">Dirección</label><span> *</span>
-                        <span class="error"><?php echo $addressError; ?></span>
+                    <div><label for="emp_job">Cargo</label><span> *</span>
+                        <span class="error"><?php echo $jobError; ?></span>
                     </div>
-                    <div><input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>"></div>
-
-
-                    <div><label for="c_phone">Teléfono </label><span> *</span>
-                        <span class="error"><?php echo $phoneError; ?></span>
-                    </div>
-                    <div><input type="number" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>"></div>
-
-
-                    <div><label for="c_email">Email </label><span> *</span>
-                        <span class="error"><?php echo $emailError; ?></span>
-                    </div>
-                    <div><input type="email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>"></div>
-
+                    <div><input type="text" name="emp_job" value="<?php if (isset($data['emp_job'])) echo $data['emp_job']; ?>"></div>
                 </fieldset>
             </section>
 
-            <section id='form_company_section_up_right'>
-                <fieldset>
-                    <legend>Logo</legend>
-                    <input type="file" name="c_logo">
-                    <span class="error"><?php echo $logoError; ?></span>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Empleados</legend>
-                    <a href= "<?php echo DIRBASEURL . '/home/companies/worker_info'?>;" > <input type="button" value="Añadir empleado" id="add_employee"></a>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Descripción de la empresa</legend>
-                    <textarea name="c_description" id="c_description" cols="40" rows="12"></textarea>
-                </fieldset>
-
-            </section>
 
         </section>
 
