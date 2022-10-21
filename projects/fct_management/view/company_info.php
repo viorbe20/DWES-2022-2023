@@ -8,6 +8,7 @@ echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Mate
 
 if (isset($data)) { 
 //var_dump($data);
+//print($data['mode']);
 }
 
 //Mode delete disables edition
@@ -97,15 +98,15 @@ if (isset($data['readonly'])) {
                 <fieldset>
                     <legend>Empleados</legend>
                     <?php
-                    if ($data['mode'] = 'Alta empresa') {
+                    if ($data['mode'] == 'Alta empresa') {
                     echo "<a href='" . DIRBASEURL . "/home/employees/employee_add/". $data['c_id_next'] ."'> <input class='btn_standard' type='button' value='Añadir empleados' id='add_employee_to_this'></a>";
-                    }
-                //     elseif ($data['mode'] = 'Elimina empresa') { 
-                //     echo "<a href= \"DIRBASEURL .\"/home/employees/employee_info/"\" $data['c_id'] \"> <input class=\"btn_standard\" type=\"button\" value=\"Empleados\" id=\"add_employee_to_this\"></a>";
+                    } elseif ($data['mode'] == 'Elimina empresa'){
+                    echo "<a href=''> <input class='btn_standard' type='button' value='Añadir empleados' id='add_employee_to_this'></a>";
+                    } elseif ($data['mode'] == 'Edita empresa') {
+                        echo "<a href=''> <input class='btn_standard' type='button' value='Editar empleados' id='add_employee_to_this'></a>";
 
-                // } else { 
-                //         echo "<a href="DIRBASEURL . '/home/employees/employee_info/' . $data['c_id']"> <input class="btn_standard" type="button" value="Empleados" id="add_employee_to_this"></a>";"
-                // } 
+                    }
+
                 ?>
                 </fieldset>
 
