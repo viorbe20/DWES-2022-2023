@@ -70,7 +70,7 @@ if (isset($data['readonly'])) {
                 <section id='form_company_section_up_2_right'>
                     <fieldset>
                         <legend>Descripción de la empresa</legend>
-                        <textarea name="c_description" id="c_description" cols="4" rows="10" <?php echo $readonly ?> readonly></textarea>
+                        <textarea name="c_description" id="c_description" cols="4" rows="10" readonly><?php echo $data['c_description'] ?> </textarea>
                     </fieldset>
 
                     <fieldset id='actions'>
