@@ -125,7 +125,7 @@ if (!isset($data['jobError'])) {
             <legend>Datos Empleado</legend>
 
             <section class="employee_section">
-                <span class="material-symbols-outlined" id="cancel_new_employee">
+                <span class="material-symbols-outlined" class="cancel_new_employee">
                     cancel
                 </span>
                 <div><label for="emp_name">Nombre</label><span> *</span>
