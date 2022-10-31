@@ -3,9 +3,9 @@ require('../view/require/header_view.html');
 require('../view/require/profile_view.php');
 require('../view/require/nav_view.php');
 require('../view/require/footer_view.html');
-echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<script>" . file_get_contents('../view/js/main.js') . "</script>";
 
 if (isset($data)) {
@@ -123,46 +123,50 @@ if (!isset($data['jobError'])) {
         <!--Employee data-->
         <fieldset id='new_employee_data'>
             <legend>Datos Empleado</legend>
-            <span class="material-symbols-outlined" id="cancel_new_employee">
-                cancel
-            </span>
-            <div><label for="emp_name">Nombre</label><span> *</span>
-                <span class="error"><?php echo $nameError ?></span>
-            </div>
-            <div><input type="text" name="emp_name" value="<?php if (isset($data['emp_name'])) echo $data['emp_name']; ?>"></div>
+
+            <section class="employee_section">
+                <span class="material-symbols-outlined" id="cancel_new_employee">
+                    cancel
+                </span>
+                <div><label for="emp_name">Nombre</label><span> *</span>
+                    <span class="error"><?php echo $nameError ?></span>
+                </div>
+                <div><input type="text" name="emp_name" value="<?php if (isset($data['emp_name'])) echo $data['emp_name']; ?>"></div>
 
 
-            <div><label for="emp_nif">Nif</label><span> *</span>
-                <span class="error"><?php echo $nifError; ?></span>
-            </div>
-            <div><input type="text" name="emp_nif" value="<?php if (isset($data['emp_nif'])) echo $data['emp_nif']; ?>"></div>
+                <div><label for="emp_nif">Nif</label><span> *</span>
+                    <span class="error"><?php echo $nifError; ?></span>
+                </div>
+                <div><input type="text" name="emp_nif" value="<?php if (isset($data['emp_nif'])) echo $data['emp_nif']; ?>"></div>
 
 
-            <div><label for="emp_job">Cargo</label><span> *</span>
-                <span class="error"><?php echo $jobError; ?></span>
-            </div>
-            <div><input type="text" name="emp_job" value="<?php if (isset($data['emp_job'])) echo $data['emp_job']; ?>"></div>
+                <div><label for="emp_job">Cargo</label><span> *</span>
+                    <span class="error"><?php echo $jobError; ?></span>
+                </div>
+                <div><input type="text" name="emp_job" value="<?php if (isset($data['emp_job'])) echo $data['emp_job']; ?>"></div>
+            </section>
+
         </fieldset>
-        
+
         <!--Company config-->
         <section id='company_config'>
-        <?php
-        if (isset($data['deleteCompany'])) {
-        ?>
-            <input type="submit" value="Eliminar" name="delete_current_company" id="btn_add_company">
-            <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
-        <?php
-        } elseif (isset($data['editCompany'])) {
-        ?>
-            <input type="submit" value="Editar" name="edit_current_company" id="btn_add_company">
-            <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
-        <?php
-        } else {
-        ?>
-            <input type="text" value="Añadir Empleado" id="add_new_employee_to_a_company" class="btn_add_green">
-            <input type="submit" value="Crear Empresa" name="add_new_company" class="btn_add_green">
-            <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" class="btn_cancel_red">Cancelar</a>
-        <?php } ?>
+            <?php
+            if (isset($data['deleteCompany'])) {
+            ?>
+                <input type="submit" value="Eliminar" name="delete_current_company" id="btn_add_company">
+                <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
+            <?php
+            } elseif (isset($data['editCompany'])) {
+            ?>
+                <input type="submit" value="Editar" name="edit_current_company" id="btn_add_company">
+                <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
+            <?php
+            } else {
+            ?>
+                <input type="text" value="Añadir Empleado" id="add_employee_section" class="btn_add_green">
+                <input type="submit" value="Crear Empresa" name="add_new_company" class="btn_add_green">
+                <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" class="btn_cancel_red">Cancelar</a>
+            <?php } ?>
         </section>
 
     </form>
