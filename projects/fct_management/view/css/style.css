@@ -151,30 +151,36 @@
   font-weight: bold;
 }
 
-#form_add_company, #form_add_employee {
+#form_add_company,
+#form_add_employee {
   font-family: sans-serif;
   border: 1px solid #a2a2a2;
   padding: 0%;
   display: flex;
   flex-direction: column;
 }
-#form_add_company fieldset, #form_add_employee fieldset {
+#form_add_company fieldset,
+#form_add_employee fieldset {
   background-color: var(--light-blue);
   display: flex;
-  flex-direction: column;
-  padding: 2% 6%;
-  margin: 2% 0%;
+  text-align: left;
+  justify-content: center;
+  padding: 2% 1%;
+  margin: 2% 2%;
   border: 1px solid #ccc;
 }
-#form_add_company fieldset legend, #form_add_employee fieldset legend {
+#form_add_company fieldset legend,
+#form_add_employee fieldset legend {
   font-size: 1rem;
   font-weight: bold;
 }
-#form_add_company fieldset label, #form_add_employee fieldset label {
+#form_add_company fieldset label,
+#form_add_employee fieldset label {
   font-size: 0.9rem;
   margin-bottom: 0.5em;
 }
-#form_add_company fieldset div input, #form_add_employee fieldset div input {
+#form_add_company fieldset div input,
+#form_add_employee fieldset div input {
   width: 98%;
   padding: 0.5em;
   margin: 0.5em 0;
@@ -182,49 +188,25 @@
   border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#form_add_company fieldset div span, #form_add_employee fieldset div span {
-  color: #f44336;
-  font-weight: bold;
-  font-size: 1rem;
+#form_add_company fieldset section,
+#form_add_employee fieldset section {
+  width: 50%;
+  padding: 1% 3%;
 }
-#form_add_company #form_company_section_up, #form_add_employee #form_company_section_up {
-  display: flex;
-  justify-content: space-around;
-  align-items: stretch;
-  margin: 0%;
-  padding: 0%;
-  border-bottom: 1px solid #a2a2a2;
-  *background-color: yellow;
-}
-#form_add_company #form_company_section_up #form_company_section_up_left, #form_add_employee #form_company_section_up #form_company_section_up_left {
-  *background-color: #04AA6D;
-  width: 60%;
-}
-#form_add_company #form_company_section_up #form_company_section_up_right, #form_add_employee #form_company_section_up #form_company_section_up_right {
+#form_add_company fieldset section #description,
+#form_add_employee fieldset section #description {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: stretch;
-  *background-color: blue;
-  width: 30%;
 }
-#form_add_company #form_company_section_up #form_company_section_up_right fieldset a input, #form_add_employee #form_company_section_up #form_company_section_up_right fieldset a input {
-  background-color: #AAAAAA;
-  color: whitesmoke;
-}
-#form_add_company #form_company_section_up #form_company_section_up_right fieldset textarea, #form_add_employee #form_company_section_up #form_company_section_up_right fieldset textarea {
-  padding: 2%;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-}
-#form_add_company #form_company_section_down, #form_add_employee #form_company_section_down {
+#form_add_company #form_company_section_down,
+#form_add_employee #form_company_section_down {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #form_add_company #form_company_section_down #btn_reset,
-#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_reset,
+#form_add_company #form_company_section_down #btn_add_company,
+#form_add_employee #form_company_section_down #btn_reset,
 #form_add_employee #form_company_section_down #btn_add_company {
   color: white;
   cursor: pointer;
@@ -237,17 +219,39 @@
   margin: 2% 2%;
 }
 #form_add_company #form_company_section_down #btn_reset:hover,
-#form_add_company #form_company_section_down #btn_add_company:hover, #form_add_employee #form_company_section_down #btn_reset:hover,
+#form_add_company #form_company_section_down #btn_add_company:hover,
+#form_add_employee #form_company_section_down #btn_reset:hover,
 #form_add_employee #form_company_section_down #btn_add_company:hover {
   opacity: 0.8;
 }
 #form_add_company #form_company_section_down #btn_reset,
-#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_reset,
+#form_add_company #form_company_section_down #btn_add_company,
+#form_add_employee #form_company_section_down #btn_reset,
 #form_add_employee #form_company_section_down #btn_add_company {
   background-color: #f44336;
 }
-#form_add_company #form_company_section_down #btn_add_company, #form_add_employee #form_company_section_down #btn_add_company {
+#form_add_company #form_company_section_down #btn_add_company,
+#form_add_employee #form_company_section_down #btn_add_company {
   background-color: #4CAF50;
+}
+
+#new_employee_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#new_employee_data #cancel_new_employee {
+  text-align: right;
+  margin: 0%;
+  cursor: pointer;
+  color: var(--medium-grey);
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#company_config {
+  display: flex;
+  justify-content: center;
 }
 
 #form_company_profile {
@@ -359,29 +363,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-#form_company_profile #form_company_section_down #btn_reset,
-#form_company_profile #form_company_section_down #btn_add_company {
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  padding: 1em 1.5em;
-  text-align: center;
-  margin: 2% 2%;
-}
-#form_company_profile #form_company_section_down #btn_reset:hover,
-#form_company_profile #form_company_section_down #btn_add_company:hover {
-  opacity: 0.8;
-}
-#form_company_profile #form_company_section_down #btn_reset,
-#form_company_profile #form_company_section_down #btn_add_company {
-  background-color: #f44336;
-}
-#form_company_profile #form_company_section_down #btn_add_company {
-  background-color: #4CAF50;
 }
 
 header {
@@ -582,9 +563,40 @@ footer {
 }
 
 .page_title {
-  background-color: var(--purple-icons);
-  color: white;
+  color: var(--purple-icons);
   text-align: center;
   font-size: 1.3rem;
   padding: 1% 0%;
+}
+
+.btn_add_green {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 1em 1.5em;
+  text-align: center;
+  margin: 2% 2%;
+}
+.btn_add_green:hover {
+  opacity: 0.8;
+}
+
+.btn_cancel_red {
+  background-color: #f44336;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 1em 1.5em;
+  text-align: center;
+  margin: 2% 2%;
+}
+.btn_cancel_red:hover {
+  opacity: 0.8;
 }/*# sourceMappingURL=style.css.map */

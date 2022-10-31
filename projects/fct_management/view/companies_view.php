@@ -28,13 +28,15 @@ if (isset($data['companiesList'])) {
 
 <body>
 <?php
-// if (isset($data['deletedCompany'])) {
-//     echo "<script>
-//     if (confirm('Empresa " . $data['deletedCompany'] . " eliminada correctamente.)) {
-//         window.location.href = '" . DIRBASEURL . "/home/companies';
-//     } 
-//     </script>";
-// }
+    echo "<script>
+    function myFunc() {
+        if (confirm('¿Deseas eliminar la empresa?')) {
+            window.location.href = '" . DIRBASEURL . "/home/companies/company_delete/23';
+        } else {
+            window.location.href = '" . DIRBASEURL . "/home/companies'
+        }
+    }
+    </script>";
 ?>
     <main id='main_companies'>
 
@@ -82,7 +84,7 @@ if (isset($data['companiesList'])) {
                             </span></a></td>
 
                     <!--Delete company-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                    <td> <a href="" onclick="javascript:myFunc()"><span class="material-symbols-outlined">
                                 delete
                             </span></a></td>
                     <!--Edit company-->
