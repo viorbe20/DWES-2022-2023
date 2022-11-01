@@ -290,6 +290,7 @@ class AdminController extends BaseController
         $data = array();
         $data['mode'] = "Alta empresa";
         $company = Company::getInstancia();
+        
         function clearData($data)
         {
             $data = trim($data);
@@ -395,17 +396,19 @@ class AdminController extends BaseController
 
             //If employees are added, save them
             if (isset($_POST["e_name"])) {
-                foreach ($_POST["e_name"] as $key => $value) {
-                    $data['e_name'][$key] = clearData($value);
-                }
-                foreach ($_POST["e_nif"] as $key => $value) {
-                    $data['e_cif'][$key] = clearData($value);
-                }
-                foreach ($_POST["e_job"] as $key => $value) {
-                    $data['e_job'][$key] = clearData($value);
+                for ($i=1; $i < count($_POST["e_name"]); $i++) { 
+                    $employee = Employee::getInstancia();
+                    $employee->setName($_POST["e_name"][$i]);
+                    $employee->setNif($_POST["e_nif"][$i]);
+                    $employee->setJob($_POST["e_job"][$i]);
+                    $employee->setCreatedAt(date('Y-m-d H:i:s'));
+                    $employee->setUpdatedAt(date('Y-m-d H:i:s'));
+                    $employee->setCompanyId($lastCompanyId);
+                    $employee->set();
                 }
             }
         }
+    
 
 
 
