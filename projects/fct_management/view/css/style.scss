@@ -271,7 +271,7 @@
     //First child of #new_employee_data
     section:nth-child(2) {
         *background-color: blue;
-        display: flex;
+        display: none;
     }
 
     .employee_section {

@@ -242,7 +242,7 @@
 }
 #new_employee_data section:nth-child(2) {
   *background-color: blue;
-  display: flex;
+  display: none;
 }
 #new_employee_data .employee_section {
   flex-direction: column;

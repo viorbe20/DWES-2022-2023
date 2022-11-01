@@ -2,7 +2,8 @@ $(document).ready(function () {
     //Check empty input fields
     let allInputs = $("#new_company_data > section > div > input");
     allInputs.each(function () {
-    //If blur function is triggered check if the filed is required
+    
+        //If blur function is triggered check if the filed is required
         $(this).blur(function () {
             if ($(this).attr("required") == "required") {
                 if ($(this).val() == "") {
@@ -14,6 +15,36 @@ $(document).ready(function () {
             }
         });
     });
+
+    //Submit button click event
+    $('#btn_add_new_company').click(function () {    
+        let errorSpans = $("#new_company_data > section > div > span.error");
+        $emptySpans = 0;
+
+        //Check if the error spans are empty
+        errorSpans.each(function () {
+            if ($(this).text() == "") {
+                console.log($(this).text());
+                $emptySpans++;
+            }
+        });
+
+        //If there are no empty spans submit the form
+        if ($emptySpans == errorSpans.length) {
+            $(document).ready(function() {
+                alert ("Se ha creado la empresa."); 
+            });
+        } else {
+            $(document).ready(function() {
+                console.log("emptySpans = " + $emptySpans);
+                console.log("errorSpans.length = " + errorSpans.length);
+                alert ("Debes completar los campos obligatorios."); 
+            });
+        }
+    });
+
+
+
 
 
     // Add employee button click event from 'alta empresa'
