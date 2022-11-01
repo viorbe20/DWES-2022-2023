@@ -74,21 +74,24 @@ if (!isset($data['jobError'])) {
 
             <section id="new_company_data_left">
                 <div><label for="c_name">Nombre</label><span> *</span>
-                    <span class="error"><?php if (isset($data['nameError'])) echo $data['nameError'];  ?></span>
                 </div>
                 <div>
-                    <input type="text" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>" <?php echo $readonly ?>>
+                    <input type="text" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>" <?php echo $readonly ?> required>
+                    <span class="error"><?php if (isset($data['nameError'])) echo $data['nameError'];  ?></span>
                 </div>
 
                 <div><label for="c_cif">Cif</label><span> *</span>
+                </div>
+                <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>" <?php echo $readonly ?> required>
                     <span class="error"><?php if (isset($data['cifError'])) echo $data['cifError'];  ?></span>
                 </div>
-                <div><input type="text" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>" <?php echo $readonly ?>></div>
 
                 <div><label for="c_address">Dirección</label><span> *</span>
+                </div>
+                <div>
+                    <input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>" <?php echo $readonly ?> required>
                     <span class="error"><?php if (isset($data['addressError'])) echo $data['addressError'];  ?></span>
                 </div>
-                <div><input type="text" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>" <?php echo $readonly ?>></div>
 
                 <div><label for="c_logo">Logo</label><span> *</span>
                     <div>
@@ -100,14 +103,17 @@ if (!isset($data['jobError'])) {
 
             <section id="new_company_data_right">
                 <div><label for="c_phone">Teléfono </label><span> *</span>
+                </div>
+                <div>
+                    <input type="phone" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>" <?php echo $readonly ?> required>
                     <span class="error"><?php if (isset($data['phoneError'])) echo $data['phoneError'];  ?></span>
                 </div>
-                <div><input type="phone" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>" <?php echo $readonly ?>></div>
 
                 <div><label for="c_email">Email </label><span> *</span>
+                </div>
+                <div><input type="email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>" <?php echo $readonly ?> required>
                     <span class="error"><?php if (isset($data['emailError'])) echo $data['emailError']; ?></span>
                 </div>
-                <div><input type="email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>" <?php echo $readonly ?>></div>
 
                 <div><label for="c_description" id="description">Descripción de la empresa</label>
                     <textarea name="c_description" id="c_description" cols="40" rows="5" <?php echo $readonly ?>>

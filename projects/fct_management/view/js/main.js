@@ -1,6 +1,31 @@
 $(document).ready(function () {
+    //Check empty input fields
+    let allInputs = $("#new_company_data > section > div > input");
+    allInputs.each(function () {
+    //If blur function is triggered check if the filed is required
+        $(this).blur(function () {
+            if ($(this).attr("required") == "required") {
+                if ($(this).val() == "") {
+                    //Show error message in the next span
+                    $(this).next().text("Este campo es obligatorio").css("color", "red");
+                } else {
+                    $(this).next().text("");
+                }
+            }
+        });
+
+    //Get required inputs
+        // if ($(this).attr("required") == "required") {
+        //     //If it is empty, show warning message in the span tag
+        //     if ($(this).val() == "") {
+        //         //$(this).next().text("This field is required");
+        //         console.log('escribe algo');
+        //     }
+        // }
+    });
+
+
     // Add employee button click event from 'alta empresa'
-    
     $("#add_employee_section").click(function () {
         $("#new_employee_data > section:nth-child(2)")
         .clone()
@@ -9,7 +34,7 @@ $(document).ready(function () {
         
         //Delete selected employee section
         let cancelSpan = $("#new_employee_data > section > span")
-        console.log(cancelSpan);
+        //console.log(cancelSpan);
         cancelSpan.each(function () {
             $(this).click(function () {
                 $(this).parent().remove()
