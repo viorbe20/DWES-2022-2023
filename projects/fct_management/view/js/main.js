@@ -13,15 +13,6 @@ $(document).ready(function () {
                 }
             }
         });
-
-    //Get required inputs
-        // if ($(this).attr("required") == "required") {
-        //     //If it is empty, show warning message in the span tag
-        //     if ($(this).val() == "") {
-        //         //$(this).next().text("This field is required");
-        //         console.log('escribe algo');
-        //     }
-        // }
     });
 
 

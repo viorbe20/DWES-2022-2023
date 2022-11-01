@@ -9,18 +9,14 @@ echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
 echo "<script>" . file_get_contents('../view/js/main.js') . "</script>";
 
 if (isset($data)) {
-    //var_dump($data);
+    var_dump($data);
     //print($data['mode']);
+    if ($data['mode'] == "Alta empresa") {
+        $disabled = "";
+        $readonly = "";
+    }
 }
 
-//Mode delete disables edition
-if (isset($data['readonly'])) {
-    $readonly = $data['readonly'];
-    $disabled = "disabled = 'disabled'";
-} else {
-    $readonly = " ";
-    $disabled = "disabled = ''";
-}
 
 // Employee data
 if (!isset($data['nameError'])) {
@@ -134,22 +130,22 @@ if (!isset($data['jobError'])) {
                 <span class="material-symbols-outlined" data-icon="delete-employee">
                     cancel
                 </span>
-                <div><label for="emp_name">Nombre</label><span> *</span>
+                <div><label for="e_name">Nombre</label><span> *</span>
                     <span class="error"><?php echo $nameError ?></span>
                 </div>
-                <div><input type="text" name="emp_name" value="<?php if (isset($data['emp_name'])) echo $data['emp_name']; ?>"></div>
+                <div><input type="text" name="e_name[]" value="<?php if (isset($data['e_name'])) echo $data['e_name']; ?>"></div>
 
 
-                <div><label for="emp_nif">Nif</label><span> *</span>
+                <div><label for="e_nif">Nif</label><span> *</span>
                     <span class="error"><?php echo $nifError; ?></span>
                 </div>
-                <div><input type="text" name="emp_nif" value="<?php if (isset($data['emp_nif'])) echo $data['emp_nif']; ?>"></div>
+                <div><input type="text" name="e_nif[]" value="<?php if (isset($data['e_nif'])) echo $data['e_nif']; ?>"></div>
 
 
-                <div><label for="emp_job">Cargo</label><span> *</span>
+                <div><label for="e_job">Cargo</label><span> *</span>
                     <span class="error"><?php echo $jobError; ?></span>
                 </div>
-                <div><input type="text" name="emp_job" value="<?php if (isset($data['emp_job'])) echo $data['emp_job']; ?>"></div>
+                <div><input type="text" name="e_job[]" value="<?php if (isset($data['e_job'])) echo $data['e_job']; ?>"></div>
             </section>
 
         </fieldset>

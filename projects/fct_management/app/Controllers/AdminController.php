@@ -11,26 +11,29 @@ require_once('..\app\Config\constantes.php');
 class AdminController extends BaseController
 {
 
-    public function employeeDeleteAction ($request) {
+    public function employeeDeleteAction($request)
+    {
         $data = array();
         $data['mode'] = "Elimina empleado";
-        $this->renderHTML('../view/employee_info.php', $data); 
+        $this->renderHTML('../view/employee_info.php', $data);
     }
 
-    public function employeeEditAction ($request) {
+    public function employeeEditAction($request)
+    {
         $data = array();
         $data['mode'] = "Edita empleado";
-        $this->renderHTML('../view/employee_info.php', $data); 
+        $this->renderHTML('../view/employee_info.php', $data);
     }
 
-    public function employeeAddAction ($request) {
+    public function employeeAddAction($request)
+    {
         $data = array();
         $data['mode'] = "Alta empleado";
         //$data['nameError'] = $data['nifError'] = $data['jobError']  = "Error";
         $data['nameError'] = $data['nifError'] = $data['jobError']  = "";
 
 
-        $this->renderHTML('../view/employee_info.php', $data); 
+        $this->renderHTML('../view/employee_info.php', $data);
     }
 
     public function employeeAction()
@@ -267,7 +270,7 @@ class AdminController extends BaseController
         $company->setId($companyId);
         $data['c_id'] = $companyId;
 
-        foreach($company->getById() as $key => $value){
+        foreach ($company->getById() as $key => $value) {
             $data['c_name'] = $value['c_name'];
             $data['c_cif'] = $value['c_cif'];
             $data['c_address'] = $value['c_address'];
@@ -281,86 +284,50 @@ class AdminController extends BaseController
         $this->renderHTML('../view/company_profile.php', $data);
     }
 
+    //Add new company
     public function companyAddAction()
     {
         $data = array();
+        $data['mode'] = "Alta empresa";
         $company = Company::getInstancia();
-        $data['mode'] = 'Alta empresa';
-        //Next id for the new company
-        $lastCompany = $company->lastInsert();
-        $lastCompanyId = $lastCompany[0]['c_id'];
-        $logoId = $lastCompanyId + 1;
-        $data['c_id_next'] = $logoId;
-
+        function clearData($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        };
 
         if (isset($_POST['add_new_company'])) {
-            $validation = Validation::getInstancia();
+            //Set company
+            $company->setName($_POST[clearData('c_name')]);
+            $company->setCif($_POST[clearData('c_cif')]);
+            $company->setAddress($_POST[clearData('c_address')]);
+            $company->setPhone($_POST[clearData('c_phone')]);
+            $company->setEmail($_POST[clearData('c_email')]);
 
-            function clearData($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            };
-
-            $data['nameError'] = $data['cifError'] = $data['addressError'] = $data['phoneError'] = $data['emailError'] = "Error";
-
-            //Name validation
-            $data['c_name'] = clearData($_POST['c_name']);
-            $data['c_name'] = clearData($_POST["c_name"]);
-            $company->setName($_POST["c_name"]);
-
-            if (!$data['nameError'] == "") {
-                $data['nameError'] = $validation->validateName(clearData($_POST["c_name"]));
-            }
-
-            //Cif validation
-            $data['c_cif'] = clearData($_POST["c_cif"]);
-            $company->setCif($_POST['c_cif']);
-
-            if (!$data['cifError'] == "") {
-                $data['cifError'] = $validation->validateCif(clearData($_POST["c_cif"]));
-            }
-
-            //Address validation
-            $data['c_address'] = clearData($_POST["c_address"]);
-            $company->setAddress($_POST['c_address']);
-
-            if (!$data['addressError'] == "") {
-                $data['addressError'] = $validation->validateAddress(clearData($_POST["c_address"]));
-            }
-
-            //Phone validation
-            $data['c_phone'] = clearData($_POST["c_phone"]);
-            $company->setPhone($_POST['c_phone']);
-
-            if (!$data['phoneError'] == "") {
-                $data['phoneError'] = $validation->validatePhone(clearData($_POST["c_phone"]));
-            }
-
-            //Email validation
-            $data['c_email'] = clearData($_POST["c_email"]);
-            $company->setEmail($_POST['c_email']);
-
-            if (!$data['emailError'] == "") {
-                $data['emailError'] = $validation->validateEmail(clearData($_POST["c_email"]));
-            }
-
-            //Description validation
-            $company->setDescription("");
-
-            if (isset($data['c_description'])) {
-                $data['c_description'] = clearData($_POST["c_description"]);
+            //In case, set description
+            if (isset($_POST['c_description'])) {
                 $company->setDescription($_POST['c_description']);
+            } else {
+                $company->setDescription("");
             }
 
-            //Logo upload
+            //Save company
+            $company->setCreatedAt(date('Y-m-d H:i:s'));
+            $company->setUpdatedAt(date('Y-m-d H:i:s'));
+            $company->set();
+            $data['newCompany'] = $_POST['c_name'];
+            
+            //Get last company id
+            $lastCompany = $company->lastInsert();
+            $lastCompanyId = $lastCompany[0]['c_id'];
+            $company->setId($lastCompanyId);
+
+            //Insert logo after company is saved and use the company id as the name of the file
             if (file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
                 //Logo name is the company id
-                $lastCompany = $company->lastInsert();
-                $lastCompanyId = $lastCompany[0]['c_id'];
-                $logoId = $lastCompanyId + 1;
+                $logoId = $lastCompanyId;
 
                 //Get logo extension
                 $pieces = explode(".", $_FILES['c_logo']['name']);
@@ -416,28 +383,39 @@ class AdminController extends BaseController
                     if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
                         $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
                         $company->setLogo($_FILES['c_logo']['name']);
+                        $company->insert_logo();
                     } else {
                         $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
                     }
                 }
             } else {
                 $company->setLogo("unknown.png");
+                $company->insert_logo();
             }
 
-            //If no errors, insert data
-            if ($data['nameError'] == "" && $data['cifError'] == "" && $data['addressError'] == "" && $data['phoneError'] == "" && $data['emailError'] == "") {
-                $company->setCreatedAt(date('Y-m-d H:i:s'));
-                $company->setUpdatedAt(date('Y-m-d H:i:s'));
-                $company->set();
-                $data['newCompany'] = $_POST['c_name'];
+            //If employees are added, save them
+            if (isset($_POST["e_name"])) {
+                foreach ($_POST["e_name"] as $key => $value) {
+                    $data['e_name'][$key] = clearData($value);
+                }
+                foreach ($_POST["e_nif"] as $key => $value) {
+                    $data['e_cif'][$key] = clearData($value);
+                }
+                foreach ($_POST["e_job"] as $key => $value) {
+                    $data['e_job'][$key] = clearData($value);
+                }
             }
-
-            $this->renderHTML('../view/companies_view.php', $data);
-        } else { //If no data, show form
-            $data['mode'] = "Alta empresa";
-            $this->renderHTML('../view/company_info.php', $data);
         }
+
+
+
+
+
+
+        $this->renderHTML('../view/company_info.php', $data);
     }
+
+
 
     public function companyAction()
     {

@@ -99,15 +99,23 @@ class Company extends DBAbstractModel
     //Métodos de creación
     public function set()
     {
-        $this->query = "INSERT INTO companies (c_cif, c_name, c_description, c_address, c_email, c_phone, c_logo, c_created_at, c_updated_at) VALUES (:c_cif, :c_name, :c_description, :c_address, :c_email, :c_phone, :c_logo, :c_created_at, :c_updated_at)";
+        $this->query = "INSERT INTO companies (c_cif, c_name, c_description, c_address, c_email, c_phone, c_created_at, c_updated_at) VALUES (:c_cif, :c_name, :c_description, :c_address, :c_email, :c_phone, :c_created_at, :c_updated_at)";
         $this->parametros['c_cif'] = $this->c_cif;
         $this->parametros['c_name'] = $this->c_name;
         $this->parametros['c_description'] = $this->c_description;
         $this->parametros['c_address'] = $this->c_address;
         $this->parametros['c_email'] = $this->c_email;
         $this->parametros['c_phone'] = $this->c_phone;
-        $this->parametros['c_logo'] = $this->c_logo;
         $this->parametros['c_created_at'] = $this->c_created_at;
+        $this->parametros['c_updated_at'] = $this->c_updated_at;
+        $this->get_results_from_query();
+    }
+
+    public function insert_logo()
+    {
+        $this->query = "UPDATE companies SET c_logo=:c_logo, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
+        $this->parametros['c_id'] = $this->c_id;
+        $this->parametros['c_logo'] = $this->c_logo;
         $this->parametros['c_updated_at'] = $this->c_updated_at;
         $this->get_results_from_query();
     }
