@@ -241,11 +241,10 @@
   align-items: center;
 }
 #new_employee_data section:nth-child(2) {
-  background-color: blue;
-  display: none;
+  *background-color: blue;
+  display: flex;
 }
 #new_employee_data .employee_section {
-  *display: flex;
   flex-direction: column;
   justify-content: center;
   width: 90%;
@@ -255,7 +254,7 @@
   margin: 1% 0%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-#new_employee_data .employee_section .cancel_new_employee {
+#new_employee_data .employee_section .material-symbols-outlined {
   text-align: right;
   margin: 0%;
   cursor: pointer;
