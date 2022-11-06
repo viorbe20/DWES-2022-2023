@@ -21,6 +21,7 @@ class AdminController extends BaseController
         $this-> renderHTML('../view/companies_view.php', $data);
     }
 
+    //Returns a list of companies to js
     public function getCompaniesTableAction()
     {
         $data = array();
