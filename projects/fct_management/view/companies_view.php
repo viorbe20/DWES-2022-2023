@@ -24,7 +24,7 @@ require_once "../app/Config/constantes.php";
     <main class="container">
         <h1 class="text-center">Lista de Empresas</h1>
         <a href="crear.php" class="btn btn-success">Crear Empresa</a>
-
+        
         <table id="table-companies" class="table text-center">
             <thead>
                 <tr>
@@ -36,28 +36,7 @@ require_once "../app/Config/constantes.php";
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="table_body_companies">
-                <?php
-                foreach ($data['companiesList'] as $key => $item) {
-                    foreach ($item as $key => $info) {
-                        echo "<tr>
-                        <td><img src='" . DIRFCT . "/assets/img/logos/" . $info['c_logo'] . "' alt='Logo de la empresa' width='50px'></td>
-                        <td>". $info['c_name'] ."</td>
-                        <td>". $info['c_phone'] ."</td>
-                        <td><span class='material-symbols-outlined'>
-                            group
-                            </span></td>
-                        <td><span class='material-symbols-outlined'>
-                                delete
-                            </span>
-                            <span class='material-symbols-outlined'>
-                                edit
-                            </span></button>
-                        </td>
-                    </tr>";
-                    }
-                }
-                ?>
-
+           
             </tbody>
         </table>
     </main>

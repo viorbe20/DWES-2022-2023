@@ -36,6 +36,13 @@ $router->add(array(
 ));
 
 $router->add(array(
+    'name'=>'companiesDB',
+    'path'=>'/^\/home\/companies\/getCompaniesTable$/',
+    'action'=>[AdminController::class, 'getCompaniesTableAction'],
+    'auth'=>["admin"]
+));
+
+$router->add(array(
     'name'=>'employees',
     'path'=>'/^\/home\/employees$/',
     'action'=>[AdminController::class, 'employeeAction'],

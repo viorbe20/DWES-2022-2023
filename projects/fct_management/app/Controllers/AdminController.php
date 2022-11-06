@@ -18,66 +18,16 @@ class AdminController extends BaseController
     {
         $data = array();
         $company = Company::getInstancia();
-
-        if (isset($_POST["input_search_company"])) { # Click on search company button
-            if ($_POST["input_search_company"] == "") { # Search box is empty
-                error_log("Empty search box");
-                echo json_encode('empty_search_box');
-                exit();
-            } else { # Search box is not empty
-                echo json_encode('correct_data');
-                exit();
-            }
-        } else { # Default view
-            
-            
-            $companiesList = array($company->getSome());
-
-            if (!empty($companiesList)) {
-                $data['companiesList'] = $companiesList;
-                $this->renderHTML('../view/companies_view.php', $data); 
-            } else {
-                error_log("Error when getting companies");
-                echo json_encode("error_getting_companies");
-                exit();
-            }
-            
-        }
+        $this-> renderHTML('../view/companies_view.php', $data);
     }
-    // public function companyAction()
-    // {
-    //     $data = array();
-    //     $company = Company::getInstancia();
 
-    //     if (isset($_POST['search_company_button']) && !empty($_POST['search_company'])) {
-    //         $company->setName($_POST['search_company']);
-    //         $data['companiesList'] = $company->getByName();
-    //         $this->renderHTML('../view/companies_view.php', $data);
-    //     } else {
-    //         print('companies');
-    //         //Shows last 5 companies
-    //         $response = array("status" => "false", "data" => "");
-    //         $companiesList = array($company->getSome());
+    public function getCompaniesTableAction()
+    {
+        $data = array();
+        $company = Company::getInstancia();
+        echo json_encode($company->getSome());
+    }
 
-    //         if ($companiesList) {
-    //             $response['status'] = "true";
-    //             $response['data'] = $companiesList;
-    //         } else {
-    //             error_log("Error when getting companies");
-    //         }
-
-    //         //Convert to JSON
-    //         echo json_encode($response);
-    //         echo $json_response;
-    //         $this->renderHTML('../view/companies_view.php', $data);
-    //         //echo $json_response;
-    //         // echo "<pre>";
-    //         // print_r($json);
-    //         // echo "</pre>";
-
-
-    //     }
-    // }
 
     public function logoutAction()
     {
