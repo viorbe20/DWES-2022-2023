@@ -1,19 +1,8 @@
 <?php
-require('../view/require/header_view.html');
-require('../view/require/profile_view.php');
-require('../view/require/nav_view.php');
-require('../view/require/footer_view.html');
-echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
-echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
-
-//Data array content
-if (isset($data['companiesList'])) {
-    $companiesList = $data['companiesList'];
-} else {
-    $companiesList = array();
-}
-
-
+require_once "../app/Config/constantes.php";
+// if (isset($data)) {
+//     var_dump($data);
+// }
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -22,82 +11,54 @@ if (isset($data['companiesList'])) {
     <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='css/style.css'>
-    <title>Companies View</title>
+    <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
+    <title>Companies view</title>
 </head>
 
 <body>
-<?php
-    echo "<script>
-    function myFunc() {
-        if (confirm('¿Deseas eliminar la empresa?')) {
-            window.location.href = '" . DIRBASEURL . "/home/companies/company_delete/23';
-        } else {
-            window.location.href = '" . DIRBASEURL . "/home/companies'
-        }
-    }
-    </script>";
-?>
-    <main id='main_companies'>
+    <?php require_once 'header.php'; ?>
 
-        <section class="search-box" id="form-search-company">
+    <main class="container">
+        <h1 class="text-center">Lista de Empresas</h1>
+        <a href="crear.php" class="btn btn-success">Crear Empresa</a>
 
-            <form action="" method="post">
-                <input type="text" name="search_company" id="search" placeholder="Nombre empresa...">
-                <button type="submit" name="search_company_button">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                    Buscar</button>
-
-            </form>
-            <section id='add_company'>
-                <a href="<?php echo DIRBASEURL . '/home/companies/company_add' ?>"> <span class="material-symbols-outlined">
-                        add_circle
-                    </span>
-                </a>
-            </section>
-
-        </section>
-
-        <table class="table" id="table_companies">
-            <tr>
-                <th>Logo</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Empleados</th>
-                <th>Eliminar</th>
-                <th>Editar</th>
-            </tr>
-            <tr>
+        <table id="table-companies" class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Empleados</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider" id="table_body_companies">
                 <?php
-                foreach ($companiesList as $key => $value) {
-                    //Shows an image inside a td
-                    ?>
-                    <td><img src="<?php echo  DIRFCT . "/assets/img/logos/" . $value['c_logo'] ?>" alt='Logo de la empresa' width='50px' height='50px'></td>
-                    <td><a class="link_standard" href="<?php echo DIRBASEURL .'/home/companies/company_profile/' . $value['c_id'] ?>"><?php echo $value['c_name']?></a></td>
-                    <td><?php echo $value['c_phone']?></td>
-            
-                    <!--Employees-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_profile/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
-                                group
-                            </span></a></td>
-
-                    <!--Delete company-->
-                    <td> <a href="" onclick="javascript:myFunc()"><span class="material-symbols-outlined">
+                foreach ($data['companiesList'] as $key => $item) {
+                    foreach ($item as $key => $info) {
+                        echo "<tr>
+                        <td><img src='" . DIRFCT . "/assets/img/logos/" . $info['c_logo'] . "' alt='Logo de la empresa' width='50px'></td>
+                        <td>". $info['c_name'] ."</td>
+                        <td>". $info['c_phone'] ."</td>
+                        <td><span class='material-symbols-outlined'>
+                            group
+                            </span></td>
+                        <td><span class='material-symbols-outlined'>
                                 delete
-                            </span></a></td>
-                    <!--Edit company-->
-                    <td><a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $value['c_id'] ?>"><span class="material-symbols-outlined">
+                            </span>
+                            <span class='material-symbols-outlined'>
                                 edit
-                            </span></a></td>
-            </tr>
-        <?php
+                            </span></button>
+                        </td>
+                    </tr>";
+                    }
                 }
-        ?>
-        </table>
+                ?>
 
+            </tbody>
+        </table>
     </main>
 </body>
-
-</html>
