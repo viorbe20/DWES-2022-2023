@@ -1,105 +1,98 @@
 <?php
-require('../view/require/header_view.html');
-require('../view/require/profile_view.php');
-require('../view/require/nav_view.php');
-require('../view/require/footer_view.html');
-echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
-echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
-
-if (isset($data)) {
-    //var_dump($data);
-}
-
-if (isset($data['readonly'])) {
-    $readonly = $data['readonly'];
-} else {
-    $readonly = " ";
-}
+require_once "../app/Config/constantes.php";
+// if (isset($data)) {
+//     var_dump($data);
+// }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
     <meta charset='UTF-8'>
-    <meta name='Author' content='Virginia Ordoño'>
-    <link rel='stylesheet' href='css/estilos.css'>
-    <meta name='viewport' content='width=device-width initial-scale=1.0'>
-    <title>Company profile</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
+    <title>Companies profile</title>
 </head>
 
-
-<body id='body_company_info'>
+<body>
+    <?php require_once 'header.php'; ?>
     <?php
 
     ?>
     <form method="post" action="" enctype="multipart/form-data" id="form_company_profile">
 
+        <h3 class="text-center mt-4 mb-4">Alta empresa</h3>
+        <div class="mx-4 col-md d-flex flex-column align-items-center">
+        <!--Info company-->    
+        <div class="col-md-10 ">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Datos empresa</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
 
-        <section id='form_company_section_up'>
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="c_name" class="form-control" />
+                                <label class="form-label" for="form7Example3">Nombre</label>
+                            </div>
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            
+                            <div class="row mb-4">
+                                <div class="col">
+                            <!-- Phone input -->
+                            <div class="form-outline">
+                                <input type="number" id="form7Example6" class="form-control" />
+                                <label class="form-label" for="form7Example6">Teléfono</label>
+                            </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Email input -->
+                                    <div class="form-outline">
+                                        <input type="email" id="form7Example2" class="form-control" />
+                                        <label class="form-label" for="form7Example2">Email</label>
+                                    </div>
+                                </div>
+                            </div>
 
-            <section id='form_company_section_up_1'>
-                <!-- company logo -->
-                <img width="5%" src="<?php echo DIRFCT . '/assets/img/logos/' . $data['c_logo'] ?>" alt="company logo" id="profile_company_logo">
-                <h2><?php echo $data['c_name'] ?></h2>
-            </section>
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form7Example4" class="form-control" />
+                                <label class="form-label" for="form7Example4">Dirección</label>
+                            </div>
 
-            <section id='form_company_section_up_2'>
+                            <!-- Message input -->
+                            <div class="form-outline mb-4">
+                                <textarea class="form-control" id="form7Example7" rows="4"></textarea>
+                                <label class="form-label" for="form7Example7">Información adicional</label>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-lg btn-block ">
+                                Añadir Empleados
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-                <section id='form_company_section_up_2_left'>
-                    <fieldset>
-                        <legend>Información general</legend>
-                        <div><label for="c_cif">Cif</label>
-                            <input type="text" value="<?php echo $data['c_cif'];?>" readonly/>
-                        </div>
-
-                        <div><label for="c_address">Dirección</label>
-                            <input type="text" value="<?php echo $data['c_address'];?>" readonly/>
-                        </div>
-
-                        <div><label for="c_phone">Teléfono</label>
-                            <input type="text" value="<?php echo $data['c_phone'];?>" readonly/>
-                        </div>
-
-                        <div><label for="c_email">Email</label>
-                            <input type="email" value="<?php echo $data['c_email'];?>" readonly/>
-                        </div>
-                    </fieldset>
-                </section>
-
-                <section id='form_company_section_up_2_right'>
-                    <fieldset>
-                        <legend>Descripción de la empresa</legend>
-                        <textarea name="c_description" id="c_description" cols="4" rows="10" readonly><?php echo $data['c_description'] ?> </textarea>
-                    </fieldset>
-
-                    <fieldset id='actions'>
-                        <legend>Acciones</legend>
-                        <section id="actions">
-                            <!--Edit company-->
-                            <a href="<?php echo DIRBASEURL . '/home/companies/company_delete/' . $data['c_id'] ?>">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span></a>
-                            <!--Edit and delete company material icons-->
-                            <a href="<?php echo DIRBASEURL . '/home/companies/company_edit/' . $data['c_id'] ?>">
-                                <span class="material-symbols-outlined">
-                                    edit
-                                </span></a>
-                        </section>
-
-                    </fieldset>
-                </section>
-            </section>
-        </section>
-
-        <section id='form_company_section_down'>
-            
-        <h2>Empleados</h2>
+            <div class="col-md-10 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Empleados</h5>
+                    </div>
+                    <div class="card-body">
+                    
 
 
-        </section>
+                    </div>
+                </div>
+            </div>
 
+        </div>
     </form>
 
 </body>

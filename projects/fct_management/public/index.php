@@ -43,16 +43,16 @@ $router->add(array(
 ));
 
 $router->add(array(
-    'name'=>'employees',
-    'path'=>'/^\/home\/employees$/',
-    'action'=>[AdminController::class, 'employeeAction'],
+    'name'=>'create company',
+    'path'=>'/^\/home\/create_company$/',
+    'action'=>[AdminController::class, 'createCompanyAction'],
     'auth'=>["admin"]
 ));
 
 $router->add(array(
-    'name'=>'company_add',
-    'path'=>'/^\/home\/companies\/company_add$/',
-    'action'=>[AdminController::class, 'companyAddAction'],
+    'name'=>'employees',
+    'path'=>'/^\/home\/employees$/',
+    'action'=>[AdminController::class, 'employeeAction'],
     'auth'=>["admin"]
 ));
 

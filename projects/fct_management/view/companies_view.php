@@ -23,7 +23,7 @@ require_once "../app/Config/constantes.php";
 
     <main class="container">
         <h1 class="text-center">Lista de Empresas</h1>
-        <a href="crear.php" class="btn btn-success">Crear Empresa</a>
+        <a href="<?php echo DIRBASEURL;?>/home/create_company" class="btn btn-success">Crear Empresa</a>
         
         <table id="table-companies" class="table text-center">
             <thead>
