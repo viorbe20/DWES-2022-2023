@@ -1,6 +1,16 @@
 $(document).ready(function () {
-    console.log($("#input_search_company").length);
 
+    console.log('carga companies.js');
+
+    // Add employees option
+    $('#btn_add_employee').click(function () {
+        //First show section
+        //<div class="col-md-10 mb-4 d-none" id="section_employees" >
+        $('#section_employees').removeClass('d-none');
+
+    });
+
+    // Search copanies box
     $("#input_search_company").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#table_body_companies tr").filter(function () {
