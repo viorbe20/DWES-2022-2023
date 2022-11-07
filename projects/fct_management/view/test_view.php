@@ -14,21 +14,37 @@ require_once "../app/Config/constantes.php";
     <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
+    <script src="<?php echo DIRFCT; ?>/assets/js/test.js"></script>
     <title>Companies view</title>
 </head>
 
 <body>
     <?php require_once 'header.php'; ?>
 
-    <main class="container">
-        <h1 class="text-center">Lista de Empresas</h1>
-        <div class="container">
-	<h1>Show data from database on page load using php, ajax and jquery</h1>
- 
-	<div id="container">
-	
-	</div>
-</div>
-    </main>
+    <h2>Modal Example</h2>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Empresa</h5>
+                    <button type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-ligth">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Has creado una nueva empresa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Crear otra</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+</html>

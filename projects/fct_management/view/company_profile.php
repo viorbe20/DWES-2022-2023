@@ -131,7 +131,26 @@ require_once "../app/Config/constantes.php";
             </div>
         </div>
     </form>
-
+    <!-- Modal Company Created -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal_create_company">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Empresa</h5>
+                    <button type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-ligth" id="span_modal">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Has creado una nueva empresa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Crear otra</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

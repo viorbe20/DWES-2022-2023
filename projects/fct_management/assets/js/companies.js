@@ -1,10 +1,6 @@
 $(document).ready(function () {
-
-    console.log($("#card_container :input")); 
-
     // Add employees option
     $("#btn_add_employee").click(function () {
-
         $class = $("#section_employees").attr("class");
 
         if ($class.indexOf("d-none") > -1) {
@@ -28,7 +24,7 @@ $(document).ready(function () {
         $newCard.insertAfter("#card_header");
 
         //Delete an employee
-        $deleteButtons = ($(".delete_btn"));
+        $deleteButtons = $(".delete_btn");
 
         $deleteButtons.each(function () {
             $(this).click(function () {
@@ -71,4 +67,16 @@ $(document).ready(function () {
                 });
             }
         });
+
+    // Click on create company button to show modal
+    $("#btn_create_company").click(function () {
+        $("#modal_create_company").css("display", "block");
+
+    });
+
+        // When the user clicks on <span> (x), close the modal
+        $("#span_modal").click(function () {
+            $("#modal_create_company").css("display", "none");
+        });
+
 });
