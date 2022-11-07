@@ -86,13 +86,14 @@ require_once "../app/Config/constantes.php";
         </div>
 
         <!--Section employee-->
-        <div class="mx-4 col-md d-flex flex-column align-items-center">
+        <div class="mx-4 col-md d-flex flex-column align-items-center d-none" id="section_employees">
             <div class="col-md-10 ">
-                <div class="card mb-4">
-                    <div class="card-header py-3 bg-secondary">
+                <div class="card bg-danger" id='card_container' >
+                    <div class="card-header py-3 bg-secondary" id="card_header">
                         <h5 class="mb-0 text-light">Datos Empleados</h5>
                     </div>
-                    <div id="card_employee" class="card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded">
+                    <!--Info employees-->
+                    <div id="card_employee_0" class="d-none card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded">
                         <!-- Text input -->
                         <div class="row mb-4 ">
                             <div class="col-11 ">
@@ -105,7 +106,7 @@ require_once "../app/Config/constantes.php";
                             <div class="col d-flex align-items-start justify-content-end">
                                 <!-- Delete employee -->
                                 <div class="form-outline d-flex justify-content-center align-content-center">
-                                <button type="button" class="btn btn-secondary text-lg border-rounded">X</button>
+                                    <button type="button" class="btn btn-secondary text-lg border-rounded">X</button>
 
                                 </div>
                             </div>
@@ -131,9 +132,6 @@ require_once "../app/Config/constantes.php";
                 </div>
             </div>
         </div>
-
-
-
     </form>
 
 </body>
