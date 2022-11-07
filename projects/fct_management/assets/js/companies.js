@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    console.log($("#card_container :input")); 
+
     // Add employees option
     $("#btn_add_employee").click(function () {
 
@@ -19,7 +22,7 @@ $(document).ready(function () {
         $newId = "card_employee_" + $idParsed.toString();
         $newCard = $clone.removeClass("d-none");
         $newCard.attr("id", $newId);
-
+        $newCard.find("input").val(""); // Clear input values
 
         // Add new card
         $newCard.insertAfter("#card_header");
