@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    
     // Add employees option
     $("#btn_add_employee").click(function () {
 
@@ -8,26 +7,31 @@ $(document).ready(function () {
         if ($class.indexOf("d-none") > -1) {
             $("#section_employees").removeClass("d-none");
         }
-            
+
         // Clone new card
         $clone = $("#card_header").next().clone();
 
         //Get id for new card
-        $lastId = $("#card_header").next().attr('id');
+        $lastId = $("#card_header").next().attr("id");
         $number = $lastId.split("_")[2];
         $idParsed = parseInt($number);
         $idParsed = $idParsed + 1;
-        $newId = "card_employee_" + $idParsed.toString();        
+        $newId = "card_employee_" + $idParsed.toString();
         $newCard = $clone.removeClass("d-none");
-        $newCard.attr("id", $newId);        
+        $newCard.attr("id", $newId);
+
 
         // Add new card
         $newCard.insertAfter("#card_header");
-        
 
+        //Delete an employee
+        $deleteButtons = ($(".delete_btn"));
 
-        
-
+        $deleteButtons.each(function () {
+            $(this).click(function () {
+                $(this).parent().parent().remove();
+            });
+        });
     });
 
     // Search companies box

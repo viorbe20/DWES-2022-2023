@@ -86,32 +86,28 @@ require_once "../app/Config/constantes.php";
         </div>
 
         <!--Section employee-->
-        <div class="mx-4 col-md d-flex flex-column align-items-center d-none" id="section_employees">
+        <div class="mx-4 col-md d-flex flex-column align-items-center" id="section_employees">
             <div class="col-md-10 ">
-                <div class="card bg-danger" id='card_container' >
+                <div class="card" id='card_container'>
                     <div class="card-header py-3 bg-secondary" id="card_header">
                         <h5 class="mb-0 text-light">Datos Empleados</h5>
                     </div>
-                    <!--Info employees-->
-                    <div id="card_employee_0" class="d-none card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded">
-                        <!-- Text input -->
-                        <div class="row mb-4 ">
-                            <div class="col-11 ">
-                                <!-- Nif input -->
-                                <div class="form-outline">
-                                    <input type="text" id="e_name" class="form-control" />
-                                    <label class="form-label" for="e_name">Nombre</label>
-                                </div>
-                            </div>
-                            <div class="col d-flex align-items-start justify-content-end">
-                                <!-- Delete employee -->
-                                <div class="form-outline d-flex justify-content-center align-content-center">
-                                    <button type="button" class="btn btn-secondary text-lg border-rounded">X</button>
 
-                                </div>
-                            </div>
+                    <!--Info employees-->
+                    <div id="card_employee_0" class="card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded">
+
+                        <!-- Delete employee -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button type="text" class="delete_btn btn btn-secondary text-lg border-rounded">X</button>
+                        </div>
+                        
+                        <!-- Name input -->
+                        <div class="form-outline">
+                            <input type="text" id="e_name" class="form-control" />
+                            <label class="form-label" for="e_name">Nombre</label>
                         </div>
 
+                        <!--Box: nif and job-->
                         <div class="row mb-4">
                             <div class="col">
                                 <!-- Nif input -->
@@ -120,14 +116,16 @@ require_once "../app/Config/constantes.php";
                                     <label class="form-label" for="e_nif">Nif</label>
                                 </div>
                             </div>
+
+                            <!-- Job input -->
                             <div class="col">
-                                <!-- Job input -->
                                 <div class="form-outline">
                                     <input type="text" id="e_job" class="form-control" />
                                     <label class="form-label" for="e_job">Puesto</label>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
