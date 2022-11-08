@@ -13,6 +13,7 @@ require_once "../app/Config/constantes.php";
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="<?php echo DIRFCT; ?>/assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
     <title>Companies profile</title>
@@ -34,11 +35,12 @@ require_once "../app/Config/constantes.php";
                     <div class="card-header py-3 bg-secondary">
                         <h5 class="mb-0 text-light">Datos empresa</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="card_company">
                         <!-- Text input -->
                         <div class="form-outline mb-4">
+                            <label class="form-label mb-3" for="company name">Nombre</label>
+                            <span class="error_span"></span>
                             <input type="text" id="c_name" class="form-control" />
-                            <label class="form-label" for="form7Example3">Nombre</label>
                         </div>
                         <!-- 2 column grid layout with text inputs for the first and last names -->
 
@@ -46,29 +48,32 @@ require_once "../app/Config/constantes.php";
                             <div class="col">
                                 <!-- Phone input -->
                                 <div class="form-outline">
-                                    <input type="number" id="form7Example6" class="form-control" />
-                                    <label class="form-label" for="form7Example6">Teléfono</label>
+                                    <label class="form-label mb-3" for="company phone">Teléfono</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_phone" class="form-control" />
                                 </div>
                             </div>
                             <div class="col">
                                 <!-- Email input -->
                                 <div class="form-outline">
-                                    <input type="email" id="form7Example2" class="form-control" />
-                                    <label class="form-label" for="form7Example2">Email</label>
+                                    <label class="form-label mb-3" for="company email">Email</label>
+                                    <span class="error_span"></span>
+                                    <input type="email" id="c_email" class="form-control" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Text input -->
                         <div class="form-outline mb-4">
-                            <input type="text" id="form7Example4" class="form-control" />
-                            <label class="form-label" for="form7Example4">Dirección</label>
+                            <label class="form-label mb-3" for="company address">Dirección</label>
+                            <span class="error_span"></span>
+                            <input type="text" id="c_address" class="form-control" />
                         </div>
 
                         <!-- Message input -->
                         <div class="form-outline mb-4">
-                            <textarea class="form-control" id="form7Example7" rows="4"></textarea>
-                            <label class="form-label" for="form7Example7">Información adicional</label>
+                            <label class="form-label mb-3" for="company description">Información adicional</label>
+                            <textarea class="form-control" id="c_description" rows="4"></textarea>
                         </div>
 
                         <!--Buttons div-->

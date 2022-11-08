@@ -1,4 +1,51 @@
+function isEmptyField(field) {
+    if (field == "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 $(document).ready(function () {
+
+    $companyInputs = $("#card_company").find("input");
+
+    $companyInputs.each(function () {
+        $(this).prev().hide();
+        console.log($(this));
+
+        $(this).blur(function () {
+            $fieldValue = $.trim($(this).val());
+            if (isEmptyField($fieldValue)) {
+                $(this).prev().html("Este campo es obligatorio");
+                $(this).prev().show();
+            } else {
+                $(this).prev().hide();
+            }
+        });
+    });
+
+
+    //Validate company fields 
+    // $("#c_name").blur(function () {
+    //     $c_name = $.trim($('#c_name').val());
+
+    //     if (isEmptyField($c_name)) {
+    //         $("#c_name").prev().html("El nombre de la empresa es obligatorio").css("display", "block");
+    //         console.log('vacio');
+    //     } else {
+    //         $("#c_name").prev().html("").css("display", "none");
+    //         console.log('no vacio');
+    //     }
+    // });
+
+    // Click on create company button
+    $("#btn_create_company").click(function (e) {
+        e.preventDefault();
+
+        $("#modal_create_company").css("display", "block");
+    });
+
     // Add employees option
     $("#btn_add_employee").click(function () {
         $class = $("#section_employees").attr("class");
@@ -68,13 +115,6 @@ $(document).ready(function () {
             }
         });
 
-    // Click on create company button to show modal
-    $("#btn_create_company").click(function (e) {
-        e.preventDefault();
-        $("#modal_create_company").css("display", "block");
-
-    });
-
     // When click on X, close the modal
     $("#span_modal_exit").click(function () {
         $("#modal_create_company").css("display", "none");
@@ -83,15 +123,13 @@ $(document).ready(function () {
     //When click on modal close button
     $("#btn_modal_exit").click(function () {
         $("#modal_create_company").css("display", "none");
-        window.location.href = "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
+        window.location.href =
+            "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
     });
 
     //When click on create another company
-    $('#btn_modal_reload').click(function () {
+    $("#btn_modal_reload").click(function () {
         $("#modal_create_company").css("display", "none");
         window.location.reload();
     });
-
-
-
 });

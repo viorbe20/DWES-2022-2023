@@ -2,5 +2,6 @@
   "dependencies": {
     "bootstrap": "^5.2.2",
     "sweetalert": "^2.1.2"
-  }
+  },
+    "type": "module"
 }

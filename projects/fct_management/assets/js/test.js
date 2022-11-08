@@ -1,4 +1,13 @@
+import { isEmptyField } from '../js/validation.js';
+
 $(document).ready(function () {
+    
+
+    let v = "hola";
+
+    isEmptyField(v);
+    console.log(isEmptyField(v));
+
     // Get the modal
     var modal = document.getElementById("myModal");
 
