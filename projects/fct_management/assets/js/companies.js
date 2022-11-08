@@ -24,7 +24,6 @@ $(document).ready(function () {
     // Empty fields validation
     $companyInputs.each(function () {
         $(this).prev().hide();
-        console.log($(this));
 
         $(this).blur(function () {
 
@@ -63,29 +62,28 @@ $(document).ready(function () {
         });
     });
 
-
-    //Validate company fields 
-    // $("#c_name").blur(function () {
-    //     $c_name = $.trim($('#c_name').val());
-
-    //     if (isEmptyField($c_name)) {
-    //         $("#c_name").prev().html("El nombre de la empresa es obligatorio").css("display", "block");
-    //         console.log('vacio');
-    //     } else {
-    //         $("#c_name").prev().html("").css("display", "none");
-    //         console.log('no vacio');
-    //     }
-    // });
-
     // Click on create company button
     $("#btn_create_company").click(function (e) {
         e.preventDefault();
 
-        $("#modal_create_company").css("display", "block");
+        //All empty spans and full inputs validation
+        $companySpans = $("#card_company").find("span").val() != "";
+        $companyInputs = $("#card_company").find("input").val() == "";
+
+        if (!$companySpans && !$companyInputs) {
+            $("#modal_create_company").css("display", "block");
+        } else {
+            $("#card_company").find("span").each(function () {
+                $(this).html("Este campo es obligatorio");
+                $(this).show();
+            });
+        }
+
     });
 
     // Add employees option
     $("#btn_add_employee").click(function () {
+        
         $class = $("#section_employees").attr("class");
 
         if ($class.indexOf("d-none") > -1) {
