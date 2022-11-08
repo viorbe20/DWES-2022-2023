@@ -1,3 +1,14 @@
+function isValidEmail(email) {
+    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    //^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+    return regex.test(email);
+}
+
+function isValidPhoneNumber(phoneNumber) {
+    let regex = /^(\+34|0034|34)?[6789]\d{8}$/;
+    return regex.test(phoneNumber);
+}
+
 function isEmptyField(field) {
     if (field == "") {
         return true;
@@ -10,17 +21,44 @@ $(document).ready(function () {
 
     $companyInputs = $("#card_company").find("input");
 
+    // Empty fields validation
     $companyInputs.each(function () {
         $(this).prev().hide();
         console.log($(this));
 
         $(this).blur(function () {
+
             $fieldValue = $.trim($(this).val());
+
             if (isEmptyField($fieldValue)) {
                 $(this).prev().html("Este campo es obligatorio");
                 $(this).prev().show();
             } else {
                 $(this).prev().hide();
+
+                // Phone number validation
+                if ($(this).attr('id') == "c_phone") {
+                    if (!isValidPhoneNumber($fieldValue)) {
+                        $(this).prev().html("El teléfono no es válido");
+                        $(this).prev().show();
+                    } else {
+                        $(this).prev().hide();
+                        $(this).css("background-color", "#d4edda");
+    
+                    }
+                }
+
+                // Email validation
+                if ($(this).attr('id') == "c_email") {
+                    if (!isValidEmail($fieldValue)) {
+                        $(this).prev().html("El email no es válido");
+                        $(this).prev().show();
+                    } else {
+                        $(this).prev().hide();
+                        $(this).css("background-color", "#d4edda");
+    
+                    }
+                }
             }
         });
     });
