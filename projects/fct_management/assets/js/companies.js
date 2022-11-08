@@ -69,14 +69,29 @@ $(document).ready(function () {
         });
 
     // Click on create company button to show modal
-    $("#btn_create_company").click(function () {
+    $("#btn_create_company").click(function (e) {
+        e.preventDefault();
         $("#modal_create_company").css("display", "block");
 
     });
 
-        // When the user clicks on <span> (x), close the modal
-        $("#span_modal").click(function () {
-            $("#modal_create_company").css("display", "none");
-        });
+    // When click on X, close the modal
+    $("#span_modal_exit").click(function () {
+        $("#modal_create_company").css("display", "none");
+    });
+
+    //When click on modal close button
+    $("#btn_modal_exit").click(function () {
+        $("#modal_create_company").css("display", "none");
+        window.location.href = "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
+    });
+
+    //When click on create another company
+    $('#btn_modal_reload').click(function () {
+        $("#modal_create_company").css("display", "none");
+        window.location.reload();
+    });
+
+
 
 });

@@ -25,8 +25,13 @@ class AdminController extends BaseController
                 $data = htmlspecialchars($data);
                 return $data;
             };
-    
+
+
             $this->renderHTML('../view/company_profile.php', $data);
+            
+
+
+    
     
             // if (isset($_POST['new_company_jquery'])) {
             //     $data['new_company_jquery'] = $_POST['new_company_jquery'];
