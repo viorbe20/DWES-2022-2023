@@ -15,7 +15,7 @@ require_once "../app/Config/constantes.php";
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="<?php echo DIRFCT; ?>/assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
+    <!-- <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script> -->
     <title>Companies profile</title>
 </head>
 
@@ -40,7 +40,7 @@ require_once "../app/Config/constantes.php";
                         <div class="form-outline mb-4">
                             <label class="form-label mb-3" for="company name">Nombre</label>
                             <span class="error_span"></span>
-                            <input type="text" id="c_name" class="form-control" />
+                            <input type="text" id="c_name" name="c_name" class="form-control" />
                         </div>
                         <!-- 2 column grid layout with text inputs for the first and last names -->
 
@@ -50,7 +50,7 @@ require_once "../app/Config/constantes.php";
                                 <div class="form-outline">
                                     <label class="form-label mb-3" for="company phone">Teléfono</label>
                                     <span class="error_span"></span>
-                                    <input type="text" id="c_phone" class="form-control" />
+                                    <input type="text" id="c_phone" name="c_phone" class="form-control" />
                                 </div>
                             </div>
                             <div class="col">
@@ -58,22 +58,40 @@ require_once "../app/Config/constantes.php";
                                 <div class="form-outline">
                                     <label class="form-label mb-3" for="company email">Email</label>
                                     <span class="error_span"></span>
-                                    <input type="email" id="c_email" class="form-control" />
+                                    <input type="email" id="c_email" name="c_email" class="form-control" />
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Text input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label mb-3" for="company address">Dirección</label>
-                            <span class="error_span"></span>
-                            <input type="text" id="c_address" class="form-control" />
+                        <div class="row mb-4">
+                            <div class="col">
+                                <!-- Address input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company address">Dirección</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_address" name="c_address" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Cif input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company cif">Cif</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_cif" name="c_cif" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Logo section-->
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Imagen logo</label>
+                            <input class="form-control" type="file" id="c_logo" name="c_logo">
                         </div>
 
                         <!-- Message input -->
                         <div class="form-outline mb-4">
                             <label class="form-label mb-3" for="company description">Información adicional</label>
-                            <textarea class="form-control" id="c_description" rows="4"></textarea>
+                            <textarea class="form-control" id="c_description" name="c_description" rows="4"></textarea>
                         </div>
 
                         <!--Buttons div-->
@@ -81,7 +99,7 @@ require_once "../app/Config/constantes.php";
                             <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee">
                                 Añadir Empleados
                             </button>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
                                 Crear Empresa
                             </button>
                         </div>
@@ -126,7 +144,7 @@ require_once "../app/Config/constantes.php";
                             <div class="col">
                                 <div class="form-outline">
                                     <input type="text" id="e_job" class="form-control" />
-                                    <label class="form-label" for="e_job">Puesto</label>
+                                    <label class="form-label" for="ejob">Puesto</label>
                                 </div>
                             </div>
                         </div>

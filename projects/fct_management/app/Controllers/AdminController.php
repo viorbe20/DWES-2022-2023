@@ -11,76 +11,119 @@ require_once('..\app\Config\constantes.php');
 class AdminController extends BaseController
 {
 
-        //Add new company
-        public function createCompanyAction()
+    //Add new company
+    public function createCompanyAction()
+    {
+        $data = array();
+        $data['mode'] = "Alta empresa";
+        $company = Company::getInstancia();
+        $companyValidateInputs = FALSE;
+        $c_validateEmail = false;
+        $c_validatePhone = false;
+        $c_validateSpans = false;
+        
+        function clearData($data)
         {
-            $data = array();
-            $data['mode'] = "Alta empresa";
-            $company = Company::getInstancia();
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        };
+        
+        //Click on submit company button
+        if (isset($_POST['btn_create_company'])) {
+            print('prueba impresa');
+            $company->setName($_POST[clearData('c_name')]);
+            $company->setCif($_POST[clearData('c_cif')]);
+            $company->setAddress($_POST[clearData('c_address')]);
+            $company->setPhone($_POST[clearData('c_phone')]);
+            $company->setEmail($_POST[clearData('c_email')]);
     
-            function clearData($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            };
+            //In case, set description
+            if (isset($_POST['c_description'])) {
+                $company->setDescription($_POST['c_description']);
+            } else {
+                $company->setDescription("");
+            }
+    
+            //Save company
+            $company->setCreatedAt(date('Y-m-d H:i:s'));
+            $company->setUpdatedAt(date('Y-m-d H:i:s'));
+            $company->set();
+
+            //Empty fields validation
+            if (empty($_POST['c_name']) || empty($_POST['c_phone']) || empty($_POST['c_email']) || empty($_POST['c_address'])) {
+                error_log('AdminController::createCompanyAction() - Empty company field');
+            } else {
+                $c_validateInputs = true;
+            }
+
+            //Validate email
+            if (!empty($_POST['c_email'])) {
+                if (!filter_var($_POST['c_email'], FILTER_VALIDATE_EMAIL)) {
+                    error_log('AdminController::createCompanyAction() - Invalid company email');
+                } else {
+                    $c_validateEmail = true;
+                }
+            }
+
+            //Validate phone
+            if (!empty($_POST['c_phone'])) {
+                if (!preg_match("/^(\+34|0034|34)?[6789]\d{8}$/", $_POST['c_phone'])) {
+                    error_log('AdminController::createCompanyAction() - Invalid company phone');
+                } else {
+                    $c_validatePhone = true;
+                }
+            }
+
+            //Validate spans
+            if (empty($_POST['c_name_span']) && empty($_POST['c_phone_span']) && empty($_POST['c_email_span']) && empty($_POST['c_address_span'])) {
+                $c_validateSpans = true;
+            } else {
+                error_log('AdminController::createCompanyAction() - Error in company spans');
+            }
+
+            //If all validations are true, create company
+            $company->setName($_POST[clearData('c_name')]);
+            $company->setCif($_POST[clearData('c_cif')]);
+            $company->setAddress($_POST[clearData('c_address')]);
+            $company->setPhone($_POST[clearData('c_phone')]);
+            $company->setEmail($_POST[clearData('c_email')]);
+
+            //In case, set description
+            if (isset($_POST['c_description'])) {
+                $company->setDescription($_POST['c_description']);
+            } else {
+                $company->setDescription("");
+            }
+
+            //Save company
+            $company->setCreatedAt(date('Y-m-d H:i:s'));
+            $company->setUpdatedAt(date('Y-m-d H:i:s'));
+            $company->set();
 
 
-            $this->renderHTML('../view/company_profile.php', $data);
-            
-
-
-    
-    
-            // if (isset($_POST['new_company_jquery'])) {
-            //     $data['new_company_jquery'] = $_POST['new_company_jquery'];
-            // }
-    
-            // if (isset($_POST['add_new_company'])) {
-    
-    
-            //     //Set company
-            //     $company->setName($_POST[clearData('c_name')]);
-            //     $company->setCif($_POST[clearData('c_cif')]);
-            //     $company->setAddress($_POST[clearData('c_address')]);
-            //     $company->setPhone($_POST[clearData('c_phone')]);
-            //     $company->setEmail($_POST[clearData('c_email')]);
-    
-            //     //In case, set description
-            //     if (isset($_POST['c_description'])) {
-            //         $company->setDescription($_POST['c_description']);
-            //     } else {
-            //         $company->setDescription("");
-            //     }
-    
-            //     //Save company
-            //     $company->setCreatedAt(date('Y-m-d H:i:s'));
-            //     $company->setUpdatedAt(date('Y-m-d H:i:s'));
-            //     $company->set();
-            //     $data['newCompany'] = $_POST['c_name'];
-    
             //     //Get last company id
             //     $lastCompany = $company->lastInsert();
             //     $lastCompanyId = $lastCompany[0]['c_id'];
             //     $company->setId($lastCompanyId);
-    
+
             //     //Insert logo after company is saved and use the company id as the name of the file
             //     if (file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
             //         //Logo name is the company id
             //         $logoId = $lastCompanyId;
-    
+
             //         //Get logo extension
             //         $pieces = explode(".", $_FILES['c_logo']['name']);
             //         $logoExtension = $pieces[1];
-    
+
             //         //Complete logo name
             //         $_FILES["c_logo"]["name"] = $logoId . "." . $logoExtension;
             //         $target_dir = "../assets/img/logos/";
             //         $uploadOk = 1;
             //         $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
             //         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    
+
             //         // Check if image file is a actual image or fake image
             //         if (isset($_POST["submit"])) {
             //             $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
@@ -92,18 +135,18 @@ class AdminController extends BaseController
             //                 $uploadOk = 0;
             //             }
             //         }
-    
+
             //         // Check if file already exists
             //         if (file_exists($target_file)) {
             //             $data['logoError'] = "El archivo ya existe.";
             //             $uploadOk = 0;
             //         }
-    
+
             //         if ($_FILES["c_logo"]["size"] > 500000) {
             //             $data['logoError'] = "El archivo es demasiado pesado.";
             //             $uploadOk = 0;
             //         }
-    
+
             //         // Allow certain file formats
             //         if (
             //             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -112,12 +155,12 @@ class AdminController extends BaseController
             //             $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
             //             $uploadOk = 0;
             //         }
-    
+
             //         // Check if $uploadOk is set to 0 by an error
             //         if ($uploadOk == 0) {
             //             $data['logoError'] = "No se ha subido el archivo.";
-    
-    
+
+
             //             // if everything is ok, try to upload file
             //         } else {
             //             //When save in the database, the name of the logo is the same as the id of de company
@@ -133,24 +176,30 @@ class AdminController extends BaseController
             //         $company->setLogo("unknown.png");
             //         $company->insert_logo();
             //     }
-    
-            //     //If employees are added, save them
-            //     if (isset($_POST["e_name"])) {
-            //         for ($i = 1; $i < count($_POST["e_name"]); $i++) {
-            //             $employee = Employee::getInstancia();
-            //             $employee->setName($_POST["e_name"][$i]);
-            //             $employee->setNif($_POST["e_nif"][$i]);
-            //             $employee->setJob($_POST["e_job"][$i]);
-            //             $employee->setCreatedAt(date('Y-m-d H:i:s'));
-            //             $employee->setUpdatedAt(date('Y-m-d H:i:s'));
-            //             $employee->setCompanyId($lastCompanyId);
-            //             $employee->set();
-            //         }
-            //     }
-            // }
-    
-           
+
+
+        } else {
+            $this->renderHTML('../view/company_profile.php', $data);
         }
+
+        //     //If employees are added, save them
+        //     if (isset($_POST["e_name"])) {
+        //         for ($i = 1; $i < count($_POST["e_name"]); $i++) {
+        //             $employee = Employee::getInstancia();
+        //             $employee->setName($_POST["e_name"][$i]);
+        //             $employee->setNif($_POST["e_nif"][$i]);
+        //             $employee->setJob($_POST["e_job"][$i]);
+        //             $employee->setCreatedAt(date('Y-m-d H:i:s'));
+        //             $employee->setUpdatedAt(date('Y-m-d H:i:s'));
+        //             $employee->setCompanyId($lastCompanyId);
+        //             $employee->set();
+        //         }
+        //     }
+        // }
+
+
+    }
+
     /**
      * Shows a list of the last 5 companies
      */
@@ -158,7 +207,7 @@ class AdminController extends BaseController
     {
         $data = array();
         $company = Company::getInstancia();
-        $this-> renderHTML('../view/companies_view.php', $data);
+        $this->renderHTML('../view/companies_view.php', $data);
     }
 
     //Returns a list of companies to js
