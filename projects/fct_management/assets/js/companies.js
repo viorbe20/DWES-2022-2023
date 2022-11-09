@@ -1,3 +1,13 @@
+function isValidaCif(cif) {
+    let regex = /^[ABCDEFGHJNPQRSUVW][\d]{7}[\dA-J]$/i;
+    return regex.test(cif);
+}
+
+function isValidaNif(nif) {
+    let regex = /^([KLMXYZ][\d]{7}|[\d]{8})[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
+    return regex.test(dni);
+}
+
 function isValidEmail(email) {
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     //^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
@@ -51,6 +61,18 @@ $(document).ready(function () {
                 if ($(this).attr('id') == "c_email") {
                     if (!isValidEmail($fieldValue)) {
                         $(this).prev().html("El email no es válido");
+                        $(this).prev().show();
+                    } else {
+                        $(this).prev().hide();
+                        $(this).css("background-color", "#d4edda");
+    
+                    }
+                }
+
+                //Cif validation
+                if ($(this).attr('id') == "c_cif") {
+                    if (!isValidaCif($fieldValue)) {
+                        $(this).prev().html("El CIF no es válido");
                         $(this).prev().show();
                     } else {
                         $(this).prev().hide();

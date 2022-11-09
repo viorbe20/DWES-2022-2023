@@ -76,6 +76,15 @@ class AdminController extends BaseController
                 }
             }
 
+            //Validate cif
+            if (!empty($_POST['c_cif'])) {
+                if (!preg_match("/^[ABCDEFGHJNPQRSUVW][\d]{7}[\dA-J]$/i", $_POST['c_cif'])) {
+                    error_log('AdminController::createCompanyAction() - Invalid company cif');
+                } else {
+                    $c_validateCif = true;
+                }
+            }
+
             //Validate spans
             if (empty($_POST['c_name_span']) && empty($_POST['c_phone_span']) && empty($_POST['c_email_span']) && empty($_POST['c_address_span'])) {
                 $c_validateSpans = true;
