@@ -11,10 +11,10 @@ require_once "../app/Config/constantes.php";
     <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="<?php echo DIRFCT; ?>/assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo DIRFCT; ?>/assets/css/style.css" />
     <!-- <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script> -->
     <title>Companies profile</title>
 </head>
@@ -96,7 +96,7 @@ require_once "../app/Config/constantes.php";
 
                         <!--Buttons div-->
                         <div class="form-outline mb-4 d-flex justify-content-lg-end">
-                            <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee">
+                            <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee" name="btn_add_employee">
                                 Añadir Empleados
                             </button>
                             <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
@@ -126,8 +126,8 @@ require_once "../app/Config/constantes.php";
 
                         <!-- Name input -->
                         <div class="form-outline">
-                            <input type="text" id="e_name" class="form-control" />
-                            <label class="form-label" for="e_name">Nombre</label>
+                            <label class="form-label" for="employee name">Nombre</label>
+                            <input type="text" id="e_name" name="e_name[]" class="form-control" value='Empleado Prueba' />
                         </div>
 
                         <!--Box: nif and job-->
@@ -135,16 +135,51 @@ require_once "../app/Config/constantes.php";
                             <div class="col">
                                 <!-- Nif input -->
                                 <div class="form-outline">
-                                    <input type="text" id="e_nif" class="form-control" />
-                                    <label class="form-label" for="e_nif">Nif</label>
+                                    <label class="form-label" for="employee nif">Nif</label>
+                                    <input type="text" id="e_nif" name="e_nif[]" class="form-control" value="76586343T" />
                                 </div>
                             </div>
 
                             <!-- Job input -->
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="e_job" class="form-control" />
-                                    <label class="form-label" for="ejob">Puesto</label>
+                                    <label class="form-label" for="employee job">Puesto</label>
+                                    <input type="text" id="e_job" name="e_job[]" class="form-control" value="Developer" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Info employees-->
+                    <div id="card_employee_1" class="card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded">
+
+                        <!-- Delete employee -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button type="text" class="delete_btn btn btn-secondary text-lg border-rounded">X</button>
+                        </div>
+
+                        <!-- Name input -->
+                        <div class="form-outline">
+                            <label class="form-label" for="employee name">Nombre</label>
+                            <input type="text" id="e_name" name="e_name[]" class="form-control" value='Empleado Prueba' />
+                        </div>
+
+                        <!--Box: nif and job-->
+                        <div class="row mb-4">
+                            <div class="col">
+                                <!-- Nif input -->
+                                <div class="form-outline">
+                                    <label class="form-label" for="employee nif">Nif</label>
+                                    <input type="text" id="e_nif" name="e_nif[]" class="form-control" value="76586343T" />
+                                </div>
+                            </div>
+
+                            <!-- Job input -->
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="employee job">Puesto</label>
+                                    <input type="text" id="e_job" name="e_job[]" class="form-control" value="Developer" />
                                 </div>
                             </div>
                         </div>
