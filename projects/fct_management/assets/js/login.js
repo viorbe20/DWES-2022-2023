@@ -3,13 +3,13 @@ $(document).ready(function () {
     
     myForm.submit(function (e) {
         e.preventDefault();
+        
         let formData = new FormData(this);
-
         fetch("http://localhost/dwes/projects/fct_management/public/index.php/home", {
             method: "POST",
             body: formData
         })
-
+        
         .then(response => response.json())
         .then(data => {
             console.log(data);
