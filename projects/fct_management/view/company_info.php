@@ -1,178 +1,182 @@
 <?php
-require('../view/require/header_view.html');
-require('../view/require/profile_view.php');
-require('../view/require/nav_view.php');
-require('../view/require/footer_view.html');
-echo "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' />";
-echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
-echo "<style>" . file_get_contents('../view/css/style.css') . "</style>";
-echo "<script>" . file_get_contents('../view/js/index.js') . "</script>";
-
-if (isset($data)) {
-    var_dump($data);
-    //print($data['mode']);
-    if ($data['mode'] == "Alta empresa") {
-        $disabled = "";
-        $readonly = "";
-    }
-}
-
-
-// Employee data
-if (!isset($data['nameError'])) {
-    $nameError = '';
-} else {
-    $nameError = $data['nameError'];
-}
-
-if (!isset($data['nifError'])) {
-    $nifError = '';
-} else {
-    $nifError = $data['nifError'];
-}
-
-if (!isset($data['jobError'])) {
-    $jobError = '';
-} else {
-    $jobError = $data['jobError'];
-}
+require_once "../app/Config/constantes.php";
+// if (isset($data)) {
+//     var_dump($data);
+// }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
     <meta charset='UTF-8'>
-    <meta name='Author' content='Virginia Ordoño'>
-    <link rel='stylesheet' href='css/estilos.css'>
-    <meta name='viewport' content='width=device-width initial-scale=1.0'>
-    <title>Añade empresa</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel='stylesheet' href="<?php echo DIRFCT; ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo DIRFCT; ?>/assets/css/style.css" />
+    <script src="<?php echo DIRFCT; ?>/assets/js/companies.js"></script>
+    <title>Companies profile</title>
 </head>
 
-
-<body id='body_company_info'>
+<body>
+    <?php require_once 'header.php'; ?>
     <?php
 
-    if ($data['mode'] == 'Elimina empresa') {
-        # code...
-    }
     ?>
-    <!--Title-->
-    <h2 class='page_title'>
-        <?php echo $data['mode'] ?>
-    </h2>
+    <form method="post" action="" enctype="multipart/form-data" id="form_company_profile">
 
-    <form method="post" action="" enctype="multipart/form-data" id="form_add_company">
+        <h3 class="text-center mt-4 mb-4">Alta empresa</h3>
 
-        <!--Company data-->
-        <fieldset id="new_company_data">
-            <legend>Datos Empresa</legend>
+        <!--Section company-->
+        <div class="mx-4 col-md d-flex flex-column align-items-center">
+            <div class="col-md-10 ">
+                <div class="card mb-4">
+                    <div class="card-header py-3 bg-secondary">
+                        <h5 class="mb-0 text-light">Datos empresa</h5>
+                    </div>
+                    <div class="card-body" id="card_company">
+                        <!-- Text input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label mb-3" for="company name">Nombre</label>
+                            <span class="error_span"></span>
+                            <input type="text" id="c_name" name="c_name" class="form-control" />
+                        </div>
+                        <!-- 2 column grid layout with text inputs for the first and last names -->
 
-            <section id="new_company_data_left">
-                <div><label for="c_name">Nombre</label><span> *</span>
-                </div>
-                <div>
-                    <input type="text" id="c_name" name="c_name" value="<?php if (isset($data['c_name'])) echo $data['c_name']; ?>" <?php echo $readonly ?> required>
-                    <span class="error"></span>
-                </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <!-- Phone input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company phone">Teléfono</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_phone" name="c_phone" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Email input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company email">Email</label>
+                                    <span class="error_span"></span>
+                                    <input type="email" id="c_email" name="c_email" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
 
-                <div><label for="c_cif">Cif</label><span> *</span>
-                </div>
-                <div><input type="text" id="c_cif" name="c_cif" value="<?php if (isset($data['c_cif'])) echo $data['c_cif']; ?>" <?php echo $readonly ?> required>
-                    <span class="error"></span>
-                </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <!-- Address input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company address">Dirección</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_address" name="c_address" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Cif input -->
+                                <div class="form-outline">
+                                    <label class="form-label mb-3" for="company cif">Cif</label>
+                                    <span class="error_span"></span>
+                                    <input type="text" id="c_cif" name="c_cif" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
 
-                <div><label for="c_address">Dirección</label><span> *</span>
-                </div>
-                <div>
-                    <input type="text" id="c_address" name="c_address" value="<?php if (isset($data['c_address'])) echo $data['c_address']; ?>" <?php echo $readonly ?> required>
-                    <span class="error"></span>
-                </div>
+                        <!--Logo section-->
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Imagen logo</label>
+                            <input class="form-control" type="file" id="c_logo" name="c_logo">
+                        </div>
 
-                <div><label for="c_logo">Logo</label><span> *</span>
-                    <div>
-                        <input type="file" id="c_logo" name="c_logo" <?php echo $disabled ?>;>
-                        <span class="error"><?php if (isset($data['logoError'])) echo $data['logoError']; ?></span>
+                        <!-- Message input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label mb-3" for="company description">Información adicional</label>
+                            <textarea class="form-control" id="c_description" name="c_description" rows="4"></textarea>
+                        </div>
+
+                        <!--Buttons div-->
+                        <div class="form-outline mb-4 d-flex justify-content-lg-end">
+                            <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee" name="btn_add_employee">
+                                Añadir Empleados
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
+                                Crear Empresa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Section employee-->
+        <div class="mx-4 col-md d-flex flex-column align-items-center d-none" id="section_employees">
+            <div class="col-md-10 ">
+                <div class="card" id='card_container'>
+                    <div class="card-header py-3 bg-secondary" id="card_header">
+                        <h5 class="mb-0 text-light">Datos Empleados</h5>
                     </div>
 
-            </section>
+                    <!--Info employees-->
+                    <div id="card_employee_0" class="card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded d-none">
 
-            <section id="new_company_data_right">
-                <div><label for="c_phone">Teléfono </label><span> *</span>
+                        <!-- Delete employee -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button type="text" class="delete_btn btn btn-secondary text-lg border-rounded">X</button>
+                        </div>
+
+                        <!-- Name input -->
+                        <div class="form-outline">
+                            <label class="form-label" for="employee name">Nombre</label>
+                            <input type="text" id="e_name" name="e_name[]" class="form-control" value='Empleado Prueba' />
+                        </div>
+
+                        <!--Box: nif and job-->
+                        <div class="row mb-4">
+                            <div class="col">
+                                <!-- Nif input -->
+                                <div class="form-outline">
+                                    <label class="form-label" for="employee nif">Nif</label>
+                                    <input type="text" id="e_nif" name="e_nif[]" class="form-control" value="76586343T" />
+                                </div>
+                            </div>
+
+                            <!-- Job input -->
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="employee job">Puesto</label>
+                                    <input type="text" id="e_job" name="e_job[]" class="form-control" value="Developer" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-                <div>
-                    <input type="phone" id="c_phone" name="c_phone" maxlength="9" value="<?php if (isset($data['c_phone'])) echo $data['c_phone']; ?>" <?php echo $readonly ?> required>
-                    <span class="error"></span>
-                </div>
-
-                <div><label for="c_email">Email </label><span> *</span>
-                </div>
-                <div><input type="email" name="id_email" name="c_email" value="<?php if (isset($data['c_email'])) echo $data['c_email']; ?>" <?php echo $readonly ?> required>
-                    <span class="error"></span>
-                </div>
-
-                <div><label for="c_description" id="c_description">Descripción de la empresa</label>
-                    <textarea name="c_description" id="c_description" cols="40" rows="5" <?php echo $readonly ?>>
-                    <?php if (isset($data['c_description'])) {
-                        echo $data['c_description'];
-                    }
-                    ?>
-                    </textarea>
-                </div>
-            </section>
-        </fieldset>
-
-        <!--Employee data-->
-        <fieldset id='new_employee_data'>
-            <legend>Datos Empleado</legend>
-
-            <section class="employee_section">
-                <span class="material-symbols-outlined" data-icon="delete-employee">
-                    cancel
-                </span>
-                <div><label for="e_name">Nombre</label><span> *</span>
-                    <span class="error"><?php echo $nameError ?></span>
-                </div>
-                <div><input type="text" name="e_name[]" value="<?php if (isset($data['e_name'])) echo $data['e_name']; ?>"></div>
-
-
-                <div><label for="e_nif">Nif</label><span> *</span>
-                    <span class="error"><?php echo $nifError; ?></span>
-                </div>
-                <div><input type="text" name="e_nif[]" value="<?php if (isset($data['e_nif'])) echo $data['e_nif']; ?>"></div>
-
-
-                <div><label for="e_job">Cargo</label><span> *</span>
-                    <span class="error"><?php echo $jobError; ?></span>
-                </div>
-                <div><input type="text" name="e_job[]" value="<?php if (isset($data['e_job'])) echo $data['e_job']; ?>"></div>
-            </section>
-
-        </fieldset>
-
-        <!--Company config-->
-        <section id='company_config'>
-            <?php
-            if (isset($data['deleteCompany'])) {
-            ?>
-                <input type="submit" value="Eliminar" name="delete_current_company" id="btn_add_company">
-                <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
-            <?php
-            } elseif (isset($data['editCompany'])) {
-            ?>
-                <input type="submit" value="Editar" name="edit_current_company" id="btn_add_company">
-                <a href="<?php echo DIRBASEURL . '/home/companies' ?>" id="btn_reset">Cancelar</a>
-            <?php
-            } else {
-            ?>
-                <input type="text" value="Añadir Empleado" id="add_employee_section" class="btn_add_green">
-                <input type="submit" value="Crear Empresa" name="add_new_company" class="btn_add_green" id="btn_add_new_company">
-                <a href="<?php echo DIRBASEURL . '/home/companies/company_info' ?>" class="btn_cancel_red">Cancelar</a>
-            <?php } ?>
-        </section>
-
+            </div>
+        </div>
     </form>
 
+
 </body>
+<!-- Modal Company Created -->
+<div class="modal" tabindex="-1" role="dialog" id="modal_create_company">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Empresa</h5>
+                <button type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-ligth" id="span_modal_exit">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Has creado una nueva empresa.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn_modal_reload" name="btn_modal_reload" type="button" class="btn btn-primary">Crear otra</button>
+                <button id="btn_modal_exit" name="btn_modal_close" type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
