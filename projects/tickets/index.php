@@ -3,6 +3,12 @@
 const TEAMS = array("Picapiedras", "Roedores", "Perezosos", "Invisibles", "Legendarios", "Magos", "Sultanes");
 const TICKETS_PER_ZONE = 100;
 const ZONES = array("A", "B", "C", "D");
+const NUMBER_OF_MEMBERS = 25;
+
+//Generates a random number between 0 and number of member
+function generateRandomNumber() {
+    return rand(0, NUMBER_OF_MEMBERS);
+}
 
 
 function getRatesPerTeam($teamName, $zoneName)
@@ -16,7 +22,8 @@ function getRatesPerTeam($teamName, $zoneName)
         if (substr($i, -1) == 0) { //If the last digit is 0
             echo "</tr><tr>";
         } else {
-            echo "<td class='cell'>Localidad " . $i + 1 . "</td>";
+            $class = "class= free_cell";
+            echo "<td $class>Localidad " . $i + 1 . "</td>";
         }
     }
     echo "</tr>";
@@ -35,8 +42,25 @@ function getRatesPerTeam($teamName, $zoneName)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .cell {
+        .free_cell {
             padding: 10px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            background-color: #00C851;
+            color: white;
+            font-weight: bold;
+        }
+        .not_free_cell {
+            padding: 10px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            background-color: #ff4444;
+            color: white;
+            font-weight: bold;
         }
     </style>
     <title>Document</title>
