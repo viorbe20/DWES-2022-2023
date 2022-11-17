@@ -158,6 +158,13 @@ if (isset($_POST['btn_submit'])) {
                                     echo "<td>SI</td>";
                                 }
 
+                                //Shows checkbox to select the seat
+                                if (in_array($seatNumber, $_SESSION['membersSeats'])) {
+                                    echo "<td><input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . " disabled></td>";
+                                } else {
+                                    echo "<td><input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . "></td>";
+                                }
+
                                 echo "</tr>";
                             }
                         }
