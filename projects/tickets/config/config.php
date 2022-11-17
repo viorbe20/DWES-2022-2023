@@ -13,6 +13,7 @@ $rates = array(
 // The number of tickets reserved for members
 const MEMBERS = 20;
 const TOTAL_TICKETS = 400;
+const ZONES = array("A", "B", "C", "D");
 
 
 

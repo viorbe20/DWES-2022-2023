@@ -13,13 +13,12 @@ if (isset($_POST['btn_submit'])) {
         $team = $_POST['teamSelection'];
         echo ('holaaaaaaaaaaa');
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
-        echo ('holaaaaaaaaaaa'); 
+        echo ('holaaaaaaaaaaa');
         $selectedTeam = true;
         $selectedZone = true;
         $zone = $_POST['zoneSelection'];
         $team = $_POST['teamSelection'];
     } else if (isset($_POST['ticketSelection']) && isset($_POST['zoneSelection']) && isset($_POST['teamSelection'])) {
-
     }
 }
 
@@ -37,7 +36,7 @@ if (isset($_POST['btn_submit'])) {
         $selectedZone = true;
         $zone = $_POST['zoneSelection'];
         $team = $_POST['teamSelection'];
-        echo ('Zone selected: ' . $zone); 
+        echo ('Zone selected: ' . $zone);
     } else if (isset($_POST['teamSelection'])) {
         $selectedTeam = true;
         $team = $_POST['teamSelection'];
@@ -63,14 +62,11 @@ if (isset($_POST['btn_submit'])) {
 <body>
     <h1>Compra de localidades</h1>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        
-        <?php if ($selectedTickets && $selectedZone && $selectedTeam) {
-            echo "muestra resumen de compra";
-        } else if ($selectedZone && $selectedTeam) {
-            echo "muestra tickets";
-        } else if ($selectedTeam) {
-            ?>
 
+        <?php if ($selectedTickets && $selectedZone && $selectedTeam) {
+            echo ('muestra el formulario de pago');
+        } else if ($selectedZone && $selectedTeam) {
+        ?>
             <section>
                 <label>Selecciona un partido</label>
                 <select name="teamSelection">
@@ -89,14 +85,53 @@ if (isset($_POST['btn_submit'])) {
             <!--Radiobutton to select zone-->
             <section id="sec_zone">
                 <label>Selecciona una zona</label>
-                <input type="radio" name="zoneSelection" value="A">
-                <label for="zoneA">Zona A</label><br>
-                <input type="radio" name="zoneSelection" value="B">
-                <label for="zoneB">Zona B</label><br>
-                <input type="radio" name="zoneSelection" value="C">
-                <label for="zoneC">Zona C</label>
-                <input type="radio" name="zoneSelection" value="D">
-                <label for="zoneC">Zona D</label>
+                <?php
+                //Shows selected zone
+                foreach (ZONES as $zone) {
+                    if ($zone == $_POST['zoneSelection']) {
+                        echo "<input type='radio' name='zoneSelection' value='$zone' checked>";
+                        echo "<label for='zone$zone'>Zona $zone</label><br>";
+                    } else {
+                        echo "<input type='radio' name='zoneSelection' value='$zone'>";
+                        echo "<label for='zone$zone'>Zona $zone</label><br>";
+                    }
+                }
+                ?>
+            </section>
+
+            <!--Select to select number of tickets-->
+            <section id="sec_tickets">
+                <label>Selecciona las entradas</label>
+
+
+        <?php
+        } else if ($selectedTeam) {
+        ?>
+            <section>
+                <label>Selecciona un partido</label>
+                <select name="teamSelection">
+                    <?php foreach ($rates as $team => $rate) {
+                        //Shows selected team
+                        if ($team == $_POST['teamSelection']) {
+                            echo "<option value='$team' selected>$team</option>";
+                        } else {
+                            echo "<option value='$team'>$team</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </section>
+
+            <!--Radiobutton to select zone-->
+            <section id="sec_zone">
+                <label>Selecciona una zona</label>
+                <?php
+                //Shows all zones
+                foreach (ZONES as $zone) {
+                    echo "<input type='radio' name='zoneSelection' value='$zone'>";
+                    echo "<label for='zone$zone'>Zona $zone</label><br>";
+                }
+                ?>
             </section>
 
         <?php
