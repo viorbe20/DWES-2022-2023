@@ -75,7 +75,12 @@ if (isset($_POST['btn_submit'])) {
                 <label>Selecciona un partido</label>
                 <select name="teamSelection">
                     <?php foreach ($rates as $team => $rate) {
-                        echo "<option value=$team>$team</option>";
+                        //Shows selected team
+                        if ($team == $_POST['teamSelection']) {
+                            echo "<option value='$team' selected>$team</option>";
+                        } else {
+                            echo "<option value='$team'>$team</option>";
+                        }
                     }
                     ?>
                 </select>
