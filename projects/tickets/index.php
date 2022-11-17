@@ -135,8 +135,21 @@ if (isset($_POST['btn_submit'])) {
                             if ($zoneData['zona'] == $_POST['zoneSelection']) {
                                 $seatNumber = $zoneData['primera_localidad'] + $i-1;
                                 echo "<tr>";
+                                //Shows the seat number
                                 echo "<td>" . $seatNumber . "</td>";
-                                echo "<td>" . $seatNumber . "</td>";
+                                //Shows price
+                                foreach($rates as $teams){
+                                    if($teams['equipo'] == $_POST['teamSelection']){
+
+                                        foreach($teams['tarifas'] as $data){
+                                            //Only price of zoneSelection
+                                            if($data['zona'] == $_POST['zoneSelection']){
+                                                echo "<td>" . $data['precio'] . "</td>";
+                                            }
+                                        }
+                                    }
+
+                                }
                                 echo "<td>" . $seatNumber . "</td>";
                                 echo "<td>" . $seatNumber . "</td>";
                                 echo "</tr>";
