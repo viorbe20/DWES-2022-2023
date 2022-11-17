@@ -2,18 +2,17 @@
 require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
-$selectedTeam = false;
+$selectedTeam = true;
 $selectedZone = false;
 $selectedTickets = false;
+$_POST['zoneSelection'] == "C";
 echo ($selectedTeam);
 
 if (isset($_POST['btn_submit'])) {
     if (isset($_POST['teamSelection'])) {
         $selectedTeam = true;
         $team = $_POST['teamSelection'];
-        echo ('holaaaaaaaaaaa');
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
-        echo ('holaaaaaaaaaaa');
         $selectedTeam = true;
         $selectedZone = true;
         $zone = $_POST['zoneSelection'];
