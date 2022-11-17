@@ -1,16 +1,19 @@
 <?php
 
-const TEAMS = array("Picapiedras", "Roedores", "Perezosos", "Invisibles", "Legendarios", "Magos", "Sultanes");
-const TICKETS_PER_ZONE = 100;
-const NUMBER_OF_ZONES = 4;
-
-
-function getRatesPerTeam() {
-    $rates = array();
-    
-    for ($i = 0; $i < count(TEAMS); $i++) {
-        $rates[TEAMS[$i]] = 0;
+/**
+ * Select tickets numbers for the member
+ */
+function getMembersTickets($membersAmount){
+    $tickets = array();
+    $count = 0;
+    while ($count < $membersAmount) {
+        //Generates a random number between 1 and 100
+        $ticket = rand(1, TOTAL_TICKETS);
+        //If the ticket is not in the array, add it
+        if (!in_array($ticket, $tickets)) {
+            $tickets[] = $ticket;
+            $count++;
+        } 
     }
-    
-    return $rates;
+    return $tickets;
 }
