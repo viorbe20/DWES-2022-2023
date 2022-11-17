@@ -2,11 +2,9 @@
 require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
-$selectedTeam = true;
+$selectedTeam = false;
 $selectedZone = false;
 $selectedTickets = false;
-$_POST['zoneSelection'] == "C";
-echo ($selectedTeam);
 
 if (isset($_POST['btn_submit'])) {
     if (isset($_POST['teamSelection'])) {
@@ -86,15 +84,15 @@ if (isset($_POST['btn_submit'])) {
                 <label>Selecciona una zona</label>
                 <?php
                 //Shows selected zone
-                foreach (ZONES as $zone) {
-                    if ($zone == $_POST['zoneSelection']) {
-                        echo "<input type='radio' name='zoneSelection' value='$zone' checked>";
-                        echo "<label for='zone$zone'>Zona $zone</label><br>";
-                    } else {
-                        echo "<input type='radio' name='zoneSelection' value='$zone'>";
-                        echo "<label for='zone$zone'>Zona $zone</label><br>";
-                    }
-                }
+                // foreach (ZONES as $zone) {
+                //     if ($zone == $_POST['zoneSelection']) {
+                //         echo "<input type='radio' name='zoneSelection' value='$zone' checked>";
+                //         echo "<label for='zone$zone'>Zona $zone</label><br>";
+                //     } else {
+                //         echo "<input type='radio' name='zoneSelection' value='$zone'>";
+                //         echo "<label for='zone$zone'>Zona $zone</label><br>";
+                //     }
+                // }
                 ?>
             </section>
 
@@ -126,10 +124,13 @@ if (isset($_POST['btn_submit'])) {
                 <label>Selecciona una zona</label>
                 <?php
                 //Shows all zones
-                foreach (ZONES as $zone) {
-                    echo "<input type='radio' name='zoneSelection' value='$zone'>";
-                    echo "<label for='zone$zone'>Zona $zone</label><br>";
+                foreach ($zones as $zone => $zoneName) {
+                    echo $zoneName;
                 }
+                // foreach ($zones as $zone) {
+                //     echo "<input type='radio' name='zoneSelection' value='$zone'>";
+                //     echo "<label for='zone$zone'>Zona $zone</label><br>";
+                // }
                 ?>
             </section>
 
