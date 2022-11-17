@@ -4,11 +4,20 @@
   box-sizing: border-box;
 }
 
-h1 {
-  text-align: center;
+header {
   background-color: #141A22;
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 2%;
+}
+header h1 {
+  text-align: center;
   color: white;
-  padding: 10px;
+  margin-right: 20%;
+}
+header #btn_logout, header #btn_home {
+  width: 8rem;
+  font-weight: bold;
 }
 
 #h1_login {
