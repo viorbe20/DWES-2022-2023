@@ -130,31 +130,37 @@ if (isset($_POST['btn_submit'])) {
                     //Shows all tickets
                     $seatNumber = 0;
                     for ($i = 1; $i <= $seatsPerZone; $i++) { //Per zone
-                        
+
                         foreach ($zones as $zoneData) {
                             if ($zoneData['zona'] == $_POST['zoneSelection']) {
-                                $seatNumber = $zoneData['primera_localidad'] + $i-1;
+                                $seatNumber = $zoneData['primera_localidad'] + $i - 1;
                                 echo "<tr>";
                                 //Shows the seat number
                                 echo "<td>" . $seatNumber . "</td>";
+                                
                                 //Shows price
-                                foreach($rates as $teams){
-                                    if($teams['equipo'] == $_POST['teamSelection']){
+                                foreach ($rates as $teams) {
+                                    if ($teams['equipo'] == $_POST['teamSelection']) {
 
-                                        foreach($teams['tarifas'] as $data){
+                                        foreach ($teams['tarifas'] as $data) {
                                             //Only price of zoneSelection
-                                            if($data['zona'] == $_POST['zoneSelection']){
+                                            if ($data['zona'] == $_POST['zoneSelection']) {
                                                 echo "<td>" . $data['precio'] . "</td>";
                                             }
                                         }
                                     }
-
                                 }
-                                echo "<td>" . $seatNumber . "</td>";
-                                echo "<td>" . $seatNumber . "</td>";
+                                
+                                //Shows available seats
+                                if (in_array($seatNumber, $_SESSION['membersSeats'])) {
+                                    echo "<td>NO</td>";
+                                } else {
+                                    echo "<td>SI</td>";
+                                }
+
                                 echo "</tr>";
                             }
-                    }
+                        }
 
                         // if ($ticketData['zona'] == $_POST['zoneSelection']) {
                         //     echo "<tr>";
