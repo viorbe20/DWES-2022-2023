@@ -2,6 +2,27 @@
 require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
+//Start session
+session_start();
+
+//Array with random numbers from 1 to capacity as much as members
+if (!isset($_SESSION['membersSeats'])) {
+    $_SESSION['membersSeats'] = array();
+    $cont = 0;
+    while ($cont < MEMBERS) {
+        $random = rand(1, CAPACITY);
+        print_r($random);
+        if (!in_array($random, $_SESSION['membersSeats'])) {
+            array_push($_SESSION['membersSeats'], $random);
+            $cont++;
+        }
+    }
+}
+
+
+//var_dump($_SESSION['membersSeats']);
+
+$seatsPerZone = CAPACITY / count($zones);
 $selectedTeam = false;
 $selectedZone = false;
 $selectedTickets = false;
@@ -32,22 +53,6 @@ if (isset($_POST['btn_submit'])) {
         $selectedZone = true;
         $zone = $_POST['zoneSelection'];
         $team = $_POST['teamSelection'];
-        
-        //Array with random numbers from 1 to capacity as much as members
-        $membersSeats = array();
-
-        $cont = 0;
-        while ($cont < MEMBERS) {
-            $random = rand(1, CAPACITY);
-            if (!in_array($random, $membersSeats)) {
-                array_push($membersSeats, $random);
-                $cont++;
-            }
-        }
-
-        var_dump($membersSeats);
-
-        
     } else if (isset($_POST['teamSelection'])) {
         $selectedTeam = true;
         $team = $_POST['teamSelection'];
@@ -112,55 +117,91 @@ if (isset($_POST['btn_submit'])) {
             <!--Select to select number of tickets-->
             <section id="sec_tickets">
                 <label>Selecciona las entradas</label>
-
-
-            <?php
-        } else if ($selectedTeam) {
-            ?>
-                <section>
-                    <label>Selecciona un partido</label>
-                    <select name="teamSelection">
-                        <?php foreach ($teams as $team) {
-                            //Shows selected team
-                            if ($team == $_POST['teamSelection']) {
-                                echo "<option value='$team' selected>$team</option>";
-                            } else {
-                                echo "<option value='$team'>$team</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </section>
-
-                <!--Radiobutton to select zone-->
-                <section id="sec_zone">
-                    <label>Selecciona una zona</label>
+                <!--Show a table with the selected zone and the tickets status-->
+                <table>
+                    <caption>Zona <?php echo $_POST['zoneSelection']; ?></caption>
+                    <tr>
+                        <th>Localidad</th>
+                        <th>Precio</th>
+                        <th>Disponibles</th>
+                        <th>Seleccionar</th>
+                    </tr>
                     <?php
-                    //Shows all zones
-                    foreach ($zones as $key => $zoneData) {
-                        echo "<input type='radio' name='zoneSelection' value=" . $zoneData['zona'] . ">";
-                        echo "<label for='zone'" . $zoneData['zona'] . ">Zona " . $zoneData['zona'] . "</label><br>";
+                    //Shows all tickets
+                    $seatNumber = 0;
+                    for ($i = 1; $i <= $seatsPerZone; $i++) { //Per zone
+                        
+                        foreach ($zones as $zoneData) {
+                            if ($zoneData['zona'] == $_POST['zoneSelection']) {
+                                $seatNumber = $zoneData['primera_localidad'] + $i-1;
+                                echo "<tr>";
+                                echo "<td>" . $seatNumber . "</td>";
+                                echo "<td>" . $seatNumber . "</td>";
+                                echo "<td>" . $seatNumber . "</td>";
+                                echo "<td>" . $seatNumber . "</td>";
+                                echo "</tr>";
+                            }
+                    }
+
+                        // if ($ticketData['zona'] == $_POST['zoneSelection']) {
+                        //     echo "<tr>";
+                        //     echo "<td>" . $ticketData['localidad'] . "</td>";
+                        //     echo "<td>" . $ticketData['precio'] . "</td>";
+                        //     echo "<td>" . $ticketData['disponibles'] . "</td>";
+                        //     echo "<td><input type='checkbox' name='ticketSelection[]' value=" . $ticketData['localidad'] . "></td>";
+                        //     echo "</tr>";
+                        // }
                     }
                     ?>
-                </section>
 
-            <?php
-        } else {
-            ?>
-                <section>
-                    <label>Selecciona un partido</label>
-                    <select name="teamSelection">
-                        <?php foreach ($teams as $team) {
-                            echo "<option value=$team>$team</option>";
+
+                <?php
+            } else if ($selectedTeam) {
+                ?>
+                    <section>
+                        <label>Selecciona un partido</label>
+                        <select name="teamSelection">
+                            <?php foreach ($teams as $team) {
+                                //Shows selected team
+                                if ($team == $_POST['teamSelection']) {
+                                    echo "<option value='$team' selected>$team</option>";
+                                } else {
+                                    echo "<option value='$team'>$team</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </section>
+
+                    <!--Radiobutton to select zone-->
+                    <section id="sec_zone">
+                        <label>Selecciona una zona</label>
+                        <?php
+                        //Shows all zones
+                        foreach ($zones as $key => $zoneData) {
+                            echo "<input type='radio' name='zoneSelection' value=" . $zoneData['zona'] . ">";
+                            echo "<label for='zone'" . $zoneData['zona'] . ">Zona " . $zoneData['zona'] . "</label><br>";
                         }
                         ?>
-                    </select>
-                </section>
-            <?php
-        } ?>
+                    </section>
+
+                <?php
+            } else {
+                ?>
+                    <section>
+                        <label>Selecciona un partido</label>
+                        <select name="teamSelection">
+                            <?php foreach ($teams as $team) {
+                                echo "<option value=$team>$team</option>";
+                            }
+                            ?>
+                        </select>
+                    </section>
+                <?php
+            } ?>
 
 
-            <button type="submit" class="btn btn-primary" id="btn_submit" name="btn_submit">Continuar</button>
+                <button type="submit" class="btn btn-primary" id="btn_submit" name="btn_submit">Continuar</button>
     </form>
 </body>
 
