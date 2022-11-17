@@ -27,17 +27,30 @@ if (isset($_POST['btn_submit'])) {
         $zone = $_POST['zoneSelection'];
         $team = $_POST['teamSelection'];
         $tickets = $_POST['ticketSelection'];
-        echo ('Ticket selected: ' . $tickets);
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
         $selectedTeam = true;
         $selectedZone = true;
         $zone = $_POST['zoneSelection'];
         $team = $_POST['teamSelection'];
-        echo ('Zone selected: ' . $zone);
+        
+        //Array with random numbers from 1 to capacity as much as members
+        $membersSeats = array();
+
+        $cont = 0;
+        while ($cont < MEMBERS) {
+            $random = rand(1, CAPACITY);
+            if (!in_array($random, $membersSeats)) {
+                array_push($membersSeats, $random);
+                $cont++;
+            }
+        }
+
+        var_dump($membersSeats);
+
+        
     } else if (isset($_POST['teamSelection'])) {
         $selectedTeam = true;
         $team = $_POST['teamSelection'];
-        echo ('Equipo seleccionado: ' . $team);
     }
 }
 
