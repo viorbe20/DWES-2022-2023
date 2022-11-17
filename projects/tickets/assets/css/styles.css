@@ -11,7 +11,44 @@ h1 {
   padding: 10px;
 }
 
-form {
+#h1_login {
+  text-align: center;
+  color: #141A22;
+  background-color: white;
+  padding: 10px;
+}
+
+#form_login {
+  padding: 1%;
+  margin: 4% 30%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #141A22;
+}
+#form_login .form-group {
+  margin: 1% 0%;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: #ddd;
+}
+#form_login .form-group div {
+  display: flex;
+}
+#form_login .form-group div input {
+  width: 100%;
+}
+#form_login button {
+  width: 80%;
+}
+
+#form_2 {
   background-color: #ddd;
   padding: 15px;
   margin: 2% 20%;
@@ -20,7 +57,7 @@ form {
   flex-direction: column;
   align-items: center;
 }
-form section {
+#form_2 section {
   background-color: white;
   width: 100%;
   padding: 2%;
@@ -28,16 +65,16 @@ form section {
   margin: 2% 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-form section label {
+#form_2 section label {
   margin-right: 10px;
 }
-form section select {
+#form_2 section select {
   width: 30%;
 }
-form #sec_zone {
+#form_2 #sec_zone {
   display: flex;
 }
-form #sec_zone label {
+#form_2 #sec_zone label {
   margin-left: 4px;
 }
 
