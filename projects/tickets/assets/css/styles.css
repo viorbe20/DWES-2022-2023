@@ -60,7 +60,7 @@ header #btn_logout, header #btn_home {
 #form_2 {
   background-color: #ddd;
   padding: 15px;
-  margin: 2% 20%;
+  margin: 2% 2%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -85,6 +85,25 @@ header #btn_logout, header #btn_home {
 }
 #form_2 #sec_zone label {
   margin-left: 4px;
+}
+#form_2 #div_tickets {
+  padding: 0%;
+}
+#form_2 #row_tickets {
+  justify-content: space-around;
+  margin: 2% 0;
+}
+#form_2 .col-1 {
+  margin: 0%;
+}
+#form_2 #card_ticket {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #btn_submit {

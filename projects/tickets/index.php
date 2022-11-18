@@ -250,20 +250,20 @@ if (isset($_POST['btn_submit'])) {
                         <?php
                         for ($i = 0; $i < ROWS; $i++) {
                             ?>
-                            <div class="row">
+                            <div class="row" id='row_tickets'>
                                 <?php
                                 for ($j = 0; $j < ROWS; $j++) {
                                     $seatNumber = $firstSeat + $count;
-                                    echo "<div class='col-1 bg-info'>";
+                                    echo "<div class='col-1 mb-1 p-0'>";
 
                                     //Show available seats and selected seats
                                     if (in_array($seatNumber, $_SESSION['membersSeats'])) {
-                                        echo "<div class='card bg-danger' id='card_ticket'>";
+                                        echo "<div class='alert alert-danger' id='card_ticket'>";
                                     } else {
-                                        echo "<div class='card bg-success' id='card_ticket'>";
+                                        echo "<div class='alert alert-success' id='card_ticket'>";
                                     }
                                     
-                                    echo "<p>Localidad". $seatNumber ."</p>";
+                                    echo "<p>Localidad ". $seatNumber ."</p>";
                                     echo "<p>Precio: ". $zonePrice ."</p>";
                                     //Available seats show a checkbox
                                     if (!in_array($seatNumber, $_SESSION['membersSeats'])) {
@@ -278,63 +278,8 @@ if (isset($_POST['btn_submit'])) {
                         <?php
                         }
                         ?>
-
-
                     </div>
-                    <caption>Zona <?php echo $_POST['zoneSelection']; ?></caption>
-                    <table class="table">
-                        <tr>
-                            <th>Localidad</th>
-                            <th>Precio</th>
-                            <th>Disponibles</th>
-                            <th>Seleccionar</th>
-                        </tr>
-                        <?php
-                        //Shows all tickets
-                        $seatNumber = 0;
-                        for ($i = 1; $i <= $seatsPerZone; $i++) { //Per zone
 
-                            foreach ($zones as $zoneData) {
-                                if ($zoneData['zona'] == $_POST['zoneSelection']) {
-                                    $seatNumber = $zoneData['primera_localidad'] + $i - 1;
-                                    echo "<tr>";
-                                    //Shows the seat number
-                                    echo "<td>" . $seatNumber . "</td>";
-                                    //Shows price
-                                    foreach ($rates as $teams) {
-                                        if ($teams['equipo'] == $_POST['teamSelection']) {
-
-                                            foreach ($teams['tarifas'] as $data) {
-                                                //Only price of zoneSelection
-                                                if ($data['zona'] == $_POST['zoneSelection']) {
-                                                    echo "<td>" . $data['precio'] . "</td>";
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    //Shows available seats
-                                    if (in_array($seatNumber, $_SESSION['membersSeats'])) {
-                                        echo "<td>NO</td>";
-                                    } else {
-                                        echo "<td>SI</td>";
-                                    }
-
-                                    //Shows checkbox to select the seat
-                                    if (in_array($seatNumber, $_SESSION['membersSeats'])) {
-                                        echo "<td><input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . " disabled></td>";
-                                    } else {
-                                        echo "<td><input type='checkbox' name='ticketSelection[]' value=" . $seatNumber  . "></td>";
-                                    }
-
-                                    echo "</tr>";
-                                }
-                            }
-                        }
-
-
-                        ?>
-                    </table>
 
                 <?php
             } else if ($selectedTeam) {
