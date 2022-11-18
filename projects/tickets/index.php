@@ -58,17 +58,15 @@ if (isset($_POST['btn_login'])) {
 if (isset($_POST['btn_submit'])) {
     $processForm = true;
     if (!empty($_POST['ticketSelection']) && isset($_POST['zoneSelection']) && isset($_POST['teamSelection'])) {
-            $selectedTeam = true;
-            $selectedZone = true;
-            $selectedTickets = true;
-            $zone = $_POST['zoneSelection'];
-            $team = $_POST['teamSelection'];
-            $tickets = $_POST['ticketSelection'];
-            $_SESSION['user']['team'] = $_POST['teamSelection'];
-            $_SESSION['user']['zone'] = $_POST['zoneSelection'];
-            $_SESSION['user']['tickets'] = $_POST['ticketSelection'];
-        
-
+        $selectedTeam = true;
+        $selectedZone = true;
+        $selectedTickets = true;
+        $zone = $_POST['zoneSelection'];
+        $team = $_POST['teamSelection'];
+        $tickets = $_POST['ticketSelection'];
+        $_SESSION['user']['team'] = $_POST['teamSelection'];
+        $_SESSION['user']['zone'] = $_POST['zoneSelection'];
+        $_SESSION['user']['tickets'] = $_POST['ticketSelection'];
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
         $selectedTeam = true;
         $selectedZone = true;
@@ -100,7 +98,7 @@ if (isset($_POST['btn_submit'])) {
 
 <body>
     <?php
-    if (!$processForm) {
+    if (!$processForm) { //Shows login form
     ?>
         <h1 id='h1_login'>Equipo Pokemons</h1>
         <form action="" method="post" id="form_login">
@@ -119,7 +117,7 @@ if (isset($_POST['btn_submit'])) {
             <button type="submit" class="btn btn-success mt-2 p-2" name="btn_login">Log in</button>
         </form>
     <?php
-    } else {
+    } else { //Success login
     ?>
         <header>
             <div>
@@ -136,9 +134,9 @@ if (isset($_POST['btn_submit'])) {
         </header>
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form_2">
-            <?php 
-            
-            if ($selectedTickets && $selectedZone && $selectedTeam) {
+            <?php
+
+            if ($selectedTickets && $selectedZone && $selectedTeam) { //Shows shopping cart
                 $total = 0;
             ?>
                 <div class="container">
@@ -165,13 +163,12 @@ if (isset($_POST['btn_submit'])) {
                                             foreach ($rates as $key => $team) {
                                                 if ($team['equipo'] == $_SESSION['user']['team']) {
                                                     foreach ($team['tarifas'] as $key => $values) {
-                                                        if($values['zona'] == $_SESSION['user']['zone']){
+                                                        if ($values['zona'] == $_SESSION['user']['zone']) {
                                                             echo "<td>" . $values['precio'] . "</td>";
                                                             $total = $total +  $values['precio'];
                                                         };
                                                     }
                                                 }
-                                                
                                             }
                                             echo '</tr>';
                                         }
@@ -181,14 +178,14 @@ if (isset($_POST['btn_submit'])) {
                                     <td></td>
                                     <td></td>
                                     <td class="p-3 bg-secondary text-white">Total</td>
-                                    <td class="p-3 bg-secondary text-white"><?php echo $total;?></td>
+                                    <td class="p-3 bg-secondary text-white"><?php echo $total; ?></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-            <?php 
-            } else if ($selectedZone && $selectedTeam) {
+            <?php
+            } else if ($selectedZone && $selectedTeam) { //Shows tickets selection
             ?>
                 <section>
                     <label>Selecciona un partido</label>
@@ -225,7 +222,53 @@ if (isset($_POST['btn_submit'])) {
                 <!--Select to select number of tickets-->
                 <section id="sec_tickets">
                     <label>Selecciona las entradas</label>
-                    <!--Show a table with the selected zone and the tickets status-->
+                    <?php
+
+                    //Get zone price
+                    foreach ($rates as $teams) {
+                        if ($teams['equipo'] == $_POST['teamSelection']) {
+                            foreach ($teams['tarifas'] as $data) {
+                                //Only price of zoneSelection
+                                if ($data['zona'] == $_POST['zoneSelection']) {
+                                    $zonePrice = $data['precio'];
+                                }
+                            }
+                        }
+                    }
+
+                    //Get first seat number
+                    foreach ($zones as $zoneData) {
+                        if ($zoneData['zona'] == $_POST['zoneSelection']) {
+                            $firstSeat = $zoneData['primera_localidad'];
+                        }
+                    }
+                    $seatNumber = 0;
+                    $count = 0;
+                    ?>
+                    <!--Show view-->
+                    <div class='container' id="div_tickets">
+                        <?php
+                        for ($i = 0; $i < ROWS; $i++) {
+                            ?>
+                            <div class="row">
+                                <?php
+                                for ($j = 0; $j < ROWS; $j++) {
+                                    $seatNumber = $firstSeat + $count;
+                                    echo "<div class='col-1 bg-info'>";
+                                    echo "<div class='card bg-success' id='card_ticket'>";
+                                    echo "<p>Localidad". $seatNumber ."</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    $count++;
+                                }
+                                ?>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
+
+                    </div>
                     <caption>Zona <?php echo $_POST['zoneSelection']; ?></caption>
                     <table class="table">
                         <tr>
@@ -325,12 +368,12 @@ if (isset($_POST['btn_submit'])) {
                     </section>
                 <?php
             } ?>
-<?php
-if(!$selectedTickets) {
-?>
-    <button type="submit" class="btn btn-primary" id="btn_submit" name="btn_submit">Continuar</button>
-<?php
-}?>
+                <?php
+                if (!$selectedTickets) {
+                ?>
+                    <button type="submit" class="btn btn-primary" id="btn_submit" name="btn_submit">Continuar</button>
+                <?php
+                } ?>
 
         </form>
     <?php
