@@ -256,12 +256,19 @@ if (isset($_POST['btn_submit'])) {
                                     $seatNumber = $firstSeat + $count;
                                     echo "<div class='col-1 bg-info'>";
 
+                                    //Show available seats and selected seats
                                     if (in_array($seatNumber, $_SESSION['membersSeats'])) {
                                         echo "<div class='card bg-danger' id='card_ticket'>";
                                     } else {
                                         echo "<div class='card bg-success' id='card_ticket'>";
                                     }
+                                    
                                     echo "<p>Localidad". $seatNumber ."</p>";
+                                    echo "<p>Precio: ". $zonePrice ."</p>";
+                                    //Available seats show a checkbox
+                                    if (!in_array($seatNumber, $_SESSION['membersSeats'])) {
+                                        echo "<input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . ">";
+                                    } 
                                     echo "</div>";
                                     echo "</div>";
                                     $count++;
