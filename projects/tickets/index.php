@@ -255,7 +255,12 @@ if (isset($_POST['btn_submit'])) {
                                 for ($j = 0; $j < ROWS; $j++) {
                                     $seatNumber = $firstSeat + $count;
                                     echo "<div class='col-1 bg-info'>";
-                                    echo "<div class='card bg-success' id='card_ticket'>";
+
+                                    if (in_array($seatNumber, $_SESSION['membersSeats'])) {
+                                        echo "<div class='card bg-danger' id='card_ticket'>";
+                                    } else {
+                                        echo "<div class='card bg-success' id='card_ticket'>";
+                                    }
                                     echo "<p>Localidad". $seatNumber ."</p>";
                                     echo "</div>";
                                     echo "</div>";
