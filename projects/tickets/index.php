@@ -2,35 +2,28 @@
 require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
-//Start session
+//Session control
 if (empty($_SESSION)) {
     session_start();
 } else {
     session_destroy();
 }
 
-if (isset($_POST['logout'])) {
-    unset($_SESSION);
-    session_destroy();
-    header('http://localhost/dwes/projects/tickets/index.php');
-}
+//Start session
+// if (isset($_POST['logout'])) {
+//     unset($_SESSION);
+//     session_destroy();
+//     header('http://localhost/dwes/projects/tickets/index.php');
+// }
 
 //Initialize sessions variables
 if (!isset($_SESSION['user']['profile'])) {
+    
     //Always start with a guest profile
     $_SESSION['user']['profile'] = 'guest';
 
     //Array with random numbers from 1 to capacity as much as members
-    $_SESSION['membersSeats'] = array();
-    $cont = 0;
-    while ($cont < MEMBERS) {
-        $random = rand(1, CAPACITY);
-        print_r($random);
-        if (!in_array($random, $_SESSION['membersSeats'])) {
-            array_push($_SESSION['membersSeats'], $random);
-            $cont++;
-        }
-    }
+    $_SESSION['membersSeats'] = getMembersSeats();
 }
 
 $seatsPerZone = CAPACITY / count($zones);
