@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 // header {
 //     background-color: #141A22;
 //     display: flex;
@@ -23,41 +24,38 @@
 
 
 // }
+nav {
+    a:hover {
+        color: #F2F2F2;
+        
+    }
+}
 
-// #form_login {
-//     padding: 1%;
-//     margin: 4% 30%;
-//     border-radius: 10px;
-//     display: flex;
-//     align-items: center;
-//     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-//     *background-color: #141A22;
-    
-    
-//     .form-group {
-//         margin: 1% 0%;
-//         border-radius: 10px;
-//         padding: 10px;
-//         width: 100%;
-//         display: flex;
-//         flex-direction: column;
-//         align-items: left;
-//         *color: #ddd;
+#form_login {
+    label {
+        font-size: 12px;
+    }
 
-//         div {
-//             display: flex;
-//             input {
-//                 width: 100%;
-//             }
-//         }
+}
 
-//     }
+#btn_login {
+    font-size: 12px;
+}
 
-//     button {
-//         width: 80%;
-//     }
+#section_video {
+    margin: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-// }
+    //Box shadow
+    iframe {
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    }
+
+
+}
+
 
 
 #form_2 {
@@ -95,20 +93,20 @@
         }
     }
 
-    #div_tickets{
+    #div_tickets {
         padding: 0%;
     }
-    
-    #row_tickets{
+
+    #row_tickets {
         justify-content: space-around;
         margin: 2% 0;
     }
 
-    .col-1{
+    .col-1 {
         margin: 0%;
     }
 
-    #card_ticket{
+    #card_ticket {
         display: flex;
         flex-direction: column;
         padding: 2%;
@@ -125,9 +123,6 @@
 }
 
 #card_ticket {
-width: 100%;
-height: 100%;
+    width: 100%;
+    height: 100%;
 }
-
-
-

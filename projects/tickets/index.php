@@ -94,17 +94,18 @@ if (isset($_POST['btn_submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href="./assets/css/bootstrap.min.css">
     <link rel='stylesheet' href="./assets/css/styles.css">
+    <link rel='stylesheet' href="./assets/css/bootstrap.min.css">
     <title>Pokemos Basket Club</title>
 </head>
 <body>
     <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
+    <!--Navigatio bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary d-flex">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link text-white" href="#">Inicio</a>
+                    <a class="nav-link text-white" href="">Inicio</a>
                     <?php
                     if ($_SESSION['user']['profile'] == 'user') {
                         echo "<a class='nav-link' href=>Venta</a>";
@@ -117,9 +118,9 @@ if (isset($_POST['btn_submit'])) {
         if ($_SESSION['user']['profile'] == 'guest') {
             ?>
             <!--Login form-->
-            <form action="" method="post" class='d-flex bg-dark w-100 rounded' id='form-login'>
+            <form action="" method="post" class='d-flex w-100 rounded' id='form-login'>
                 <!--User group-->
-                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-1">
+                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-0">
                     <label for="username" class="text-white">Usuario</label>
                     <div>
                         <input type="text" class="form-control mx-1" name="username">
@@ -133,14 +134,19 @@ if (isset($_POST['btn_submit'])) {
                     </div>
                 </div>
                 <div class= "form-group d-flex justify-content-center align-items-center p-1 mx-1">
-                    <button type="submit" class="btn btn-success" name="btn_login">Log in</button>
+                    <button type="submit" class="btn btn-success small" id="btn_login" name="btn_login">Log in</button>
                 </div>
             </form>
         <?php
         }
         ?>
     </nav>
-    <!--Nav bar with two options-->
+    <span id='msg_error'></span>
+    <!--Basket video-->
+    <section id="section_video">
+
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </section>
     <?php
     if (!$processForm) { //Shows login form
     ?>

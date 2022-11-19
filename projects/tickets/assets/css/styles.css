@@ -4,6 +4,28 @@
   box-sizing: border-box;
 }
 
+nav a:hover {
+  color: #F2F2F2;
+}
+
+#form_login label {
+  font-size: 12px;
+}
+
+#btn_login {
+  font-size: 12px;
+}
+
+#section_video {
+  margin: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#section_video iframe {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
 #form_2 {
   background-color: #ddd;
   padding: 15px;
