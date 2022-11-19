@@ -4,69 +4,61 @@
     box-sizing: border-box;
 }
 
-header {
-    background-color: #141A22;
-    display: flex;
-    justify-content: space-between;
-    padding: 1% 2%;
+// header {
+//     background-color: #141A22;
+//     display: flex;
+//     justify-content: space-between;
+//     padding: 1% 2%;
 
-    h1 {
-        text-align: center;
-        color: white;
-        margin-right: 20%;
-    }
+//     h1 {
+//         text-align: center;
+//         color: white;
+//         margin-right: 20%;
+//     }
 
-    #btn_logout, #btn_home{
-        width: 8rem;
-        font-weight: bold;
-    }
-
-
-}
+//     #btn_logout, #btn_home{
+//         width: 8rem;
+//         font-weight: bold;
+//     }
 
 
-#h1_general {
-    text-align: center;
-    color: #141A22;
-    background-color: white;
-    padding: 10px;
-}
+// }
 
-#form_login {
-    padding: 1%;
-    margin: 4% 30%;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    background-color: #141A22;
+// #form_login {
+//     padding: 1%;
+//     margin: 4% 30%;
+//     border-radius: 10px;
+//     display: flex;
+//     align-items: center;
+//     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+//     *background-color: #141A22;
     
     
-    .form-group {
-        margin: 1% 0%;
-        border-radius: 10px;
-        padding: 10px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        color: #ddd;
+//     .form-group {
+//         margin: 1% 0%;
+//         border-radius: 10px;
+//         padding: 10px;
+//         width: 100%;
+//         display: flex;
+//         flex-direction: column;
+//         align-items: left;
+//         *color: #ddd;
 
-        div {
-            display: flex;
-            input {
-                width: 100%;
-            }
-        }
+//         div {
+//             display: flex;
+//             input {
+//                 width: 100%;
+//             }
+//         }
 
-    }
+//     }
 
-    button {
-        width: 80%;
-    }
+//     button {
+//         width: 80%;
+//     }
 
-}
+// }
+
 
 #form_2 {
     background-color: #ddd;

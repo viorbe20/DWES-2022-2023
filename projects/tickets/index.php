@@ -96,15 +96,15 @@ if (isset($_POST['btn_submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href="./assets/css/bootstrap.min.css">
     <link rel='stylesheet' href="./assets/css/styles.css">
-    <title>Document</title>
+    <title>Pokemos Basket Club</title>
 </head>
 <body>
-    <h1 id='h1_general' class="text-bg-dark p-1 text-center">Pokemons Basket Club</h1>
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+    <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary d-flex">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link text-white" href="#">Inicio</a>
                     <?php
                     if ($_SESSION['user']['profile'] == 'user') {
                         echo "<a class='nav-link' href=>Venta</a>";
@@ -113,26 +113,37 @@ if (isset($_POST['btn_submit'])) {
                 </div>
             </div>
         </div>
+        <?php
+        if ($_SESSION['user']['profile'] == 'guest') {
+            ?>
+            <!--Login form-->
+            <form action="" method="post" class='d-flex bg-dark w-100 rounded' id='form-login'>
+                <!--User group-->
+                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-1">
+                    <label for="username" class="text-white">Usuario</label>
+                    <div>
+                        <input type="text" class="form-control mx-1" name="username">
+                    </div>
+                </div>
+                <!--Password group-->
+                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-1">
+                    <label for="password" class="text-white">Contraseña</label>
+                    <div class="d-flex p-1 justify-content-center align-items-center">
+                        <input type="password" class="form-control mx-1" name="password">
+                    </div>
+                </div>
+                <div class= "form-group d-flex justify-content-center align-items-center p-1 mx-1">
+                    <button type="submit" class="btn btn-success" name="btn_login">Log in</button>
+                </div>
+            </form>
+        <?php
+        }
+        ?>
     </nav>
     <!--Nav bar with two options-->
     <?php
     if (!$processForm) { //Shows login form
     ?>
-        <form action="" method="post" id="form_login">
-            <div class="form-group">
-                <label for="username" class="col-sm-2 col-form-label">Usuario</label>
-                <div>
-                    <input type="text" class="form-control" name="username">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password" class="col-sm-2 col-form-label">Contraseña</label>
-                <div>
-                    <input type="password" class="form-control" name="password">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success mt-2 p-2" name="btn_login">Log in</button>
-        </form>
     <?php
     } else { //Success login
     ?>
