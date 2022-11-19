@@ -23,15 +23,17 @@ if (!isset($_SESSION['user']['profile'])) {
     $_SESSION['user']['profile'] = 'guest';
 
     //Array with random numbers from 1 to capacity as much as members
-    $_SESSION['membersSeats'] = getMembersSeats();
+    $_SESSION['membersSeats'] = getMembersSeats(MEMBERS, CAPACITY);
 }
 
 $seatsPerZone = CAPACITY / count($zones);
+$msgError = "";
+$usernameValidation = false;
+$passwordValidation = false;
 $processForm = False;
 $selectedTeam = false;
 $selectedZone = false;
 $selectedTickets = false;
-$msgError = "";
 
 //Login form processing
 if (isset($_POST['btn_login'])) {
@@ -41,6 +43,7 @@ if (isset($_POST['btn_login'])) {
         if (clearData($_POST['username']) == "user1") {
             $_SESSION['user']['username'] = $_POST['username'];
             $msgError = "";
+            $usernameValidation = true;
         } else {
             $msgError = "Credenciales no válidas";
         }
@@ -53,6 +56,7 @@ if (isset($_POST['btn_login'])) {
         if (clearData($_POST['password']) == "user1") {
             $_SESSION['user']['password'] = $_POST['password'];
             $msgError = "";
+            $passwordValidation = true;
         } else {
             $msgError = "Credenciales no válidas";
         }
@@ -61,11 +65,12 @@ if (isset($_POST['btn_login'])) {
     }
 
     //Process form
-    if (isset($_SESSION['user']['username']) && isset($_SESSION['user']['password'])) {
+    if ($usernameValidation && $passwordValidation) {
         $processForm = true;
     }
 }
 
+//General form processing
 if (isset($_POST['btn_submit'])) {
     $processForm = true;
     if (!empty($_POST['ticketSelection']) && isset($_POST['zoneSelection']) && isset($_POST['teamSelection'])) {
@@ -108,21 +113,20 @@ if (isset($_POST['btn_submit'])) {
 
 <body>
     <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
-    <!--Navigatio bar-->
+    
+    <!--Navigation bar-->
     <?php
     require_once 'require/navBar.php';
     ?>
     <span id="msgError"><?php echo $msgError; ?></span>
+    
     <!--Basket video-->
     <section id="section_video">
-
         <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </section>
+    
     <?php
-    if (!$processForm) { //Shows login form
-    ?>
-    <?php
-    } else { //Success login
+    if ($processForm) { //Success login
     ?>
         <header>
             <div>

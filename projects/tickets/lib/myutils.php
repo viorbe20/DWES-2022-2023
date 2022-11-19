@@ -1,5 +1,4 @@
 <?php
-require_once('..\config\config.php');
 
 function clearData($data)
 {
@@ -9,11 +8,11 @@ function clearData($data)
     return $data;
 };
 
-function getMembersSeats () {
+function getMembersSeats ($membersNumber, $capacity) {
     $result = array();
     $cont = 0;
-    while ($cont < MEMBERS) {
-        $random = rand(1, CAPACITY);
+    while ($cont < $membersNumber) {
+        $random = rand(1, $capacity);
         print_r($random);
         if (!in_array($random, $result)) {
             array_push($result, $random);

@@ -1,4 +1,5 @@
 <?php
+define('DIRBASE', '/dwes/projects/tickets/');
 define('MEMBERS',80);
 define('ROWS',10);
 define('CAPACITY',400);
