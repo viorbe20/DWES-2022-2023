@@ -37,8 +37,21 @@
         </form>
     <?php
     } else if ($_SESSION['user']['profile'] == 'user') {
-        //User logged box with icon, name, local time and logout button
-        echo 'info del usuario';
+    ?>
+        <section id='box_user_info'>
+            <div id="box_user_icon">
+                <span class="material-symbols-outlined">
+                    account_circle
+                </span>
+            </div>
+            <div id="box_user_data">
+                <p>Hola <?php echo $_SESSION['user']['username']; ?></p>
+                <p>Hoy es <?php echo getCurrentDate(); ?></p>
+                <p>Son las <?php echo getCurrentHour(); ?></p>
+            </div>
+
+        </section>
+    <?php
     } else if ($_SESSION['user']['profile'] == 'admin') {
 
         echo 'info del admin';

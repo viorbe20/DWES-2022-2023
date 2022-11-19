@@ -30,6 +30,30 @@ nav a:hover {
   width: 6rem;
 }
 
+#box_user_info {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-right: 2%;
+}
+#box_user_info #box_user_icon {
+  margin: 0% 1%;
+}
+#box_user_info #box_user_icon span {
+  color: white;
+  font-size: 3rem;
+}
+#box_user_info #box_user_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#box_user_info #box_user_data p {
+  color: white;
+  font-size: 12px;
+  margin: 0%;
+}
+
 #section_video {
   margin: 2%;
   display: flex;
