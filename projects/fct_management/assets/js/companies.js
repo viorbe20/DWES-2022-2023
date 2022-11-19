@@ -40,9 +40,6 @@ $(document).ready(function () {
     $c_cifValidation = false;
     $c_emailValidation = false;
 
- 
-
-
     //When blur, check if it is empty and validaes it
     $companyInputs.each(function () {
         $(this).prev().hide();
@@ -97,6 +94,7 @@ $(document).ready(function () {
 
     let addCompanyForm = $("#form_company_profile");
 
+    //When submit, check if all fields are valid
     addCompanyForm.submit(function (e) {
         e.preventDefault();
 
@@ -245,7 +243,7 @@ $(document).ready(function () {
                 <td>${element["c_name"]}</td>
                 <td>${element["c_phone"]}</td>
                 <td>
-                <a href="http://localhost/dwes/projects/fct_management/public/index.php//home/companies/company_profile/${element["c_id"]}">
+                <a href="http://localhost/dwes/projects/fct_management/public/index.php/home/companies/company_profile/${element["c_id"]}">
                 <span class="material-symbols-outlined">group</span></a>
                 </td>
                 <td>
@@ -253,7 +251,7 @@ $(document).ready(function () {
                 <span class="material-symbols-outlined" id="company_delete_icon_${element['c_id']}">
                 delete
                 </span></a>
-                <a href="http://localhost/dwes/projects/fct_management/public/index.php/home/companies/company_profile/${element["c_id"]} class="company_href"">
+                <a href="http://localhost/dwes/projects/fct_management/public/index.php/home/edit_company/${element["c_id"]} class="company_href"">
                 <span class="material-symbols-outlined">edit</span></a>
                 </td>
             </tr>`
