@@ -3,7 +3,11 @@ require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
 //Start session
-session_start();
+if (empty($_SESSION)) {
+    session_start();
+} else {
+    session_destroy();
+}
 
 if (isset($_POST['logout'])) {
     unset($_SESSION);
@@ -34,23 +38,33 @@ $processForm = False;
 $selectedTeam = false;
 $selectedZone = false;
 $selectedTickets = false;
+$msgError = "";
 
+//Login form processing
 if (isset($_POST['btn_login'])) {
 
     //Validate username
     if (isset($_POST['username'])) {
-
-        if ($_POST['username'] == "admin") {
+        if (clearData($_POST['username']) == "user1") {
             $_SESSION['user']['username'] = $_POST['username'];
+            $msgError = "";
+        } else {
+            $msgError = "Credenciales no válidas";
         }
+    } else {
+        $msgError = "Credenciales no válidas";
     }
 
     //Validate password
     if (isset($_POST['password'])) {
-
-        if ($_POST['password'] == "admin") {
+        if (clearData($_POST['password']) == "user1") {
             $_SESSION['user']['password'] = $_POST['password'];
+            $msgError = "";
+        } else {
+            $msgError = "Credenciales no válidas";
         }
+    } else {
+        $msgError = "Credenciales no válidas";
     }
 
     //Process form
@@ -98,50 +112,14 @@ if (isset($_POST['btn_submit'])) {
     <link rel='stylesheet' href="./assets/css/bootstrap.min.css">
     <title>Pokemos Basket Club</title>
 </head>
+
 <body>
     <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
     <!--Navigatio bar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary d-flex">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link text-white" href="">Inicio</a>
-                    <?php
-                    if ($_SESSION['user']['profile'] == 'user') {
-                        echo "<a class='nav-link' href=>Venta</a>";
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-        <?php
-        if ($_SESSION['user']['profile'] == 'guest') {
-            ?>
-            <!--Login form-->
-            <form action="" method="post" class='d-flex w-100 rounded' id='form-login'>
-                <!--User group-->
-                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-0">
-                    <label for="username" class="text-white">Usuario</label>
-                    <div>
-                        <input type="text" class="form-control mx-1" name="username">
-                    </div>
-                </div>
-                <!--Password group-->
-                <div class="form-group d-flex justify-content-center align-items-center p-1 mx-1">
-                    <label for="password" class="text-white">Contraseña</label>
-                    <div class="d-flex p-1 justify-content-center align-items-center">
-                        <input type="password" class="form-control mx-1" name="password">
-                    </div>
-                </div>
-                <div class= "form-group d-flex justify-content-center align-items-center p-1 mx-1">
-                    <button type="submit" class="btn btn-success small" id="btn_login" name="btn_login">Log in</button>
-                </div>
-            </form>
-        <?php
-        }
-        ?>
-    </nav>
-    <span id='msg_error'></span>
+    <?php
+    require_once 'require/navBar.php';
+    ?>
+    <span id="msgError"><?php echo $msgError; ?></span>
     <!--Basket video-->
     <section id="section_video">
 
@@ -283,7 +261,7 @@ if (isset($_POST['btn_submit'])) {
                     <div class='container' id="div_tickets">
                         <?php
                         for ($i = 0; $i < ROWS; $i++) {
-                            ?>
+                        ?>
                             <div class="row" id='row_tickets'>
                                 <?php
                                 for ($j = 0; $j < ROWS; $j++) {
@@ -296,13 +274,13 @@ if (isset($_POST['btn_submit'])) {
                                     } else {
                                         echo "<div class='alert alert-success' id='card_ticket'>";
                                     }
-                                    
-                                    echo "<p>Localidad ". $seatNumber ."</p>";
-                                    echo "<p>Precio: ". $zonePrice ."</p>";
+
+                                    echo "<p>Localidad " . $seatNumber . "</p>";
+                                    echo "<p>Precio: " . $zonePrice . "</p>";
                                     //Available seats show a checkbox
                                     if (!in_array($seatNumber, $_SESSION['membersSeats'])) {
                                         echo "<input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . ">";
-                                    } 
+                                    }
                                     echo "</div>";
                                     echo "</div>";
                                     $count++;

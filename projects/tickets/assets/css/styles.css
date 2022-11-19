@@ -4,6 +4,19 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#msgError {
+  display: flex;
+  justify-content: center;
+  margin: 2% 35%;
+  color: #CC0002;
+  font-weight: bold;
+}
+
 nav a:hover {
   color: #F2F2F2;
 }
@@ -14,10 +27,11 @@ nav a:hover {
 
 #btn_login {
   font-size: 12px;
+  width: 6rem;
 }
 
 #section_video {
-  margin: 5%;
+  margin: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
