@@ -11,12 +11,8 @@ if (isset($_POST['logout'])) {
     header('http://localhost/dwes/projects/tickets/index.php');
 }
 
-//Initialize sessions variables
-if (!isset($_SESSION['user']['profile'])) {
-    //Always start with a guest profile
-    $_SESSION['user']['profile'] = 'guest';
-
-    //Array with random numbers from 1 to capacity as much as members
+//Array with random numbers from 1 to capacity as much as members
+if (!isset($_SESSION['membersSeats'])) {
     $_SESSION['membersSeats'] = array();
     $cont = 0;
     while ($cont < MEMBERS) {
@@ -98,26 +94,13 @@ if (isset($_POST['btn_submit'])) {
     <link rel='stylesheet' href="./assets/css/styles.css">
     <title>Document</title>
 </head>
+
+
 <body>
-    <h1 id='h1_general' class="text-bg-dark p-1 text-center">Pokemons Basket Club</h1>
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="#">Inicio</a>
-                    <?php
-                    if ($_SESSION['user']['profile'] == 'user') {
-                        echo "<a class='nav-link' href=>Venta</a>";
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!--Nav bar with two options-->
     <?php
     if (!$processForm) { //Shows login form
     ?>
+        <h1 id='h1_login'>Equipo Pokemons</h1>
         <form action="" method="post" id="form_login">
             <div class="form-group">
                 <label for="username" class="col-sm-2 col-form-label">Usuario</label>
