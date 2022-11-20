@@ -7,6 +7,7 @@ session_start();
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
+    $_SESSION['cart']['purchase'] = array();
     $_SESSION['membersSeats'] = getMembersSeats(MEMBERS, CAPACITY);
     $_SESSION['user']['profile'] = 'guest';
 }
@@ -49,6 +50,7 @@ if (isset($_POST['btn_login'])) {
     if ($usernameValidation && $passwordValidation) {
         $processForm = true;
         $_SESSION['user']['profile'] = "user";
+        $_SESSION['cart']['username'] = $_SESSION['user']['username'];
     }
 }
 

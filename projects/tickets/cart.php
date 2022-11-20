@@ -37,9 +37,14 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form_cart">
         <?php
+
+                foreach ($_SESSION['cart']['purchase'] as $key => $value) {
+                    var_dump($value);
+                    print('</br>');
+                }
         $total = 0;
             ?>
-                <div class="container">
+                <!-- <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <table class="table table-striped">
@@ -83,7 +88,7 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 </form>
                 
                 

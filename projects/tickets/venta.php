@@ -18,15 +18,30 @@ if (isset($_POST['btn_submit'])) {
         $selectedTeam = true;
         $selectedZone = true;
         $selectedTickets = true;
-        $_SESSION['user']['team'] = $_POST['teamSelection'];
-        $_SESSION['user']['zone'] = $_POST['zoneSelection'];
-        $_SESSION['user']['tickets'] = $_POST['ticketSelection'];
-        $_SESSION['cart']['username'] = $_SESSION['user']['username'];
+        
+        //Get price
+        foreach ($rates as $key => $value) {
+            if($value['equipo']==$_SESSION['user']['team']){
+                foreach ($value['tarifas'] as $data) {
+                    if ($data['zona'] == $_SESSION['user']['zone']) {
+                        $price = $data['precio'];
+                    }
+                }
+            };
+        }
+        
+        //Add selected purchase to cart
+        array_push($_SESSION['cart']['purchase'], array(
+            'team' => $_POST['teamSelection'],
+            'zone' => $_POST['zoneSelection'],
+            'tickets' => $_POST['ticketSelection'],
+            'price' => $price
+        ));
+        
         header('location: cart.php');
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
         $selectedTeam = true;
         $selectedZone = true;
-        $_SESSION['user']['team'] = $_POST['teamSelection'];
         $_SESSION['user']['zone'] = $_POST['zoneSelection'];
     } else if (isset($_POST['teamSelection'])) {
         $selectedTeam = true;
@@ -68,53 +83,12 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
             <?php
 
             if ($selectedTickets && $selectedZone && $selectedTeam) { //Shows shopping cart
-                $total = 0;
+                foreach ($_SESSION['cart']['purchase'] as $key => $value) {
+                    var_dump($value);
+                    print('</br>');
+                }
             ?>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Equipo Rival</th>
-                                        <th scope="col">Zona</th>
-                                        <th scope="col">Localidad</th>
-                                        <th scope="col">Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <?php for ($i = 0; $i < count($_SESSION['user']['tickets']); $i++) {
 
-                                            echo "<td>" . $_SESSION['user']['team'] . "</td>";
-                                            echo "<td>" . $_SESSION['user']['zone'] . "</td>";
-                                            echo "<td>" . $_SESSION['user']['tickets'][$i] . "</td>";
-
-                                            //Get price through the zone
-                                            foreach ($rates as $key => $team) {
-                                                if ($team['equipo'] == $_SESSION['user']['team']) {
-                                                    foreach ($team['tarifas'] as $key => $values) {
-                                                        if ($values['zona'] == $_SESSION['user']['zone']) {
-                                                            echo "<td>" . $values['precio'] . "</td>";
-                                                            $total = $total +  $values['precio'];
-                                                        };
-                                                    }
-                                                }
-                                            }
-                                            echo '</tr>';
-                                        }
-                                        ?>
-                                </tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="p-3 bg-secondary text-white">Total</td>
-                                    <td class="p-3 bg-secondary text-white"><?php echo $total; ?></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             <?php
             } else if ($selectedZone && $selectedTeam) { //Shows tickets selection
             ?>
@@ -198,10 +172,10 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                                     }
                                     
                                     echo "<p>Precio: ". $price ."€</p>";
-                                
                                     //Available seats show a checkbox
                                     if (!in_array($seatNumber, $_SESSION['membersSeats'])) {
                                         echo "<input type='checkbox' name='ticketSelection[]' value=" . $seatNumber . ">";
+                                        
                                     }
                                     echo "</div>";
                                     echo "</div>";
