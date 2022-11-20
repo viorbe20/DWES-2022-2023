@@ -6,6 +6,25 @@ require_once 'lib/myutils.php';
 //Recuperate session variables
 session_start();
 
+//Click on purchase confirmation button
+if (isset($_POST['btn_confirm_purchase'])) {
+    $ticket_file = fopen("ticket.pdf", "a") or die("Error al abrir el archivo de tickets");
+    $ticket_file_content = "";
+    $ticket_file_content .= "Usuario: " . $_SESSION['cart']['username'] . "\n";
+    $ticket_file_content .= "Fecha: " . date("d/m/Y") . "\n";
+    $ticket_file_content .= "Hora: " . date("H:i:s") . "\n";
+    // $ticket_file_content .= "Asientos: " . implode(", ", $_SESSION['cart']['purchase']) . "\n";
+    // $ticket_file_content .= "Precio: " . $_SESSION['cart']['total_price'] . "€\n";
+    $ticket_file_content .= "----------------------------------------\n";
+        
+    fwrite($ticket_file, $ticket_file_content);
+    fclose($ticket_file);
+
+    //Clear cart
+    $_SESSION['cart']['purchase'] = array();
+
+}
+
 //If user is not logged, redirect to login page
 if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'guest') {
     header('location: login.php');
@@ -42,8 +61,7 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                     //var_dump($value);
                     //print('</br>');
                 }
-        $total = 0;
-            ?>
+                ?>
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -59,12 +77,14 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                                 <tbody>
                                     <tr>
                                         <?php
+                                        $total = 0;
                                         foreach ($_SESSION['cart']['purchase'] as $key => $value) {
                                             foreach ($value['tickets'] as $key => $seatNumber) {
                                                 print('<td>' . $value['team'] . '</td>');
                                                 print('<td>' . $value['zone'] . '</td>');
                                                 print('<td>' . $seatNumber . '</td>');
                                                 print('<td>' . $value['price'] . '</td>');
+                                                $total += $value['price'];
                                                 echo '</tr>';
                                             }
                                         }
@@ -81,6 +101,13 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                         </div>
                     </div>
                 </div>
+                <!--Confirmation-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" name="btn_confirm_purchase">Confirmar compra</button>
+                        </div>
+                    </div>
                 </form>
                 
                 
