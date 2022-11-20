@@ -3,7 +3,8 @@ define('DIRBASE', '/dwes/projects/tickets/');
 define('MEMBERS',80);
 define('ROWS',10);
 define('CAPACITY',400);
-$teams = array("Picapiedras","Roedores","Perozosos","Invisibles","Legendarios",'Magos','Sultanes');
+
+$teams = array("Picapiedras","Roedores","Perezosos","Invisibles","Legendarios",'Magos','Sultanes');
 
 $zones = array( 
             array('zona'=>'A','primera_localidad'=>1,'ultima_localidad'=>100),

@@ -3,17 +3,13 @@ require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
 //Initialize sessions variables
-if (!isset($_SESSION['user']['profile'])) {
-    session_start();
+session_start();
 
-    //Always start with a guest profile
-    $_SESSION['user']['profile'] = 'guest';
-
-    //Array with random numbers from 1 to capacity as much as members
+if(!isset($_SESSION['cart'])){
+    $_SESSION['cart'] = array();
     $_SESSION['membersSeats'] = getMembersSeats(MEMBERS, CAPACITY);
-}
-
-
+    $_SESSION['user']['profile'] = 'guest';
+} 
 
 $msgError = "";
 $usernameValidation = false;
@@ -22,7 +18,6 @@ $processForm = false;
 
 //Login form processing
 if (isset($_POST['btn_login'])) {
-
     //Validate username
     if (isset($_POST['username'])) {
         if (clearData($_POST['username']) == "user1") {
@@ -57,6 +52,11 @@ if (isset($_POST['btn_login'])) {
     }
 }
 
+//If user is logged, process form is always true
+if (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] == 'user') {
+    $processForm = true;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,15 +69,14 @@ if (isset($_POST['btn_login'])) {
     <link rel='stylesheet' href="./assets/css/styles.css">
     <link rel='stylesheet' href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <title>Pokemos Basket Club</title>
+    <title>Pokemons Basket Club</title>
 </head>
 
 <body>
-    <!--Link that destroys session and header to the index.php-->
-    <a href="index.php?logout=true">Logout</a>
     <header>
         <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
     </header>
+    <a href="logout.php">Cerrar sesión</a>    
 
     <!--Navigation bar-->
     <?php
@@ -85,16 +84,18 @@ if (isset($_POST['btn_login'])) {
     ?>
     <span id="msgError"><?php echo $msgError; ?></span>
 
-    <!--Basket video-->
-    <section id="section_video">
-        <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </section>
-
-    <?php
-    if ($processForm) { //Success login
-        echo "<h1>Success login</h1>";
-    }
+    <!--Login form no processed, show video-->
+    <?php if (!$processForm) {
     ?>
+        <section id="section_video">
+            <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </section>
+    <?php
+    }; ?>
+
+    
+
+
 </body>
 
 </html>

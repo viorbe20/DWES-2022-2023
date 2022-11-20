@@ -13,7 +13,7 @@ function getMembersSeats ($membersNumber, $capacity) {
     $cont = 0;
     while ($cont < $membersNumber) {
         $random = rand(1, $capacity);
-        print_r($random);
+        //print_r($random);
         if (!in_array($random, $result)) {
             array_push($result, $random);
             $cont++;

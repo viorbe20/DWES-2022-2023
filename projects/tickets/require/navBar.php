@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link text-white" href="">Inicio</a>
+            <a class='nav-link text-white' href=''>Inicio</a>
                 <?php
                 if ($_SESSION['user']['profile'] == 'user') { //Users options
-                    echo "<a class='nav-link text-white' href=''>Venta</a>";
+                    echo "<a class='nav-link text-white' href='". DIRBASE ."venta.php'>Venta</a>";
                 }
                 ?>
             </div>
