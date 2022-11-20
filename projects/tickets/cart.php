@@ -5,18 +5,32 @@ require_once 'lib/myutils.php';
 
 //Recuperate session variables
 session_start();
+$_SESSION['tickets_info'] = array();
 
 //Click on purchase confirmation button
-if (isset($_POST['btn_confirm_purchase'])) {
-    $ticket_file = fopen("ticket.pdf", "a") or die("Error al abrir el archivo de tickets");
+if (isset($_POST['btn_confirm_purchase']) && (!empty($_SESSION['cart']['purchase']))) {
+    
+    $ticket_file = fopen("ticket.txt", "a") or die("Error al abrir el archivo de tickets");
     $ticket_file_content = "";
     $ticket_file_content .= "Usuario: " . $_SESSION['cart']['username'] . "\n";
     $ticket_file_content .= "Fecha: " . date("d/m/Y") . "\n";
     $ticket_file_content .= "Hora: " . date("H:i:s") . "\n";
-    // $ticket_file_content .= "Asientos: " . implode(", ", $_SESSION['cart']['purchase']) . "\n";
-    // $ticket_file_content .= "Precio: " . $_SESSION['cart']['total_price'] . "€\n";
     $ticket_file_content .= "----------------------------------------\n";
-        
+    $ticket_file_content .= "Entradas compradas: \n";
+    $ticket_file_content .= "----------------------------------------\n";
+    $total = 0;
+    foreach ($_SESSION['cart']['purchase'] as $key => $value) {
+        foreach ($value['tickets'] as $key => $seatNumber) {
+            $ticket_file_content .= "Equipo rival: " . $value['team'] . "\n";
+            $ticket_file_content .= "Zona: " . $value['zone'] . "\n";
+            $ticket_file_content .= "Localidad: " . $seatNumber . "\n";
+            $ticket_file_content .= "Precio: " . $value['price']. "\n";
+            $ticket_file_content .= "----------------------------------------\n";
+            $total += $value['price'];
+            }
+        }
+    $ticket_file_content .= "Total: " . $total . "€\n";
+
     fwrite($ticket_file, $ticket_file_content);
     fclose($ticket_file);
 
@@ -56,11 +70,6 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form_cart">
         <?php
-
-                foreach ($_SESSION['cart']['purchase'] as $key => $value) {
-                    //var_dump($value);
-                    //print('</br>');
-                }
                 ?>
                 <div class="container">
                     <div class="row">
