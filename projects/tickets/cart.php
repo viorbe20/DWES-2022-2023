@@ -3,10 +3,8 @@ require_once 'config/config.php';
 require_once 'lib/myutils.php';
 
 
-//Recuperate sessions variables
+//Recuperate session variables
 session_start();
-
-
 
 //If user is not logged, redirect to login page
 if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'guest') {
@@ -38,13 +36,60 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
         ?>
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form_cart">
-    
-        </form>
+        <?php
+        $total = 0;
+            ?>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Equipo Rival</th>
+                                        <th scope="col">Zona</th>
+                                        <th scope="col">Localidad</th>
+                                        <th scope="col">Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <?php for ($i = 0; $i < count($_SESSION['user']['tickets']); $i++) {
 
+                                            echo "<td>" . $_SESSION['user']['team'] . "</td>";
+                                            echo "<td>" . $_SESSION['user']['zone'] . "</td>";
+                                            echo "<td>" . $_SESSION['user']['tickets'][$i] . "</td>";
 
-    </body>
-
-    </html>
+                                            //Get price through the zone
+                                            foreach ($rates as $key => $team) {
+                                                if ($team['equipo'] == $_SESSION['user']['team']) {
+                                                    foreach ($team['tarifas'] as $key => $values) {
+                                                        if ($values['zona'] == $_SESSION['user']['zone']) {
+                                                            echo "<td>" . $values['precio'] . "</td>";
+                                                            $total = $total +  $values['precio'];
+                                                        };
+                                                    }
+                                                }
+                                            }
+                                            echo '</tr>';
+                                        }
+                                        ?>
+                                </tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="p-3 bg-secondary text-white">Total</td>
+                                    <td class="p-3 bg-secondary text-white"><?php echo $total; ?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                
+                
+                </body>
+                
+                </html>
 <?php
 }
 ?>

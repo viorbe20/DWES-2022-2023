@@ -21,6 +21,7 @@ if (isset($_POST['btn_submit'])) {
         $_SESSION['user']['team'] = $_POST['teamSelection'];
         $_SESSION['user']['zone'] = $_POST['zoneSelection'];
         $_SESSION['user']['tickets'] = $_POST['ticketSelection'];
+        $_SESSION['cart']['username'] = $_SESSION['user']['username'];
         header('location: cart.php');
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
         $selectedTeam = true;
@@ -122,11 +123,9 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                     <select name="teamSelection">
                         <?php foreach ($teams as $team) {
                             
-                            //Shows selected team
+                            //Only shows the selected team
                             if ($team == $_POST['teamSelection']) {
                                 echo "<option value='$team' selected>$team</option>";
-                            } else {
-                                echo "<option value='$team'>$team</option>";
                             }
                         }
                         ?>
@@ -137,13 +136,13 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                 <section id="sec_zone">
                     <label>Selecciona una zona</label>
                     <?php
-                    //Shows all zones
+                    //Not allowed to change zone
                     foreach ($zones as $key => $zoneData) {
                         if ($zoneData['zona'] == $_POST['zoneSelection']) {
                             echo "<input type='radio' name='zoneSelection' value=" . $zoneData['zona'] . " checked>";
                             echo "<label for='zone'" . $zoneData['zona'] . ">Zona " . $zoneData['zona'] . "</label><br>";
                         } else {
-                            echo "<input type='radio' name='zoneSelection' value=" . $zoneData['zona'] . ">";
+                            echo "<input type='radio' name='zoneSelection' value=" . $zoneData['zona'] . " disabled>";
                             echo "<label for='zone'" . $zoneData['zona'] . ">Zona " . $zoneData['zona'] . "</label><br>";
                         }
                     }
@@ -223,12 +222,10 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                         <label>Selecciona un partido</label>
                         <select name="teamSelection">
                             <?php foreach ($teams as $team) {
-                                //Shows selected team
+                                //Only shows selected team
                                 if ($team == $_POST['teamSelection']) {
                                     echo "<option value='$team' selected>$team</option>";
-                                } else {
-                                    echo "<option value='$team'>$team</option>";
-                                }
+                                } 
                             }
                             ?>
                         </select>
