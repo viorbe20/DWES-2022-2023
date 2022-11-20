@@ -39,12 +39,12 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
         <?php
 
                 foreach ($_SESSION['cart']['purchase'] as $key => $value) {
-                    var_dump($value);
-                    print('</br>');
+                    //var_dump($value);
+                    //print('</br>');
                 }
         $total = 0;
             ?>
-                <!-- <div class="container">
+                <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <table class="table table-striped">
@@ -58,26 +58,18 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <?php for ($i = 0; $i < count($_SESSION['user']['tickets']); $i++) {
-
-                                            echo "<td>" . $_SESSION['user']['team'] . "</td>";
-                                            echo "<td>" . $_SESSION['user']['zone'] . "</td>";
-                                            echo "<td>" . $_SESSION['user']['tickets'][$i] . "</td>";
-
-                                            //Get price through the zone
-                                            foreach ($rates as $key => $team) {
-                                                if ($team['equipo'] == $_SESSION['user']['team']) {
-                                                    foreach ($team['tarifas'] as $key => $values) {
-                                                        if ($values['zona'] == $_SESSION['user']['zone']) {
-                                                            echo "<td>" . $values['precio'] . "</td>";
-                                                            $total = $total +  $values['precio'];
-                                                        };
-                                                    }
-                                                }
+                                        <?php
+                                        foreach ($_SESSION['cart']['purchase'] as $key => $value) {
+                                            foreach ($value['tickets'] as $key => $seatNumber) {
+                                                print('<td>' . $value['team'] . '</td>');
+                                                print('<td>' . $value['zone'] . '</td>');
+                                                print('<td>' . $seatNumber . '</td>');
+                                                print('<td>' . $value['price'] . '</td>');
+                                                echo '</tr>';
                                             }
-                                            echo '</tr>';
                                         }
                                         ?>
+
                                 </tbody>
                                 <tr>
                                     <td></td>
@@ -88,7 +80,7 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                             </table>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 </form>
                 
                 
