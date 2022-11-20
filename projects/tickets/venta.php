@@ -21,6 +21,7 @@ if (isset($_POST['btn_submit'])) {
         $_SESSION['user']['team'] = $_POST['teamSelection'];
         $_SESSION['user']['zone'] = $_POST['zoneSelection'];
         $_SESSION['user']['tickets'] = $_POST['ticketSelection'];
+        header('location: cart.php');
     } else if (isset($_POST['teamSelection']) && isset($_POST['zoneSelection'])) {
         $selectedTeam = true;
         $selectedZone = true;

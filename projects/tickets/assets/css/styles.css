@@ -35,6 +35,7 @@ nav a:hover {
   width: 100%;
   justify-content: flex-end;
   margin-right: 2%;
+  background-color: pink;
 }
 #box_user_info #box_user_icon {
   margin: 0% 1%;
@@ -52,6 +53,23 @@ nav a:hover {
   color: white;
   font-size: 12px;
   margin: 0%;
+}
+
+#box_cart_icon {
+  background-color: green;
+  margin-right: 2%;
+}
+
+#cart_icon {
+  background-color: #CC0002;
+}
+#cart_icon a {
+  color: white;
+  margin: 0% 1%;
+}
+#cart_icon a span {
+  color: white;
+  font-size: 3rem;
 }
 
 #section_video {

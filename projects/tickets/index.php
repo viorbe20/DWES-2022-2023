@@ -5,11 +5,11 @@ require_once 'lib/myutils.php';
 //Initialize sessions variables
 session_start();
 
-if(!isset($_SESSION['cart'])){
+if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
     $_SESSION['membersSeats'] = getMembersSeats(MEMBERS, CAPACITY);
     $_SESSION['user']['profile'] = 'guest';
-} 
+}
 
 $msgError = "";
 $usernameValidation = false;
@@ -76,7 +76,7 @@ if (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] == 'user
     <header>
         <h1 id='h1_general' class="text-bg-dark p-1 text-center m-0">Pokemons Basket Club</h1>
     </header>
-    <a href="logout.php">Cerrar sesión</a>    
+    <a href="logout.php">Cerrar sesión</a>
 
     <!--Navigation bar-->
     <?php
@@ -84,16 +84,12 @@ if (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] == 'user
     ?>
     <span id="msgError"><?php echo $msgError; ?></span>
 
-    <!--Login form no processed, show video-->
-    <?php if (!$processForm) {
-    ?>
-        <section id="section_video">
-            <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </section>
-    <?php
-    }; ?>
+    <section id="section_video">
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/CXLM08fZO5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </section>
 
-    
+
+
 
 
 </body>

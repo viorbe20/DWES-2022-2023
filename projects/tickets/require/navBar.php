@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-            <a class='nav-link text-white' href=''>Inicio</a>
+                <a class='nav-link text-white' href='index.php'>Inicio</a>
                 <?php
                 if ($_SESSION['user']['profile'] == 'user') { //Users options
-                    echo "<a class='nav-link text-white' href='". DIRBASE ."venta.php'>Venta</a>";
+                    echo "<a class='nav-link text-white' href='" . DIRBASE . "venta.php'>Venta</a>";
                 }
                 ?>
             </div>
@@ -38,6 +38,7 @@
     <?php
     } else if ($_SESSION['user']['profile'] == 'user') {
     ?>
+        <!--User info-->
         <section id='box_user_info'>
             <div id="box_user_icon">
                 <span class="material-symbols-outlined">
@@ -50,6 +51,16 @@
                 <p>Son las <?php echo getCurrentHour(); ?></p>
             </div>
 
+        </section>
+
+        <section id='box_cart_icon'>
+            <div id='cart_icon'>
+                <a href='cart.php'>
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+                </a>
+            </div>
         </section>
     <?php
     } else if ($_SESSION['user']['profile'] == 'admin') {
