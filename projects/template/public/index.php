@@ -4,12 +4,12 @@ require_once('..\vendor\autoload.php');
 use App\Core\Router;
 use App\Controllers\DefaultController;
 
-// session_start();
-// //Siempre se abre sesión como invitado
-// if (!isset($_SESSION['user']['profile'] )) {
-//     $_SESSION['user']['profile'] = "guest";
-//     $_SESSION['user']['name'] = "invitado";
-// }
+session_start();
+//Siempre se abre sesión como invitado
+if (!isset($_SESSION['user']['profile'] )) {
+    $_SESSION['user']['profile'] = "guest";
+    $_SESSION['user']['name'] = "invitado";
+}
 
 $router = new Router();
 
