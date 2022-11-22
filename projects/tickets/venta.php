@@ -156,6 +156,9 @@ if (!isset($_SESSION['user']['profile']) || $_SESSION['user']['profile'] == 'gue
                                         echo "<div class='alert alert-success' id='card_ticket'>";
                                     }
 
+
+                                    
+
                                     echo "<p>Localidad " . $seatNumber . "</p>";
                                     
                                     //Get price through the zone

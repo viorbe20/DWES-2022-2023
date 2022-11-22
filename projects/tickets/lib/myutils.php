@@ -24,7 +24,6 @@ function getMembersSeats ($membersNumber, $capacity) {
 }
 
 function getCurrentDate () {
-    //return date('d-m-Y, h:i a', time());
     return date('d-m-Y', time());
 
 }
