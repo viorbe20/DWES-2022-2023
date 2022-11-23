@@ -9,6 +9,7 @@ session_start();
 if (!isset($_SESSION['user']['profile'] )) {
     $_SESSION['user']['profile'] = "guest";
     $_SESSION['user']['name'] = "invitado";
+    $_SESSION['user']['status'] = "logout";
 }
 
 $router = new Router();

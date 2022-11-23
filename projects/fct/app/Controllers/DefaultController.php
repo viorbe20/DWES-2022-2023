@@ -14,7 +14,8 @@ class DefaultController extends BaseController
 
     public function companiesAction()
     {
-        echo 'ya toy';
+        $data = array();
+        $this->renderHTML('../view/home.php', $data);
     }
 
     public function indexAction()
@@ -41,8 +42,8 @@ class DefaultController extends BaseController
                         $_SESSION['user']['profile'] = $value['u_profile'];
                         $_SESSION['user']['id'] = $value['u_id'];
                         $_SESSION['user']['name'] = $value['u_name'];
+                        $_SESSION['user']['status'] = 'login';
                         $data['status'] = 'success';
-                        $data['processForm'] = true;
                     }
                 } else {
                     error_log("Non existing data");

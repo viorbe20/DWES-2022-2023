@@ -4,7 +4,7 @@
 ?>
 <header>
     <?php
-    if (!isset($data['processForm'])) {
+    if ($_SESSION['user']['status'] == 'logout') {
     ?>
         <nav class="navbar navbar-dark d-flex bg-dark">
             <!--Logo-->
@@ -39,45 +39,46 @@
     <?php
     } else {
     ?>
-        <nav class="navbar navbar-dark d-flex bg-dark">
+        <nav class="navbar navbar-expand bg-dark navbar-dark">
             <!--Logo-->
             <section id="info_company" class="d-flex align-items-center justify-content-center">
                 <a class="navbar-brand mx-3" href="">
                     <img src="../../assets/img/logos/logo_ies_gc.jpg" width="50" height="50" alt="logo">
                 </a>
-                <a class="navbar-brand" href="">Proyecto</a>
+                <a class="navbar-brand" href="">Práctica FCT</a>
             </section>
-            <!--Tabs-->
-            <div class="container d-flex ">
-                <div class="bg-red" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 bg-red">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/tab1">Tab1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/tab2">Tab2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/tab3">Tab3</a>
-                        </li>
-                    </ul>
-                </div>
+
+            <div class="container">
+
+                <!--Tabs-->
+                <ul class="navbar-nav p-2" style="width: 70%; font-size: 1.2rem">
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/companies">Empresas</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/employees">Trabajadores</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/students">Alumnos</a>
+                    </li>
+                </ul>
+
+                <!--User info-->
+                <section id='box_user_info' class='w-25 text-bg-dark'>
+                    <div id="box_user_icon" class='d-flex'>
+                        <span class="material-symbols-outlined mx-2" style="font-size: 2rem;">
+                            account_circle
+                        </span>
+                        <p>Hola <?php echo $_SESSION['user']['name']; ?></p>
+                    </div>
+                    <div id="box_user_data" class='d-flex'>
+                        <p><?php echo getCurrentDate() ." (". getCurrentHour() .")";?></p>
+                    </div>
+
+                </section>
             </div>
 
-            <!--User info-->
-            <section id='box_user_info'>
-                <div id="box_user_icon">
-                    <span class="material-symbols-outlined">
-                        account_circle
-                    </span>
-                </div>
-                <div id="box_user_data">
-                    <p>Hola <?php echo $_SESSION['user']['name']; ?></p>
-                    <p>Hoy es <?php echo getCurrentDate(); ?></p>
-                    <p>Son las <?php echo getCurrentHour(); ?></p>
-                </div>
 
-            </section>
         </nav>
     <?php
     }
