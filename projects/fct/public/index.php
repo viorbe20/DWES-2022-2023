@@ -17,8 +17,16 @@ $router->add(array(
     'name'=>'home',
     'path'=>'/^\/home$/',
     'action'=>[DefaultController::class, 'indexAction'],
-    'auth'=>["admin"]
+    'auth'=>["admin, user"]
 ));
+
+$router->add(array(
+    'name'=>'companies',
+    'path'=>'/^\/companies$/',
+    'action'=>[DefaultController::class, 'companiesAction'],
+    'auth'=>["admin, user"]
+));
+
 
 
 $request = str_replace(DIRBASEURL,'',$_SERVER['REQUEST_URI']);
