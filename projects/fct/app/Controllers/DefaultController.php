@@ -35,7 +35,7 @@ class DefaultController extends BaseController
                 $user->setUser($username);
                 $user->setPassword($password);
                 $result = $user->getByLogin(); //If user exists, $result is an array with user data
-                
+
                 //Session creation with user data
                 if (!empty($result)) {
                     foreach ($result as $value) {
@@ -56,5 +56,17 @@ class DefaultController extends BaseController
         } else {
             $this->renderHTML('../view/home.php', $data);
         }
+    }
+
+    public function logoutAction()
+    {
+        session_start();
+        //Empty all session variables
+        unset($_SESSION);
+        //Close session
+        session_destroy();
+        //Redirect to home
+        header('Location: ' . DIRBASEURL . "/home");
+        //header('location: index.php');
     }
 }

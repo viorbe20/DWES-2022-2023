@@ -22,6 +22,13 @@ $router->add(array(
 ));
 
 $router->add(array(
+    'name'=>'home',
+    'path'=>'/^\/logout$/',
+    'action'=>[DefaultController::class, 'logoutAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
     'name'=>'companies',
     'path'=>'/^\/companies$/',
     'action'=>[DefaultController::class, 'companiesAction'],

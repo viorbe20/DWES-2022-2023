@@ -31,6 +31,7 @@
                         <input type="password" class="form-control mx-1" name="password" id="password" autocomplete="on">
                     </div>
                 </div>
+                <!--Log in button-->
                 <div class="form-group d-flex justify-content-center align-items-center p-1 mx-1">
                     <button type="submit" class="btn btn-success" id="btn_login" name="btn_login">Log in</button>
                 </div>
@@ -65,16 +66,24 @@
 
                 <!--User info-->
                 <section id='box_user_info' class='w-25 text-bg-dark'>
+
                     <div id="box_user_icon" class='d-flex'>
                         <span class="material-symbols-outlined mx-2" style="font-size: 2rem;">
                             account_circle
                         </span>
                         <p>Hola <?php echo $_SESSION['user']['name']; ?></p>
                     </div>
+
+                    <!--Data info-->
                     <div id="box_user_data" class='d-flex'>
-                        <p><?php echo getCurrentDate() ." (". getCurrentHour() .")";?></p>
+                        <p><?php echo getCurrentDate() . " (" . getCurrentHour() . ")"; ?></p>
                     </div>
 
+                </section>
+
+                <!--Log out button-->
+                <section class="form-group d-flex justify-content-center align-items-center p-2 mx-3">
+                    <a href="<?php echo DIRBASEURL; ?>/logout" class="btn btn-danger rounded-pill px-4">Salir</a>
                 </section>
             </div>
 
