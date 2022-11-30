@@ -1,6 +1,5 @@
 <?php
-// require_once '../app/Config/constantes.php';
-// require_once '../../fct/utils/my_utils.php';
+require_once '../app/Config/constantes.php';
 ?>
 <header>
     <?php
@@ -10,9 +9,9 @@
             <!--Logo-->
             <section id="info_company" class="d-flex align-items-center justify-content-center">
                 <a class="navbar-brand mx-3" href="">
-                    <img src="../../assets/img/logos/logo_ies_gc.jpg" width="50" height="50" alt="logo">
+                    <img src= <?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?>  width="50" height="50" alt="Logo IES Gran Capitán">
                 </a>
-                <a class="navbar-brand" href="">Proyecto</a>
+                <a class="navbar-brand" href="">Práctica FCT</a>
             </section>
 
             <!--Login form-->
@@ -44,7 +43,7 @@
             <!--Logo-->
             <section id="info_company" class="d-flex align-items-center justify-content-center">
                 <a class="navbar-brand mx-3" href="">
-                    <img src="../../assets/img/logos/logo_ies_gc.jpg" width="50" height="50" alt="logo">
+                <img src= <?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?>  width="50" height="50" alt="Logo IES Gran Capitán">
                 </a>
                 <a class="navbar-brand" href="">Práctica FCT</a>
             </section>
@@ -54,13 +53,13 @@
                 <!--Tabs-->
                 <ul class="navbar-nav p-2" style="width: 70%; font-size: 1.2rem">
                     <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/companies">Empresas</a>
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/companies">Empresas</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/employees">Trabajadores</a>
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/employees">Empleados</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/home/students">Alumnos</a>
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/students">Alumnos</a>
                     </li>
                 </ul>
 

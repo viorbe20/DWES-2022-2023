@@ -1,32 +1,3 @@
-function isValidaCif(cif) {
-    let regex = /^[ABCDEFGHJNPQRSUVW][\d]{7}[\dA-J]$/i;
-    return regex.test(cif);
-}
-
-function isValidaNif(nif) {
-    let regex = /^([KLMXYZ][\d]{7}|[\d]{8})[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
-    return regex.test(dni);
-}
-
-function isValidEmail(email) {
-    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    //^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
-    return regex.test(email);
-}
-
-function isValidPhoneNumber(phoneNumber) {
-    let regex = /^(\+34|0034|34)?[6789]\d{8}$/;
-    return regex.test(phoneNumber);
-}
-
-function isEmptyField(field) {
-    if (field == "") {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function deleteCompany(companyId) {
     $('#delete_message').append('Se ha eliminado la empresa con id ' + companyId);
     $("#modal_delete_company").css("display", "block");
@@ -34,117 +5,17 @@ function deleteCompany(companyId) {
 
 $(document).ready(function () {
 
-    $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
-    $companySpans = $("#card_company").find('span');
-    $c_phoneValidation = false;
-    $c_cifValidation = false;
-    $c_emailValidation = false;
+    /**
+     * Add a new company
+     */
 
-    //When blur, check if it is empty and validaes it
-    $companyInputs.each(function () {
-        $(this).prev().hide();
+    let addCompanyForm = $("#form_company_info");
 
-        $(this).blur(function () {
-
-            $fieldValue = $.trim($(this).val());
-
-            if (isEmptyField($fieldValue)) {
-                $(this).prev().html("Este campo es obligatorio");
-                $(this).prev().show();
-            } else {
-                $(this).prev().hide();
-
-                // Phone number validation
-                if ($(this).attr('id') == "c_phone") {
-                    if (!isValidPhoneNumber($fieldValue)) {
-                        $(this).prev().html("El teléfono no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-                    }
-                }
-
-                // Email validation
-                if ($(this).attr('id') == "c_email") {
-                    if (!isValidEmail($fieldValue)) {
-                        $(this).prev().html("El email no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-
-                    }
-                }
-
-                //Cif validation
-                if ($(this).attr('id') == "c_cif") {
-                    if (!isValidaCif($fieldValue)) {
-                        $(this).prev().html("El CIF no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-
-                    }
-                }
-            }
-        });
-    });
-
-    let addCompanyForm = $("#form_company_profile");
-
-    //When submit, check if all fields are valid
     addCompanyForm.submit(function (e) {
         e.preventDefault();
+        console.log('submit');
 
-        //When submit form, check all the inputs
-        $companyInputs.each(function () {
-            $fieldValue = $.trim($(this).val());
-
-            if (isEmptyField($fieldValue)) {
-                $(this).prev().html("Este campo es obligatorio");
-                $(this).prev().show();
-            } else {
-                $(this).prev().hide();
-
-                // Phone number validation
-                if ($(this).attr('id') == "c_phone") {
-                    if (!isValidPhoneNumber($fieldValue)) {
-                        $(this).prev().html("El teléfono no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-                        $c_phoneValidation = true;
-                    }
-                }
-
-                // Email validation
-                if ($(this).attr('id') == "c_email") {
-                    if (!isValidEmail($fieldValue)) {
-                        $(this).prev().html("El email no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-                        $c_emailValidation = true;
-                    }
-                }
-
-                //Cif validation
-                if ($(this).attr('id') == "c_cif") {
-                    if (!isValidaCif($fieldValue)) {
-                        $(this).prev().html("El CIF no es válido");
-                        $(this).prev().show();
-                    } else {
-                        $(this).prev().hide();
-                        $(this).css("background-color", "#d4edda");
-                        $c_cifValidation = true;
-                    }
-                }
-            }
-        });
+        $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
 
         //If validated, takes info from php file
         if ($c_emailValidation && $c_cifValidation && $c_phoneValidation) {
@@ -167,59 +38,8 @@ $(document).ready(function () {
     });
 
     /**
-     * Click on add employee button
-     * It validates if the company has been created
-     * If it has, it shows the modals to add an employee
-     * If not, it shows warning messages to create the company first
+     * Search company box
      */
-    $("#btn_add_employee").click(function () {
-
-        //All empty spans and full inputs validation
-        $companySpans = $("#card_company").find("span").val() != "";
-        $companyInputs = $("#card_company").find("input").val() == "";
-
-        // After validation, if there are no errors, modal is shown
-        if (!$companySpans && !$companyInputs) {
-            $class = $("#section_employees").attr("class");
-
-            // If company data is valid, employees section is shown after clicking on add employees button
-            if ($class.indexOf("d-none") > -1) {
-                $("#section_employees").removeClass("d-none");
-            }
-
-            // Clone new card
-            $clone = $("#card_header").next().clone();
-
-            //Get id for new card
-            $lastId = $("#card_header").next().attr("id");
-            $number = $lastId.split("_")[2];
-            $idParsed = parseInt($number);
-            $idParsed = $idParsed + 1;
-            $newId = "card_employee_" + $idParsed.toString();
-            $newCard = $clone.removeClass("d-none");
-            $newCard.attr("id", $newId);
-            $newCard.find("input").val(""); // Clear input values
-
-            // Add new card
-            $newCard.insertAfter("#card_header");
-
-            //Delete an employee
-            $deleteButtons = $(".delete_btn");
-
-            $deleteButtons.each(function () {
-                $(this).click(function () {
-                    $(this).parent().parent().remove();
-                });
-            });
-        } else {
-            $("#card_company").find("span").each(function () {
-                $(this).html("Este campo es obligatorio");
-                $(this).show();
-            });
-        }
-    });
-
-    // Search companies box
     $("#input_search_company").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#table_body_companies tr").filter(function () {
@@ -260,39 +80,28 @@ $(document).ready(function () {
             }
         });
 
-    //Modal create company
-    // When click on X, close the modal
-    $("#span_modal_exit").click(function () {
-        $("#modal_create_company").css("display", "none");
-    });
-
-    //When click on modal close button
-    $("#btn_modal_exit").click(function () {
-        $("#modal_create_company").css("display", "none");
-        window.location.href =
-            "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
-    });
-
-    //When click on create another company
-    $("#btn_modal_reload").click(function () {
-        $("#modal_create_company").css("display", "none");
-        window.location.reload();
-    });
-
-    //Modal delete company
-    // When click on X, close the modal
+    /**
+    * Modal created company
+    * Click on X button
+    */
     $("#modal_delete_company #span_modal_exit").click(function () {
         $("#modal_delete_company").css("display", "none");
     });
 
-    //When click on modal close button
+    /**
+     * Modal delete company
+     * Click on close button, close modal.
+     */
     $("#modal_delete_company #btn_modal_exit").click(function () {
         $("#modal_delete_company").css("display", "none");
         window.location.href =
             "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
     });
 
-    //When click on create another company
+    /**
+     * Modal delete company
+     * Click on create another company
+     */
     $("#modal_delete_company #btn_modal_reload").click(function () {
         $("#modal_delete_company").css("display", "none");
         window.location.reload();

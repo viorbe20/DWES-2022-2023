@@ -12,6 +12,24 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function studentsAction()
+    {
+        $data = array();
+        $this->renderHTML('../view/students.php', $data);
+    }
+
+    public function employeesAction()
+    {
+        $data = array();
+        $this->renderHTML('../view/employees.php', $data);
+    }
+
+    public function addCompanyAction()
+    {
+        $data = array();
+        $this->renderHTML('../view/company_info.php', $data);
+    }
+
     public function companiesAction()
     {
         $data = array();

@@ -15,6 +15,35 @@ if (!isset($_SESSION['user']['profile'] )) {
 $router = new Router();
 
 $router->add(array(
+    'name'=>'students',
+    'path'=>'/^\/students$/',
+    'action'=>[DefaultController::class, 'studentsAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
+    'name'=>'employees',
+    'path'=>'/^\/employees$/',
+    'action'=>[DefaultController::class, 'employeesAction'],
+    'auth'=>["admin, user"]
+));
+
+//Companies
+$router->add(array(
+    'name'=>'companies',
+    'path'=>'/^\/companies\/add_company$/',
+    'action'=>[DefaultController::class, 'addCompanyAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
+    'name'=>'companies',
+    'path'=>'/^\/companies$/',
+    'action'=>[DefaultController::class, 'companiesAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
     'name'=>'home',
     'path'=>'/^\/home$/',
     'action'=>[DefaultController::class, 'indexAction'],
@@ -27,14 +56,6 @@ $router->add(array(
     'action'=>[DefaultController::class, 'logoutAction'],
     'auth'=>["admin, user"]
 ));
-
-$router->add(array(
-    'name'=>'companies',
-    'path'=>'/^\/companies$/',
-    'action'=>[DefaultController::class, 'companiesAction'],
-    'auth'=>["admin, user"]
-));
-
 
 
 $request = str_replace(DIRBASEURL,'',$_SERVER['REQUEST_URI']);
