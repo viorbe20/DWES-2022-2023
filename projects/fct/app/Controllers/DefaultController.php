@@ -15,7 +15,7 @@ class DefaultController extends BaseController
     public function companiesAction()
     {
         $data = array();
-        $this->renderHTML('../view/home.php', $data);
+        $this->renderHTML('../view/companies.php', $data);
     }
 
     public function indexAction()
