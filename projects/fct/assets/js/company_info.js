@@ -198,7 +198,7 @@ $(document).ready(function () {
     $("#btn_modal_exit").click(function () {
         $("#modal_create_company").css("display", "none");
         window.location.href =
-            "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
+            "http://localhost/dwes/projects/fct/public/index.php/companies";
     });
 
     /**

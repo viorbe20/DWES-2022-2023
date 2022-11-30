@@ -6,38 +6,6 @@ function deleteCompany(companyId) {
 $(document).ready(function () {
 
     /**
-     * Add a new company
-     */
-
-    let addCompanyForm = $("#form_company_info");
-
-    addCompanyForm.submit(function (e) {
-        e.preventDefault();
-        console.log('submit');
-
-        $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
-
-        //If validated, takes info from php file
-        if ($c_emailValidation && $c_cifValidation && $c_phoneValidation) {
-
-            let formData = new FormData(this);
-
-            fetch("http://localhost/dwes/projects/fct_management/public/index.php/home/create_company", {
-                method: "POST",
-                body: formData
-            })
-
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data == "createdCompany") {
-                        $("#modal_create_company").css("display", "block");
-                    }
-                })
-        }
-    });
-
-    /**
      * Search company box
      */
     $("#input_search_company").on("keyup", function () {
@@ -51,7 +19,7 @@ $(document).ready(function () {
      * Fetch to get all the companies
      */
     fetch(
-        "http://localhost/dwes/projects/fct_management/public/index.php/home/companies/getCompaniesTable"
+        "http://localhost/dwes/projects/fct/public/index.php/companies_table"
     )
         .then((response) => response.json())
         .then((data) => {
@@ -59,11 +27,11 @@ $(document).ready(function () {
                 data.forEach((element) => {
                     $("#table_body_companies").append(
                         `<tr>
-                <td><img src="http://localhost/dwes/projects/fct_management/assets/img/logos/${element["c_logo"]}" alt='Logo de la empresa' width='50px' height='50px'></td>
+                <td><img src="http://localhost/dwes/projects/fct/assets/img/logos/${element["c_logo"]}" alt='Logo de la empresa' width='50px' height='50px'></td>
                 <td>${element["c_name"]}</td>
                 <td>${element["c_phone"]}</td>
                 <td>
-                <a href="http://localhost/dwes/projects/fct_management/public/index.php/home/companies/company_profile/${element["c_id"]}">
+                <a href="http://localhost/dwes/projects/fct/public/index.php/home/employees/${element["c_id"]}">
                 <span class="material-symbols-outlined">group</span></a>
                 </td>
                 <td>
@@ -71,7 +39,7 @@ $(document).ready(function () {
                 <span class="material-symbols-outlined" id="company_delete_icon_${element['c_id']}">
                 delete
                 </span></a>
-                <a href="http://localhost/dwes/projects/fct_management/public/index.php/home/edit_company/${element["c_id"]} class="company_href"">
+                <a href="http://localhost/dwes/projects/fct/public/index.php/home/edit_company/${element["c_id"]} class="company_href"">
                 <span class="material-symbols-outlined">edit</span></a>
                 </td>
             </tr>`

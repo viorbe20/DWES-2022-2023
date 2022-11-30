@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/employees.js"></script>
-    <title>FCT Companies</title>
+    <title>FCT Employees</title>
 </head>
 
 <body>
@@ -23,27 +23,25 @@
     <div class="container d-flex-column justify-content-center mt-5">
         
     <!--Search box company-->
-        <form method="post" id="form_search_company" class="d-flex m-5" role="search">
-            <input name="input_search_company" id="input_search_company" class="form-control me-5" type="text" placeholder="Nombre de la empresa">
-            <button name="btn_search_company" id="btn_search_company" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button>
-            <a href="<?php echo DIRBASEURL;?>/home/create_company" class="btn btn-success mx-1">Crear Empresa</a>
+        <form method="post" id="form_search_employee" class="d-flex m-5" role="search">
+            <input name="input_search_employee" id="input_search_employee" class="form-control me-5" type="text" placeholder="Nombre del empleado">
+            <button name="btn_search_employee" id="btn_search_employee" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button>
         </form>
         
         
-        <table id="table-companies" class="table text-center mt-5">
+        <!--Table with las 5 last inserted employees-->
+        <table id="table-employees" class="table text-center mt-5">
             <thead>
                 <tr>
-                    <th scope="col">Logo</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Empleados</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Puesto</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider" id="table_body_companies">
+            <tbody class="table-group-divider" id="table_body_employees">
             </tbody>
         </table>
-        <!--Table with las 5 last inserted companies-->
 
     </div>
 
