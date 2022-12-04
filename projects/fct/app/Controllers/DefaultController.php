@@ -41,6 +41,18 @@ class DefaultController extends BaseController
         }
     }
 
+    /**
+     * Get id from url and delete the company
+     */
+    public function deleteCompanyAction($request)
+    {
+        $company = Company::getInstancia();
+        $rest = explode("/", $request);
+        $companyId = (int)end($rest);
+        $company->setId($companyId);
+        //$company->delete();
+    }
+
     public function addCompanyAction()
     {
         $data = array();

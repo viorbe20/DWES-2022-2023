@@ -37,6 +37,13 @@ $router->add(array(
 
 //Companies
 $router->add(array(
+    'name'=>'delete company',
+    'path'=>'/^\/companies\/delete_company\/\d{1,3}$/',
+    'action'=>[DefaultController::class, 'deleteCompanyAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
     'name'=>'companies',
     'path'=>'/^\/companies\/add_company$/',
     'action'=>[DefaultController::class, 'addCompanyAction'],

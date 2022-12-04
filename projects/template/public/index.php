@@ -17,7 +17,14 @@ $router->add(array(
     'name'=>'home',
     'path'=>'/^\/home$/',
     'action'=>[DefaultController::class, 'indexAction'],
-    'auth'=>["admin"]
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
+    'name'=>'tab1',
+    'path'=>'/^\/tab1$/',
+    'action'=>[DefaultController::class, 'ttab1Action'],
+    'auth'=>["admin, user"]
 ));
 
 

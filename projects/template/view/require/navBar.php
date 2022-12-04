@@ -14,7 +14,7 @@
             </section>
 
             <!--Login form-->
-            <form action="" method="post" class='d-flex w-60 mt-2' id='form_login'>
+            <form action="" method="post" name='form_login' class='d-flex w-60 mt-2'>
                 <!--User group-->
                 <div class="form-group d-flex justify-content-center align-items-center p-1 mx-0">
                     <label for="username" class="text-white">Usuario</label>

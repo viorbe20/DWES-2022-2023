@@ -44,7 +44,7 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
         return $this->rows;
     }
-
+    
     //Get last companies
     public function getSome()
     {

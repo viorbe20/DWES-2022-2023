@@ -15,20 +15,14 @@ require_once '../app/Config/constantes.php';
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<?php echo DIRBASE;?>/assets/js/login.js"></script>
-    <title>Template Home</title>
+    <title>Template Tab 1</title>
 </head>
 
 <body>
     <?php
     require_once '../view/require/navBar.php';
-    if(isset($data['errorMessage'])){
-        var_dump($data);
-        ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $data['errorMessage']; ?>
-        <?php
-    }
     ?>
+    <h1>Tab 1</h1>
 </body>
 
 </html>
