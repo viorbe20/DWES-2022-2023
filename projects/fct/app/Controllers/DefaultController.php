@@ -19,27 +19,54 @@ class DefaultController extends BaseController
         $this->renderHTML('../view/students.php', $data);
     }
 
-    public function employeesAction()
-    {
-        $data = array();
-        $this->renderHTML('../view/employees.php', $data);
-    }
-
     /**
-     * Return the list of the last 5 employees
+     * Show employees from a selected company
      */
-    public function getEmployeesTableAction()
+    public function companyEmployeesAction($request)
     {
 
-        if ($_SESSION['user']['profile'] == 'guest') {
+        if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
             $data = array();
+            $company = Company::getInstancia();
+            $rest = explode("/", $request);
+            $companyId = (int)end($rest);
+            $company->setId($companyId);
             $employee = Employee::getInstancia();
-            echo json_encode($employee->getSome());
+            $employee->setCompanyId($companyId);
+            $companyName = $company->getById();
+            
+            foreach ($company->getById() as $key => $value) {
+                $companyName = $value['c_name'];
+            }
+            $data['companyName'] = $companyName;
+            
+            foreach ($employee->getEmployeesByCompanyId() as $key => $value) {
+                $data['employees'][] = $value;
+            }
+            
+            $this->renderHTML('../view/company_employees.php', $data);
         }
     }
+
+
+    /**
+     * Return the list of the last 5 employees
+     */
+    // public function getEmployeesTableAction()
+    // {
+
+    //     if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
+    //         $data = array();
+    //         $this->renderHTML('../view/home.php', $data);
+    //     } else {
+    //         $data = array();
+    //         $employee = Employee::getInstancia();
+    //         echo json_encode($employee->getSome());
+    //     }
+    // }
 
     /**
      * Get id from url and delete the company

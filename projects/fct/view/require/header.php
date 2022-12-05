@@ -56,9 +56,6 @@ require_once '../app/Config/constantes.php';
                         <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/companies">Empresas</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/employees">Empleados</a>
-                    </li>
-                    <li class="nav-item px-2">
                         <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/students">Alumnos</a>
                     </li>
                 </ul>

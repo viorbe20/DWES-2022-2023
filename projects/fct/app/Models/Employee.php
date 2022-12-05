@@ -85,6 +85,17 @@ class Employee extends DBAbstractModel
         return $this->rows;
     }
 
+    /**
+     * Get employees from a selected company given de company id
+     */
+    public function getEmployeesByCompanyId()
+    {
+        $this->query = "SELECT * FROM employees WHERE emp_company_id=:emp_company_id";
+        $this->parametros['emp_company_id'] = $this->emp_company_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     //Métodos de creación
     public function set()
     {

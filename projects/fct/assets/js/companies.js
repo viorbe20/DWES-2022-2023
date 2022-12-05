@@ -32,7 +32,7 @@ $(document).ready(function () {
                 <td>${element["c_name"]}</td>
                 <td>${element["c_phone"]}</td>
                 <td>
-                <a href="http://localhost/dwes/projects/fct/public/index.php/home/employees/${element["c_id"]}">
+                <a href="http://localhost/dwes/projects/fct/public/index.php/companies/company_employees/${element["c_id"]}">
                 <span class="material-symbols-outlined">group</span></a>
                 </td>
                 <td>
@@ -64,7 +64,7 @@ $(document).ready(function () {
     $("#modal_delete_company #btn_modal_exit").click(function () {
         $("#modal_delete_company").css("display", "none");
         window.location.href =
-            "http://localhost/dwes/projects/fct_management/public/index.php/home/companies";
+            "http://localhost/dwes/projects/fct/public/index.php/companies";
     });
 
     /**
