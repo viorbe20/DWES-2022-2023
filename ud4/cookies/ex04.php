@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Incluye en tu servidor un contador que indique las veces que un usuario ha visitado el sitio.
+ * Incorpora a tu servidor un mensaje que indique al usuario el tiempo transcurrido desde su
+ * último acceso y un mensaje personalizado en función de éste.
  * 
  * @author Virginia Ordoño Bernier
  * @since December 2022
@@ -9,6 +10,7 @@
 
 
 if (isset($_POST['btn_submit'])) {
+    echo 'Se ha pulsado el botón';
     setcookie('contador', 0, time() - 36000);
     header("Location: ex03.php");
     exit();
