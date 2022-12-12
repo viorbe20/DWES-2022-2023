@@ -8,9 +8,35 @@
 //Iniciamos la sesión
 session_start();
 
-//Iniciamos la cookie para almacenar las victorias
-if (!isset($_COOKIE['victories'])) {
-    setcookie('victories', 0, time() + 60 * 60 * 24 * 365);
+//Inicializamos las sesiones
+if (!isset($_SESSION['baraja'])) {
+
+    $baraja = range(1, 40);
+    shuffle($baraja);
+    $_SESSION['baraja'] = $baraja;
+
+    // Guardar el array en la sesión (player1 = máquina, player2 = usuario)
+    $_SESSION['player1']['points'] = 0;
+    $_SESSION['player2']['points'] = 0;
+    $_SESSION['player1']['cards'] = array();
+    $_SESSION['player2']['cards'] = array();
+    $_SESSION['player1']['shift'] = true; //turno de la máquina
+    $_SESSION['player2']['shift'] = false; //turno del jugador
+    $_SESSION['pc_stop'] = rand(5, 7); //Puntuación máxima de la máquina
+    $_SESSION['gameOver'] = false; //Si la máquina se ha pasado de 7.5
+    $_SESSION['winner'] = 0; //Número de victorias
+}
+$message = '';
+
+//Iniciamos la cookie si no existe o se pulsa el botón de reiniciar
+if ((!isset($_COOKIE['victories'])) || (isset($_POST['iniciarContador']))) {
+    setcookie('victories', 0, time() + 3600);
+    //Refrescamos la página
+    header('Location: index.php');
+} 
+//Aumenta el contador de victorias
+if ($_SESSION['winner'] == 2) {
+    setcookie('victories', $_COOKIE['victories'] + 1, time() + 3600);
 }
 
 //Función que establece el palo
@@ -94,53 +120,38 @@ function getWinner($pointsPc, $pointsUser)
     return $result;
 }
 
-if (!isset($_SESSION['baraja'])) {
 
-    $baraja = range(1, 40);
-    shuffle($baraja);
-    $_SESSION['baraja'] = $baraja;
-
-    // Guardar el array en la sesión
-    $_SESSION['player1']['name'] = 'pc';
-    $_SESSION['player2']['name'] = 'user';
-    $_SESSION['player1']['points'] = 0;
-    $_SESSION['player2']['points'] = 0;
-    $_SESSION['player1']['cards'] = array();
-    $_SESSION['player2']['cards'] = array();
-    $_SESSION['player1']['shift'] = true; //turno de la máquina
-    $_SESSION['player2']['shift'] = false; //turno del jugador
-    $_SESSION['pc_stop'] = rand(5, 7); //Puntuación máxima de la máquina
-    $_SESSION['gameOver'] = false; //Si la máquina se ha pasado de 7.5
-}
-$message = '';
 
 //Si se ha terminado el juego o el usuario se planta, se determina el ganador
 
 if (($_SESSION['gameOver'] == true) || isset($_POST['plantar'])) {
-    
+
     $result = getWinner($_SESSION['player1']['points'], $_SESSION['player2']['points']);
 
     if ($result == '1') {
         $message = '¡Has perdido!';
     } elseif ($result == '2') {
         $message = '¡Has ganado!';
-        setcookie('victories', $_COOKIE['victories'] + 1, time() + 60 * 60 * 24 * 365);
+        $_SESSION['winner'] = 2;
     } else {
         $message = '¡Empate!';
     }
+
+    $_SESSION['gameOver'] = true;
 }
 
 //CONTROL DE MANDOS
 //Acaba la partida
 if (isset($_POST['reiniciar'])) {
-    //Pone a 0 la cookie
-    setcookie('victories', 0, time() + 60 * 60 * 24 * 365);
     //Destruye session
     $_SESSION = array();
     session_destroy();
     header("Location: index.php");
     exit();
 }
+
+
+
 
 //TURNO MÁQUINA
 if ($_SESSION['player1']['shift'] == true) {
@@ -150,10 +161,10 @@ if ($_SESSION['player1']['shift'] == true) {
 
         //Servimos al menos una carta
         $lastNumber = array_pop($_SESSION['baraja']);
-        $points = getPoints($lastNumber); 
+        $points = getPoints($lastNumber);
         array_push($_SESSION['player1']['cards'], $lastNumber); //Añade la carta
         $_SESSION['player1']['points'] += $points;
-        
+
         //Mientras la puntuación no supere el límite establecido, se le da una carta
         while ($_SESSION['player1']['points'] <= $_SESSION['pc_stop']) {
             $lastNumber = end($_SESSION['baraja']);
@@ -223,11 +234,8 @@ if (isset($_POST['nuevaCarta']) && $_SESSION['player2']['shift'] == true) {
 <body class='m-0 row justify-content-center'>
     <h1 class='d-flex justify-content-center'>Siete y media</h1>
     <div class='p-3 mb-2 d-flex-column justify-content-center'>
-        <?php if (isset($_COOKIE['victories'])) {
-            echo "<section>Número de victorias " . $_COOKIE['victories'] . "</section><br>";
-        } else {
-            echo "<section>Número de victorias 0</section><br>";
-        } ?>
+        <section>Número de victorias <?php echo $_COOKIE['victories'] ?> </section><br>
+
         <!--formulario con botones: reiniciar, nueva carta, plantar, iniciar contador-->
         <form action='index.php' method='post' class='d-flex'>
             <button type='submit' class='btn my-3 mx-1 text-white bg-primary' name='reiniciar'>Reiniciar</button>
@@ -236,9 +244,12 @@ if (isset($_POST['nuevaCarta']) && $_SESSION['player2']['shift'] == true) {
             <button type='submit' class='btn my-3 mx-1 text-white bg-primary' name='iniciarContador'>Iniciar contador</button>
         </form>
         <!--Mensaje resultado-->
-        <div class='alert alert-success m-0 row justify-content-center'>
-            <?php echo $message ?>
-        </div>
+        <?php if (!empty($message)) { ?>
+            <div class='alert alert-success m-0 row justify-content-center'>
+                <?php echo $message ?>
+            </div>
+        <?php } ?>
+
         <!--Muestra un div con las cartas que elige el jugador y que están en la carpeta img-->
         <div class='d-flex-column justify-content-center my-4'>
             <h6 class='d-flex'>Cartas jugador</h6>
