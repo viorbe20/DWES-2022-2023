@@ -22,18 +22,26 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
-        
-    <!--Search box company-->
-        <form method="post" id="form_search_company" class="d-flex" role="search">
-            <input name="input_search_company" id="input_search_company" class="form-control me-5" type="text" placeholder="Nombre de la empresa">
-            <button name="btn_search_company" id="btn_search_company" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button>
+
+        <form method="post" id="form_search_company" class="d-flex justify-content-center" role="search">
+            <!--Search company bar and icon-->
+            <div class='d-flex w-50 mx-5'>
+                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
+                <button type="submit" class="btn btn-outline-dark">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+            </div>
+
+            <!-- <button name="btn_search_company" id="btn_search_company" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button> -->
         </form>
-        
+
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL;?>/companies/add_company" class="btn btn-success mx-1">Nueva Empresa</a>
+            <a href="<?php echo DIRBASEURL; ?>/companies/add_company" class="btn btn-success mx-1">Nueva Empresa</a>
         </section>
-        
-        
+
+
         <table id="table-companies" class="table text-center mt-1">
             <thead>
                 <tr>

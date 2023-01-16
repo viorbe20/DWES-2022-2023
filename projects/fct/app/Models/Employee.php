@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AM\Models;
+namespace App\Models;
 
 require_once("DBAbstractModel.php");
 
@@ -215,9 +215,4 @@ class Employee extends DBAbstractModel
     public function editEntity()
     {
     }
-	/**
-	 * @param mixed $name
-	 * @param mixed $db
-	 * @return mixed
-	 */
 }

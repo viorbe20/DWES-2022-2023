@@ -28,12 +28,6 @@ $router->add(array(
     'auth'=>["admin, user"]
 ));
 
-// $router->add(array(
-//     'name'=>'employees table',
-//     'path'=>'/^\/employees_table$/',
-//     'action'=>[DefaultController::class, 'getEmployeesTableAction'],
-//     'auth'=>["admin, user"]
-// ));
 
 //Companies
 $router->add(array(
