@@ -20,17 +20,25 @@
     require_once '../view/require/header.php';
     ?>
     <div class="container d-flex-column justify-content-center mt-5">
-        <form method="post" id="form_search_company" class="d-flex align-items-center justify-content-center" role="search">
-            <div class='d-flex w-75'>
-                <input name="input_search_company" id="input_search_company" class="form-control m-" type="text" placeholder="Nombre del alumno">
-                <button type="submit" class="btn btn-primary">
+        <form method="post" id="form_search_student" class="d-flex align-items-center justify-content-center" role="search">
+
+            <!--Search student bar and icon-->
+            <div class='d-flex w-50'>
+                <input name="input_search_student" id="input_search_student" class="form-control" type="text" placeholder="Nombre del alumno">
+                <button type="submit" class="btn btn-outline-dark">
                     <span class="material-symbols-outlined">
                         search
                     </span>
                 </button>
             </div>
-            <!-- <button name="btn_search_company" id="btn_search_company" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button> -->
-            <a href="" class="btn btn-success mx-1">Cargar archivo</a>
+
+            <!--Upload file buttons-->
+            <a>
+                <span class="material-symbols-outlined btn btn-success mx-1">
+                    upload_file
+                </span>
+                </span>
+                <a href="" class="btn btn-success mx-1">Cargar archivo</a>
         </form>
 
 
