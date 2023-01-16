@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\AM\Models;
 
 require_once("DBAbstractModel.php");
 

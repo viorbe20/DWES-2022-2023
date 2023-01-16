@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace App\AM\Models;
 
 abstract class DBAbstractModel
 {
@@ -22,6 +22,7 @@ abstract class DBAbstractModel
     // abstract protected function setEntity();
     // abstract protected function editEntity();
     // abstract protected function deleteEntity($id);
+
     abstract protected function get();
     abstract protected function set();
     abstract protected function edit();
@@ -62,7 +63,7 @@ abstract class DBAbstractModel
         if ($_POST) {
             $this->open_connection();
             $this->conn->query($this->query);
-            self:$this->close_connection();
+            $this->close_connection();
         } else {
             $this->mensaje = 'Método no permitido';
         }
