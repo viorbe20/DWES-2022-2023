@@ -3,7 +3,7 @@ require_once '../app/Config/constantes.php';
 ?>
 <header>
     <?php
-    if ($_SESSION['user']['status'] == 'logout') {
+    if((isset($_SESSION['user']['status'])) && ($_SESSION['user']['status'] == 'logout')) {
     ?>
         <nav class="navbar navbar-dark d-flex bg-dark">
             <!--Logo-->
