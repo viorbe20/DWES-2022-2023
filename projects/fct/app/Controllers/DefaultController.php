@@ -17,26 +17,45 @@ class DefaultController extends BaseController
     public function studentsAction()
     {
         $data = array();
-        
+
         //Uploading csv file with students data
         if (isset($_POST['save_file'])) {
-            $this->renderHTML('../view/students.php', $data);
-            echo 'File uploaded successfully';
-            //echo $_FILES['file']['name'];
-            $filename = explode(".", $_FILES['file']['name']);
+            //$this->renderHTML('../view/students.php', $data);
 
-            //Check if the file is a csv file
-            if (end($filename) == 'csv') {
-                $handle = fopen($_FILES['file']['tmp_name'], "r");
-                while ($data = fgetcsv($handle)) {
+            //$filename = explode(".", $_FILES['file']['name']);
+
+            //Open the file.
+            $file = fopen($_FILES['file']['tmp_name'], "r");
+
+            // Create a new file to write the data to
+            $newFile = fopen('new.csv', 'w');
+
+            // Read the first line of the file (the headline) and discard it
+            fgetcsv($file);
+
+            // Read the rest of the lines and write them to the new file
+            while (($line = fgetcsv($file)) !== FALSE) {
+                fputcsv($newFile, $line);
+            }
+
+            // Close the original file
+            fclose($file);
+
+            //Import newfilñe data to database
+            $handle = fopen('new.csv', "r");
+            while ($data = fgetcsv($handle)) {
                 $student = Student::getInstancia();
                 $student->setDni($data[0]);
                 $student->setName($data[1]);
-                $student->setSurname($data[2]);
-                $student->setEmail($data[3]);
-                $student->setPhone($data[4]);
-                }
+                $student->setSurname1($data[2]);
+                $student->setSurname2($data[3]);
+                $student->setEmail($data[4]);
+                $student->setPhone($data[5]);
+                $student->uploadFile();
             }
+            fclose($handle);
+            $this->renderHTML('../view/students.php', $data);
+
         } else {
             $this->renderHTML('../view/students.php', $data);
         }
@@ -60,16 +79,16 @@ class DefaultController extends BaseController
             $employee = Employee::getInstancia();
             $employee->setCompanyId($companyId);
             $companyName = $company->getById();
-            
+
             foreach ($company->getById() as $key => $value) {
                 $companyName = $value['c_name'];
             }
             $data['companyName'] = $companyName;
-            
+
             foreach ($employee->getEmployeesByCompanyId() as $key => $value) {
                 $data['employees'][] = $value;
             }
-            
+
             $this->renderHTML('../view/company_employees.php', $data);
         }
     }
