@@ -23,8 +23,8 @@
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
 
-        <form method="post" id="form_search_company" class="d-flex justify-content-center" role="search">
-            <!--Search company bar and icon-->
+        <!--Search company bar and icon-->
+        <!-- <form method="post" id="form_search_company" class="d-flex justify-content-center" role="search">
             <div class='d-flex w-50 mx-5'>
                 <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
                 <button type="submit" class="btn btn-outline-dark">
@@ -33,9 +33,19 @@
                     </span>
                 </button>
             </div>
+        </form> -->
 
-            <!-- <button name="btn_search_company" id="btn_search_company" class="btn btn-primary mx-1 w-25" type="submit">Buscar</button> -->
-        </form>
+        <div id="form_search_company" class="d-flex justify-content-center" role="search">
+            <!--Search company bar and icon-->
+            <div class='d-flex w-50 mx-5'>
+                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
+                <button type="button" class="btn btn-outline-dark">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+            </div>
+        </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
             <a href="<?php echo DIRBASEURL; ?>/companies/add_company" class="btn btn-success mx-1">Nueva Empresa</a>

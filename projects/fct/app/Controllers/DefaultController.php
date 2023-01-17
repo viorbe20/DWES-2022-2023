@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\User;
+use App\Models\Student;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -16,7 +17,29 @@ class DefaultController extends BaseController
     public function studentsAction()
     {
         $data = array();
-        $this->renderHTML('../view/students.php', $data);
+        
+        //Uploading csv file with students data
+        if (isset($_POST['save_file'])) {
+            $this->renderHTML('../view/students.php', $data);
+            echo 'File uploaded successfully';
+            //echo $_FILES['file']['name'];
+            $filename = explode(".", $_FILES['file']['name']);
+
+            //Check if the file is a csv file
+            if (end($filename) == 'csv') {
+                $handle = fopen($_FILES['file']['tmp_name'], "r");
+                while ($data = fgetcsv($handle)) {
+                $student = Student::getInstancia();
+                $student->setDni($data[0]);
+                $student->setName($data[1]);
+                $student->setSurname($data[2]);
+                $student->setEmail($data[3]);
+                $student->setPhone($data[4]);
+                }
+            }
+        } else {
+            $this->renderHTML('../view/students.php', $data);
+        }
     }
 
     /**

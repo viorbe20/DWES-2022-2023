@@ -11,7 +11,7 @@
     <link rel='stylesheet' href="http://localhost/dwes/projects/fct/assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- <script src="http://localhost/dwes/projects/fct/assets/js/employees.js"></script> -->
+    <script src="http://localhost/dwes/projects/fct/assets/js/students.js"></script>
     <title>FCT Students</title>
 </head>
 
@@ -20,19 +20,23 @@
     require_once '../view/require/header.php';
     ?>
     <div class="container d-flex-column justify-content-center mt-5">
-        <form method="post" id="form_search_student" class="d-flex align-items-center justify-content-center" role="search">
+        
+    <form method="post" enctype="multipart/form-data" id="form_search_student" class="d-flex flex-column align-items-center justify-content-center" role="search">
+            <!--Button to upload csv file-->
+            <div class="d-flex justify-content-center w-50 my-2">
+                <input type="file" id="file-input" name="file">
+                <input id='save_file' name='save_file' type="submit" value="Cargar">
+            </div>
 
             <!--Search student bar and icon-->
-            <div class='d-flex w-50'>
+            <div class='d-flex w-50 my-2'>
                 <input name="input_search_student" id="input_search_student" class="form-control" type="text" placeholder="Nombre del alumno">
-                <button type="submit" class="btn btn-outline-dark">
+                <button type="button" class="btn btn-outline-dark">
                     <span class="material-symbols-outlined">
                         search
                     </span>
                 </button>
             </div>
-
-
         </form>
 
 
