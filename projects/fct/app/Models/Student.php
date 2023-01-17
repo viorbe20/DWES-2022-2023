@@ -7,23 +7,23 @@ require_once("DBAbstractModel.php");
 class Student extends DBAbstractModel
 {
 
-        /*CONSTRUCCIÓN DEL MODELO SINGLETON*/
-        private static $instancia;
+    /*CONSTRUCCIÓN DEL MODELO SINGLETON*/
+    private static $instancia;
 
-        public static function getInstancia()
-        {
-            if (!isset(self::$instancia)) {
-                $miclase = __CLASS__;
-                self::$instancia = new $miclase;
-            }
-            return self::$instancia;
+    public static function getInstancia()
+    {
+        if (!isset(self::$instancia)) {
+            $miclase = __CLASS__;
+            self::$instancia = new $miclase;
         }
-        public function __clone()
-        {
-            trigger_error('La clonación no es permitida!.', E_USER_ERROR);
-        }
-    
-        /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
+        return self::$instancia;
+    }
+    public function __clone()
+    {
+        trigger_error('La clonación no es permitida!.', E_USER_ERROR);
+    }
+
+    /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
 
     private $s_id;
     private $s_dni;
@@ -52,6 +52,16 @@ class Student extends DBAbstractModel
         return $result;
     }
 
+    //Get last students
+    public function getSome()
+    {
+        $this->query = "SELECT * FROM students";
+        $this->get_results_from_query();
+        //Show last 5 users
+        $last = array_slice(array_reverse($this->rows), 0, 5);
+        return $last;
+    }
+
     //Creation methods
     public function uploadFile()
     {
@@ -67,7 +77,7 @@ class Student extends DBAbstractModel
         $this->get_results_from_query();
     }
 
-       //Getters & setters
+    //Getters & setters
     public function getId()
     {
         return $this->s_id;
@@ -157,9 +167,4 @@ class Student extends DBAbstractModel
     {
         $this->s_updated_at = $s_updated_at;
     }
-
-
-
-
 }
-

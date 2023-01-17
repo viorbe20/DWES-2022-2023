@@ -49,10 +49,10 @@
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider" id="table_body_companies">
+            <tbody class="table-group-divider" id="table_body_students">
             </tbody>
         </table>
-        <!--Table with las 5 last inserted companies-->
+        <!--Table with las 5 last inserted students-->
 
     </div>
 

@@ -14,6 +14,15 @@ if (!isset($_SESSION['user']['profile'] )) {
 
 $router = new Router();
 
+//STUDENTS
+
+$router->add(array(
+    'name'=>'students table',
+    'path'=>'/^\/students_table$/',
+    'action'=>[DefaultController::class, 'getStudentsTableAction'],
+    'auth'=>["admin, user"]
+));
+
 $router->add(array(
     'name'=>'students',
     'path'=>'/^\/students$/',
@@ -21,13 +30,13 @@ $router->add(array(
     'auth'=>["admin, user"]
 ));
 
+//EMPLOYEES
 $router->add(array(
     'name'=>'employees',
     'path'=>'/^\/companies\/company_employees\/\d{1,3}$/',
     'action'=>[DefaultController::class, 'companyEmployeesAction'],
     'auth'=>["admin, user"]
 ));
-
 
 //Companies
 $router->add(array(

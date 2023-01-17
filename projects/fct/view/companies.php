@@ -22,19 +22,6 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
-
-        <!--Search company bar and icon-->
-        <!-- <form method="post" id="form_search_company" class="d-flex justify-content-center" role="search">
-            <div class='d-flex w-50 mx-5'>
-                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
-                <button type="submit" class="btn btn-outline-dark">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
-            </div>
-        </form> -->
-
         <div id="form_search_company" class="d-flex justify-content-center" role="search">
             <!--Search company bar and icon-->
             <div class='d-flex w-50 mx-5'>

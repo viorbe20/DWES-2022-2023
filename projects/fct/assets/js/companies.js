@@ -5,6 +5,7 @@ function deleteCompany(companyId) {
 
 $(document).ready(function () {
 
+    console.log('companies.js loaded');
 
     /**
      * Search company box

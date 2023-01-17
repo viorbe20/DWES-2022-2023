@@ -14,6 +14,19 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function getStudentsTableAction()
+    {
+
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $student = Student::getInstancia();
+            echo json_encode($student->getSome());
+        }
+    }
+
     public function studentsAction()
     {
         $data = array();
@@ -93,22 +106,6 @@ class DefaultController extends BaseController
         }
     }
 
-
-    /**
-     * Return the list of the last 5 employees
-     */
-    // public function getEmployeesTableAction()
-    // {
-
-    //     if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
-    //         $data = array();
-    //         $this->renderHTML('../view/home.php', $data);
-    //     } else {
-    //         $data = array();
-    //         $employee = Employee::getInstancia();
-    //         echo json_encode($employee->getSome());
-    //     }
-    // }
 
     /**
      * Get id from url and delete the company
