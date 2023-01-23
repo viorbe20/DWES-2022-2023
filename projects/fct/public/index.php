@@ -16,6 +16,12 @@ if (!isset($_SESSION['user']['profile'] )) {
 $router = new Router();
 
 //CALLS
+$router->add(array(
+    'name'=>'calls',
+    'path'=>'/^\/calls$/',
+    'action'=>[DefaultController::class, 'callsAction'],
+    'auth'=>["admin, user"]
+));
 
 //STUDENTS
 

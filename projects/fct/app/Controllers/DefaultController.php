@@ -14,6 +14,15 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function callsAction(){
+        $data = array();
+        $this->renderHTML('../view/calls.php', $data);
+    }
+
+    /**
+     * Get students from database and show them in a table
+     * @return void
+     */
     public function getStudentsTableAction()
     {
 
