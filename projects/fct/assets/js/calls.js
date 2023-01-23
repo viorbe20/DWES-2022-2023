@@ -28,7 +28,7 @@ $(document).ready(function () {
                 <td>${element["ayear_date"]}</td>
                 <td>${element["term_name"]}</td>
                 <td>
-                <a href="http://localhost/dwes/projects/fct/public/index.php/companies/call_asignations/${element["call_id"]}">
+                <a href="http://localhost/dwes/projects/fct/public/index.php/calls/call_asignations/${element["call_id"]}">
                 <span class="material-symbols-outlined">join_inner</span></a>
                 </td>
             </tr>`

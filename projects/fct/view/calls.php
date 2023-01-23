@@ -37,7 +37,7 @@
         </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL; ?>/companies/add_call" class="btn btn-success mx-1">Nueva Convocatoria</a>
+            <a href="<?php echo DIRBASEURL; ?>/calls/add_call" class="btn btn-success mx-1">Nueva Convocatoria</a>
         </section>
         
         <!--Table with las 5 last inserted calls from js-->

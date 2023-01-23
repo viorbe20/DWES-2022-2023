@@ -15,6 +15,15 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function showAsignationsAction(){
+        $data = array();
+        $this->renderHTML('../view/asignations.php', $data);
+    }
+
+    /**
+     * Show table with calls information
+     * @return void
+     */
     public function getCallsTableAction()
     {
 

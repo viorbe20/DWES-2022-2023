@@ -17,6 +17,12 @@ $router = new Router();
 
 //CALLS
 
+$router->add(array(
+    'name'=>'add asignation',
+    'path'=>'/^\/calls\/call_asignations\/\d{1,3}$/',
+    'action'=>[DefaultController::class, 'showAsignationsAction'],
+    'auth'=>["admin, user"]
+));
 
 $router->add(array(
     'name'=>'calls table',
