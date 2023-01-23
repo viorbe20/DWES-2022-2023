@@ -58,6 +58,9 @@ require_once '../app/Config/constantes.php';
                     <li class="nav-item px-2">
                         <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/students">Alumnos</a>
                     </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/calls">Convocatorias</a>
+                    </li>
                 </ul>
 
                 <!--User info-->

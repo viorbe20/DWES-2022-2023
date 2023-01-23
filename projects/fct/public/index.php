@@ -5,6 +5,7 @@ use App\Core\Router;
 use App\Controllers\DefaultController;
 
 session_start();
+
 //Siempre se abre sesión como invitado
 if (!isset($_SESSION['user']['profile'] )) {
     $_SESSION['user']['profile'] = "guest";
@@ -13,6 +14,8 @@ if (!isset($_SESSION['user']['profile'] )) {
 }
 
 $router = new Router();
+
+//CALLS
 
 //STUDENTS
 
