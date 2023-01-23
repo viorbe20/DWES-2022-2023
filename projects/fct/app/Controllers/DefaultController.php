@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Call;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -14,6 +15,19 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function getCallsTableAction()
+    {
+
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $call = Call::getInstancia();
+            echo json_encode($call->getSome());
+        }
+    }
+    
     public function callsAction(){
         $data = array();
         $this->renderHTML('../view/calls.php', $data);

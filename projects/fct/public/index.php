@@ -16,6 +16,15 @@ if (!isset($_SESSION['user']['profile'] )) {
 $router = new Router();
 
 //CALLS
+
+
+$router->add(array(
+    'name'=>'calls table',
+    'path'=>'/^\/calls_table$/',
+    'action'=>[DefaultController::class, 'getCallsTableAction'],
+    'auth'=>["admin, user"]
+));
+
 $router->add(array(
     'name'=>'calls',
     'path'=>'/^\/calls$/',

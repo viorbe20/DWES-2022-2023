@@ -39,6 +39,7 @@
         </section>
 
 
+        <!--Table with las 5 last inserted companies from js-->
         <table id="table-companies" class="table text-center mt-1">
             <thead>
                 <tr>
@@ -52,7 +53,6 @@
             <tbody class="table-group-divider" id="table_body_companies">
             </tbody>
         </table>
-        <!--Table with las 5 last inserted companies from js-->
 
     </div>
 

@@ -50,7 +50,7 @@ class Company extends DBAbstractModel
     {
         $this->query = "SELECT * FROM companies";
         $this->get_results_from_query();
-        //Show last 5 users
+        //Show last 5 companies
         $last = array_slice(array_reverse($this->rows), 0, 5);
         return $last;
     }
