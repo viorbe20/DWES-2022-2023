@@ -89,7 +89,11 @@
                 <div class="form-group w-50 mx-2">
                     <label for="company">Empresa</label>
                     <select class="form-control">
-
+                        <?php   
+                        foreach ($data['company_list'] as $value) {
+                            echo "<option>$value</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -113,11 +117,16 @@
                 </div>
 
                 <div class="form-group w-50 mx-2">
-                    <label for="avaliation_student">Evaluación alumno</label>
+                    <label for="avaliation_teacher">Evaluación profesor</label>
                     <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
                 </div>
             </div>
+            <!--Submit button-->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" name='add_assignment'>Añadir</button>
+            </div>
         </form>
+
     </div>
 </body>
 

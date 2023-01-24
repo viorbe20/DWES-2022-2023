@@ -54,6 +54,12 @@ class DefaultController extends BaseController
                 $data['teacher_list'][] =   $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
             }
 
+            //Get companies list
+            $company = Company::getInstancia();
+            foreach ($company->getAll() as $value) {
+                $data['company_list'][] = $value['c_name'];
+            }
+
 
             
 

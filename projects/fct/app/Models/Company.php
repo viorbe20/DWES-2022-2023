@@ -38,6 +38,17 @@ class Company extends DBAbstractModel
 
 
     //Métodos de acceso
+        /**
+     * Get name and id
+     * @return void
+     */
+    public function getAll()
+    {
+        $this->query = "SELECT c_id, c_name FROM companies";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function get()
     {
         $this->query = "SELECT * FROM companies";
