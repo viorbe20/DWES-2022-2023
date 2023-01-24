@@ -64,10 +64,12 @@
             <div class="form-group d-flex my-2 p-4">
                 <div class="form-group w-50 mx-2">
                     <label for="student">Alumno</label>
-                    <select class="form-control" id="academicYear">
-                        <option>2022-2023</option>
-                        <option>2021-2022</option>
-                        <option>2020-2021</option>
+                    <select class="form-control">
+                        <?php
+                        foreach ($data['student_list'] as $value) {
+                            echo "<option>$value</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -87,18 +89,18 @@
                 <div class="form-group w-50 mx-2">
                     <label for="company">Empresa</label>
                     <select class="form-control">
-                        <option>2022-2023</option>
-                        <option>2021-2022</option>
-                        <option>2020-2021</option>
+
                     </select>
                 </div>
 
                 <div class="form-group w-50 mx-2">
                     <label for="teacher">Profesor</label>
                     <select class="form-control">
-                        <option>2022-2023</option>
-                        <option>2021-2022</option>
-                        <option>2020-2021</option>
+                        <?php   
+                        foreach ($data['teacher_list'] as $value) {
+                            echo "<option>$value</option>";
+                        }
+                        ?>
                     </select>
                 </div>
             </div>

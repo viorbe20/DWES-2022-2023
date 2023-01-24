@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\Call;
 use App\Models\Ayear;
 use App\Models\Term;
+use App\Models\Teacher;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -40,6 +41,21 @@ class DefaultController extends BaseController
             foreach ($term->getAll() as $value) {
                 $data['term_list'][] = $value['term_name'];
             }
+
+            //Get students list
+            $student = Student::getInstancia();
+            foreach ($student->getAll() as $value) {
+                $data['student_list'][] =  $value['s_surname1'] . " " . $value['s_surname2'] . ", " . $value['s_name'];
+            }
+
+            //Get teachers list
+            $teacher = Teacher::getInstancia();
+            foreach ($teacher->getAll() as $value) {
+                $data['teacher_list'][] =   $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
+            }
+
+
+            
 
             $this->renderHTML('../view/add_assignment.php', $data);
         }
@@ -130,7 +146,6 @@ class DefaultController extends BaseController
 
         //Uploading csv file with students data
         if (isset($_POST['save_file'])) {
-            //$this->renderHTML('../view/students.php', $data);
 
             //$filename = explode(".", $_FILES['file']['name']);
 

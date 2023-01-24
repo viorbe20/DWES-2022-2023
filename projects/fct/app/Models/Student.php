@@ -36,6 +36,17 @@ class Student extends DBAbstractModel
     private $s_updated_at;
 
     //Métodos de acceso
+
+    /**
+     * Get name, surname1 and surname2 from student ordered by surname1
+     * @return void
+     */
+    public function getAll()
+    {
+        $this->query = "SELECT s_id, s_name, s_surname1, s_surname2 FROM students ORDER BY s_surname1";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     public function get()
     {
         $this->query = "SELECT * FROM students";
@@ -74,7 +85,14 @@ class Student extends DBAbstractModel
         $this->parametros['s_phone'] = $this->s_phone;
         $this->parametros['s_created_at'] = $this->s_created_at;
         $this->parametros['s_updated_at'] = $this->s_updated_at;
-        $this->get_results_from_query();
+        //$this->get_results_from_query();
+
+        //If error in query
+        if ($this->rows != 1) {
+            $this->mensaje = "Error al insertar";
+        } else {
+            $this->get_results_from_query();
+        }
     }
 
     //Getters & setters
