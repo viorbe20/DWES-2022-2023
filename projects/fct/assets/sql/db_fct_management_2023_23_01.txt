@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2023 at 01:29 PM
+-- Generation Time: Jan 23, 2023 at 08:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,19 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `academic_year`
+-- Table structure for table `assignments`
 --
 
-CREATE TABLE `academic_year` (
+CREATE TABLE `assignments` (
+  `asg_id` int(11) NOT NULL,
+  `asg_id_company` int(11) NOT NULL,
+  `asg_id_student` int(11) NOT NULL,
+  `asg_evaluation_student` varchar(254) NOT NULL,
+  `asg_evaluation_teacher` varchar(254) NOT NULL,
+  `asg_date_start` date NOT NULL,
+  `asg_date_end` date NOT NULL,
+  `asg_created_at` date NOT NULL DEFAULT current_timestamp(),
+  `asg_updated_at` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ayears`
+--
+
+CREATE TABLE `ayears` (
   `ayear_id` int(11) NOT NULL,
   `ayear_date` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `academic_year`
+-- Dumping data for table `ayears`
 --
 
-INSERT INTO `academic_year` (`ayear_id`, `ayear_date`) VALUES
+INSERT INTO `ayears` (`ayear_id`, `ayear_date`) VALUES
 (1, '2010-2011'),
 (2, '2011-2012\r\n'),
 (3, '2012-2013'),
@@ -73,6 +91,16 @@ CREATE TABLE `calls` (
   `call_created_at` date NOT NULL DEFAULT current_timestamp(),
   `call_updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `calls`
+--
+
+INSERT INTO `calls` (`call_id`, `call_ayear`, `call_term`, `call_created_at`, `call_updated_at`) VALUES
+(1, 13, 1, '2023-01-23', '2023-01-23'),
+(2, 12, 2, '2023-01-23', '2023-01-23'),
+(3, 11, 1, '2023-01-23', '2023-01-23'),
+(4, 11, 2, '2023-01-23', '2023-01-23');
 
 -- --------------------------------------------------------
 
@@ -227,6 +255,24 @@ INSERT INTO `students` (`s_id`, `s_dni`, `s_name`, `s_surname1`, `s_surname2`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `teachers`
+--
+
+CREATE TABLE `teachers` (
+  `t_id` int(11) NOT NULL,
+  `t_dni` varchar(10) NOT NULL,
+  `t_name` varchar(254) NOT NULL,
+  `t_surname1` varchar(254) NOT NULL,
+  `t_surname2` varchar(254) NOT NULL,
+  `t_email` varchar(254) NOT NULL,
+  `t_phone` int(11) NOT NULL,
+  `t_created_at` date NOT NULL DEFAULT current_timestamp(),
+  `t_updated_at` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `terms`
 --
 
@@ -273,9 +319,17 @@ INSERT INTO `users` (`u_id`, `u_user`, `u_password`, `u_email`, `u_name`, `u_pro
 --
 
 --
--- Indexes for table `academic_year`
+-- Indexes for table `assignments`
 --
-ALTER TABLE `academic_year`
+ALTER TABLE `assignments`
+  ADD PRIMARY KEY (`asg_id`),
+  ADD KEY `fk_assignments_students_id` (`asg_id_student`),
+  ADD KEY `fk_assignments_companies_id` (`asg_id_company`);
+
+--
+-- Indexes for table `ayears`
+--
+ALTER TABLE `ayears`
   ADD PRIMARY KEY (`ayear_id`);
 
 --
@@ -307,6 +361,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`s_id`);
 
 --
+-- Indexes for table `teachers`
+--
+ALTER TABLE `teachers`
+  ADD PRIMARY KEY (`t_id`);
+
+--
 -- Indexes for table `terms`
 --
 ALTER TABLE `terms`
@@ -324,16 +384,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `academic_year`
+-- AUTO_INCREMENT for table `assignments`
 --
-ALTER TABLE `academic_year`
+ALTER TABLE `assignments`
+  MODIFY `asg_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ayears`
+--
+ALTER TABLE `ayears`
   MODIFY `ayear_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `calls`
 --
 ALTER TABLE `calls`
-  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `call_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -354,6 +420,12 @@ ALTER TABLE `students`
   MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
+-- AUTO_INCREMENT for table `teachers`
+--
+ALTER TABLE `teachers`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `terms`
 --
 ALTER TABLE `terms`
@@ -370,10 +442,17 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `assignments`
+--
+ALTER TABLE `assignments`
+  ADD CONSTRAINT `fk_assignments_companies_id` FOREIGN KEY (`asg_id_company`) REFERENCES `companies` (`c_id`),
+  ADD CONSTRAINT `fk_assignments_students_id` FOREIGN KEY (`asg_id_student`) REFERENCES `students` (`s_id`);
+
+--
 -- Constraints for table `calls`
 --
 ALTER TABLE `calls`
-  ADD CONSTRAINT `fk_calls_ayear` FOREIGN KEY (`call_ayear`) REFERENCES `academic_year` (`ayear_id`),
+  ADD CONSTRAINT `fk_calls_ayear` FOREIGN KEY (`call_ayear`) REFERENCES `ayears` (`ayear_id`),
   ADD CONSTRAINT `fk_calls_terms` FOREIGN KEY (`call_term`) REFERENCES `terms` (`term_id`);
 
 --

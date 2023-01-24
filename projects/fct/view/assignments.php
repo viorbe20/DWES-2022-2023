@@ -22,35 +22,39 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
-        <div id="form_search_company" class="d-flex justify-content-center" role="search">
-            <!--Search company bar and icon-->
-            <div class='d-flex w-50 mx-5'>
-                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
-                <button type="button" class="btn btn-outline-dark">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
-            </div>
+
+        <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
+            <!--Search call period and date-->
+            <h3>Asignaciones</h3>
+            <h4>Convocatoria <?php echo $data['ayear_date'] . ' (' . $data['term_name'] . ')' ?> </h4>
         </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL; ?>/companies/add_company" class="btn btn-success mx-1">Nueva Empresa</a>
+            <a href="<?php echo DIRBASEURL; ?>/calls/add_assignment" class="btn btn-success mx-1">Nueva Asignación</a>
         </section>
 
 
-        <!--Table with las 5 last inserted companies from js-->
+        <!--Table with las 5 last inserted asignations from js-->
         <table id="table-companies" class="table text-center mt-1">
             <thead>
                 <tr>
-                    <th scope="col">Logo</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Empleados</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Alumno</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Profesor</th>
+                </tr>
+                <tr>
+                    <th scope="col">
+                        <a href=""><?php echo  $data['assignment']['student']?></a>
+                    </th>
+                    <th scope="col">
+                    <a href=""><?php echo  $data['assignment']['company']?></a>
+                    </th>
+                    <th scope="col">
+                    <a href=""><?php echo  $data['assignment']['teacher']?></a>
+                    </th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider" id="table_body_companies">
+            <tbody class="table-group-divider" id="table_body_assignments">
             </tbody>
         </table>
 

@@ -47,6 +47,34 @@ class Call extends DBAbstractModel
         return $last;
     }
 
+    //Get call by id
+    public function getById(){
+        $this->query = "SELECT * from calls, terms, ayears
+        where calls.call_term = terms.term_id
+        and calls.call_ayear = ayears.ayear_id
+        and calls.call_id = :call_id";
+        $this->parametros['call_id'] = $this->call_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    //Gel all the assignments of a call
+    //Get company name, student name and teacher name
+    /**
+     * Get the following information tha assignments from a call student´s name, company´s name, teacher´s name
+     */
+    public function getAssignmentsByCallId(){
+        $this->query = "SELECT s_name, s_surname1, s_surname2, t_name, t_surname1, t_surname2, c_name from assignments, students, companies, teachers
+        where asg_id_student = students.s_id
+        and asg_id_company = companies.c_id
+        and asg_id_teacher = teachers.t_id
+        and asg_id_call = :call_id";
+        $this->parametros['call_id'] = $this->call_id;
+        $this->get_results_from_query();
+        return $this->rows;
+        
+    }
+
     /**
      * Getters y Setters
      */

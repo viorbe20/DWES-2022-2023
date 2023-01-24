@@ -15,14 +15,23 @@ if (!isset($_SESSION['user']['profile'] )) {
 
 $router = new Router();
 
-//CALLS
+//Assignments
 
 $router->add(array(
-    'name'=>'add asignation',
-    'path'=>'/^\/calls\/call_asignations\/\d{1,3}$/',
-    'action'=>[DefaultController::class, 'showAsignationsAction'],
+    'name'=>'add assignments',
+    'path'=>'/^\/calls\/call_assignments\/\d{1,3}$/',
+    'action'=>[DefaultController::class, 'showAssignmentsAction'],
     'auth'=>["admin, user"]
 ));
+
+$router->add(array(
+    'name'=>'assignments table',
+    'path'=>'/^\/assignments_table$/',
+    'action'=>[DefaultController::class, 'getAssignmentsTableAction'],
+    'auth'=>["admin, user"]
+));
+
+//CALLS
 
 $router->add(array(
     'name'=>'calls table',

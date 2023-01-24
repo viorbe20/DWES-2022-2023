@@ -15,10 +15,44 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
-    public function showAsignationsAction(){
+    public function showAssignmentsAction($request){
+        
         $data = array();
-        $this->renderHTML('../view/asignations.php', $data);
+        $call = Call::getInstancia();
+        
+        //Show header with call information
+        $rest = explode("/", $request);
+        $callId = (int)end($rest);        
+        $call->setCallId($callId);
+        foreach ($call->getById() as $value) {
+            $data = array(
+                "ayear_date" => $value["ayear_date"],
+                "term_name" => $value["term_name"]
+            );
+        }
+
+        //Is there any assignment?
+        $data['assignment'] = array();
+        if (count($call->getAssignmentsByCallId()) == 0) {
+            $data['assignment']['student'] = "No hay asignaciones";
+            $data['assignment']['company'] = "No hay asignaciones";
+            $data['assignment']['teacher'] = "No hay asignaciones";
+        } else {
+            //Show table with assignments information
+            foreach ($call->getAssignmentsByCallId() as $value) {
+                $data['assignment']['student'] = $value['s_name'] . " " . $value['s_surname1'] . " " . $value['s_surname2'];
+                $data['assignment']['company'] = $value['c_name'];
+                $data['assignment']['teacher'] = $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
+            }
+        }
+
+
+
+        $this->renderHTML('../view/assignments.php', $data);
     }
+
+
+
 
     /**
      * Show table with calls information
