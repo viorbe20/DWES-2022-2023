@@ -7,6 +7,8 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Call;
+use App\Models\Ayear;
+use App\Models\Term;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -21,8 +23,24 @@ class DefaultController extends BaseController
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
-            $data = array();
-            $call = Call::getInstancia();
+            $data = array();            
+            $data['current_ayear'] = getCurrentAcademicYear();
+            $data['current_term'] = getCurrentTerm();
+            
+            //Get academic years list
+            $ayear = Ayear::getInstancia();
+            $ayear->getAll();
+            foreach ($ayear->getAll() as $value) {
+                $data['ayear_list'][] = $value['ayear_date'];
+            }
+
+            //Get terms list
+            $term = Term::getInstancia();
+            $term->getAll();
+            foreach ($term->getAll() as $value) {
+                $data['term_list'][] = $value['term_name'];
+            }
+
             $this->renderHTML('../view/add_assignment.php', $data);
         }
     }

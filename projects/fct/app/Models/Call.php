@@ -55,7 +55,7 @@ class Call extends DBAbstractModel
         and calls.call_id = :call_id";
         $this->parametros['call_id'] = $this->call_id;
         $this->get_results_from_query();
-        return $this->rows;
+        return $this->rows; 
     }
 
     //Gel all the assignments of a call

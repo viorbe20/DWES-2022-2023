@@ -26,24 +26,36 @@
         <form method="post" name='add_assignment' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
             
             <h2 class="text-center">Asignación de prácticas</h2>
-            
+
             <!--Curso y convocatoria-->
             <div class="form-group d-flex my-2 p-4">
                 <div class="form-group w-50 mx-2">
                     <label for="ayear">Curso académico</label>
                     <select class="form-control" id="academicYear">
-                        <option>2022-2023</option>
-                        <option>2021-2022</option>
-                        <option>2020-2021</option>
+                        <?php 
+                        foreach ($data['ayear_list'] as $value) {
+                            if ($value == $data['current_ayear']) {
+                                echo "<option selected>$value</option>";
+                            } else {
+                                echo "<option>$value</option>";
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
 
                 <div class="form-group w-50 mx-2">
                     <label for="term">Período</label>
                     <select class="form-control" id="term">
-                        <option>2022-2023</option>
-                        <option>2021-2022</option>
-                        <option>2020-2021</option>
+                        <?php 
+                        foreach ($data['term_list'] as $value) {
+                            if ($value == $data['current_term']) {
+                                echo "<option selected>$value</option>";
+                            } else {
+                                echo "<option>$value</option>";
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
