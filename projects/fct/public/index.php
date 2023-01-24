@@ -19,6 +19,13 @@ $router = new Router();
 
 $router->add(array(
     'name'=>'add assignments',
+    'path'=>'/^\/calls\/add_assignment$/',
+    'action'=>[DefaultController::class, 'addAssignmentAction'],
+    'auth'=>["admin, user"]
+));
+
+$router->add(array(
+    'name'=>'show assignments',
     'path'=>'/^\/calls\/call_assignments\/\d{1,3}$/',
     'action'=>[DefaultController::class, 'showAssignmentsAction'],
     'auth'=>["admin, user"]

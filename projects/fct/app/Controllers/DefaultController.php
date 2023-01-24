@@ -15,6 +15,23 @@ require_once '../../fct/utils/my_utils.php';
 class DefaultController extends BaseController
 {
 
+    public function addAssignmentAction()
+    {
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $call = Call::getInstancia();
+            $this->renderHTML('../view/add_assignment.php', $data);
+        }
+    }
+
+    /**
+     * Show assignments from a selected call
+     * @param mixed $request
+     * @return void
+     */
     public function showAssignmentsAction($request){
         
         $data = array();
@@ -33,6 +50,7 @@ class DefaultController extends BaseController
 
         //Is there any assignment?
         $data['assignment'] = array();
+
         if (count($call->getAssignmentsByCallId()) == 0) {
             $data['assignment']['student'] = "No hay asignaciones";
             $data['assignment']['company'] = "No hay asignaciones";
@@ -46,13 +64,8 @@ class DefaultController extends BaseController
             }
         }
 
-
-
         $this->renderHTML('../view/assignments.php', $data);
     }
-
-
-
 
     /**
      * Show table with calls information
