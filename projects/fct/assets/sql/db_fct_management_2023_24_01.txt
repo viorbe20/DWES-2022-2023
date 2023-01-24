@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2023 at 01:48 PM
+-- Generation Time: Jan 24, 2023 at 07:55 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -46,7 +46,7 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`asg_id`, `asg_id_call`, `asg_id_company`, `asg_id_student`, `asg_id_teacher`, `asg_evaluation_student`, `asg_evaluation_teacher`, `asg_date_start`, `asg_date_end`, `asg_created_at`, `asg_updated_at`) VALUES
-(3, 4, 3, 2, 2, 'Evaluación del alumno', 'Evaluación del profesor', '0000-00-00', '0000-00-00', '2020-09-01', '2020-12-17');
+(4, 2, 3, 83, 3, '', '', '2022-03-01', '2022-06-30', '2023-01-24', '2023-01-24');
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE `companies` (
 
 INSERT INTO `companies` (`c_id`, `c_cif`, `c_name`, `c_description`, `c_address`, `c_email`, `c_phone`, `c_logo`, `c_created_at`, `c_updated_at`) VALUES
 (3, 'B-12345678', 'Wordpress', 'Sistema de gestión de contenidos', 'C/ de Prueba', 'wp@gmail.com', 957456789, '3.png', '2022-10-11', '2022-10-13'),
-(4, 'B-12345678', 'Moodle', 'Plataforma de aprendizaje', 'C/ Moodle', 'moodle@gmail.com', 957123456, 'unknown.png', '2022-10-11', '2022-10-13'),
+(4, 'B-12346678', 'Moodle', 'Plataforma de aprendizaje', 'C/ Moodle', 'moodle@gmail.com', 957123456, 'unknown.png', '2022-10-11', '2022-10-13'),
 (10, '08543286M', 'Notion', 'Notion es un software de gestión de proyectos y para tomar notas.', 'Notion Labs Inc.', 'notion@gmail.com', 620456654, '10.png', '2022-10-18', '2022-10-18');
 
 -- --------------------------------------------------------
@@ -162,8 +162,33 @@ CREATE TABLE `employees` (
 INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_nif`, `emp_job`, `emp_company_id`, `emp_created_at`, `emp_updated_at`) VALUES
 (3, 'Luisa Martínez', '34092623P', 'Desarrolladora', 10, '2022-10-19', '2022-10-19'),
 (4, 'Luis García', '75567519Z', 'Secretario', 10, '2022-10-19', '2022-10-19'),
-(10, 'Ana Pérez', '34092623P', 'Desarrolladora', 10, '2022-10-19', '2022-10-19'),
-(37, 'Elena Pujol', '34092623P', 'Desarrolladora', 10, '2022-10-19', '2022-10-19');
+(10, 'Ana Pérez', '34092723P', 'Desarrolladora', 10, '2022-10-19', '2022-10-19'),
+(37, 'Elena Pujol', '34332623P', 'Desarrolladora', 10, '2022-10-19', '2022-10-19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE `groups` (
+  `g_id` int(11) NOT NULL,
+  `g_name` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`g_id`, `g_name`) VALUES
+(1, '1º ASIR (M)'),
+(2, '1º ASIR (T)'),
+(3, '2º ASIR (M)'),
+(4, '2º ASIR (T)'),
+(5, '1º DAW (M)'),
+(6, '1º DAW (T)'),
+(7, '2º DAW (M)'),
+(8, '2º DAW (T)');
 
 -- --------------------------------------------------------
 
@@ -189,77 +214,29 @@ CREATE TABLE `students` (
   `s_name` varchar(254) NOT NULL,
   `s_surname1` varchar(254) NOT NULL,
   `s_surname2` varchar(254) NOT NULL,
+  `s_group` int(11) NOT NULL,
   `s_email` varchar(254) NOT NULL,
   `s_phone` int(9) NOT NULL,
-  `s_created_at` date NOT NULL,
-  `s_updated_at` date NOT NULL
+  `s_created_at` date NOT NULL DEFAULT current_timestamp(),
+  `s_updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`s_id`, `s_dni`, `s_name`, `s_surname1`, `s_surname2`, `s_email`, `s_phone`, `s_created_at`, `s_updated_at`) VALUES
-(2, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-17', '2023-01-17'),
-(3, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(4, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-17', '2023-01-17'),
-(5, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-17', '2023-01-17'),
-(6, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-17', '2023-01-17'),
-(7, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-17', '2023-01-17'),
-(8, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-17', '2023-01-17'),
-(9, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-17', '2023-01-17'),
-(10, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(11, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-17', '2023-01-17'),
-(12, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-17', '2023-01-17'),
-(13, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(14, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-17', '2023-01-17'),
-(15, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-17', '2023-01-17'),
-(16, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-17', '2023-01-17'),
-(17, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-17', '2023-01-17'),
-(18, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-17', '2023-01-17'),
-(19, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-17', '2023-01-17'),
-(20, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(21, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-17', '2023-01-17'),
-(22, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-17', '2023-01-17'),
-(23, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(24, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-17', '2023-01-17'),
-(25, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-17', '2023-01-17'),
-(26, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-17', '2023-01-17'),
-(27, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-17', '2023-01-17'),
-(28, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-17', '2023-01-17'),
-(29, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-17', '2023-01-17'),
-(30, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(31, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-17', '2023-01-17'),
-(32, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-17', '2023-01-17'),
-(33, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(34, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-17', '2023-01-17'),
-(35, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-17', '2023-01-17'),
-(36, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-17', '2023-01-17'),
-(37, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-17', '2023-01-17'),
-(38, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-17', '2023-01-17'),
-(39, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-17', '2023-01-17'),
-(40, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(41, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-17', '2023-01-17'),
-(42, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-17', '2023-01-17'),
-(43, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(44, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-17', '2023-01-17'),
-(45, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-17', '2023-01-17'),
-(46, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-17', '2023-01-17'),
-(47, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-17', '2023-01-17'),
-(48, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-17', '2023-01-17'),
-(49, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-17', '2023-01-17'),
-(50, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-17', '2023-01-17'),
-(51, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-17', '2023-01-17'),
-(52, '07604725M', 'Juan', 'Perez', 'Garcia', 'juanperez@gmail.com', 635275894, '2023-01-18', '2023-01-18'),
-(53, '45034724B', 'Maria', 'Gomez', 'Sanchez', 'mariagomez@gmail.com', 2147483647, '2023-01-18', '2023-01-18'),
-(54, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 'pedromartinez@gmail.com', 632243657, '2023-01-18', '2023-01-18'),
-(55, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 'analopez@gmail.com', 672123456, '2023-01-18', '2023-01-18'),
-(56, '45733016T', 'Carlos', 'Sanchez', 'Perez', 'carlossanchez@gmail.com', 672194556, '2023-01-18', '2023-01-18'),
-(57, '93957045K', 'Isabel', 'Garcia', 'Martinez', 'isabelgarcia@gmail.com', 696823456, '2023-01-18', '2023-01-18'),
-(58, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 'luisrodriguez@gmail.com', 609633456, '2023-01-18', '2023-01-18'),
-(59, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 'saragonzalez@gmail.com', 672103442, '2023-01-18', '2023-01-18'),
-(60, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 'jorgehernandez@gmail.com', 2147483647, '2023-01-18', '2023-01-18'),
-(61, '09917494D', 'Carmen', 'Molina', 'Soler', 'carmenmolina@gmail.com', 662979846, '2023-01-18', '2023-01-18');
+INSERT INTO `students` (`s_id`, `s_dni`, `s_name`, `s_surname1`, `s_surname2`, `s_group`, `s_email`, `s_phone`, `s_created_at`, `s_updated_at`) VALUES
+(62, '07604725M', 'Juan', 'Perez', 'Garcia', 0, 'juanperez@gmail.com', 635275894, '2023-01-24', '2023-01-24'),
+(63, '45034724B', 'Maria', 'Gomez', 'Sanchez', 0, 'mariagomez@gmail.com', 2147483647, '2023-01-24', '2023-01-24'),
+(64, '88347961Q', 'Pedro', 'Martinez', 'Rodriguez', 0, 'pedromartinez@gmail.com', 632243657, '2023-01-24', '2023-01-24'),
+(65, '39776922D', 'Ana', 'Lopez', 'Gonzalez', 0, 'analopez@gmail.com', 672123456, '2023-01-24', '2023-01-24'),
+(66, '45733016T', 'Carlos', 'Sanchez', 'Perez', 0, 'carlossanchez@gmail.com', 672194556, '2023-01-24', '2023-01-24'),
+(67, '93957045K', 'Isabel', 'Garcia', 'Martinez', 0, 'isabelgarcia@gmail.com', 696823456, '2023-01-24', '2023-01-24'),
+(68, '23113484W', 'Luis', 'Rodriguez', 'Hernandez', 0, 'luisrodriguez@gmail.com', 609633456, '2023-01-24', '2023-01-24'),
+(69, '00844339D', 'Sara', 'Gonzalez', 'Lopez', 0, 'saragonzalez@gmail.com', 672103442, '2023-01-24', '2023-01-24'),
+(70, '74831096K', 'Jorge', 'Hernandez', 'Gomez', 0, 'jorgehernandez@gmail.com', 2147483647, '2023-01-24', '2023-01-24'),
+(71, '09917494D', 'Carmen', 'Molina', 'Soler', 0, 'carmenmolina@gmail.com', 662979846, '2023-01-24', '2023-01-24'),
+(83, '42142649W', 'Daniel', 'Ayala', 'Cantador', 2, 'dani@gmail.com', 666345678, '2023-01-24', '2023-01-24');
 
 -- --------------------------------------------------------
 
@@ -284,7 +261,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`t_id`, `t_dni`, `t_name`, `t_surname1`, `t_surname2`, `t_email`, `t_phone`, `t_created_at`, `t_updated_at`) VALUES
-(2, '46978049C', 'Pedro', 'Hernández', 'García', 'pehega@email.com', 665748959, '2023-01-24', '2023-01-24');
+(3, '16978049C', 'José', 'Aguilera', 'Aguilera', 'joseaguilera@iesgrancapitan.org', 666385634, '2023-01-24', '2023-01-24');
 
 -- --------------------------------------------------------
 
@@ -302,8 +279,8 @@ CREATE TABLE `terms` (
 --
 
 INSERT INTO `terms` (`term_id`, `term_name`) VALUES
-(1, 'marzo-junio'),
-(2, 'septiembre-diciembre');
+(1, 'septiembre-diciembre'),
+(2, 'marzo-junio');
 
 -- --------------------------------------------------------
 
@@ -362,27 +339,38 @@ ALTER TABLE `calls`
 -- Indexes for table `companies`
 --
 ALTER TABLE `companies`
-  ADD PRIMARY KEY (`c_id`);
+  ADD PRIMARY KEY (`c_id`),
+  ADD UNIQUE KEY `c_cif` (`c_cif`);
 
 --
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
   ADD PRIMARY KEY (`emp_id`),
+  ADD UNIQUE KEY `emp_nif` (`emp_nif`),
   ADD KEY `company_id` (`emp_company_id`),
   ADD KEY `company_id_2` (`emp_company_id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`g_id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`s_id`);
+  ADD PRIMARY KEY (`s_id`),
+  ADD UNIQUE KEY `s_email` (`s_email`),
+  ADD UNIQUE KEY `s_dni` (`s_dni`) USING BTREE;
 
 --
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`t_id`);
+  ADD PRIMARY KEY (`t_id`),
+  ADD UNIQUE KEY `t_dni` (`t_dni`,`t_email`);
 
 --
 -- Indexes for table `terms`
@@ -405,7 +393,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `asg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `asg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ayears`
@@ -432,16 +420,22 @@ ALTER TABLE `employees`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `g_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `terms`

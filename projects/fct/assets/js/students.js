@@ -27,12 +27,6 @@ $(document).ready(function () {
                     <td>${element["s_name"]}</td>
                     <td>${element["s_surname1"]}</td>
                     <td>${element["s_surname2"]}</td>
-                    <td>
-                    <a href="#" target="_self" onclick="deleteStudent(${element["s_id"]})">
-                    <span class="material-symbols-outlined" id="student_delete_icon_${element['S_id']}">
-                    delete
-                    </span></a>
-                    </td>
                 </tr>`
                     );
                 });

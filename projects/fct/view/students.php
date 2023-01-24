@@ -46,7 +46,6 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Primer Apellido</th>
                     <th scope="col">Segundo Apellido</th>
-                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="table_body_students">
