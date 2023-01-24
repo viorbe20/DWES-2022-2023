@@ -43,15 +43,15 @@
                     <th scope="col">Profesor</th>
                 </tr>
                 <tr>
-                    <th scope="col">
-                        <a href=""><?php echo  $data['assignment']['student']?></a>
-                    </th>
-                    <th scope="col">
-                    <a href=""><?php echo  $data['assignment']['company']?></a>
-                    </th>
-                    <th scope="col">
-                    <a href=""><?php echo  $data['assignment']['teacher']?></a>
-                    </th>
+                    <td scope="col">
+                        <a href="" class="text-dark" style='text-decoration:none'><?php echo  $data['assignment']['student']?></a>
+                    </td>
+                    <td scope="col">
+                    <a href="" class="text-dark" style='text-decoration:none'><?php echo  $data['assignment']['company']?></a>
+                    </td>
+                    <td scope="col">
+                    <a href="" class="text-dark" style='text-decoration:none'><?php echo  $data['assignment']['teacher']?></a>
+                    </td>
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="table_body_assignments">
