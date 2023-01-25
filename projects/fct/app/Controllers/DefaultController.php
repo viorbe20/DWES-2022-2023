@@ -24,10 +24,10 @@ class DefaultController extends BaseController
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
-            $data = array();            
+            $data = array();
             $data['current_ayear'] = getCurrentAcademicYear();
             $data['current_term'] = getCurrentTerm();
-            
+
             //Get academic years list
             $ayear = Ayear::getInstancia();
             $ayear->getAll();
@@ -61,7 +61,7 @@ class DefaultController extends BaseController
             }
 
 
-            
+
 
             $this->renderHTML('../view/add_assignment.php', $data);
         }
@@ -72,14 +72,15 @@ class DefaultController extends BaseController
      * @param mixed $request
      * @return void
      */
-    public function showAssignmentsAction($request){
-        
+    public function showAssignmentsAction($request)
+    {
+
         $data = array();
         $call = Call::getInstancia();
-        
+
         //Show header with call information
         $rest = explode("/", $request);
-        $callId = (int)end($rest);        
+        $callId = (int)end($rest);
         $call->setCallId($callId);
         foreach ($call->getById() as $value) {
             $data = array(
@@ -123,10 +124,34 @@ class DefaultController extends BaseController
             echo json_encode($call->getSome());
         }
     }
-    
-    public function callsAction(){
-        $data = array();
-        $this->renderHTML('../view/calls.php', $data);
+
+    public function callsAction()
+    {
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            //Show current academic year and term in a modal window
+            //for its selection 
+            $data = array();
+            $data['current_ayear'] = getCurrentAcademicYear();
+            $data['current_term'] = getCurrentTerm();
+
+            //Get academic years list
+            $ayear = Ayear::getInstancia();
+            $ayear->getAll();
+            foreach ($ayear->getAll() as $value) {
+                $data['ayear_list'][] = $value['ayear_date'];
+            }
+
+            //Get terms list
+            $term = Term::getInstancia();
+            $term->getAll();
+            foreach ($term->getAll() as $value) {
+                $data['term_list'][] = $value['term_name'];
+            }
+            $this->renderHTML('../view/calls.php', $data);
+        }
     }
 
     /**
@@ -186,7 +211,6 @@ class DefaultController extends BaseController
             }
             fclose($handle);
             $this->renderHTML('../view/students.php', $data);
-
         } else {
             $this->renderHTML('../view/students.php', $data);
         }

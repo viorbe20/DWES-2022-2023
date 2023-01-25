@@ -19,11 +19,12 @@
 <body>
     <?php
     require_once '../view/require/header.php';
+    require_once '../view/require/modal_add_call.php';
     ?>
 
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
-        
+
         <!--Search company bar and icon-->
         <div id="form_search_call" class="d-flex justify-content-center" role="search">
             <div class='d-flex w-50 mx-5'>
@@ -37,9 +38,11 @@
         </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL; ?>/calls/add_call" class="btn btn-success mx-1">Nueva Convocatoria</a>
+            <button type="button" id='btn_add_call' class="btn btn-primary mx-1" data-toggle="modal" data-target="#modal_add_call">
+                Nueva Convocatoria
+            </button>
         </section>
-        
+
         <!--Table with las 5 last inserted calls from js-->
         <table id="table-calls" class="table text-center mt-1">
             <thead>
@@ -53,6 +56,7 @@
             </tbody>
         </table>
     </div>
+
 </body>
 
 </html>

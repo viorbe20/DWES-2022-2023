@@ -2,6 +2,34 @@ $(document).ready(function () {
 
     console.log('calls.js loaded');
 
+/**
+* Modal add call
+*/
+
+    $('#btn_add_call').on('click', function () {
+        // Show modal on its path
+        $('#modal_add_call').css('display', 'block');
+    });
+
+    // Cancel modal add class
+    $('#btn_modal_cancel_call').on('click', function () {
+        $('#modal_add_call').css('display', 'none');
+    });
+
+    // Exit modal add class
+    $('#btn_modal_exit_call').on('click', function () {
+        $('#modal_add_call').css('display', 'none');
+    });
+
+    //Confirm modal add class
+    $('#btn_modal_confirm_call').on('click', function () {
+        $('#modal_add_call').css('display', 'none');
+    });
+
+
+
+
+
     /**
      * Search calls box
      */
@@ -15,7 +43,7 @@ $(document).ready(function () {
     /**
      * Fetch to get all the calls
      */
-    
+
     fetch(
         "http://localhost/dwes/projects/fct/public/index.php/calls_table"
     )
