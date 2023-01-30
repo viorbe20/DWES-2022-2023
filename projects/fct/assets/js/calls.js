@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     console.log('calls.js loaded');
 
-/**
-* Modal add call
-*/
+    /**
+    * Modal add call
+    */
 
     $('#btn_add_call').on('click', function () {
         // Show modal on its path
@@ -24,9 +24,18 @@ $(document).ready(function () {
     //Confirm modal add class
     $('#btn_modal_confirm_call').on('click', function () {
         $('#modal_add_call').css('display', 'none');
+
+        // Get values from inputs
+        let ayear = $('#ayear_select').val();
+        let term = $('#term_select').val();
+        let formAddall = $('#form_add_call');
+
+        // Validate form
+        formAddcall.addEeventListener('submit'), function (e) {
+        console.log('submit');
+        e.preventDefault();
+        }
     });
-
-
 
 
 
@@ -64,4 +73,5 @@ $(document).ready(function () {
                 });
             }
         });
+
 });

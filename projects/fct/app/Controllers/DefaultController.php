@@ -17,7 +17,6 @@ require_once '../../fct/utils/my_utils.php';
 
 class DefaultController extends BaseController
 {
-
     public function addAssignmentAction()
     {
         if ($_SESSION['user']['profile'] == 'guest') {
@@ -131,6 +130,16 @@ class DefaultController extends BaseController
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
+
+            //Add a new call
+            if (isset($_POST['btn_modal_confirm_call'])) {
+                $ayearSelected = $_POST['ayear_select'];
+                $termSelected = $_POST['term_select'];
+
+                //Check if call already exists
+
+
+            }
             //Show current academic year and term in a modal window
             //for its selection 
             $data = array();
