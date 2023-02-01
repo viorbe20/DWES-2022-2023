@@ -146,12 +146,16 @@ class DefaultController extends BaseController
                 $termId = $term->getIdByName()[0]['term_id'];
                 $call->setCallTerm($termId);
 
+
                 //Check if call already exists
                 if (count($call->getByAyearAndTerm()) == 0) {
                     $call->set();
                 } else {
                     //Show error message in modal window
-                    $data['errorAddCall'] = "Ya existe una convocatoria para el curso académico y el trimestre seleccionados";
+                    //$data['errorAddCall'] = "Ya existe una convocatoria para el curso académico y el trimestre seleccionados";
+                    echo'<script type="text/javascript">
+                    alert("Ese curso académico y ese trimestre ya existen");
+                    </script>';
                 }
             }
             //Show current academic year and term in a modal window
