@@ -66,7 +66,7 @@ class User extends DBAbstractModel
     //Creation methods
     public function set()
     {
-        $this->query = "INSERT INTO users (u_user, u_password, u_email, u_name, u_profile, u_created_at, u_updated_at) VALUES (:u_user, :u_password, :u_email, :u_name, :u_profile, :u_created_at, :u_updated_at)";
+        $this->query = "INSERT INTO users (u_user, u_password, u_email, u_name, u_profile, u_created_at, u_updated_at) VALUES (:u_user, :u_password, :u_email, :u_name, :u_profile, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
         $this->parametros['u_user'] = $this->u_user;
         $this->parametros['u_password'] = $this->u_password;
         $this->parametros['u_email'] = $this->u_email;

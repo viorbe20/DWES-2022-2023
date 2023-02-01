@@ -25,14 +25,8 @@ $(document).ready(function () {
     $('#btn_modal_confirm_call').on('click', function () {
         $('#modal_add_call').css('display', 'none');
 
-        // Get values from inputs
-        let ayear = $('#ayear_select').val();
-        let term = $('#term_select').val();
-        let formAddall = $('#form_add_call');
-
-        // Validate form
-        formAddcall.addEeventListener('submit'), function (e) {
-        console.log('submit');
+        // Send form values to php
+        $('#form_add_call').addEeventListener('submit'), function (e) {
         e.preventDefault();
         }
     });

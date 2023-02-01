@@ -58,10 +58,6 @@ class DefaultController extends BaseController
             foreach ($company->getAll() as $value) {
                 $data['company_list'][] = $value['c_name'];
             }
-
-
-
-
             $this->renderHTML('../view/add_assignment.php', $data);
         }
     }
@@ -130,15 +126,33 @@ class DefaultController extends BaseController
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
-
             //Add a new call
             if (isset($_POST['btn_modal_confirm_call'])) {
                 $ayearSelected = $_POST['ayear_select'];
                 $termSelected = $_POST['term_select'];
 
+                //Get id of academic year and term selected
+                $call = Call::getInstancia();
+                $ayear = Ayear::getInstancia();
+                $term = Term::getInstancia();
+
+                //Set academic year id
+                $ayear->setAyearDate($ayearSelected);
+                $ayearId = $ayear->getIdByDate()[0]['ayear_id'];
+                $call->setCallAyear($ayearId);
+
+                //Set term id
+                $term->setTermName($termSelected);
+                $termId = $term->getIdByName()[0]['term_id'];
+                $call->setCallTerm($termId);
+
                 //Check if call already exists
-
-
+                if (count($call->getByAyearAndTerm()) == 0) {
+                    $call->set();
+                } else {
+                    //Show error message in modal window
+                    $data['errorAddCall'] = "Ya existe una convocatoria para el curso académico y el trimestre seleccionados";
+                }
             }
             //Show current academic year and term in a modal window
             //for its selection 

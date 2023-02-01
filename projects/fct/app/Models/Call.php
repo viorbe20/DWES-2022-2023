@@ -35,6 +35,16 @@ class Call extends DBAbstractModel
      * Métodos de acceso
      */
 
+    // Check if a call already exists by call_ayear and call_term
+    public function getByAyearAndTerm()
+    {
+        $this->query = "SELECT * from calls where call_ayear = :call_ayear and call_term = :call_term";
+        $this->parametros['call_ayear'] = $this->call_ayear;
+        $this->parametros['call_term'] = $this->call_term;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     //Get last calls
     public function getSome()
     {
@@ -48,14 +58,15 @@ class Call extends DBAbstractModel
     }
 
     //Get call by id
-    public function getById(){
+    public function getById()
+    {
         $this->query = "SELECT * from calls, terms, ayears
         where calls.call_term = terms.term_id
         and calls.call_ayear = ayears.ayear_id
         and calls.call_id = :call_id";
         $this->parametros['call_id'] = $this->call_id;
         $this->get_results_from_query();
-        return $this->rows; 
+        return $this->rows;
     }
 
     //Gel all the assignments of a call
@@ -63,7 +74,8 @@ class Call extends DBAbstractModel
     /**
      * Get the following information tha assignments from a call student´s name, company´s name, teacher´s name
      */
-    public function getAssignmentsByCallId(){
+    public function getAssignmentsByCallId()
+    {
         $this->query = "SELECT s_name, s_surname1, s_surname2, t_name, t_surname1, t_surname2, c_name from assignments, students, companies, teachers
         where asg_id_student = students.s_id
         and asg_id_company = companies.c_id
@@ -72,7 +84,21 @@ class Call extends DBAbstractModel
         $this->parametros['call_id'] = $this->call_id;
         $this->get_results_from_query();
         return $this->rows;
-        
+    }
+
+    /**
+     * Métodos de inserción
+     */
+
+    //Create a new call on the database
+    public function set()
+    {
+        $this->query = "INSERT INTO calls (call_ayear, call_term, call_created_at, call_updated_at) VALUES (:call_ayear, :call_term, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $this->parametros['call_ayear'] = $this->call_ayear;
+        $this->parametros['call_term'] = $this->call_term;
+        $this->parametros['call_created_at'] = $this->call_created_at;
+        $this->parametros['call_updated_at'] = $this->call_updated_at;
+        $this->get_results_from_query();
     }
 
     /**

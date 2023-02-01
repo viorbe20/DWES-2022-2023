@@ -34,4 +34,35 @@ class Ayear extends DBAbstractModel
         return $this->rows;
     }
 
+    public function getIdByDate()
+    {
+        $this->query = "SELECT ayear_id from ayears where ayear_date = :ayear_date";
+        $this->parametros['ayear_date'] = $this->ayear_date;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    //Setters and getters
+    public function getAyearId()
+    {
+        return $this->ayear_id;
+    }
+
+    public function setAyearId($ayear_id)
+    {
+        $this->ayear_id = $ayear_id;
+    }
+
+    public function getAyearDate()
+    {
+        return $this->ayear_date;
+    }
+
+    public function setAyearDate($ayear_date)
+    {
+        $this->ayear_date = $ayear_date;
+    }
+
+    
+
 }
