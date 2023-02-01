@@ -23,7 +23,7 @@
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
 
-        <form method="post" name='add_assignment' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
+        <form method="post" name='add_assignment_form' id='add_assignment_form' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
             <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
                 <h3>Nueva Asignación</h3>
                 <h4>Convocatoria <?php echo $_SESSION['selected_ayear'] . ' (' . $_SESSION['selected_term'] . ')' ?> </h4>
