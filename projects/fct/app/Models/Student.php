@@ -32,6 +32,8 @@ class Student extends DBAbstractModel
     private $s_surname2;
     private $s_email;
     private $s_phone;
+    private $s_group;
+    private $s_ayear;
     private $s_created_at;
     private $s_updated_at;
 
@@ -165,6 +167,27 @@ class Student extends DBAbstractModel
     {
         $this->s_phone = $s_phone;
     }
+
+    public function getGroup()
+    {
+        return $this->s_group;
+    }
+
+    public function setGroup($s_group)
+    {
+        $this->s_group = $s_group;
+    }
+
+    public function getAyear()
+    {
+        return $this->s_ayear;
+    }
+
+    public function setAyear($s_ayear)
+    {
+        $this->s_ayear = $s_ayear;
+    }
+    
 
     public function getCreatedAt()
     {
