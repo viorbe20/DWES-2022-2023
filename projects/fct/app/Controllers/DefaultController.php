@@ -155,12 +155,12 @@ class DefaultController extends BaseController
                 if (count($call->getByAyearAndTerm()) == 0) {
                     $call->set();
                     //Show success message
-                    echo'<script type="text/javascript">
+                    echo '<script type="text/javascript">
                     alert("Se ha creado la convocatoria correctamente");
                     </script>';
                 } else {
                     //Show error message
-                    echo'<script type="text/javascript">
+                    echo '<script type="text/javascript">
                     alert("Ese curso académico y ese trimestre ya existen");
                     </script>';
                 }
@@ -214,11 +214,12 @@ class DefaultController extends BaseController
 
             //$filename = explode(".", $_FILES['file']['name']);
 
-            //Open the file.
+            //Open the file 
             $file = fopen($_FILES['file']['tmp_name'], "r");
 
             // Create a new file to write the data to
             $newFile = fopen('new.csv', 'w');
+
 
             // Read the first line of the file (the headline) and discard it
             fgetcsv($file);
@@ -233,17 +234,28 @@ class DefaultController extends BaseController
 
             //Import newfilñe data to database
             $handle = fopen('new.csv', "r");
-            while ($data = fgetcsv($handle)) {
-                $student = Student::getInstancia();
-                $student->setDni($data[0]);
-                $student->setName($data[1]);
-                $student->setSurname1($data[2]);
-                $student->setSurname2($data[3]);
-                $student->setEmail($data[4]);
-                $student->setPhone($data[5]);
-                $student->uploadFile();
+
+            $row = 1;
+            if (($handle = fopen("new.csv", "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    $num = count($data);
+                    $row++;
+                    for ($c = 0; $c < $num; $c++) {
+                        $element = explode(";", $data[$c]);
+                        $student = Student::getInstancia();
+                        $student->setDni($element[0]);
+                        $student->setName($element[1]);
+                        $student->setSurname1($element[2]);
+                        $student->setSurname2($element[3]);
+                        $student->setEmail($element[4]);
+                        $student->setPhone($element[5]);
+                        $student->setGroup($element[6]);
+                        $student->setAyear($element[7]);
+                        $student->uploadFile();
+                    }
+                }
+                fclose($handle);
             }
-            fclose($handle);
             $this->renderHTML('../view/students.php', $data);
         } else {
             $this->renderHTML('../view/students.php', $data);
