@@ -43,43 +43,6 @@
                 </div>
 
                 <div class="form-group w-50 mx-2">
-                    <label for="start_date">Fecha inicio</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="end_date">Fecha fin</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-            </div>
-
-            <!--Student, start and end date-->
-            <div class="form-group d-flex my-2 p-4">
-                <div class="form-group w-50 mx-2">
-                    <label for="student">Alumno</label>
-                    <select class="form-control">
-                        <?php
-                        foreach ($data['student_list'] as $value) {
-                            echo "<option>$value</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="start_date">Fecha inicio</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="end_date">Fecha fin</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-            </div>
-
-            <!--Nombre empresa y nombre profesor-->
-            <div class="form-group d-flex my-2 p-4">
-                <div class="form-group w-50 mx-2">
                     <label for="company">Empresa</label>
                     <select class="form-control">
                         <?php
@@ -99,6 +62,20 @@
                         }
                         ?>
                     </select>
+                </div>
+            </div>
+
+            <!--start and end date-->
+            <div class="form-group d-flex my-2 p-4">
+
+                <div class="form-group w-50 mx-2">
+                    <label for="start_date">Fecha inicio</label>
+                    <input type="date" class="form-control" id="date">
+                </div>
+
+                <div class="form-group w-50 mx-2">
+                    <label for="end_date">Fecha fin</label>
+                    <input type="date" class="form-control" id="date">
                 </div>
             </div>
 
