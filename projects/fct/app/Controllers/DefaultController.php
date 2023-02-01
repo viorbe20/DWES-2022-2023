@@ -82,6 +82,10 @@ class DefaultController extends BaseController
                 "ayear_date" => $value["ayear_date"],
                 "term_name" => $value["term_name"]
             );
+
+            //Save selected call information for use in add assignment
+            $_SESSION['selected_ayear'] =  $value["ayear_date"];
+            $_SESSION['selected_term'] =  $value["term_name"];
         }
 
         //Is there any assignment?
@@ -150,9 +154,12 @@ class DefaultController extends BaseController
                 //Check if call already exists
                 if (count($call->getByAyearAndTerm()) == 0) {
                     $call->set();
+                    //Show success message
+                    echo'<script type="text/javascript">
+                    alert("Se ha creado la convocatoria correctamente");
+                    </script>';
                 } else {
-                    //Show error message in modal window
-                    //$data['errorAddCall'] = "Ya existe una convocatoria para el curso académico y el trimestre seleccionados";
+                    //Show error message
                     echo'<script type="text/javascript">
                     alert("Ese curso académico y ese trimestre ya existen");
                     </script>';

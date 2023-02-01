@@ -23,11 +23,9 @@
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
 
-        <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
-            <!--Search call period and date-->
-            <h3>Asignaciones</h3>
-            <h4>Convocatoria <?php echo $data['ayear_date'] . ' (' . $data['term_name'] . ')' ?> </h4>
-        </div>
+    <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
+                <h3>Convocatoria <?php echo $_SESSION['selected_ayear'] . ' (' . $_SESSION['selected_term'] . ')' ?> </h3>
+            </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
             <a href="<?php echo DIRBASEURL; ?>/calls/add_assignment" class="btn btn-success mx-1">Nueva Asignación</a>

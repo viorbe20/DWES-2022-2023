@@ -22,41 +22,34 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
-        
-        <form method="post" name='add_assignment' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
-            
-            <h2 class="text-center">Asignación de prácticas</h2>
 
-            <!--Curso y convocatoria-->
+        <form method="post" name='add_assignment' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
+            <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
+                <h3>Nueva Asignación</h3>
+                <h4>Convocatoria <?php echo $_SESSION['selected_ayear'] . ' (' . $_SESSION['selected_term'] . ')' ?> </h4>
+            </div>
+
+            <!--Student, company, teacher-->
             <div class="form-group d-flex my-2 p-4">
                 <div class="form-group w-50 mx-2">
-                    <label for="ayear">Curso académico</label>
-                    <select class="form-control" id="academicYear">
-                        <?php 
-                        foreach ($data['ayear_list'] as $value) {
-                            if ($value == $data['current_ayear']) {
-                                echo "<option selected>$value</option>";
-                            } else {
-                                echo "<option>$value</option>";
-                            }
+                    <label for="student">Alumno</label>
+                    <select class="form-control">
+                        <?php
+                        foreach ($data['student_list'] as $value) {
+                            echo "<option>$value</option>";
                         }
                         ?>
                     </select>
                 </div>
 
                 <div class="form-group w-50 mx-2">
-                    <label for="term">Período</label>
-                    <select class="form-control" id="term">
-                        <?php 
-                        foreach ($data['term_list'] as $value) {
-                            if ($value == $data['current_term']) {
-                                echo "<option selected>$value</option>";
-                            } else {
-                                echo "<option>$value</option>";
-                            }
-                        }
-                        ?>
-                    </select>
+                    <label for="start_date">Fecha inicio</label>
+                    <input type="date" class="form-control" id="date">
+                </div>
+
+                <div class="form-group w-50 mx-2">
+                    <label for="end_date">Fecha fin</label>
+                    <input type="date" class="form-control" id="date">
                 </div>
             </div>
 
@@ -89,7 +82,7 @@
                 <div class="form-group w-50 mx-2">
                     <label for="company">Empresa</label>
                     <select class="form-control">
-                        <?php   
+                        <?php
                         foreach ($data['company_list'] as $value) {
                             echo "<option>$value</option>";
                         }
@@ -100,7 +93,7 @@
                 <div class="form-group w-50 mx-2">
                     <label for="teacher">Profesor</label>
                     <select class="form-control">
-                        <?php   
+                        <?php
                         foreach ($data['teacher_list'] as $value) {
                             echo "<option>$value</option>";
                         }
@@ -111,7 +104,7 @@
 
             <!--Avaliation textareas-->
             <div class="form-group d-flex my-2 p-4">
-            <div class="form-group w-50 mx-2">
+                <div class="form-group w-50 mx-2">
                     <label for="avaliation_student">Evaluación alumno</label>
                     <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
                 </div>
