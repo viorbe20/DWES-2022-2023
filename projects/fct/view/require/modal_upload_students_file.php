@@ -11,24 +11,25 @@
             </div>
 
             <div class="modal-body">
+                <!--Form for add students file and group info -->
+                <form enctype="multipart/form-data" method="post" id='form_upload_students_file' name='form_upload_students_file'>
 
-                <!--Button to upload csv file-->
-                <div class="d-flex justify-content-center my-2" class='bg-black'>
-                    <input type="file" id="file-input" name="file">
-                    <input id='save_file' name='save_file' type="submit" value="Cargar">
-                </div>
+                    <!--Button to upload csv file-->
+                    <div class="form-group d-flex my-2 p-4">
+                        <div class="d-flex justify-content-center my-2" class='bg-black'>
+                            <input type="file" id="file-input" name="file">
+                        </div>
+                    </div>
 
-
-                <!--Form for academic year and group -->
-                <form action="" method="post" id='form_add_call' name='for_add_call' class=''>
+                    <!--Select group, academic year and period-->
                     <div class="form-group d-flex my-2 p-4">
 
-                    <div class="form-group w-50 mx-2">
+                        <div class="form-group w-50 mx-2">
                             <label for="group">Grupo</label>
                             <select class="form-control" id="group_select" name="group_select">
                                 <?php
                                 foreach ($_SESSION['group_list'] as $value) {
-                                    echo "<option selected>$value</option>";
+                                    echo "<option value=" . $value['g_id'] . ">" . $value['g_name'] . "</option>";
                                 }
                                 ?>
                             </select>
@@ -39,7 +40,8 @@
                             <select class="form-control" id="ayear_select" name="ayear_select">
                                 <?php
                                 foreach ($_SESSION['ayear_list'] as $value) {
-                                    echo "<option selected>$value</option>";
+                                    //print ayear_id
+                                    echo "<option selected>" . $value . "</option>";
                                 }
                                 ?>
                             </select>
@@ -59,7 +61,8 @@
 
                     <div class="modal-footer">
                         <!--submit button-->
-                        <input id="btn_modal_confirm_students_file" name="btn_modal_confirm_students_file" type="submit" class="btn btn-primary"></button>
+                        <!-- <input id='btn_upload_students_file' name='save_file' type="submit" value="Cargar"> -->
+                        <input id="btn_modal_confirm_students_file" name="save_file" type="submit" class="btn btn-primary"></button>
                         <button id="btn_modal_cancel_students_file" name="btn_modal_cancel_call" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

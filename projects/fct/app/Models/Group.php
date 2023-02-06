@@ -29,7 +29,7 @@ class Group extends DBAbstractModel
 
     public function getAll()
     {
-        $this->query = "SELECT g_name from groups order by groups.g_name";
+        $this->query = "SELECT g_name, g_id from groups order by groups.g_name";
         $this->get_results_from_query();
         return $this->rows;
     }

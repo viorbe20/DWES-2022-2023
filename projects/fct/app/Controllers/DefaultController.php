@@ -11,6 +11,7 @@ use App\Models\Ayear;
 use App\Models\Term;
 use App\Models\Teacher;
 use App\Models\Group;
+use Exception;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -216,82 +217,106 @@ class DefaultController extends BaseController
     {
         $data = array();
 
-        //Get academic years list and keep them into a session
-        $ayear = Ayear::getInstancia();
-
-        foreach ($ayear->getAll() as $key => $value) {
-            $_SESSION['ayear_list'][] = $value['ayear_date'];
-        }
-
         //Get groups list and keep them into a session
         $group = Group::getInstancia();
 
-        foreach ($group->getAll() as $key => $value) {
-            $_SESSION['group_list'][] = $value['g_name'];
+        $_SESSION['group_list'] = array();
+        foreach ($group->getAll() as $value) {
+            $_SESSION['group_list'][] = $value;
+        }
+
+        //Get academic years list and keep them into a session
+        $ayear = Ayear::getInstancia();
+        $_SESSION['ayear_list'] = array();
+        foreach ($ayear->getAll() as $key => $value) {
+            $_SESSION['ayear_list'][] = $value;
         }
 
         //Get termslist and keep them into a session
         $term = Term::getInstancia();
 
+        $_SESSION['term_list'] = array();
         foreach ($term->getAll() as $key => $value) {
             $_SESSION['term_list'][] = $value['term_name'];
         }
 
         //Submit for students file upload
-        if (isset($_POST['btn_modal_confirm_students_file'])) {
+        if (isset($_POST['save_file'])) {
 
-            //Uploading csv file with students data
-            if (isset($_POST['save_file'])) {
+            //Check if there is a file
+            if ($_FILES['file']['name'] != '') {
 
-                //$filename = explode(".", $_FILES['file']['name']);
+                //Check if file is a csv file
+                if ($_FILES['file']['type'] != 'text/csv') {
+                    echo '<script type="text/javascript">
+                    alert("El formato del archivo debe ser csv");
+                    </script>';
 
-                //Open the file 
-                $file = fopen($_FILES['file']['tmp_name'], "r");
+                    $this->renderHTML('../view/students.php', $data);
+                } else {
 
-                // Create a new file to write the data to
-                $newFile = fopen('new.csv', 'w');
+                    //Error control for file opening
+                    try {
+                        //Open the file 
+                    $file = fopen($_FILES['file']['tmp_name'], "r");
+
+                    // Create a new file to write the data to
+                    $newFile = fopen('new.csv', 'w');
 
 
-                // Read the first line of the file (the headline) and discard it
-                fgetcsv($file);
+                    // Read the first line of the file (the headline) and discard it
+                    fgetcsv($file);
 
-                // Read the rest of the lines and write them to the new file
-                while (($line = fgetcsv($file)) !== FALSE) {
-                    fputcsv($newFile, $line);
-                }
-
-                // Close the original file
-                fclose($file);
-
-                //Import newfile data to database
-                $handle = fopen('new.csv', "r");
-
-                $row = 1;
-                if (($handle = fopen("new.csv", "r")) !== FALSE) {
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        $num = count($data);
-                        $row++;
-                        for ($c = 0; $c < $num; $c++) {
-                            $element = explode(";", $data[$c]);
-                            $student = Student::getInstancia();
-                            $student->setDni($element[0]);
-                            $student->setName($element[1]);
-                            $student->setSurname1($element[2]);
-                            $student->setSurname2($element[3]);
-                            $student->setEmail($element[4]);
-                            $student->setPhone($element[5]);
-                            $student->setGroup($element[6]);
-                            $student->setAyear($element[7]);
-                            $student->uploadFile();
-                        }
+                    // Read the rest of the lines and write them to the new file
+                    while (($line = fgetcsv($file)) !== FALSE) {
+                        fputcsv($newFile, $line);
                     }
-                    fclose($handle);
+
+                    // Close the original file
+                    fclose($file);
+
+                    //Import newfile data to database
+                    $handle = fopen('new.csv', "r");
+
+                    $row = 1;
+                    if (($handle = fopen("new.csv", "r")) !== FALSE) {
+                        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                            $num = count($data);
+                            $row++;
+                            for ($c = 0; $c < $num; $c++) {
+                                $element = explode(";", $data[$c]);
+                                $student = Student::getInstancia();
+                                $student->setDni($element[0]);
+                                $student->setName($element[1]);
+                                $student->setSurname1($element[2]);
+                                $student->setSurname2($element[3]);
+                                $student->setEmail($element[4]);
+                                $student->setPhone($element[5]);
+                                $student->setGroup($element[6]);
+                                $student->setAyear($element[7]);
+                                $student->uploadFile();
+                            }
+                        }
+                        fclose($handle);
+                    }
+
+                    // Check if the group, academic year and term selected already exist
+                    $group = Group::getInstancia();
+                    
+                    $this->renderHTML('../view/students.php', $data);
+                    } catch (Exception $e) {
+                        echo '<script type="text/javascript">
+                        alert("Se ha producido un error al abrir el archivo");
+                        </script>';
+                        $this->renderHTML('../view/students.php', $data);
+                    }
+
+                    
                 }
-                $this->renderHTML('../view/students.php', $data);
             } else { // User pushed submit button without saving file show a warning
                 echo '<script type="text/javascript">
-                    alert("Ningún archivo seleccionado");
-                    </script>';
+                alert("Ningún archivo seleccionado");
+                </script>';
                 $this->renderHTML('../view/students.php', $data);
             }
         } else { //By default, show students table
