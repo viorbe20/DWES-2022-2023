@@ -19,7 +19,7 @@
                             <select class="form-control" id="ayear_select" name="ayear_select">
                                 <?php
                                 foreach ($data['ayear_list'] as $value) {
-                                    if ($value == $data['current_ayear']) {
+                                    if ($value == $_SESSION['currentAcademicYear']) {
                                         echo "<option selected>$value</option>";
                                     } else {
                                         echo "<option>$value</option>";
@@ -34,7 +34,7 @@
                             <select class="form-control" id="term_select" name="term_select">
                                 <?php
                                 foreach ($data['term_list'] as $value) {
-                                    if ($value == $data['current_term']) {
+                                    if ($value == $_SESSION['currentTerm']) {
                                         echo "<option selected>$value</option>";
                                     } else {
                                         echo "<option>$value</option>";

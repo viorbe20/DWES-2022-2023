@@ -303,8 +303,6 @@ class DefaultController extends BaseController
                         fclose($handle);
                     }
 
-                    // Check if the group, academic year and term selected already exist
-                    $group = Group::getInstancia();
                     
                     $this->renderHTML('../view/students.php', $data);
                     } catch (Exception $e) {
@@ -313,8 +311,6 @@ class DefaultController extends BaseController
                         </script>';
                         $this->renderHTML('../view/students.php', $data);
                     }
-
-                    
                 }
             } else { // User pushed submit button without saving file show a warning
                 echo '<script type="text/javascript">
