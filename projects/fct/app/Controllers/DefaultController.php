@@ -16,6 +16,8 @@ use Exception;
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
 
+$_SESSION['currentAcademicYear'] = getCurrentAcademicYear();
+$_SESSION['currentTerm'] = getCurrentTerm();
 
 class DefaultController extends BaseController
 {
@@ -228,7 +230,7 @@ class DefaultController extends BaseController
         //Get academic years list and keep them into a session
         $ayear = Ayear::getInstancia();
         $_SESSION['ayear_list'] = array();
-        foreach ($ayear->getAll() as $key => $value) {
+        foreach ($ayear->getAll() as $value) {
             $_SESSION['ayear_list'][] = $value;
         }
 
@@ -236,8 +238,8 @@ class DefaultController extends BaseController
         $term = Term::getInstancia();
 
         $_SESSION['term_list'] = array();
-        foreach ($term->getAll() as $key => $value) {
-            $_SESSION['term_list'][] = $value['term_name'];
+        foreach ($term->getAll() as $value) {
+            $_SESSION['term_list'][] = $value;
         }
 
         //Submit for students file upload
@@ -292,8 +294,9 @@ class DefaultController extends BaseController
                                 $student->setSurname2($element[3]);
                                 $student->setEmail($element[4]);
                                 $student->setPhone($element[5]);
-                                $student->setGroup($element[6]);
-                                $student->setAyear($element[7]);
+                                $student->setGroup($_POST['group_select']);
+                                $student->setAyear($_POST['ayear_select']);
+                                $student->setTerm($_POST['term_select']);
                                 $student->uploadFile();
                             }
                         }

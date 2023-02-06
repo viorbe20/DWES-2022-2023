@@ -22,6 +22,8 @@
     ?>
     <div class="container d-flex-column justify-content-center mt-5">
 
+    
+
         <form method="post" enctype="multipart/form-data" id="form_search_student" class="d-flex flex-column align-items-center justify-content-center" role="search">
             
             <!--Search student bar and icon-->

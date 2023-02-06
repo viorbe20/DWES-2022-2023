@@ -40,8 +40,12 @@
                             <select class="form-control" id="ayear_select" name="ayear_select">
                                 <?php
                                 foreach ($_SESSION['ayear_list'] as $value) {
-                                    //print ayear_id
-                                    echo "<option selected>" . $value . "</option>";
+                                    if ($value['ayear_date'] == $_SESSION['currentAcademicYear']) {
+                                        $selected = "selected";
+                                    } else {
+                                        $selected = "";
+                                    }
+                                    echo "<option ". $selected ." value=" . $value['ayear_id'] . ">" . $value['ayear_date'] . "</option>";
                                 }
                                 ?>
                             </select>
@@ -52,7 +56,11 @@
                             <select class="form-control" id="term_select" name="term_select">
                                 <?php
                                 foreach ($_SESSION['term_list'] as $value) {
-                                    echo "<option selected>$value</option>";
+                                    if($value['term_name'] == $_SESSION['currentTerm'])
+                                        $selected = "selected";
+                                    else
+                                        $selected = "";
+                                    echo "<option  ". $selected ." value=" . $value['term_id'] . ">" . $value['term_name'] . "</option>";
                                 }
                                 ?>
                             </select>

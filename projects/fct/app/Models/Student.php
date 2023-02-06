@@ -34,6 +34,7 @@ class Student extends DBAbstractModel
     private $s_phone;
     private $s_group;
     private $s_ayear;
+    private $s_term;
     private $s_created_at;
     private $s_updated_at;
 
@@ -78,7 +79,7 @@ class Student extends DBAbstractModel
     //Creation methods
     public function uploadFile()
     {
-        $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_group, s_ayear, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, :s_group, :s_ayear, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_group, s_ayear, s_term, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, :s_group, :s_ayear, :s_term, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
         $this->parametros['s_dni'] = $this->s_dni;
         $this->parametros['s_name'] = $this->s_name;
         $this->parametros['s_surname1'] = $this->s_surname1;
@@ -87,6 +88,7 @@ class Student extends DBAbstractModel
         $this->parametros['s_phone'] = $this->s_phone;
         $this->parametros['s_group'] = $this->s_group;
         $this->parametros['s_ayear'] = $this->s_ayear;
+        $this->parametros['s_term'] = $this->s_term;
         $this->parametros['s_created_at'] = $this->s_created_at;
         $this->parametros['s_updated_at'] = $this->s_updated_at;
         $this->get_results_from_query();
@@ -191,6 +193,16 @@ class Student extends DBAbstractModel
         $this->s_ayear = $s_ayear;
     }
 
+    public function getTerm()
+    {
+        return $this->s_term;
+    }
+
+    public function setTerm($s_term)
+    {
+        $this->s_term = $s_term;
+    }
+
 
     public function getCreatedAt()
     {
@@ -211,4 +223,6 @@ class Student extends DBAbstractModel
     {
         $this->s_updated_at = $s_updated_at;
     }
+
+
 }
