@@ -10,6 +10,7 @@ use App\Models\Call;
 use App\Models\Ayear;
 use App\Models\Term;
 use App\Models\Teacher;
+use App\Models\Group;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -54,6 +55,12 @@ class DefaultController extends BaseController
             }
 
             //Get companies list
+            $company = Company::getInstancia();
+            foreach ($company->getAll() as $value) {
+                $data['company_list'][] = $value['c_name'];
+            }
+
+            //Get group list
             $company = Company::getInstancia();
             foreach ($company->getAll() as $value) {
                 $data['company_list'][] = $value['c_name'];
@@ -232,7 +239,7 @@ class DefaultController extends BaseController
             // Close the original file
             fclose($file);
 
-            //Import newfilñe data to database
+            //Import newfile data to database
             $handle = fopen('new.csv', "r");
 
             $row = 1;
