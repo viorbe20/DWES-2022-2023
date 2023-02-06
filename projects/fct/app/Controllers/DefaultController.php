@@ -237,55 +237,64 @@ class DefaultController extends BaseController
             $_SESSION['term_list'][] = $value['term_name'];
         }
 
-        //Uploading csv file with students data
-        if (isset($_POST['save_file'])) {
+        //Submit for students file upload
+        if (isset($_POST['btn_modal_confirm_students_file'])) {
 
-            //$filename = explode(".", $_FILES['file']['name']);
+            //Uploading csv file with students data
+            if (isset($_POST['save_file'])) {
 
-            //Open the file 
-            $file = fopen($_FILES['file']['tmp_name'], "r");
+                //$filename = explode(".", $_FILES['file']['name']);
 
-            // Create a new file to write the data to
-            $newFile = fopen('new.csv', 'w');
+                //Open the file 
+                $file = fopen($_FILES['file']['tmp_name'], "r");
+
+                // Create a new file to write the data to
+                $newFile = fopen('new.csv', 'w');
 
 
-            // Read the first line of the file (the headline) and discard it
-            fgetcsv($file);
+                // Read the first line of the file (the headline) and discard it
+                fgetcsv($file);
 
-            // Read the rest of the lines and write them to the new file
-            while (($line = fgetcsv($file)) !== FALSE) {
-                fputcsv($newFile, $line);
-            }
-
-            // Close the original file
-            fclose($file);
-
-            //Import newfile data to database
-            $handle = fopen('new.csv', "r");
-
-            $row = 1;
-            if (($handle = fopen("new.csv", "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $num = count($data);
-                    $row++;
-                    for ($c = 0; $c < $num; $c++) {
-                        $element = explode(";", $data[$c]);
-                        $student = Student::getInstancia();
-                        $student->setDni($element[0]);
-                        $student->setName($element[1]);
-                        $student->setSurname1($element[2]);
-                        $student->setSurname2($element[3]);
-                        $student->setEmail($element[4]);
-                        $student->setPhone($element[5]);
-                        $student->setGroup($element[6]);
-                        $student->setAyear($element[7]);
-                        $student->uploadFile();
-                    }
+                // Read the rest of the lines and write them to the new file
+                while (($line = fgetcsv($file)) !== FALSE) {
+                    fputcsv($newFile, $line);
                 }
-                fclose($handle);
+
+                // Close the original file
+                fclose($file);
+
+                //Import newfile data to database
+                $handle = fopen('new.csv', "r");
+
+                $row = 1;
+                if (($handle = fopen("new.csv", "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $num = count($data);
+                        $row++;
+                        for ($c = 0; $c < $num; $c++) {
+                            $element = explode(";", $data[$c]);
+                            $student = Student::getInstancia();
+                            $student->setDni($element[0]);
+                            $student->setName($element[1]);
+                            $student->setSurname1($element[2]);
+                            $student->setSurname2($element[3]);
+                            $student->setEmail($element[4]);
+                            $student->setPhone($element[5]);
+                            $student->setGroup($element[6]);
+                            $student->setAyear($element[7]);
+                            $student->uploadFile();
+                        }
+                    }
+                    fclose($handle);
+                }
+                $this->renderHTML('../view/students.php', $data);
+            } else { // User pushed submit button without saving file show a warning
+                echo '<script type="text/javascript">
+                    alert("Ningún archivo seleccionado");
+                    </script>';
+                $this->renderHTML('../view/students.php', $data);
             }
-            $this->renderHTML('../view/students.php', $data);
-        } else {
+        } else { //By default, show students table
             $this->renderHTML('../view/students.php', $data);
         }
     }

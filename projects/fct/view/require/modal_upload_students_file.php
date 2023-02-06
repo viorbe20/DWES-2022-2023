@@ -1,14 +1,11 @@
 <!-- Modal upload students file-->
-
-<!--How to display block on css with javascript on console on a browser-->
-
 <!--Requires on students.php but hidden by default on students.js-->
-<div class="modal" tabindex="-1" role="dialog" id="modal_upload_students_file" style="display: block;">
+<div class="modal" tabindex="-1" role="dialog" id="modal_upload_students_file">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Nuevo grupo</h5>
-                <button id="btn_modal_exit_call" type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
+                <button id="btn_modal_exit_upload_students_file" type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-ligth">X</span>
                 </button>
             </div>
@@ -62,8 +59,8 @@
 
                     <div class="modal-footer">
                         <!--submit button-->
-                        <input id="btn_modal_confirm_call" name="btn_modal_confirm_call" type="submit" class="btn btn-primary"></button>
-                        <button id="btn_modal_cancel_call" name="btn_modal_cancel_call" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <input id="btn_modal_confirm_students_file" name="btn_modal_confirm_students_file" type="submit" class="btn btn-primary"></button>
+                        <button id="btn_modal_cancel_students_file" name="btn_modal_cancel_call" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>

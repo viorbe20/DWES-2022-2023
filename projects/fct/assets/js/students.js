@@ -7,28 +7,27 @@ $(document).ready(function () {
     */
 
     $('#btn_upload_students_file').on('click', function () {
-        console.log('qqqqqqqqqqqq');
         console.log($('#modal_add_company'));
-        $('#modal_add_company').css('display', 'block');
+        $('#modal_upload_students_file').css('display', 'block');
 
     });
 
-    // Cancel modal add class
-    $('#btn_upload_students_file').on('click', function () {
+    // Cancel modal upload students file
+    $('#btn_modal_cancel_students_file').on('click', function () {
         $('#modal_upload_students_file').css('display', 'none');
     });
 
-    // Exit modal add class
-    $('#btn_modal_exit_call').on('click', function () {
+    // Exit modal upload students file
+    $('#btn_modal_exit_upload_students_file').on('click', function () {
         $('#modal_upload_students_file').css('display', 'none');
     });
 
-    //Confirm modal add class
-    $('#btn_modal_confirm_call').on('click', function () {
-        $('#modal_add_call').css('display', 'none');
+    //Confirm modal upload students file
+    $('#btn_modal_confirm_students_file').on('click', function () {
+        $('#modal_upload_students_file').css('display', 'none');
 
-        // Send form values to php
-        $('#form_upload_students_file').addEeventListener('submit'), function (e) {
+        // Send form values to php. If isset in php, then check the data and upload file
+        $('#btn_modal_confirm_students_file').addEeventListener('submit'), function (e) {
             e.preventDefault();
         }
     });
