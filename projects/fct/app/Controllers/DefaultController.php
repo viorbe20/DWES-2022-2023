@@ -216,6 +216,27 @@ class DefaultController extends BaseController
     {
         $data = array();
 
+        //Get academic years list and keep them into a session
+        $ayear = Ayear::getInstancia();
+
+        foreach ($ayear->getAll() as $key => $value) {
+            $_SESSION['ayear_list'][] = $value['ayear_date'];
+        }
+
+        //Get groups list and keep them into a session
+        $group = Group::getInstancia();
+
+        foreach ($group->getAll() as $key => $value) {
+            $_SESSION['group_list'][] = $value['g_name'];
+        }
+
+        //Get termslist and keep them into a session
+        $term = Term::getInstancia();
+
+        foreach ($term->getAll() as $key => $value) {
+            $_SESSION['term_list'][] = $value['term_name'];
+        }
+
         //Uploading csv file with students data
         if (isset($_POST['save_file'])) {
 
