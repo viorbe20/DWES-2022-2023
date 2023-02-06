@@ -1,16 +1,27 @@
-<!-- Modal Add Call -->
-<!--Requires on calls.php but hidden by default on calls.js-->
-<div class="modal" tabindex="-1" role="dialog" id="modal_add_call">
+<!-- Modal upload students file-->
+
+<!--How to display block on css with javascript on console on a browser-->
+
+<!--Requires on students.php but hidden by default on students.js-->
+<div class="modal" tabindex="-1" role="dialog" id="modal_upload_students_file" style="display: block;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nueva convocatoria</h5>
+                <h5 class="modal-title">Nuevo grupo</h5>
                 <button id="btn_modal_exit_call" type="text" class="btn btn-secondary text-lg border-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-ligth">X</span>
                 </button>
             </div>
 
             <div class="modal-body">
+
+                <!--Button to upload csv file-->
+                <div class="d-flex justify-content-center my-2" class='bg-black'>
+                    <input type="file" id="file-input" name="file" >
+                    <input id='save_file' name='save_file' type="submit" value="Cargar">
+                </div>
+                
+
                 <!--Form for call and term selection -->
                 <form action="" method="post" id='form_add_call' name='for_add_call' class=''>
                     <div class="form-group d-flex my-2 p-4">
@@ -44,7 +55,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <!--submit button-->
                         <input id="btn_modal_confirm_call" name="btn_modal_confirm_call" type="submit" class="btn btn-primary"></button>

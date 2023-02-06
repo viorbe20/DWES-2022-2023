@@ -18,16 +18,11 @@
 <body>
     <?php
     require_once '../view/require/header.php';
+    require_once('../view/require/modal_upload_students_file.php');
     ?>
     <div class="container d-flex-column justify-content-center mt-5">
         
     <form method="post" enctype="multipart/form-data" id="form_search_student" class="d-flex flex-column align-items-center justify-content-center" role="search">
-            <!--Button to upload csv file-->
-            <div class="d-flex justify-content-center w-50 my-2">
-                <input type="file" id="file-input" name="file">
-                <input id='save_file' name='save_file' type="submit" value="Cargar">
-            </div>
-
             <!--Search student bar and icon-->
             <div class='d-flex w-50 my-2'>
                 <input name="input_search_student" id="input_search_student" class="form-control" type="text" placeholder="Nombre del alumno">
@@ -38,7 +33,13 @@
                 </button>
             </div>
         </form>
-
+        
+        <!--Add students file-->
+        <section class='d-flex justify-content-lg-end my-2 mt-5'>
+            <button type="button" id='btn_upload_students_file' class="btn btn-primary mx-1" data-toggle="modal" data-target="#modal_upload_students_file">
+                Añadir alumnos
+            </button>
+        </section>
 
         <table id="table-companies" class="table text-center mt-5">
             <thead>

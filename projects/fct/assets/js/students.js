@@ -3,6 +3,38 @@ $(document).ready(function () {
     console.log('students.js loaded');
 
     /**
+    * Modal upload students file
+    */
+
+    $('#btn_upload_students_file').on('click', function () {
+        console.log('qqqqqqqqqqqq');
+        console.log($('#modal_add_company'));
+        $('#modal_add_company').css('display', 'block');
+
+    });
+
+    // Cancel modal add class
+    $('#btn_upload_students_file').on('click', function () {
+        $('#modal_upload_students_file').css('display', 'none');
+    });
+
+    // Exit modal add class
+    $('#btn_modal_exit_call').on('click', function () {
+        $('#modal_upload_students_file').css('display', 'none');
+    });
+
+    //Confirm modal add class
+    $('#btn_modal_confirm_call').on('click', function () {
+        $('#modal_add_call').css('display', 'none');
+
+        // Send form values to php
+        $('#form_upload_students_file').addEeventListener('submit'), function (e) {
+            e.preventDefault();
+        }
+    });
+
+
+    /**
      * Search student box
      */
     $("#input_search_student").on("keyup", function () {

@@ -36,7 +36,7 @@
                     <label for="group">Grupo</label>
                     <select class="form-control">
                         <?php
-                        foreach ($data['student_list'] as $value) {
+                        foreach ($data['group_list'] as $value) {
                             echo "<option>$value</option>";
                         }
                         ?>

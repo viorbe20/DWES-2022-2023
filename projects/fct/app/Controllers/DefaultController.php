@@ -61,9 +61,9 @@ class DefaultController extends BaseController
             }
 
             //Get group list
-            $company = Company::getInstancia();
-            foreach ($company->getAll() as $value) {
-                $data['company_list'][] = $value['c_name'];
+            $group = Group::getInstancia();
+            foreach ($group->getAll() as $value) {
+                $data['group_list'][] = $value['g_name'];
             }
             $this->renderHTML('../view/add_assignment.php', $data);
         }
