@@ -64,7 +64,7 @@
                             <div class="form-group w-75 mx-2">
                                 <label for="student">Alumno</label>
                                 <!--Student select is filled with ajax in assignment.js-->
-                                <select class="form-control" id='student_select'>
+                                <select class="form-control" id='student_select' name='student_select'>
                                 </select>
                             </div>
                         </div>
@@ -100,12 +100,12 @@
 
                             <div class="form-group w-50 mx-2">
                                 <label for="start_date">Fecha inicio</label>
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" name="start_date">
                             </div>
 
                             <div class="form-group w-50 mx-2">
                                 <label for="end_date">Fecha fin</label>
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" name="finish_date">
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@
                         </div>
                         <!--Submit button-->
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary" name='add_assignment'>Añadir</button>
+                            <button type="submit" class="btn btn-primary" name='btn_add_assignment'>Añadir</button>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ use App\Models\Ayear;
 use App\Models\Term;
 use App\Models\Teacher;
 use App\Models\Group;
+use App\Models\Assignment;
 use Exception;
 
 require_once '../app/Config/constantes.php';
@@ -29,44 +30,58 @@ class DefaultController extends BaseController
         } else {
             $data = array();
 
-            //Get academic years list
-            $ayear = Ayear::getInstancia();
-            $ayear->getAll();
-            foreach ($ayear->getAll() as $value) {
-                $data['ayear_list'][] = $value['ayear_date'];
-            }
+            if (isset($_POST['btn_add_assignment'])) {
 
-            //Get terms list
-            $term = Term::getInstancia();
-            $term->getAll();
-            foreach ($term->getAll() as $value) {
-                $data['term_list'][] = $value['term_name'];
-            }
+                //If all values are completed
+                if (isset($_POST['student_select']) and isset($_POST['selected_group_id']) and isset($_POST['start_date']) and isset($_POST['finish_date'])) {
+                    //Create assignment
+                    $assignment = Assignment::getInstancia();
 
-            //Get students list
-            $student = Student::getInstancia();
-            foreach ($student->getAll() as $value) {
-                $data['student_list'][] =  $value['s_surname1'] . " " . $value['s_surname2'] . ", " . $value['s_name'];
-            }
+                } else {
+                    print("<script>alert('Debes rellenar todos los campos.');</script>")
+                }
 
-            //Get teachers list
-            $teacher = Teacher::getInstancia();
-            foreach ($teacher->getAll() as $value) {
-                $data['teacher_list'][] =   $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
-            }
+            } else { //First time the page is loaded
 
-            //Get companies list
-            $company = Company::getInstancia();
-            foreach ($company->getAll() as $value) {
-                $data['company_list'][] = $value['c_name'];
-            }
+                //Get academic years list
+                $ayear = Ayear::getInstancia();
+                $ayear->getAll();
+                foreach ($ayear->getAll() as $value) {
+                    $data['ayear_list'][] = $value['ayear_date'];
+                }
 
-            //Get group list
-            $group = Group::getInstancia();
-            foreach ($group->getAll() as $value) {
-                $data['group_list'][] = $value;
+                //Get terms list
+                $term = Term::getInstancia();
+                $term->getAll();
+                foreach ($term->getAll() as $value) {
+                    $data['term_list'][] = $value['term_name'];
+                }
+
+                //Get students list
+                $student = Student::getInstancia();
+                foreach ($student->getAll() as $value) {
+                    $data['student_list'][] = $value['s_surname1'] . " " . $value['s_surname2'] . ", " . $value['s_name'];
+                }
+
+                //Get teachers list
+                $teacher = Teacher::getInstancia();
+                foreach ($teacher->getAll() as $value) {
+                    $data['teacher_list'][] = $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
+                }
+
+                //Get companies list
+                $company = Company::getInstancia();
+                foreach ($company->getAll() as $value) {
+                    $data['company_list'][] = $value['c_name'];
+                }
+
+                //Get group list
+                $group = Group::getInstancia();
+                foreach ($group->getAll() as $value) {
+                    $data['group_list'][] = $value;
+                }
+                $this->renderHTML('../view/add_assignment.php', $data);
             }
-            $this->renderHTML('../view/add_assignment.php', $data);
         }
     }
 
