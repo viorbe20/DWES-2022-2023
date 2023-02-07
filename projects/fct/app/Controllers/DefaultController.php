@@ -28,8 +28,6 @@ class DefaultController extends BaseController
             $this->renderHTML('../view/home.php', $data);
         } else {
             $data = array();
-            $data['current_ayear'] = getCurrentAcademicYear();
-            $data['current_term'] = getCurrentTerm();
 
             //Get academic years list
             $ayear = Ayear::getInstancia();
@@ -66,7 +64,7 @@ class DefaultController extends BaseController
             //Get group list
             $group = Group::getInstancia();
             foreach ($group->getAll() as $value) {
-                $data['group_list'][] = $value['g_name'];
+                $data['group_list'][] = $value;
             }
             $this->renderHTML('../view/add_assignment.php', $data);
         }
@@ -87,15 +85,13 @@ class DefaultController extends BaseController
         $rest = explode("/", $request);
         $callId = (int)end($rest);
         $call->setCallId($callId);
-        foreach ($call->getById() as $value) {
-            $data = array(
-                "ayear_date" => $value["ayear_date"],
-                "term_name" => $value["term_name"]
-            );
 
-            //Save selected call information for use in add assignment
-            $_SESSION['selected_ayear'] =  $value["ayear_date"];
-            $_SESSION['selected_term'] =  $value["term_name"];
+        //Save on session selected ayear and selected term
+        foreach ($call->getById() as $value) {
+            $_SESSION['selected_ayear_id'] =  $value["ayear_id"];
+            $_SESSION['selected_ayear_date'] =  $value["ayear_date"];
+            $_SESSION['selected_term_id'] =  $value["term_id"];
+            $_SESSION['selected_term_name'] =  $value["term_name"];
         }
 
         //Is there any assignment?
@@ -260,51 +256,51 @@ class DefaultController extends BaseController
                     //Error control for file opening
                     try {
                         //Open the file 
-                    $file = fopen($_FILES['file']['tmp_name'], "r");
+                        $file = fopen($_FILES['file']['tmp_name'], "r");
 
-                    // Create a new file to write the data to
-                    $newFile = fopen('new.csv', 'w');
+                        // Create a new file to write the data to
+                        $newFile = fopen('new.csv', 'w');
 
 
-                    // Read the first line of the file (the headline) and discard it
-                    fgetcsv($file);
+                        // Read the first line of the file (the headline) and discard it
+                        fgetcsv($file);
 
-                    // Read the rest of the lines and write them to the new file
-                    while (($line = fgetcsv($file)) !== FALSE) {
-                        fputcsv($newFile, $line);
-                    }
-
-                    // Close the original file
-                    fclose($file);
-
-                    //Import newfile data to database
-                    $handle = fopen('new.csv', "r");
-
-                    $row = 1;
-                    if (($handle = fopen("new.csv", "r")) !== FALSE) {
-                        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                            $num = count($data);
-                            $row++;
-                            for ($c = 0; $c < $num; $c++) {
-                                $element = explode(";", $data[$c]);
-                                $student = Student::getInstancia();
-                                $student->setDni($element[0]);
-                                $student->setName($element[1]);
-                                $student->setSurname1($element[2]);
-                                $student->setSurname2($element[3]);
-                                $student->setEmail($element[4]);
-                                $student->setPhone($element[5]);
-                                $student->setGroup($_POST['group_select']);
-                                $student->setAyear($_POST['ayear_select']);
-                                $student->setTerm($_POST['term_select']);
-                                $student->uploadFile();
-                            }
+                        // Read the rest of the lines and write them to the new file
+                        while (($line = fgetcsv($file)) !== FALSE) {
+                            fputcsv($newFile, $line);
                         }
-                        fclose($handle);
-                    }
 
-                    
-                    $this->renderHTML('../view/students.php', $data);
+                        // Close the original file
+                        fclose($file);
+
+                        //Import newfile data to database
+                        $handle = fopen('new.csv', "r");
+
+                        $row = 1;
+                        if (($handle = fopen("new.csv", "r")) !== FALSE) {
+                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                                $num = count($data);
+                                $row++;
+                                for ($c = 0; $c < $num; $c++) {
+                                    $element = explode(";", $data[$c]);
+                                    $student = Student::getInstancia();
+                                    $student->setDni($element[0]);
+                                    $student->setName($element[1]);
+                                    $student->setSurname1($element[2]);
+                                    $student->setSurname2($element[3]);
+                                    $student->setEmail($element[4]);
+                                    $student->setPhone($element[5]);
+                                    $student->setGroup($_POST['group_select']);
+                                    $student->setAyear($_POST['ayear_select']);
+                                    $student->setTerm($_POST['term_select']);
+                                    $student->uploadFile();
+                                }
+                            }
+                            fclose($handle);
+                        }
+
+
+                        $this->renderHTML('../view/students.php', $data);
                     } catch (Exception $e) {
                         echo '<script type="text/javascript">
                         alert("Se ha producido un error al abrir el archivo");

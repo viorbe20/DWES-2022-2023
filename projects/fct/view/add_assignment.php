@@ -21,99 +21,114 @@
     require_once '../view/require/header.php';
     ?>
     <!--Content-->
-    <div class="container d-flex-column justify-content-center mt-5">
 
-        <form method="post" name='add_assignment_form' id='add_assignment_form' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
-            <div id="form_search_company" class="d-flex flex-column align-items-center" role="search">
-                <h3>Nueva Asignación</h3>
-                <h4>Convocatoria <?php echo $_SESSION['selected_ayear'] . ' (' . $_SESSION['selected_term'] . ')' ?>
-                </h4>
+    <form method="post" name='add_assignment_form' id='add_assignment_form' class='p-3 m-2 shadow p-3 mb-5 bg-white rounded'>
+        <div class="mx-4 col-md d-flex flex-column align-items-center">
+
+            <div class="col-md-10 ">
+                <div class="card mb-4">
+                    <div class="card-header py-3 bg-secondary">
+                        <h4 class='d-flex justify-content-center text-white'>Nueva Asignación</h4>
+                    </div>
+                    <div class="card-body" id="card_company">
+
+                        <!--Ayear , term-->
+                        <div class="form-group d-flex my-2 p-4">
+                            <div class="form-group w-50 mx-2">
+                                <label for="ayear">Convocatoria</label>
+                                <input class='form-control' type='text' value=<?php echo $_SESSION['selected_ayear_date'] ?> readonly />
+                                <input type='hidden' value=<?php echo $_SESSION['selected_ayear_id'] ?> />
+                            </div>
+
+                            <div class="form-group w-50 mx-2">
+                                <label for="term">Período</label>
+                                <input class='form-control' type='text' value=<?php echo $_SESSION['selected_term_name'] ?> readonly />
+                                <input type='hidden' value=<?php echo $_SESSION['selected_term_id'] ?> />
+                            </div>
+                        </div>
+                        <!--Group, student-->
+                        <div class="form-group d-flex my-2 p-4">
+                            <div class="form-group w-50 mx-2">
+                                <label for="group">Grupo</label>
+                                <select class="form-control" id='group_select_assignment' name='group_select_assignment'>
+                                    <?php
+                                    // Empty option to avoid selecting a group by default
+                                    echo "<option value=''></option>";
+                                    foreach ($data['group_list'] as $key => $value) {
+                                        echo "<option value= " . $value['g_id'] . ">" . $value['g_name'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group w-75 mx-2">
+                                <label for="student">Alumno</label>
+                                <select class="form-control" id='student_select'>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--company, teacher-->
+                        <div class="form-group d-flex my-2 p-4">
+                            <div class="form-group w-50 mx-2">
+                                <label for="company">Empresa</label>
+                                <select class="form-control">
+                                    <?php
+                                    foreach ($data['company_list'] as $value) {
+                                        echo "<option>$value</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group w-50 mx-2">
+                                <label for="teacher">Profesor</label>
+                                <select class="form-control">
+                                    <?php
+                                    foreach ($data['teacher_list'] as $value) {
+                                        echo "<option>$value</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--start and end date-->
+                        <div class="form-group d-flex my-2 p-4">
+
+                            <div class="form-group w-50 mx-2">
+                                <label for="start_date">Fecha inicio</label>
+                                <input type="date" class="form-control" id="date">
+                            </div>
+
+                            <div class="form-group w-50 mx-2">
+                                <label for="end_date">Fecha fin</label>
+                                <input type="date" class="form-control" id="date">
+                            </div>
+                        </div>
+
+                        <!--Avaliation textareas-->
+                        <div class="form-group d-flex my-2 p-4">
+                            <div class="form-group w-50 mx-2">
+                                <label for="avaliation_student">Evaluación alumno</label>
+                                <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group w-50 mx-2">
+                                <label for="avaliation_teacher">Evaluación profesor</label>
+                                <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <!--Submit button-->
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary" name='add_assignment'>Añadir</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!--Group, student-->
-            <div class="form-group d-flex my-2 p-4">
-                <div class="form-group w-50 mx-2">
-                    <label for="group">Grupo</label>
-                    <select class="form-control">
-                        <?php
-                        foreach ($data['group_list'] as $value) {
-                            echo "<option>$value</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="form-group w-75 mx-2">
-                    <label for="student">Alumno</label>
-                    <select class="form-control">
-                        <?php
-                        foreach ($data['student_list'] as $value) {
-                            echo "<option>$value</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-
-            <!--company, teacher-->
-            <div class="form-group d-flex my-2 p-4">
-                <div class="form-group w-50 mx-2">
-                    <label for="company">Empresa</label>
-                    <select class="form-control">
-                        <?php
-                        foreach ($data['company_list'] as $value) {
-                            echo "<option>$value</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="teacher">Profesor</label>
-                    <select class="form-control">
-                        <?php
-                        foreach ($data['teacher_list'] as $value) {
-                            echo "<option>$value</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-
-
-            <!--start and end date-->
-            <div class="form-group d-flex my-2 p-4">
-
-                <div class="form-group w-50 mx-2">
-                    <label for="start_date">Fecha inicio</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="end_date">Fecha fin</label>
-                    <input type="date" class="form-control" id="date">
-                </div>
-            </div>
-
-            <!--Avaliation textareas-->
-            <div class="form-group d-flex my-2 p-4">
-                <div class="form-group w-50 mx-2">
-                    <label for="avaliation_student">Evaluación alumno</label>
-                    <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
-                </div>
-
-                <div class="form-group w-50 mx-2">
-                    <label for="avaliation_teacher">Evaluación profesor</label>
-                    <textarea class="form-control" id="avaliation_student" rows="3"></textarea>
-                </div>
-            </div>
-            <!--Submit button-->
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" name='add_assignment'>Añadir</button>
-            </div>
-        </form>
-
-    </div>
+        </div>
+    </form>
 </body>
 
 </html>

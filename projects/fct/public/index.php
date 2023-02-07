@@ -3,6 +3,7 @@ require_once('..\app\Config\constantes.php');
 require_once('..\vendor\autoload.php');
 use App\Core\Router;
 use App\Controllers\DefaultController;
+use App\Controllers\StudentController;
 
 session_start();
 
@@ -55,6 +56,13 @@ $router->add(array(
 ));
 
 //STUDENTS
+
+$router->add(array(
+    'name'=>'students table',
+    'path'=>'/^\/students_by_group\/\d{1,3}$/',
+    'action'=>[StudentController::class, 'getStudentsByGroupAction'],
+    'auth'=>["admin, user"]
+));
 
 $router->add(array(
     'name'=>'students table',

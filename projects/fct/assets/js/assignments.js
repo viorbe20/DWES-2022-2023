@@ -2,15 +2,32 @@ $(document).ready(function () {
 
     console.log('assignments.js loaded');
 
-    /**
-     * Search calls box
-     */
-    // $("#input_search_call").on("keyup", function () {
-    //     var value = $(this).val().toLowerCase();
-    //     $("#table_body_calls tr").filter(function () {
-    //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-    //     });
-    // });
+    //When user select a group, students from that group will be loaded
+    $("#group_select_assignment").change(function () {
+
+        
+        //Get the id of the selected group from the form
+        let selectedGroupId = $('#group_select_assignment option:selected').val();
+        console.log(selectedGroupId);
+        
+        //url: 'http://localhost/dwes/projects/fct/public/index.php/students_by_group/' + selectedGroupId,
+        //Fetch to get the students from the selected group
+        fetch(
+            "http://localhost/dwes/projects/fct/public/index.php/students_by_group/" + selectedGroupId
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                //Empty the select
+                $("#student_select_assignment").empty();
+                //Append the students to the select
+                data.forEach((element) => {
+                    $("#student_select_assignment").append(
+                        `<option value="${element["id"]}">${element["name"]} ${element["surname"]}</option>`
+                    );
+                });
+            }
+        );
+    });
 
     /**
      * Fetch to get all the calls

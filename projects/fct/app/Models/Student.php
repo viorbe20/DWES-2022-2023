@@ -40,6 +40,16 @@ class Student extends DBAbstractModel
 
     //Métodos de acceso
 
+    public function getStudentsByGroupId()
+    {
+        $this->query = "SELECT s_name, s_surname1, s_surname2 FROM students WHERE s_group=:s_group, s_ayear=:s_ayear, s_term=:s_term ORDER BY s_surname1";
+        $this->parametros['s_group'] = $this->s_group;
+        $this->parametros['s_ayear'] = $this->s_ayear;
+        $this->parametros['s_term'] = $this->s_term;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     /**
      * Get name, surname1 and surname2 from student ordered by surname1
      * @return void

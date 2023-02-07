@@ -35,7 +35,7 @@
         </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL; ?>/companies/add_company" class="btn btn-success mx-1">Nueva Empresa</a>
+            <a href="<?php echo DIRBASEURL; ?>/companies/add_company" class="btn btn-primary mx-1">Nueva Empresa</a>
         </section>
 
 
