@@ -37,20 +37,20 @@
                             <div class="form-group w-50 mx-2">
                                 <label for="ayear">Convocatoria</label>
                                 <input class='form-control' type='text' value=<?php echo $_SESSION['selected_ayear_date'] ?> readonly />
-                                <input type='hidden' value=<?php echo $_SESSION['selected_ayear_id'] ?> />
+                                <input type='hidden' id='selected_ayear_id' value=<?php echo $_SESSION['selected_ayear_id'] ?> />
                             </div>
 
                             <div class="form-group w-50 mx-2">
                                 <label for="term">Período</label>
-                                <input class='form-control' type='text' value=<?php echo $_SESSION['selected_term_name'] ?> readonly />
-                                <input type='hidden' value=<?php echo $_SESSION['selected_term_id'] ?> />
+                                <input class='form-control' type='text' selected_group_id value=<?php echo $_SESSION['selected_term_name'] ?> readonly />
+                                <input type='hidden' id='selected_term_id' value=<?php echo $_SESSION['selected_term_id'] ?> />
                             </div>
                         </div>
                         <!--Group, student-->
                         <div class="form-group d-flex my-2 p-4">
                             <div class="form-group w-50 mx-2">
                                 <label for="group">Grupo</label>
-                                <select class="form-control" id='group_select_assignment' name='group_select_assignment'>
+                                <select class="form-control" id='selected_group_id' name='selected_group_id'>
                                     <?php
                                     // Empty option to avoid selecting a group by default
                                     echo "<option value=''></option>";

@@ -6,14 +6,17 @@ $(document).ready(function () {
     $("#group_select_assignment").change(function () {
 
         
-        //Get the id of the selected group from the form
-        let selectedGroupId = $('#group_select_assignment option:selected').val();
-        console.log(selectedGroupId);
+        //Get the id of the selected group, ayear and term from the form
+        let selectedGroupId = $('#selected_group_id option:selected').val();
+        let selectedAyearId = $('#selected_ayear_id').val();
+        let selectedTermId = $('#selected_term_id').val();
+        // console.log(selectedGroupId);
+        // console.log(selectedAyearId);
+        // console.log(selectedTermId);
         
-        //url: 'http://localhost/dwes/projects/fct/public/index.php/students_by_group/' + selectedGroupId,
         //Fetch to get the students from the selected group
         fetch(
-            "http://localhost/dwes/projects/fct/public/index.php/students_by_group/" + selectedGroupId
+            "http://localhost/dwes/projects/fct/public/index.php/students_by_group/" + selectedAyearId + "_" + selectedTermId + "_" + selectedGroupId
         )
             .then((response) => response.json())
             .then((data) => {

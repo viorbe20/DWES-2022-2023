@@ -26,24 +26,17 @@ class StudentController extends BaseController
             $this->renderHTML('../view/home.php', $data);
         } else {
         $rest = explode("/", $request);
-        $groupId = (int)end($rest);
+        $studentData = end($rest);
+        $dividedData = explode("_", $studentData);
         
         $student = new Student();
-        $ayear = new Ayear();
-        $term = new Term();
-
-        $ayear->setAyearDate($_SESSION['currentAcademicYear']); //No es la actual- Es la seleccionada
-        $ayearId = $ayear->getIdByDate();
-
-        $term->setTermName($_SESSION['currentTerm']);//No es la actual- Es la seleccionada
-        $termId = $term->getIdByName();
-
-        $student->setGroup($groupId);
-        $student->setAyear($ayearId);
-        $student->setTerm($termId);
+        $student->setAyear((int)$dividedData[0]);
+        $student->setTerm((int)$dividedData[1]);
+        $student->setGroup((int)$dividedData[2]);
 
         //Send data to assignments.js
-        echo json_encode($student->getStudentsByGroupId());
+        echo json_encode($student->getStudentsByGroupData());
+        
         }
     }
 }

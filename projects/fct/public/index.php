@@ -59,7 +59,7 @@ $router->add(array(
 
 $router->add(array(
     'name'=>'students table',
-    'path'=>'/^\/students_by_group\/\d{1,3}$/',
+    'path'=>'/^\/students_by_group\/\d{1,3}_\d{1,3}_\d{1,3}$/',
     'action'=>[StudentController::class, 'getStudentsByGroupAction'],
     'auth'=>["admin, user"]
 ));
