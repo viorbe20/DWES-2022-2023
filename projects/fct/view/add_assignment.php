@@ -35,7 +35,7 @@
                         <!--Ayear , term-->
                         <div class="form-group d-flex my-2 p-4">
                             <div class="form-group w-50 mx-2">
-                                <label for="ayear">Convocatoria</label>
+                                <label for="call">Convocatoria</label>
                                 <input class='form-control' type='text' value=<?php echo $_SESSION['selected_ayear_date'] ?> readonly />
                                 <input type='hidden' id='selected_ayear_id' value=<?php echo $_SESSION['selected_ayear_id'] ?> />
                             </div>
@@ -73,21 +73,22 @@
                         <div class="form-group d-flex my-2 p-4">
                             <div class="form-group w-50 mx-2">
                                 <label for="company">Empresa</label>
-                                <select class="form-control">
+                                <select class="form-control" name='company_select'>
                                     <?php
-                                    foreach ($data['company_list'] as $value) {
-                                        echo "<option>$value</option>";
-                                    }
+                                        foreach ($data['company_list'] as $value) {
+                                            echo "<option value= " . $value['c_id'] . ">" . $value['c_name'] . "</option>";
+                                        }
+                                
                                     ?>
                                 </select>
                             </div>
 
                             <div class="form-group w-50 mx-2">
                                 <label for="teacher">Profesor</label>
-                                <select class="form-control">
+                                <select class="form-control" name='teacher_select'>
                                     <?php
                                     foreach ($data['teacher_list'] as $value) {
-                                        echo "<option>$value</option>";
+                                        echo "<option value= " . $value['t_id'] . ">" . $value['t_name'] . " " . $value['t_surname1'] . " ". $value['t_surname2'] ."</option>";
                                     }
                                     ?>
                                 </select>
@@ -105,7 +106,7 @@
 
                             <div class="form-group w-50 mx-2">
                                 <label for="end_date">Fecha fin</label>
-                                <input type="date" class="form-control" name="finish_date">
+                                <input type="date" class="form-control" name="end_date">
                             </div>
                         </div>
 

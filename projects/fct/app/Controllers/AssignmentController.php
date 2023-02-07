@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\Student;
+use App\Models\Group;
+use App\Models\Ayear;
+use App\Models\Term;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -10,10 +13,10 @@ require_once '../../fct/utils/my_utils.php';
 $_SESSION['currentAcademicYear'] = getCurrentAcademicYear();
 $_SESSION['currentTerm'] = getCurrentTerm();
 
-class StudentController extends BaseController
+class AssigmentController extends BaseController
 {
     /**
-     * Get a list of students by group id
+     * Insert a new assigment
      * @return void
      */
     public function getStudentsByGroupAction($request)

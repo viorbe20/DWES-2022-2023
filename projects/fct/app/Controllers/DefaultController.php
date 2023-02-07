@@ -33,12 +33,21 @@ class DefaultController extends BaseController
             if (isset($_POST['btn_add_assignment'])) {
 
                 //If all values are completed
-                if (isset($_POST['student_select']) and isset($_POST['selected_group_id']) and isset($_POST['start_date']) and isset($_POST['finish_date'])) {
+                if (isset($_POST['student_select']) && (isset($_POST['start_date'])) && (isset($_POST['end_date']))) {
                     //Create assignment
                     $assignment = Assignment::getInstancia();
+                    $assignment->setIdCall($_SESSION['call_id']);
+                    $assignment->setIdCompany($_POST['company_select']);
+                    $assignment->setIdStudent($_POST['student_select']);
+                    $assignment->setIdTeacher($_POST['teacher_select']);
+                    $assignment->setDateStart($_POST['start_date']);
+                    $assignment->setDateEnd($_POST['end_date']);
+                    $assignment->setAssignment();
 
+                    $this->renderHTML('../view/add_assignment.php', $data);
                 } else {
-                    print("<script>alert('Debes rellenar todos los campos.');</script>")
+                    print("<script>alert('Debes rellenar todos los campos.');</script>");
+                    $this->renderHTML('../view/add_assignment.php', $data);
                 }
 
             } else { //First time the page is loaded
@@ -66,13 +75,13 @@ class DefaultController extends BaseController
                 //Get teachers list
                 $teacher = Teacher::getInstancia();
                 foreach ($teacher->getAll() as $value) {
-                    $data['teacher_list'][] = $value['t_name'] . " " . $value['t_surname1'] . " " . $value['t_surname2'];
+                    $data['teacher_list'][] = $value;
                 }
 
                 //Get companies list
                 $company = Company::getInstancia();
                 foreach ($company->getAll() as $value) {
-                    $data['company_list'][] = $value['c_name'];
+                    $data['company_list'][] = $value;
                 }
 
                 //Get group list
@@ -98,8 +107,9 @@ class DefaultController extends BaseController
 
         //Show header with call information
         $rest = explode("/", $request);
-        $callId = (int)end($rest);
-        $call->setCallId($callId);
+        $_SESSION['call_id'] = (int)end($rest);
+
+        $call->setCallId($_SESSION['call_id']);
 
         //Save on session selected ayear and selected term
         foreach ($call->getById() as $value) {

@@ -35,6 +35,46 @@ class Assignment extends DBAbstractModel
     private $asg_date_end;
     private $asg_created_at;
     private $asg_updated_at;
+
+    //CRUD
+
+    /**
+     * Check if the assignment has been created
+     */
+    public function createdAssignment()
+    {
+        $this->query = "SELECT * FROM assignments WHERE asg_id_call=:asg_id_call AND asg_id_company=:asg_id_company AND asg_id_student=:asg_id_student AND asg_id_teacher=:asg_id_teacher";
+        $this->parametros['asg_id_call'] = $this->asg_id_call;
+        $this->parametros['asg_id_company'] = $this->asg_id_company;
+        $this->parametros['asg_id_student'] = $this->asg_id_student;
+        $this->parametros['asg_id_teacher'] = $this->asg_id_teacher;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getAllById()
+    {
+        $this->query = "SELECT * from assignments where asg_id = :asg_id";
+        $this->parametros['asg_id'] = $this->asg_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function setAssignment()
+    {
+        $this->query = "INSERT INTO assignments (asg_id_call, asg_id_company, asg_id_student, asg_id_teacher, asg_date_start, asg_date_end, asg_created_at, asg_updated_at) VALUES (:asg_id_call, :asg_id_company, :asg_id_student, :asg_id_teacher, :asg_date_start, :asg_date_end,  CURRENT_TIMESTAMP,  CURRENT_TIMESTAMP)";
+        $this->parametros['asg_id_call'] = $this->asg_id_call;
+        $this->parametros['asg_id_company'] = $this->asg_id_company;
+        $this->parametros['asg_id_student'] = $this->asg_id_student;
+        $this->parametros['asg_id_teacher'] = $this->asg_id_teacher;
+        $this->parametros['asg_date_start'] = $this->asg_date_start;
+        $this->parametros['asg_date_end'] = $this->asg_date_end;
+        $this->parametros['asg_created_at'] = $this->asg_created_at;
+        $this->parametros['asg_updated_at'] = $this->asg_updated_at;
+        $this->get_results_from_query();
+        return $this->rows;        
+    }
+
     //Setters and getters
     public function getId()
     {
@@ -146,7 +186,7 @@ class Assignment extends DBAbstractModel
         $this->asg_updated_at = $asg_updated_at;
     }
 
-    
+
 
 
 }
