@@ -53,7 +53,7 @@
                                 <select class="form-control" id='selected_group_id' name='selected_group_id'>
                                     <?php
                                     // Empty option to avoid selecting a group by default
-                                    echo "<option value=''></option>";
+                                    echo "<option value=''>Selecciona un grupo</option>";
                                     foreach ($data['group_list'] as $key => $value) {
                                         echo "<option value= " . $value['g_id'] . ">" . $value['g_name'] . "</option>";
                                     }
