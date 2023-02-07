@@ -29,7 +29,7 @@
         </div>
 
         <section class='d-flex justify-content-lg-end my-2 mt-5'>
-            <a href="<?php echo DIRBASEURL; ?>/calls/add_assignment" class="btn btn-success mx-1">Nueva Asignación</a>
+            <a href="<?php echo DIRBASEURL; ?>/calls/add_assignment" class="btn btn-primary mx-1">Nueva Asignación</a>
         </section>
 
 
