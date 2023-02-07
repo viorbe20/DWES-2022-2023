@@ -25,18 +25,21 @@ class StudentController extends BaseController
             $data = array();
             $this->renderHTML('../view/home.php', $data);
         } else {
-        $rest = explode("/", $request);
-        $studentData = end($rest);
-        $dividedData = explode("_", $studentData);
-        
-        $student = new Student();
-        $student->setAyear((int)$dividedData[0]);
-        $student->setTerm((int)$dividedData[1]);
-        $student->setGroup((int)$dividedData[2]);
+            $rest = explode("/", $request);
+            $studentData = end($rest);
+            $dividedData = explode("_", $studentData);
 
-        //Send data to assignments.js
-        echo json_encode($student->getStudentsByGroupData());
-        
+            $student = new Student();
+            $student->setAyear((int)$dividedData[0]);
+            $student->setTerm((int)$dividedData[1]);
+            $student->setGroup((int)$dividedData[2]);
+
+            //If get somenthing, send data to assignments.js
+            if ($student->getStudentsByGroupData()) {
+                echo json_encode($student->getStudentsByGroupData());
+            } else {
+                echo json_encode(array('error' => 'No hay datos'));
+            }
         }
     }
 }

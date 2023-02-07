@@ -63,6 +63,7 @@
 
                             <div class="form-group w-75 mx-2">
                                 <label for="student">Alumno</label>
+                                <!--Student select is filled with ajax in assignment.js-->
                                 <select class="form-control" id='student_select'>
                                 </select>
                             </div>
