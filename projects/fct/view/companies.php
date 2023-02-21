@@ -25,12 +25,7 @@
         <div id="form_search_company" class="d-flex justify-content-center" role="search">
             <!--Search company bar and icon-->
             <div class='d-flex w-50 mx-5'>
-                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Nombre de la empresa">
-                <button type="button" class="btn btn-outline-dark">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
+                <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Buscar empresa">
             </div>
         </div>
 

@@ -28,12 +28,7 @@
             
             <!--Search student bar and icon-->
             <div class='d-flex w-50 my-2'>
-                <input name="input_search_student" id="input_search_student" class="form-control" type="text" placeholder="Nombre del alumno">
-                <button type="button" class="btn btn-outline-dark">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
+                <input name="input_search_student" id="input_search_student" class="form-control" type="text" placeholder="Buscar alumno">
             </div>
         </form>
 

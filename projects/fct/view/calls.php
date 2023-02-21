@@ -28,12 +28,7 @@
         <!--Search company bar and icon-->
         <div id="form_search_call" class="d-flex justify-content-center" role="search">
             <div class='d-flex w-50 mx-5'>
-                <input name="input_search_call" id="input_search_call" class="form-control" type="text" placeholder="Convocatoria">
-                <button type="button" class="btn btn-outline-dark">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
+                <input name="input_search_call" id="input_search_call" class="form-control" type="text" placeholder="Buscar convocatoria">
             </div>
         </div>
 
