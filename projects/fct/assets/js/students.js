@@ -2,6 +2,14 @@ $(document).ready(function () {
 
     console.log('students.js loaded');
 
+    function encode_utf8(s) {
+        return unescape(encodeURIComponent(s));
+    }
+
+    function decode_utf8(s) {
+        return decodeURIComponent(escape(s));
+    }
+
     /**
     * Modal upload students file
     */
