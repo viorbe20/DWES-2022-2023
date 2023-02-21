@@ -384,21 +384,6 @@ class DefaultController extends BaseController
         $this->renderHTML('../view/companies.php', $data);
     }
 
-    /**
-     * Return the list of the last 5 companies
-     */
-    public function getCompaniesTableAction()
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') {
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $company = Company::getInstancia();
-            echo json_encode($company->getSome());
-        }
-    }
 
     public function indexAction()
     {

@@ -4,6 +4,7 @@ require_once('..\vendor\autoload.php');
 use App\Core\Router;
 use App\Controllers\DefaultController;
 use App\Controllers\StudentController;
+use App\Controllers\CompanyController;
 
 session_start();
 
@@ -111,7 +112,7 @@ $router->add(array(
 $router->add(array(
     'name'=>'companies table',
     'path'=>'/^\/companies_table$/',
-    'action'=>[DefaultController::class, 'getCompaniesTableAction'],
+    'action'=>[CompanyController::class, 'getCompaniesTableAction'],
     'auth'=>["admin, user"]
 ));
 
