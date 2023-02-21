@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Virginia Ordoño Bernier">
     <link rel='stylesheet' href="http://localhost/dwes/projects/fct/assets/css/bootstrap/bootstrap.min.css">
@@ -44,7 +44,7 @@
             </button>
         </section>
 
-        <table id="table-companies" class="table text-center mt-5">
+        <table id="table-students" class="table text-center mt-5">
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>

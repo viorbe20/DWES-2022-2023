@@ -2,13 +2,9 @@ $(document).ready(function () {
 
     console.log('students.js loaded');
 
-    function encode_utf8(s) {
-        return unescape(encodeURIComponent(s));
-    }
-
-    function decode_utf8(s) {
-        return decodeURIComponent(escape(s));
-    }
+    let tableBody = $('#table_body_students');
+    let inputSearch = $('#input_search_student');
+    let shownStudents = 5;
 
     /**
     * Modal upload students file
@@ -42,33 +38,56 @@ $(document).ready(function () {
 
 
     /**
-     * Search student box
-     */
-    $("#input_search_student").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#table_body_students tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
-    });
-
-    /**
-     * Fetch to get all the students
+     * Get students from database
+     * If inputsearch is empty show the first 5 students
+     * If inputsearch has value, show the students that match with the input value
      */
     fetch(
         "http://localhost/dwes/projects/fct/public/index.php/students_table"
     )
         .then((response) => response.json())
         .then((data) => {
-            if ($("#input_search_student").length == 1) {
-                data.forEach((element) => {
-                    $("#table_body_students").append(
-                        `<tr>
-                    <td>${element["s_name"]}</td>
-                    <td>${element["s_surname1"]}</td>
-                    <td>${element["s_surname2"]}</td>
+            //Show some students for default
+            for (let i = 0; i < shownStudents; i++) {
+                $("#table_body_students").append(
+                    `<tr>
+                    <td>${data[i]["s_name"]}</td>
+                    <td>${data[i]["s_surname1"]}</td>
+                    <td>${data[i]["s_surname2"]}</td>
                 </tr>`
-                    );
-                });
+                );
             }
-        });
+            //If inputsearch is empty show the first 5 students
+            inputSearch.on('keyup', function () {
+                if ((inputSearch.val() == '') || (inputSearch.val().indexOf(' ') > -1)) {
+                    tableBody.empty();
+                    for (let i = 0; i < shownStudents; i++) {
+                        $("#table_body_students").append(
+                            `<tr>
+                            <td>${data[i]["s_name"]}</td>
+                            <td>${data[i]["s_surname1"]}</td>
+                            <td>${data[i]["s_surname2"]}</td>
+                        </tr>`
+                        );
+                    }
+                } else { //If inputsearch has value, show the students that match with the input value
+                    tableBody.empty();
+                    let query = inputSearch.val().toLowerCase();
+                    let filteredStudents = data.filter(function (student) {
+                        return student.s_name.toLowerCase().indexOf(query) > -1 || student.s_surname1.toLowerCase().indexOf(query) > -1 || student.s_surname2.toLowerCase().indexOf(query) > -1;
+                    });
+                    filteredStudents.forEach(function (student) {
+                        tableBody.append(
+                            `<tr>
+                            <td>${student["s_name"]}</td>
+                            <td>${student["s_surname1"]}</td>
+                            <td>${student["s_surname2"]}</td>
+                        </tr>`
+                        );
+                    });
+                }
+            });
+
+        }
+        )
 });

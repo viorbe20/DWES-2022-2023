@@ -219,23 +219,6 @@ class DefaultController extends BaseController
         }
     }
 
-    /**
-     * Get students from database and show them in a table
-     * @return void
-     */
-    public function getStudentsTableAction()
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') {
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $student = Student::getInstancia();
-            echo json_encode($student->getSome());
-        }
-    }
-
     public function studentsAction()
     {
         $data = array();

@@ -12,6 +12,24 @@ $_SESSION['currentTerm'] = getCurrentTerm();
 
 class StudentController extends BaseController
 {
+
+    /**
+     * Get all students from database and show them in a table
+     * @return void
+     */
+    public function getStudentsTableAction()
+    {
+
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $student = Student::getInstancia();
+            echo json_encode($student->get());
+        }
+    }
+
     /**
      * Get a list of students by group id
      * @return void
