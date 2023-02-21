@@ -75,7 +75,7 @@ $router->add(array(
 $router->add(array(
     'name'=>'students',
     'path'=>'/^\/students$/',
-    'action'=>[DefaultController::class, 'studentsAction'],
+    'action'=>[StudentController::class, 'addStudentsAction'],
     'auth'=>["admin, user"]
 ));
 

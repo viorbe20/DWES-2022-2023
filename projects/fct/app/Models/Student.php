@@ -32,9 +32,6 @@ class Student extends DBAbstractModel
     private $s_surname2;
     private $s_email;
     private $s_phone;
-    private $s_group;
-    private $s_ayear;
-    private $s_term;
     private $s_created_at;
     private $s_updated_at;
 
@@ -43,29 +40,29 @@ class Student extends DBAbstractModel
      * Get a list of students by group id, academic year and term
      * @return mixed
      */
-    public function getStudentsByGroupData()
-    {
-        $this->query = "SELECT * FROM students WHERE s_group=:s_group AND s_ayear=:s_ayear AND s_term=:s_term ORDER BY s_surname1";
-        $this->parametros['s_group'] = $this->s_group;
-        $this->parametros['s_ayear'] = $this->s_ayear;
-        $this->parametros['s_term'] = $this->s_term;
-        $this->get_results_from_query();
-        return $this->rows;
-    }
+    // public function getStudentsByGroupData()
+    // {
+    //     $this->query = "SELECT * FROM students WHERE s_group=:s_group AND s_ayear=:s_ayear AND s_term=:s_term ORDER BY s_surname1";
+    //     $this->parametros['s_group'] = $this->s_group;
+    //     $this->parametros['s_ayear'] = $this->s_ayear;
+    //     $this->parametros['s_term'] = $this->s_term;
+    //     $this->get_results_from_query();
+    //     return $this->rows;
+    // }
 
-    /**
-     * Get name, surname1 and surname2 from student ordered by surname1
-     * @return void
-     */
-    public function getAll()
-    {
-        $this->query = "SELECT s_id, s_name, s_surname1, s_surname2 FROM students ORDER BY s_surname1";
-        $this->get_results_from_query();
-        return $this->rows;
-    }
+    // /**
+    //  * Get name, surname1 and surname2 from student ordered by surname1
+    //  * @return void
+    //  */
+    // public function getAll()
+    // {
+    //     $this->query = "SELECT s_id, s_name, s_surname1, s_surname2 FROM students ORDER BY s_surname1";
+    //     $this->get_results_from_query();
+    //     return $this->rows;
+    // }
     public function get()
     {
-        $this->query = "SELECT * FROM students";
+        $this->query = "SELECT * FROM students ORDER BY s_surname1";
         $this->get_results_from_query();
         return $this->rows;
     }
@@ -89,33 +86,45 @@ class Student extends DBAbstractModel
         return $last;
     }
 
+    //Get last inserted student
+    // public function getLastInsert()
+    // {
+    //     $this->query = "SELECT * FROM students ORDER BY s_id DESC LIMIT 1";
+    //     $this->get_results_from_query();
+    //     return $this->rows;
+    // }
+
     //Creation methods
     public function uploadFile()
     {
-        $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_group, s_ayear, s_term, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, :s_group, :s_ayear, :s_term, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+
+        $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
         $this->parametros['s_dni'] = $this->s_dni;
         $this->parametros['s_name'] = $this->s_name;
         $this->parametros['s_surname1'] = $this->s_surname1;
         $this->parametros['s_surname2'] = $this->s_surname2;
         $this->parametros['s_email'] = $this->s_email;
         $this->parametros['s_phone'] = $this->s_phone;
-        $this->parametros['s_group'] = $this->s_group;
-        $this->parametros['s_ayear'] = $this->s_ayear;
-        $this->parametros['s_term'] = $this->s_term;
         $this->parametros['s_created_at'] = $this->s_created_at;
         $this->parametros['s_updated_at'] = $this->s_updated_at;
         $this->get_results_from_query();
 
-        //If error in query
-        if ($this->rows != 1) {
+        //Capturar Error en consulta: SQLSTATE[23000]: y mndarlo al controlador
+        if ($this->rows == 0) {
             $this->mensaje = "Error al insertar";
-        } else {
-            $this->get_results_from_query();
-            $this->mensaje = "insertado correctamente";
         }
+        else {
+            $this->mensaje = "Insertado correctamente";
+        }
+
+        $this->mensaje = "Insertado correctamente";
+        return $this->mensaje;
+
+
     }
 
     //Getters & setters
+
     public function getId()
     {
         return $this->s_id;
@@ -185,37 +194,6 @@ class Student extends DBAbstractModel
     {
         $this->s_phone = $s_phone;
     }
-
-    public function getGroup()
-    {
-        return $this->s_group;
-    }
-
-    public function setGroup($s_group)
-    {
-        $this->s_group = $s_group;
-    }
-
-    public function getAyear()
-    {
-        return $this->s_ayear;
-    }
-
-    public function setAyear($s_ayear)
-    {
-        $this->s_ayear = $s_ayear;
-    }
-
-    public function getTerm()
-    {
-        return $this->s_term;
-    }
-
-    public function setTerm($s_term)
-    {
-        $this->s_term = $s_term;
-    }
-
 
     public function getCreatedAt()
     {
