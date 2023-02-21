@@ -104,7 +104,7 @@ class Student extends DBAbstractModel
     // }
 
     //Creation methods
-    public function uploadFile()
+    public function set()
     {
 
         $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";

@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\Student;
 use App\Models\Group;
 use App\Models\Ayear;
 use App\Models\Term;
+use App\Models\Enrollment;
 use Exception;
 
 require_once '../app/Config/constantes.php';
@@ -63,39 +63,19 @@ class StudentController extends BaseController
                         //Open the file 
                         $file = fopen($_FILES['file']['tmp_name'], "r");
 
+                        //Ignore first line (headers)
+                        fgets($file);
 
-                        // Create a new file to write the data to
-                        $newFile = fopen('new.csv', 'w');
-
-
-                        // Read the first line of the file (the headline) and discard it
-                        fgetcsv($file);
-
-                        // Read the rest of the lines including accents in spanish. 
-                        //Upload the data to the database
-                        while ($data = fgetcsv($file, 1000, ";")) {
-                            $data = array_map("utf8_encode", $data); //added
-                            $num = count($data);
-                            for ($c = 0; $c < $num; $c++) {
-                                $element = explode(";", $data[$c]);
-                                $student = Student::getInstancia();
-                                $student->setDni($element[0]);
-
-                                //Check if student exists in database
-                                if ($student->getByDni() != null) {
-                                    echo '<script type="text/javascript">
-                                    alert("El alumno con dni ' . $element[0] . ' ya existe en la base de datos");
-                                    </script>';
-                                } else {
-                                    $student->setName($element[1]);
-                                    $student->setSurname1($element[2]);
-                                    $student->setSurname2($element[3]);
-                                    $student->setEmail($element[4]);
-                                    $student->setPhone($element[5]);
-                                    $student->uploadFile();
-                                }
+                            while (($line = fgets($file)) !== false) {
+                                $line = iconv('ISO-8859-1', 'UTF-8', $line); //Codifica en UTF-8
+                                $elements = explode(';', $line);
+                                // Acceder a cada elemento por su índice en el array
+                                echo "Nombre: " . $elements[0] . "<br>";
+                                echo "Apellido: " . $elements[1] . "<br>";
+                                echo "Edad: " . $elements[2] . "<br>";
+                                //echo $line . "<br>"; // Imprime cada línea del archivo y añade un salto de línea HTML
                             }
-                        }
+
                     } catch (Exception $e) {
                         echo '<script type="text/javascript">
                         alert("Se ha producido un error al abrir el archivo");

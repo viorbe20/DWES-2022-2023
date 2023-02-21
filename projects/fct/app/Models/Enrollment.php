@@ -53,6 +53,13 @@ class Enrollment extends DBAbstractModel
         $this -> get_results_from_query();
     }
 
+    public function set2()
+    {
+        $this -> query = "INSERT INTO enrollments (enroll_id_student) VALUES (:enroll_id_student)";
+        $this -> parametros['enroll_id_student'] = $this -> enroll_id_student;
+        $this -> get_results_from_query();
+    }
+
     //Getters and setters
     public function getEnrollId()
     {
