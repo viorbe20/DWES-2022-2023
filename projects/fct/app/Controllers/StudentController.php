@@ -55,7 +55,6 @@ class StudentController extends BaseController
                     echo '<script type="text/javascript">
                     alert("El formato del archivo debe ser csv");
                     </script>';
-
                     $this->renderHTML('../view/students.php', $data);
                 } else {
 
@@ -80,46 +79,29 @@ class StudentController extends BaseController
                             for ($c = 0; $c < $num; $c++) {
                                 $element = explode(";", $data[$c]);
                                 $student = Student::getInstancia();
-                                $student->setDni($element[5]);
-                                $student->setName($element[1]);
-                                $student->setSurname1($element[2]);
-                                $student->setSurname2($element[3]);
-                                $student->setEmail($element[4]);
-                                $student->setPhone($element[5]);
-                                $student->uploadFile();
+                                $student->setDni($element[0]);
 
-                                //Controlar Error en consulta: SQLSTATE[23000]:
-                                //Integrity constraint violation: 1062 Duplicate entry '12345678A' for key 'dni'
-
-                                // $student = Student::getInstancia();
-                                // $student->setDni($element[5]);
-                                // $student->setName($element[1]);
-                                // $student->setSurname1($element[2]);
-                                // $student->setSurname2($element[3]);
-                                // $student->setEmail($element[4]);
-                                // $student->setPhone($element[5]);
-
-                                
-
-                                // try {
-                                //     $student->uploadFile();
-                                // } catch (Exception $e) {
-                                //     echo '<script type="text/javascript">
-                                //     alert("Se ha producido un error al guardar los datos");
-                                //     </script>';
-                                //     $this->renderHTML('../view/students.php', $data);
-                                // }
+                                //Check if student exists in database
+                                if ($student->getByDni() != null) {
+                                    echo '<script type="text/javascript">
+                                    alert("El alumno con dni ' . $element[0] . ' ya existe en la base de datos");
+                                    </script>';
+                                } else {
+                                    $student->setName($element[1]);
+                                    $student->setSurname1($element[2]);
+                                    $student->setSurname2($element[3]);
+                                    $student->setEmail($element[4]);
+                                    $student->setPhone($element[5]);
+                                    $student->uploadFile();
+                                }
+                            }
                         }
-                        }
-
-                        // Close the original file
-                        fclose($file);
-
-                        $this->renderHTML('../view/students.php', $data);
                     } catch (Exception $e) {
                         echo '<script type="text/javascript">
                         alert("Se ha producido un error al abrir el archivo");
                         </script>';
+                    } finally {
+                        fclose($file);
                         $this->renderHTML('../view/students.php', $data);
                     }
                 }

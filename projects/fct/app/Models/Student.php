@@ -76,6 +76,15 @@ class Student extends DBAbstractModel
         return $result;
     }
 
+    public function getByDni()
+    {
+        $this->query = "SELECT * FROM students WHERE s_dni=:s_dni";
+        $this->parametros['s_dni'] = $this->s_dni;
+        $this->get_results_from_query();
+        $result = $this->rows;
+        return $result;
+    }
+
     //Get last students
     public function getSome()
     {
