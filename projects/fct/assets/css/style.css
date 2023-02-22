@@ -6,4 +6,8 @@
   padding: 10px;
   margin: 5px;
   font-size: 10px;
+}
+
+#autocomplete_company .ui-menu-item-wrapper {
+  padding-left: 0 !important;
 }/*# sourceMappingURL=style.css.map */
