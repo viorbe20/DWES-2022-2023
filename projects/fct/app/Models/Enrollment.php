@@ -28,7 +28,6 @@ class Enrollment extends DBAbstractModel
     private $enroll_id_student;
     private $enroll_id_ayear;
     private $enroll_id_term;
-    private $enroll_id_assignment;
     private $enroll_created_at;
     private $enroll_updated_at;
 
@@ -43,20 +42,12 @@ class Enrollment extends DBAbstractModel
     //Set methods
     public function set()
     {
-        $this -> query = "INSERT INTO enrollments (enroll_id_student, enroll_id_ayear, enroll_id_term, enroll_id_assignment) VALUES (:enroll_id_student, :enroll_id_ayear, :enroll_id_term, :enroll_id_assignment, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $this -> query = "INSERT INTO enrollments (enroll_id_student, enroll_id_ayear, enroll_id_term, enroll_created_at, enroll_updated_at) VALUES (:enroll_id_student, :enroll_id_ayear, :enroll_id_term, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
         $this -> parametros['enroll_id_student'] = $this -> enroll_id_student;
         $this -> parametros['enroll_id_ayear'] = $this -> enroll_id_ayear;
         $this -> parametros['enroll_id_term'] = $this -> enroll_id_term;
-        $this -> parametros['enroll_id_assignment'] = $this -> enroll_id_assignment;
         $this -> parametros['enroll_created_at'] = $this -> enroll_created_at;
         $this -> parametros['enroll_updated_at'] = $this -> enroll_updated_at;
-        $this -> get_results_from_query();
-    }
-
-    public function set2()
-    {
-        $this -> query = "INSERT INTO enrollments (enroll_id_student) VALUES (:enroll_id_student)";
-        $this -> parametros['enroll_id_student'] = $this -> enroll_id_student;
         $this -> get_results_from_query();
     }
 
@@ -100,17 +91,6 @@ class Enrollment extends DBAbstractModel
     {
         $this->enroll_id_term = $enroll_id_term;
     }
-
-    public function getEnrollIdAssignment()
-    {
-        return $this->enroll_id_assignment;
-    }
-
-    public function setEnrollIdAssignment($enroll_id_assignment)
-    {
-        $this->enroll_id_assignment = $enroll_id_assignment;
-    }
-
     public function getEnrollCreatedAt()
     {
         return $this->enroll_created_at;

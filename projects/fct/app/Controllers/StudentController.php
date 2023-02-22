@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\Student;
@@ -66,16 +67,45 @@ class StudentController extends BaseController
                         //Ignore first line (headers)
                         fgets($file);
 
-                            while (($line = fgets($file)) !== false) {
-                                $line = iconv('ISO-8859-1', 'UTF-8', $line); //Codifica en UTF-8
-                                $elements = explode(';', $line);
-                                // Acceder a cada elemento por su índice en el array
-                                echo "Nombre: " . $elements[0] . "<br>";
-                                echo "Apellido: " . $elements[1] . "<br>";
-                                echo "Edad: " . $elements[2] . "<br>";
-                                //echo $line . "<br>"; // Imprime cada línea del archivo y añade un salto de línea HTML
-                            }
+                        while (($line = fgets($file)) != false) {
+                            $line = iconv('ISO-8859-1', 'UTF-8', $line); //Codifica en UTF-8
+                            $elements = explode(';', $line);
 
+                            $student = Student::getInstancia();
+                            $elements[0] = substr($elements[0], 1); //Delete " at the beginnign of the string 
+                            $student->setDni($elements[0]);
+                                
+                            //Check if student exists in database
+                            if ($student->getByDni() != null) {
+                                echo '<script type="text/javascript">
+                                    alert("El alumno con DNI ' . $elements[0] . ' ya existe en la base de datos");
+                                    </script>';
+                                $this->renderHTML('../view/students.php', $data);
+                                die();
+                            } else {
+                                //Insert student into database
+                                $student->setName($elements[1]);
+                                $student->setSurname1($elements[2]);
+                                $student->setSurname2($elements[3]);
+                                $student->setEmail($elements[4]);
+                                $student->setPhone($elements[5]);
+                                $student->set();
+                                
+                                //Get last inserted student 
+                                $lastId = $student->lastInsert();
+
+                                //Create enrollment
+                                $enrollment = Enrollment::getInstancia();
+                                
+                                //Set student id and selected ayear and term
+                                $enrollment->setEnrollIdStudent($lastId);
+                                $enrollment->setEnrollIdAyear($_POST['ayear_id_select']);
+                                $enrollment->setEnrollIdTerm($_POST['term_id_select']);
+
+                                //Save enrollment
+                                $enrollment->set();
+                            }
+                        }
                     } catch (Exception $e) {
                         echo '<script type="text/javascript">
                         alert("Se ha producido un error al abrir el archivo");

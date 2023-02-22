@@ -1,4 +1,12 @@
 <?php
+namespace App\Controllers;
+
+use App\Models\Student;
+use App\Models\Group;
+use App\Models\Ayear;
+use App\Models\Term;
+use App\Models\Enrollment; 
+use Exception;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,14 +44,11 @@
 
     <form method="post" enctype="multipart/form-data" id="form_search_student" class="d-flex flex-column align-items-center justify-content-center" role="search">
             
-            <!--Search student bar and icon-->
-            <div class='d-flex w-50 my-2 searchInput'>
-            <!--crear un input con un icono de buscar dentro del input-->
-                <input type="text" class="form-control" id="search_student" name="search_student" placeholder="Buscar alumno">
-            </div>
+<?php
+$enrollment = Enrollment::getInstancia();
 
-            <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+
+?>
         </form>
 </body>
 

@@ -37,7 +37,7 @@
 
                         <div class="form-group w-50 mx-2">
                             <label for="ayear">Curso académico</label>
-                            <select class="form-control" id="ayear_select" name="ayear_select">
+                            <select class="form-control" id="ayear_select" name="ayear_id_select">
                                 <?php
                                 foreach ($_SESSION['ayear_list'] as $value) {
                                     if ($value['ayear_date'] == $_SESSION['currentAcademicYear']) {
@@ -53,7 +53,7 @@
 
                         <div class="form-group w-50 mx-2">
                             <label for="term">Período</label>
-                            <select class="form-control" id="term_select" name="term_select">
+                            <select class="form-control" id="term_select" name="term_id_select">
                                 <?php
                                 foreach ($_SESSION['term_list'] as $value) {
                                     if($value['term_name'] == $_SESSION['currentTerm'])

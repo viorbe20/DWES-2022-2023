@@ -95,14 +95,6 @@ class Student extends DBAbstractModel
         return $last;
     }
 
-    //Get last inserted student
-    // public function getLastInsert()
-    // {
-    //     $this->query = "SELECT * FROM students ORDER BY s_id DESC LIMIT 1";
-    //     $this->get_results_from_query();
-    //     return $this->rows;
-    // }
-
     //Creation methods
     public function set()
     {
@@ -117,19 +109,6 @@ class Student extends DBAbstractModel
         $this->parametros['s_created_at'] = $this->s_created_at;
         $this->parametros['s_updated_at'] = $this->s_updated_at;
         $this->get_results_from_query();
-
-        //Capturar Error en consulta: SQLSTATE[23000]: y mndarlo al controlador
-        if ($this->rows == 0) {
-            $this->mensaje = "Error al insertar";
-        }
-        else {
-            $this->mensaje = "Insertado correctamente";
-        }
-
-        $this->mensaje = "Insertado correctamente";
-        return $this->mensaje;
-
-
     }
 
     //Getters & setters
