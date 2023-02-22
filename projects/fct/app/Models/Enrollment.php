@@ -28,6 +28,7 @@ class Enrollment extends DBAbstractModel
     private $enroll_id_student;
     private $enroll_id_ayear;
     private $enroll_id_term;
+    private $enroll_id_group;
     private $enroll_created_at;
     private $enroll_updated_at;
 
@@ -90,6 +91,16 @@ class Enrollment extends DBAbstractModel
     public function setEnrollIdTerm($enroll_id_term)
     {
         $this->enroll_id_term = $enroll_id_term;
+    }
+
+    public function getEnrollIdGroup()
+    {
+        return $this->enroll_id_group;
+    }
+
+    public function setEnrollIdGroup($enroll_id_group)
+    {
+        $this->enroll_id_group = $enroll_id_group;
     }
     public function getEnrollCreatedAt()
     {

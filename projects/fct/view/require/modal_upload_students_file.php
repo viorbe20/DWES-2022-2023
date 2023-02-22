@@ -26,7 +26,7 @@
 
                         <div class="form-group w-50 mx-2">
                             <label for="group">Grupo</label>
-                            <select class="form-control" id="group_select" name="group_select">
+                            <select class="form-control" id="group_select" name="group_id_select">
                                 <?php
                                 foreach ($_SESSION['group_list'] as $value) {
                                     echo "<option value=" . $value['g_id'] . ">" . $value['g_name'] . "</option>";
