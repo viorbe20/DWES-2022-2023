@@ -38,30 +38,6 @@ class Student extends DBAbstractModel
     private $s_updated_at;
 
     //Métodos de acceso
-    /**
-     * Get a list of students by group id, academic year and term
-     * @return mixed
-     */
-    // public function getStudentsByGroupData()
-    // {
-    //     $this->query = "SELECT * FROM students WHERE s_group=:s_group AND s_ayear=:s_ayear AND s_term=:s_term ORDER BY s_surname1";
-    //     $this->parametros['s_group'] = $this->s_group;
-    //     $this->parametros['s_ayear'] = $this->s_ayear;
-    //     $this->parametros['s_term'] = $this->s_term;
-    //     $this->get_results_from_query();
-    //     return $this->rows;
-    // }
-
-    // /**
-    //  * Get name, surname1 and surname2 from student ordered by surname1
-    //  * @return void
-    //  */
-    // public function getAll()
-    // {
-    //     $this->query = "SELECT s_id, s_name, s_surname1, s_surname2 FROM students ORDER BY s_surname1";
-    //     $this->get_results_from_query();
-    //     return $this->rows;
-    // }
     public function get()
     {
         $this->query = "SELECT * FROM students ORDER BY s_surname1";

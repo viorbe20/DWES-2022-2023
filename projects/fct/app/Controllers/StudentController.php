@@ -127,6 +127,7 @@ class StudentController extends BaseController
                             $enrollment->setEnrollIdStudent($lastId);
                             $enrollment->setEnrollIdAyear($_POST['ayear_id_select']);
                             $enrollment->setEnrollIdTerm($_POST['term_id_select']);
+                            $enrollment->setEnrollIdGroup($_POST['group_id_select']);
                             $enrollment->set();
                         }
                     }
@@ -155,31 +156,63 @@ class StudentController extends BaseController
         }
     }
 
+    public function testAction()
+    {
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $request ="http://localhost/dwes/projects/fct/public/index.php/test/12_1_1";
+            $rest = explode("/", $request);
+            $studentData = end($rest);
+            $dividedData = explode("_", $studentData);
+
+            $enrollment = Enrollment::getInstancia();
+            $enrollment->setEnrollIdAyear((int)$dividedData[0]);
+            $enrollment->setEnrollIdTerm((int)$dividedData[1]);
+            $enrollment->setEnrollIdGroup((int)$dividedData[2]);
+
+            //Send to assignments.js
+            if (!empty($enrollment->getStudentsByGroupId())) {
+                //echo json_encode($enrollment->getStudentsByGroupId());
+                $data['status'] = 'ok';
+                $data['students'] = $enrollment->getStudentsByGroupId();
+            } else {
+                error_log("Non existing data");
+                $data['status'] = 'error';
+            }
+        }
+        echo json_encode($data);
+        exit();
+    }
+
     /**
-     * Get a list of students by group id
+     * Given a group id, get all students from that group and show them in a table
      * @return void
      */
-    // public function getStudentsByGroupAction($request)
-    // {
-    //     if ($_SESSION['user']['profile'] == 'guest') {
-    //         $data = array();
-    //         $this->renderHTML('../view/home.php', $data);
-    //     } else {
-    //         $rest = explode("/", $request);
-    //         $studentData = end($rest);
-    //         $dividedData = explode("_", $studentData);
+    public function getStudentsByGroupAction($request)
+    {
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $rest = explode("/", $request);
+            $studentData = end($rest);
+            $dividedData = explode("_", $studentData);
 
-    //         $student = new Student();
-    //         $student->setAyear((int)$dividedData[0]);
-    //         $student->setTerm((int)$dividedData[1]);
-    //         $student->setGroup((int)$dividedData[2]);
+            $enrollment = Enrollment::getInstancia();
+            $enrollment->setEnrollIdAyear((int)$dividedData[0]);
+            $enrollment->setEnrollIdTerm((int)$dividedData[1]);
+            $enrollment->setEnrollIdGroup((int)$dividedData[2]);
 
-    //         //If get somenthing, send data to assignments.js
-    //         if ($student->getStudentsByGroupData()) {
-    //             echo json_encode($student->getStudentsByGroupData());
-    //         } else {
-    //             echo json_encode(array('error' => 'No hay datos'));
-    //         }
-    //     }
-    // }
+            //Send to assignments.js
+            if ($enrollment->getStudentsByGroupId()) {
+                echo json_encode($enrollment->getStudentsByGroupId());
+            } else {
+                $error = array('error' => 'No hay datos');
+                http_response_code(404); // Establece el código de respuesta a 404
+                echo json_encode($error);
+            }
+        }
+    }
 }

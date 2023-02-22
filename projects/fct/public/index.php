@@ -17,6 +17,13 @@ if (!isset($_SESSION['user']['profile'] )) {
 
 $router = new Router();
 
+$router->add(array(
+    'name'=>'add assignments',
+    'path'=>'/^\/test$/',
+    'action'=>[StudentController::class, 'testAction'],
+    'auth'=>["admin, user"]
+));
+
 //Assignments
 
 $router->add(array(
