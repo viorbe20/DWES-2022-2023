@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use \PDOException;
+
 require_once("DBAbstractModel.php");
 
 class Student extends DBAbstractModel
@@ -98,17 +100,21 @@ class Student extends DBAbstractModel
     //Creation methods
     public function set()
     {
-
-        $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-        $this->parametros['s_dni'] = $this->s_dni;
-        $this->parametros['s_name'] = $this->s_name;
-        $this->parametros['s_surname1'] = $this->s_surname1;
-        $this->parametros['s_surname2'] = $this->s_surname2;
-        $this->parametros['s_email'] = $this->s_email;
-        $this->parametros['s_phone'] = $this->s_phone;
-        $this->parametros['s_created_at'] = $this->s_created_at;
-        $this->parametros['s_updated_at'] = $this->s_updated_at;
-        $this->get_results_from_query();
+        try{   
+            $this->query = "INSERT INTO students (s_dni, s_name, s_surname1, s_surname2, s_email, s_phone, s_created_at, s_updated_at) VALUES (:s_dni, :s_name, :s_surname1, :s_surname2, :s_email, :s_phone, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            $this->parametros['s_dni'] = $this->s_dni;
+            $this->parametros['s_name'] = $this->s_name;
+            $this->parametros['s_surname1'] = $this->s_surname1;
+            $this->parametros['s_surname2'] = $this->s_surname2;
+            $this->parametros['s_email'] = $this->s_email;
+            $this->parametros['s_phone'] = $this->s_phone;
+            $this->parametros['s_created_at'] = $this->s_created_at;
+            $this->parametros['s_updated_at'] = $this->s_updated_at;
+            $this->get_results_from_query();
+        } catch (PDOException $e) {
+            // Mostrar mensaje de error
+            echo "<script>alert('Se ha producido un error al insertar el estudiante. Por favor, inténtelo de nuevo más tarde.');</script>";
+        }
     }
 
     //Getters & setters
