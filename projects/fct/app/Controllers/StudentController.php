@@ -94,40 +94,40 @@ class StudentController extends BaseController
                             'surname2' => str_replace('"', '', $data[3]),
                             'email' => str_replace('"', '', $data[4]),
                             'phone' => str_replace('"', '', $data[5])
+
                         );
+                    }
+                }
+                // If exists $studentsArrayt
+                if (isset($studentsArray)) {
+                    // Loop the array and check if each dni exists in database
+                    foreach ($studentsArray as $student) {
 
-                        // Loop the array and check if each dni exists in database
-                        foreach ($studentsArray as $student) {
-                            $studentModel = Student::getInstancia();
-                            $studentModel->setDni($student['dni']);
+                        $studentModel = Student::getInstancia();
+                        $studentModel->setDni($student['dni']);
 
-                            if ($studentModel->getByDni() != null) {
-                                echo '<script type="text/javascript">
+                        if ($studentModel->getByDni() != null) {
+                            echo '<script type="text/javascript">
                                 alert("El alumno con DNI ' . $student['dni'] . ' ya existe en la base de datos");
                                 </script>';
-                                //$this->renderHTML('../view/students.php', $data);
-                            } else {
-                                //Fill student model with data from array and insert into database
-                                $studentModel->setName($student['name']);
-                                $studentModel->setSurname1($student['surname1']);
-                                $studentModel->setSurname2($student['surname2']);
-                                $studentModel->setEmail($student['email']);
-                                $studentModel->setPhone($student['phone']);
-                                //Print student phone
-                                echo $studentModel->getPhone();
-                                echo '<br>';
-                                $studentModel->set();
+                        } else {
+                            //Fill student model with data from array and insert into database
+                            $studentModel->setName($student['name']);
+                            $studentModel->setSurname1($student['surname1']);
+                            $studentModel->setSurname2($student['surname2']);
+                            $studentModel->setEmail($student['email']);
+                            $studentModel->setPhone($student['phone']);
+                            $studentModel->set();
 
-                                //Get last inserted student id
-                                $lastId = $studentModel->lastInsert();
+                            //Get last inserted student id
+                            $lastId = $studentModel->lastInsert();
 
-                                //Create enrollment
-                                $enrollment = Enrollment::getInstancia();
-                                $enrollment->setEnrollIdStudent($lastId);
-                                $enrollment->setEnrollIdAyear($_POST['ayear_id_select']);
-                                $enrollment->setEnrollIdTerm($_POST['term_id_select']);
-                                $enrollment->set();
-                            }
+                            //Create enrollment
+                            $enrollment = Enrollment::getInstancia();
+                            $enrollment->setEnrollIdStudent($lastId);
+                            $enrollment->setEnrollIdAyear($_POST['ayear_id_select']);
+                            $enrollment->setEnrollIdTerm($_POST['term_id_select']);
+                            $enrollment->set();
                         }
                     }
                 }
