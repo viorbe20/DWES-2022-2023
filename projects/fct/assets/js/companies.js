@@ -101,7 +101,7 @@ $(document).ready(function () {
     )
 
     /**
-    * Modal created company
+    * Modal delete company
     * Click on X button
     */
     $("#modal_delete_company #span_modal_exit").click(function () {

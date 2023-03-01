@@ -84,19 +84,24 @@ function validateInputs(input) {
 
 $(document).ready(function () {
 
-    console.log('carga');
+    console.log('company_info.js loaded');
+
     $c_phoneValidation = false;
     $c_cifValidation = false;
     $c_emailValidation = false;
     $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
     $companySpans = $("#card_company").find('span');
 
-    
+
+    /**
+     * Iterates over the inputs of the company card and checks if they are empty.
+     */
+
     $companyInputs.each(function () {
 
         $(this).prev().hide(); // Hides the span with the error message
 
-        $(this).blur(function () {
+        $(this).blur(function () { // When the input loses focus, it validates the input
             validateInputs($(this));
         });
     });
@@ -107,6 +112,7 @@ $(document).ready(function () {
     let addCompanyForm = $("#form_company_info");
 
     addCompanyForm.submit(function (e) {
+        console.log('click on add company button');
         e.preventDefault();
 
         validateInputs($companyInputs);

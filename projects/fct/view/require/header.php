@@ -3,13 +3,13 @@ require_once '../app/Config/constantes.php';
 ?>
 <header>
     <?php
-    if((isset($_SESSION['user']['status'])) && ($_SESSION['user']['status'] == 'logout')) {
+    if ((isset($_SESSION['user']['status'])) && ($_SESSION['user']['status'] == 'logout')) {
     ?>
         <nav class="navbar navbar-dark d-flex bg-dark">
             <!--Logo-->
             <section id="info_company" class="d-flex align-items-center justify-content-center">
                 <a class="navbar-brand mx-3" href="">
-                    <img src= <?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?>  width="50" height="50" alt="Logo IES Gran Capitán">
+                    <img src=<?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?> width="50" height="50" alt="Logo IES Gran Capitán">
                 </a>
                 <a class="navbar-brand" href="">Práctica FCT</a>
             </section>
@@ -39,11 +39,11 @@ require_once '../app/Config/constantes.php';
     <?php
     } else {
     ?>
-        <nav class="navbar navbar-expand bg-dark navbar-dark">
+        <nav class="navbar navbar-expand bg-dark navbar-dark py-0">
             <!--Logo-->
             <section id="info_company" class="d-flex align-items-center justify-content-center">
                 <a class="navbar-brand mx-3" href="">
-                <img src= <?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?>  width="50" height="50" alt="Logo IES Gran Capitán">
+                    <img src=<?php echo DIRBASE . "/assets/img/logos/logo_ies_gc.jpg" ?> width="50" height="50" alt="Logo IES Gran Capitán">
                 </a>
                 <a class="navbar-brand" href="">Práctica FCT</a>
             </section>
@@ -64,26 +64,32 @@ require_once '../app/Config/constantes.php';
                 </ul>
 
                 <!--User info-->
-                <section id='box_user_info' class='w-25 text-bg-dark'>
-
-                    <div id="box_user_icon" class='d-flex'>
-                        <span class="material-symbols-outlined mx-2" style="font-size: 2rem;">
-                            account_circle
-                        </span>
-                        <p>Hola <?php echo $_SESSION['user']['name']; ?></p>
+                <!-- <section id='box_user_info' class='w-25 text-bg-dark'> -->
+                <section id='box_user_info' class='d-flex justify-content-center align-items-center text-bg-dark'>
+                    <div class="d-flex">
+                        <div class="d-flex align-items: center">
+                            <span class="material-symbols-outlined mx-2" style="font-size: 2rem;">
+                                account_circle
+                            </span>
+                        </div>
+                        <div class="col w-75 d-flex">
+                            <p><?php echo getGreeting() . ' ' . $_SESSION['user']['name']; ?></p>
+                        </div>
                     </div>
-
-                    <!--Data info-->
-                    <div id="box_user_data" class='d-flex'>
-                        <p><?php echo getCurrentDate() . " (" . getCurrentHour() . ")"; ?></p>
-                    </div>
-
                 </section>
+
+                
 
                 <!--Log out button-->
-                <section class="form-group d-flex justify-content-center align-items-center p-2 mx-3">
-                    <a href="<?php echo DIRBASEURL; ?>/logout" class="btn btn-danger rounded-pill px-4">Salir</a>
+                <section class="form-group d-flex flex-column justify-content-center align-items-center p-2 text-white">
+                    <span style='font-size: 0.80rem'><?php echo getCurrentHour24() ?></span>
+                    <span style='font-size: 0.80rem'><?php echo getCurrentDate() ?></span>
+                    <a href="<?php echo DIRBASEURL; ?>/logout" class="btn btn-danger rounded-pill px-4 my-1">Salir</a>
                 </section>
+
+
+
+
             </div>
 
 
