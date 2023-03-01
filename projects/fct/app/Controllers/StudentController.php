@@ -68,14 +68,14 @@ class StudentController extends BaseController
                 fgets($file);
 
                 while (($line = fgets($file)) != false) {
-                    $line = iconv('ISO-8859-1', 'UTF-8', $line); //Codifica en UTF-8
+                    //$line = iconv('ISO-8859-1', 'UTF-8', $line); //Codifica en UTF-8
 
                     //Get data from line
                     $data = explode(";", $line);
-
+                                        
                     if (count($data) != 6) { //Check if there are 6 fields
                         echo '<script type="text/javascript">
-                        alert("El archivo no tiene el formato correcto");
+                        alert("El archivo no tiene el formato correcto. Debe tener 6 campos");
                         </script>';
                         $this->renderHTML('../view/students.php', $data);
                         die();

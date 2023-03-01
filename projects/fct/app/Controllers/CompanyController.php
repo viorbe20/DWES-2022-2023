@@ -14,7 +14,28 @@ class CompanyController extends BaseController
 {
 
     /**
-     * get all companies from dtabase
+     * Get id from url and delete the company
+     */
+    public function deleteCompanyAction($request)
+    {
+        $company = Company::getInstancia();
+        $rest = explode("/", $request);
+        $companyId = (int)end($rest);
+        $company->setId($companyId);
+        $company->delete();
+    }
+
+    /**
+     * Add a new company
+     */
+    public function addCompanyAction()
+    {
+        $data = array();
+        $this->renderHTML('../view/company_info.php', $data);
+    }
+
+    /**
+     * Get all companies from dtabase
      */
     public function getCompaniesTableAction()
     {
@@ -27,5 +48,14 @@ class CompanyController extends BaseController
             $company = Company::getInstancia();
             echo json_encode($company->get());
         }
+    }
+
+    /**
+     * Show companies view
+     */
+    public function companiesAction()
+    {
+        $data = array();
+        $this->renderHTML('../view/companies.php', $data);
     }
 }
