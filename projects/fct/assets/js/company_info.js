@@ -10,7 +10,6 @@ function isValidaNif(nif) {
 
 function isValidEmail(email) {
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    //^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
     return regex.test(email);
 }
 
@@ -92,14 +91,13 @@ $(document).ready(function () {
     $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
     $companySpans = $("#card_company").find('span');
 
-
     /**
      * Iterates over the inputs of the company card and checks if they are empty.
      */
 
     $companyInputs.each(function () {
 
-        $(this).prev().hide(); // Hides the span with the error message
+        $(this).prev().hide(); // Hides the span with the error message by default
 
         $(this).blur(function () { // When the input loses focus, it validates the input
             validateInputs($(this));
@@ -112,17 +110,15 @@ $(document).ready(function () {
     let addCompanyForm = $("#form_company_info");
 
     addCompanyForm.submit(function (e) {
-        console.log('click on add company button');
         e.preventDefault();
-
         validateInputs($companyInputs);
 
         //If validated, takes info from php file
         if ($c_emailValidation && $c_cifValidation && $c_phoneValidation) {
-
+            console.log('validated');
             let formData = new FormData(this);
 
-            fetch("http://localhost/dwes/projects/fct_management/public/index.php/home/create_company", {
+            fetch("http://localhost/dwes/projects/fct/public/index.php/home/create_company", {
                 method: "POST",
                 body: formData
             })

@@ -96,6 +96,13 @@ $router->add(array(
 ));
 
 //Companies
+
+$router->add(array(
+    'name'=>'create company',
+    'path'=>'/^\/home\/create_company$/',
+    'action'=>[CompanyController::class, 'createCompanyAction'],
+    'auth'=>["admin"]
+));
 $router->add(array(
     'name' => 'delete company',
     'path' => '/^\/companies\/delete_company\/\d{1,3}$/',

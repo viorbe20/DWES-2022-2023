@@ -51,7 +51,7 @@ class Company extends DBAbstractModel
 
     public function get()
     {
-        $this->query = "SELECT * FROM companies";
+        $this->query = "SELECT * FROM companies ORDER BY c_id DESC";
         $this->get_results_from_query();
         return $this->rows;
     }
@@ -164,8 +164,6 @@ class Company extends DBAbstractModel
         $this->parametros['c_id'] = $this->c_id;
         $this->get_results_from_query();
     }
-
-
 
     //Getters & setters
     public function getId()

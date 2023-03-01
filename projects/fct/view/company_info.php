@@ -76,7 +76,7 @@ require_once "../app/Config/constantes.php";
                             <div class="form-outline">
                                 <label class="form-label mb-3" for="company cif">Cif</label>
                                 <span class="error_span"></span>
-                                <input type="text" id="c_cif" name="c_cif" class="form-control" />
+                                <input type="text" id="c_cif" name="c_cif" class="form-control" value='F35534882' />
                             </div>
                         </div>
                     </div>
