@@ -5,7 +5,28 @@ function deleteEmployee(employeeName) {
 
 
 $(document).ready(function () {
-    console.log('on company_employees.js');
+
+    console.log('employees.js loaded');
+
+    //check inputs and spans and create new employee 
+    $('#btn_modal_confirm_employee').click(function () {
+        $('#modal_delete_employee').css('display', 'none');
+        window.location.reload();
+    });
+
+    //Close modal add employee when click on cancel button
+    $('#btn_modal_cancel_employee').click(function () {
+        $('#modal_delete_employee').css('display', 'none');
+        window.location.reload();
+    });
+
+    //Close modal add employee when click on X
+    $("#btn_modal_exit_employee > span").click(function () {
+        $('#modal_delete_employee').css('display', 'none');
+        window.location.reload();
+    });
+
+
 
     /**
      * Searh employee box

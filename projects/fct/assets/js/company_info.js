@@ -134,59 +134,6 @@ $(document).ready(function () {
     });
 
     /**
-    * Click on add employee button
-    * It validates if the company has been created
-    * If it has, it shows the modals to add an employee
-    * If not, it shows warning messages to create the company first
-    */
-    $("#btn_add_employee").click(function () {
-
-        //All empty spans and full inputs validation
-        $companySpans = $("#card_company").find("span").val() != "";
-        $companyInputs = $("#card_company").find("input").val() == "";
-
-        // After validation, if there are no errors, modal is shown
-        if (!$companySpans && !$companyInputs) {
-            $class = $("#section_employees").attr("class");
-
-            // If company data is valid, employees section is shown after clicking on add employees button
-            if ($class.indexOf("d-none") > -1) {
-                $("#section_employees").removeClass("d-none");
-            }
-
-            // Clone new card
-            $clone = $("#card_header").next().clone();
-
-            //Get id for new card
-            $lastId = $("#card_header").next().attr("id");
-            $number = $lastId.split("_")[2];
-            $idParsed = parseInt($number);
-            $idParsed = $idParsed + 1;
-            $newId = "card_employee_" + $idParsed.toString();
-            $newCard = $clone.removeClass("d-none");
-            $newCard.attr("id", $newId);
-            $newCard.find("input").val(""); // Clear input values
-
-            // Add new card
-            $newCard.insertAfter("#card_header");
-
-            //Delete an employee
-            $deleteButtons = $(".delete_btn");
-
-            $deleteButtons.each(function () {
-                $(this).click(function () {
-                    $(this).parent().parent().remove();
-                });
-            });
-        } else {
-            $("#card_company").find("span").each(function () {
-                $(this).html("Este campo es obligatorio");
-                $(this).show();
-            });
-        }
-    });
-
-    /**
      * Click on add company button on modal
      */
     $("#span_modal_exit").click(function () {
@@ -211,4 +158,13 @@ $(document).ready(function () {
         $("#modal_create_company").css("display", "none");
         window.location.reload();
     });
+
+    /**
+     * Button to add an employee
+     */
+    $('#btn_add_employee').on('click', function () {
+        console.log('add employee button clicked');
+        $('#modal_add_employee').css('display', 'block');
+    }
+    );
 });
