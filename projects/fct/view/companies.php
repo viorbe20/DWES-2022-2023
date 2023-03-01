@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/companies.js
     "></script>
+    <script src="http://localhost/dwes/projects/fct/assets/js/header.js"></script>
     <title>FCT Companies</title>
 </head>
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/company_employees.js"></script>
+    <script src="http://localhost/dwes/projects/fct/assets/js/header.js"></script>
     <title>Company Employees</title>
 </head>
 

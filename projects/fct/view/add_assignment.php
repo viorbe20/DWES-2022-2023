@@ -15,6 +15,7 @@
     <script src="http://localhost/dwes/projects/fct/assets/js/assignments.js
     "></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script src="http://localhost/dwes/projects/fct/assets/js/header.js"></script>
     <title>FCT Add Assignment</title>
 </head>
 
