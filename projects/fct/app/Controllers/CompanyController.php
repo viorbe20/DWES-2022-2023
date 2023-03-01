@@ -22,11 +22,12 @@ class CompanyController extends BaseController
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
         $company->setId($companyId);
-        $company->delete();
+        //$company->delete();
     }
 
     /**
      * Add a new company
+     * data added with jquery on assets/js/companies.js
      */
     public function addCompanyAction()
     {
