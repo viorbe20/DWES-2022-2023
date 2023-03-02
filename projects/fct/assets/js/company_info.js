@@ -28,7 +28,7 @@ function isEmptyField(field) {
 /**
 * Iterates over the inputs of the company card and checks if they are empty.
 */
-function validateInputs(input) {
+function validateData(input) {
 
     input.prev().hide(); // Hides the span with the error message   
 
@@ -40,8 +40,7 @@ function validateInputs(input) {
     } else {
         input.prev().hide();
 
-        // Phone number validation
-        if (input.attr('id') == "c_phone") {
+        if (input.attr('id') == "c_phone") {  // Phone validation
             if (!isValidPhoneNumber($fieldValue)) {
                 input.prev().html("El teléfono no es válido");
                 input.prev().show();
@@ -50,10 +49,7 @@ function validateInputs(input) {
                 input.css("background-color", "#d4edda");
                 $c_phoneValidation = true;
             }
-        }
-
-        // Email validation
-        if (input.attr('id') == "c_email") {
+        } else if (input.attr('id') == "c_email") { // Email validation
             if (!isValidEmail($fieldValue)) {
                 input.prev().html("El email no es válido");
                 input.prev().show();
@@ -62,10 +58,7 @@ function validateInputs(input) {
                 input.css("background-color", "#d4edda");
                 $c_emailValidation = true;
             }
-        }
-
-        //Cif validation
-        if (input.attr('id') == "c_cif") {
+        } else if (input.attr('id') == "c_cif") { // CIF validation
             if (!isValidaCif($fieldValue)) {
                 input.prev().html("El CIF no es válido");
                 input.prev().show();
@@ -74,10 +67,12 @@ function validateInputs(input) {
                 input.css("background-color", "#d4edda");
                 $c_cifValidation = true;
             }
+        } else { // Name validation
+            input.prev().hide();
+            input.css("background-color", "#d4edda");
+            $c_nameValidation = true;
         }
     }
-
-
 };
 
 
@@ -85,51 +80,72 @@ $(document).ready(function () {
 
     console.log('company_info.js loaded');
 
+    $addCompanyForm = $("#form_company_info");
     $c_phoneValidation = false;
     $c_cifValidation = false;
     $c_emailValidation = false;
+    $c_nameValidation = false;
     $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
     $companySpans = $("#card_company").find('span');
+    $btnAddEmployee = $('#btn_add_employee');
+    $btnAddEmployee.prop('disabled', true);
+
 
     /**
      * Iterates over the inputs of the company card and checks if they are empty.
      */
 
     $companyInputs.each(function () {
+        // Hides the span with the error message by default
+        $(this).prev().hide();
 
-        $(this).prev().hide(); // Hides the span with the error message by default
+        //Check if the input is empty when the user clicks out of it
+        $(this).blur(function () {
 
-        $(this).blur(function () { // When the input loses focus, it validates the input
-            validateInputs($(this));
+            console.log($(this).val());
+            validateData($(this));
+
+            //Check empty spans
+            $emptySpans = $companySpans.filter(function () {
+                return $(this).is(':visible');
+            });
+
+            //If spans are hidden and data is validated, enables the button to add an employee and can create a company
+            if (($emptySpans.length == 0) && $c_nameValidation && $c_phoneValidation && $c_cifValidation && $c_emailValidation) {
+                $btnAddEmployee.prop('disabled', false);
+            } else {
+                $btnAddEmployee.prop('disabled', true);
+            }
         });
     });
 
-    /**
-     * Click on add company button
-     */
-    let addCompanyForm = $("#form_company_info");
 
-    addCompanyForm.submit(function (e) {
+    //Click on add company button
+    $addCompanyForm.submit(function (e) {
         e.preventDefault();
-        validateInputs($companyInputs);
 
-        //If validated, takes info from php file
-        if ($c_emailValidation && $c_cifValidation && $c_phoneValidation) {
-            console.log('validated');
+        //Check empty spans
+        $emptySpans = $companySpans.filter(function () {
+            return $(this).is(':visible');
+        });
+
+        //If empty spands and validated data show modal created copany
+        if (($emptySpans.length == 0) && $c_nameValidation && $c_phoneValidation && $c_cifValidation && $c_emailValidation) {
+
             let formData = new FormData(this);
 
             fetch("http://localhost/dwes/projects/fct/public/index.php/home/create_company", {
                 method: "POST",
                 body: formData
             })
-
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     if (data == "createdCompany") {
                         $("#modal_create_company").css("display", "block");
                     }
-                })
+                }
+                )
+
         }
     });
 
@@ -162,9 +178,9 @@ $(document).ready(function () {
     /**
      * Button to add an employee
      */
-    $('#btn_add_employee').on('click', function () {
-        console.log('add employee button clicked');
-        $('#modal_add_employee').css('display', 'block');
-    }
-    );
+    // $('#btn_add_employee').on('click', function () {
+    //     console.log('add employee button clicked');
+    //     $('#modal_add_employee').css('display', 'block');
+    // }
+    // );
 });

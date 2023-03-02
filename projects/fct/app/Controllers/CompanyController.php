@@ -149,7 +149,8 @@ class CompanyController extends BaseController
                 // Allow certain file formats
                 if (
                     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                    && $imageFileType != "gif"
+                    && $imageFileType != "gif" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG"
+                    && $imageFileType != "jfif"
                 ) {
                     $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & GIF.";
                     $uploadOk = 0;
@@ -194,7 +195,7 @@ class CompanyController extends BaseController
             echo json_encode('createdCompany');
             exit();
         } else {
-            $this->renderHTML('../view/company_profile.php', $data);
+            $this->renderHTML('../view/company_info.php', $data);
         }
     }
 
