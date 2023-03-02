@@ -197,7 +197,7 @@ class CompanyController extends BaseController
         }
     }
 
-        /**
+    /**
      * Show employees from a selected company
      */
     public function companyEmployeesAction($request)

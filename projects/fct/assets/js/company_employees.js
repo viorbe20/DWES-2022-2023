@@ -77,11 +77,7 @@ $(document).ready(function () {
     $shownEmployees = 5;
     $inputSearchEmployee = $('#input_search_employee');
 
-
-
-
     showAllEmployees();
-
 
     //Search employees box
     $inputSearchEmployee.on('keyup', function () {
