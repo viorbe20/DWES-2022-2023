@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Company;
+use App\Models\Employee;
 
 require_once '../app/Config/constantes.php';
 require_once '../../fct/utils/my_utils.php';
@@ -196,27 +197,56 @@ class CompanyController extends BaseController
         }
     }
 
+        /**
+     * Show employees from a selected company
+     */
+    public function companyEmployeesAction($request)
+    {
 
-    //     //Insert employees in the database
-    //     $employee = Employee::getInstancia();
+        if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $company = Company::getInstancia();
+            $rest = explode("/", $request);
+            $companyId = (int)end($rest);
+            $company->setId($companyId);
+            
+            $employee = Employee::getInstancia();
+            $employee->setCompanyId($companyId);
+            $companyName = $company->getById();
 
-    //     if (isset($_POST['e_name'])) {
-    //         for ($i = 0; $i < count($_POST['e_name']); $i++) {
-    //             $employee->setName($_POST["e_name"][$i]);
-    //             $employee->setNif($_POST["e_nif"][$i]);
-    //             $employee->setJob($_POST["e_job"][$i]);
-    //             $employee->setCompanyId($lastCompanyId);
-    //             $employee->setCreatedAt(date('Y-m-d H:i:s'));
-    //             $employee->setUpdatedAt(date('Y-m-d H:i:s'));
-    //             $employee->set();
-    //         }
-    //     }
-    //     echo json_encode('createdCompany');
-    //     exit();
-    // } else {
-    //     $this->renderHTML('../view/company_profile.php', $data);
-    // }
+            foreach ($company->getById() as $key => $value) {
+                $companyName = $value['c_name'];
+            }
+            $data['companyName'] = $companyName;
 
+            foreach ($employee->getEmployeesByCompanyId() as $key => $value) {
+                $data['employees'][] = $value;
+            }
+
+            $this->renderHTML('../view/company_employees.php', $data);
+        }
+    }
+    /**
+     * Get all the employees given a company id
+     */
+    public function getEmployeesTableAction($request)
+    {
+
+        if ($_SESSION['user']['profile'] == 'guest') {
+            $data = array();
+            $this->renderHTML('../view/home.php', $data);
+        } else {
+            $data = array();
+            $company = Company::getInstancia();
+            $rest = explode("/", $request);
+            $companyId = (int)end($rest);
+            $company->setId($companyId);
+            echo json_encode($company->getAllEmployees());
+        }
+    }
     /**
      * Get all companies from dtabase
      */

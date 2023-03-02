@@ -88,10 +88,19 @@ $router->add(array(
 ));
 
 //EMPLOYEES
+
+//Get employees given a company id
+$router->add(array(
+    'name' => 'employees table',
+    'path' => '/^\/employees_table\/\d{1,3}$/',
+    'action' => [CompanyController::class, 'getEmployeesTableAction'],
+    'auth' => ["admin, user"]
+));
+
 $router->add(array(
     'name' => 'employees',
     'path' => '/^\/companies\/company_employees\/\d{1,3}$/',
-    'action' => [DefaultController::class, 'companyEmployeesAction'],
+    'action' => [CompanyController::class, 'companyEmployeesAction'],
     'auth' => ["admin, user"]
 ));
 

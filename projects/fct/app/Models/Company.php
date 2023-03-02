@@ -83,9 +83,10 @@ class Company extends DBAbstractModel
         return $this->rows;
     }
 
+    //Get employees given a company id
     public function getAllEmployees()
     {
-        $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id";
+        $this->query = "SELECT emp_name, emp_nif, emp_job FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id";
         $this->get_results_from_query();
         return $this->rows;
     }

@@ -220,40 +220,6 @@ class DefaultController extends BaseController
         }
     }
 
-
-
-    /**
-     * Show employees from a selected company
-     */
-    public function companyEmployeesAction($request)
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $company = Company::getInstancia();
-            $rest = explode("/", $request);
-            $companyId = (int)end($rest);
-            $company->setId($companyId);
-            $employee = Employee::getInstancia();
-            $employee->setCompanyId($companyId);
-            $companyName = $company->getById();
-
-            foreach ($company->getById() as $key => $value) {
-                $companyName = $value['c_name'];
-            }
-            $data['companyName'] = $companyName;
-
-            foreach ($employee->getEmployeesByCompanyId() as $key => $value) {
-                $data['employees'][] = $value;
-            }
-
-            $this->renderHTML('../view/company_employees.php', $data);
-        }
-    }
-
     public function indexAction()
     {
 
