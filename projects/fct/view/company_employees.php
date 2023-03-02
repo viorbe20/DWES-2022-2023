@@ -23,6 +23,7 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
+
         <div id="form_search_employee" class="d-flex justify-content-center" role="search">
             <!--Search company bar and icon-->
             <div class='d-flex w-50 mx-5'>
@@ -45,22 +46,9 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="table_body_employees">
-            <?php
-                if (isset($data['employees'])) {
-                    foreach ($data['employees'] as $key => $employee) {
-                        echo "<tr>";
-                        echo "<td>" . $employee['emp_name'] . "</td>";
-                        echo "<td>" . $employee['emp_job'] . "</td>";
-                        echo "<td>";
-                        echo "<a href='#' target='_self' onclick='deleteEmployee(". $employee['emp_id'] .")'><span class=\"material-symbols-outlined\">delete</span>";
-                        echo "<a href='http://localhost/dwes/projects/fct/employee/" . $employee['emp_id'] . "'><span class=\"material-symbols-outlined\">edit</span></td>";
-                        echo "</tr>";
-                    }
-                }
-                ?>
 
             </tbody>
-        </table> 
+        </table>
 
     </div>
 </body>

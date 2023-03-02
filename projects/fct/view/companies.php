@@ -23,6 +23,7 @@
     ?>
     <!--Content-->
     <div class="container d-flex-column justify-content-center mt-5">
+
         <div id="form_search_company" class="d-flex justify-content-center" role="search">
             <!--Search company bar and icon-->
             <div class='d-flex w-50 mx-5'>
