@@ -15,7 +15,7 @@ require_once "../app/Config/constantes.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/company_info.js"></script>                                                                        
     <script src="http://localhost/dwes/projects/fct/assets/js/header.js"></script>
-    <title>Company info</title>
+    <title>Employee info</title>
 </head>
 
 <body>

@@ -109,32 +109,16 @@ $(document).ready(function () {
     /**
      * Click on add company button
      */
-    let addCompanyForm = $("#form_company_info");
-
-    addCompanyForm.submit(function (e) {
-        console.log('click on add company button');
-        e.preventDefault();
+    $('#btn_create_company').on('click', function () {
 
         validateInputs($companyInputs);
 
-        //If validated, takes info from php file
         if ($c_emailValidation && $c_cifValidation && $c_phoneValidation) {
-
-            let formData = new FormData(this);
-
-            fetch("http://localhost/dwes/projects/fct_management/public/index.php/home/create_company", {
-                method: "POST",
-                body: formData
-            })
-
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data == "createdCompany") {
-                        $("#modal_create_company").css("display", "block");
-                    }
-                })
+        // Send form values to php. If isset in php, then check the data and upload file
+        $('#btn_create_company').addEeventListener('submit'), function (e) {
+            e.preventDefault();
         }
+    }
     });
 
     /**

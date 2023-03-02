@@ -51,7 +51,7 @@ class Company extends DBAbstractModel
 
     public function get()
     {
-        $this->query = "SELECT * FROM companies";
+        $this->query = "SELECT * FROM companies order by c_id desc";
         $this->get_results_from_query();
         return $this->rows;
     }
@@ -86,6 +86,13 @@ class Company extends DBAbstractModel
     public function getAllEmployees()
     {
         $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getByCif(){
+        $this->query = "SELECT * FROM companies WHERE c_cif=:c_cif";
+        $this->parametros['c_cif'] = $this->c_cif;
         $this->get_results_from_query();
         return $this->rows;
     }

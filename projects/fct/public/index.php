@@ -95,6 +95,13 @@ $router->add(array(
     'auth' => ["admin, user"]
 ));
 
+$router->add(array(
+    'name' => 'add employee',
+    'path' => '/^\/companies\/add_employee$/',
+    'action' => [CompanyController::class, 'addEmployeeAction'],
+    'auth' => ["admin, user"]
+));
+
 //Companies
 $router->add(array(
     'name' => 'delete company',
