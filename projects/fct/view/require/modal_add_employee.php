@@ -12,14 +12,14 @@
 
             <div class="modal-body">
 
-                <form action="" method="post" id='form_add_employee' name='for_add_employee'>
+                <form action="" method="post" id='form_add_employee' name='form_add_employee'>
 
                     <div class="form-group d-flex flex-column my-2 p-4" id='card_employee'>
 
                         <div class="form-group w-100 mx-2">
                             <label class="form-label" for="employee name">Nombre</label>
                             <span class="error_span"></span>
-                            <input type="text" id="e_name" name="e_name[]" class="form-control" value='' />
+                            <input type="text" id="e_name" name="e_name[]" class="form-control"/>
                         </div>
 
                         <!--Nif and job-->
@@ -27,13 +27,13 @@
                             <div class="form-outline w-50 mx-1">
                                 <label class="form-label" for="employee nif">Nif</label>
                                 <span class="error_span"></span>
-                                <input type="text" id="e_nif" name="e_nif[]" class="form-control" value="" />
+                                <input type="text" id="e_nif" name="e_nif[]" class="form-control"/>
                             </div>
 
                             <div class="form-outline w-50 mx-1">
                                 <label class="form-label" for="employee job">Puesto</label>
                                 <span class="error_span"></span>
-                                <input type="text" id="e_job" name="e_job[]" class="form-control" value="" />
+                                <input type="text" id="e_job" name="e_job[]" class="form-control"/>
                             </div>
                         </div>
                     </div>

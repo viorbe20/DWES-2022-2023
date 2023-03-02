@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Company;
+use App\Models\Employee;
 
 
 require_once '../app/Config/constantes.php';
@@ -72,7 +73,6 @@ class CompanyController extends BaseController
                 $c_validateCif = true;
             }
         }
-
 
         //Validate spans
         if (empty($_POST['c_name_span']) && empty($_POST['c_phone_span']) && empty($_POST['c_email_span']) && empty($_POST['c_address_span'])) {
@@ -179,19 +179,19 @@ class CompanyController extends BaseController
 
 
             //Insert employees in the database
-            // $employee = Employee::getInstancia();
+            $employee = Employee::getInstancia();
 
-            // if (isset($_POST['e_name'])) {
-            //     for ($i = 0; $i < count($_POST['e_name']); $i++) {
-            //         $employee->setName($_POST["e_name"][$i]);
-            //         $employee->setNif($_POST["e_nif"][$i]);
-            //         $employee->setJob($_POST["e_job"][$i]);
-            //         $employee->setCompanyId($lastCompanyId);
-            //         $employee->setCreatedAt(date('Y-m-d H:i:s'));
-            //         $employee->setUpdatedAt(date('Y-m-d H:i:s'));
-            //         $employee->set();
-            //     }
-            // }
+            if (isset($_POST['e_name'])) {
+                for ($i = 0; $i < count($_POST['e_name']); $i++) {
+                    $employee->setName($_POST["e_name"][$i]);
+                    $employee->setNif($_POST["e_nif"][$i]);
+                    $employee->setJob($_POST["e_job"][$i]);
+                    $employee->setCompanyId($lastCompanyId);
+                    $employee->setCreatedAt(date('Y-m-d H:i:s'));
+                    $employee->setUpdatedAt(date('Y-m-d H:i:s'));
+                    $employee->set();
+                }
+            }
             echo json_encode('createdCompany');
             exit();
         } else {

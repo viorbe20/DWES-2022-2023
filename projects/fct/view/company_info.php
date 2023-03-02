@@ -23,9 +23,12 @@ require_once "../app/Config/constantes.php";
     <?php
     require_once '../view/require/header.php';
     require_once('../view/require/modal_add_employee.php');
-    // if (isset()) {
-
-    // }
+    require_once('../view/require/modal_employee_created.php');
+    if (isset($_POST['e_name'])) {
+        print_r($_POST['e_name']);
+    } else {
+        echo 'no';
+    }
     ?>
 
     <form method="post" action="" enctype="multipart/form-data" id="form_company_info">

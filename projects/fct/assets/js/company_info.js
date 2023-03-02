@@ -88,7 +88,7 @@ $(document).ready(function () {
     $companyInputs = $("#card_company").find($.trim("input:not(#c_logo)"));
     $companySpans = $("#card_company").find('span');
     $btnAddEmployee = $('#btn_add_employee');
-    $btnAddEmployee.prop('disabled', true);
+    //$btnAddEmployee.prop('disabled', true);
 
 
     /**
@@ -176,11 +176,16 @@ $(document).ready(function () {
     });
 
     /**
-     * Button to add an employee
+     * Button to show modal to add an employee  
      */
-    // $('#btn_add_employee').on('click', function () {
-    //     console.log('add employee button clicked');
-    //     $('#modal_add_employee').css('display', 'block');
-    // }
-    // );
+    $('#btn_add_employee').on('click', function () {
+        //Empty the inputs 
+        $inputs = $('#modal_add_employee').find('input:not(#btn_modal_confirm_employee)');
+        $inputs.each(function () {
+            $(this).val("");
+        });
+
+        $('#modal_add_employee').css('display', 'block');
+    }
+    );
 });

@@ -2,12 +2,8 @@ $(document).ready(function () {
 
     console.log('calls.js loaded');
 
-    /**
-    * Modal add call
-    */
-
+    // Add call, show modal for add call
     $('#btn_add_call').on('click', function () {
-        // Show modal on its path
         $('#modal_add_call').css('display', 'block');
     });
 
@@ -30,8 +26,6 @@ $(document).ready(function () {
         e.preventDefault();
         }
     });
-
-
 
     /**
      * Search calls box

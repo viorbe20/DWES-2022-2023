@@ -3,10 +3,10 @@
 //     $("#modal_delete_employee").css("display", "block");
 // }
 
-//Cif validation
-function isValidaCif(cif) {
-    let regex = /^[ABCDEFGHJNPQRSUVW][\d]{7}[\dA-J]$/i;
-    return regex.test(cif);
+//Nif validation
+function isValidaNif(nif) {
+    let regex = /^([KLMXYZ][\d]{7}|[\d]{8})[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
+    return regex.test(nif);
 }
 
 
@@ -22,16 +22,23 @@ function validateEmployeeData(input) {
     } else {
         input.prev().hide();
 
-        //Cif validation
-        if (input.attr('id') == "e_nif") {
-            if (!isValidaCif($fieldValue)) {
-                input.prev().html("El CIF no es válido");
+        if (input.attr('id') == "e_nif") { //NIF validation
+            if (!isValidaNif($fieldValue)) {
+                input.prev().html("El NIF no es válido");
                 input.prev().show();
             } else {
                 input.prev().hide();
                 input.css("background-color", "#d4edda");
-                $c_cifValidation = true;
+                $e_nifValidation = true;
             }
+        } else if (input.attr('id') == "e_job") { //Job validation
+            input.prev().hide();
+            input.css("background-color", "#d4edda");
+            $e_jobValidation = true;
+        } else {
+            input.prev().hide(); // Name validation
+            input.css("background-color", "#d4edda");
+            $e_nameValidation = true;
         }
     }
 
@@ -40,10 +47,14 @@ function validateEmployeeData(input) {
 
 $(document).ready(function () {
 
+
     console.log('employees.js loaded');
 
-    $employeeInputs = $("#card_employee").find($.trim("input:not(#c_logo)"));
-    $employeeSpans = $("#form_add_employee").find('span');
+    $employeeInputs = $("#card_employee").find($.trim("input"));
+    $employeeSpans = $("#card_employee").find('span');
+    $employeesList = [];
+    $addEmployeeForm = $("#form_add_employee");
+
 
     //Iterates over the inputs of the employee card and checks if they are empty.
     $employeeInputs.each(function () {
@@ -55,50 +66,63 @@ $(document).ready(function () {
         });
     });
 
-    let addEmployeeForm = $("#form_add_employee");
-    
     //Click on add employee button
-    addEmployeeForm.submit(function (e) {
+    $addEmployeeForm.submit(function (e) {
         e.preventDefault();
-        validateEmployeeData($employeeInputs);
+        $e_nameValidation = $e_nifValidation = $e_jobValidation = false;
+        $employeeInputs = $("#card_employee").find($.trim("input"));
 
+        //iterates employee inputs and validates them
+        $employeeInputs.each(function () {
+            validateEmployeeData($(this));
+        });
+        
         //If inputs are not empty and valid, it shows the modal
-        if (validateEmployeeData($employeeInputs) && $c_cifValidation ) {
-        
-            //If validates, keeps the data into an array
-            let employeeData = [];
-            $employeeInputs.each(function () {
-                employeeData.push($(this).val());
+        if ($e_nameValidation && $e_nifValidation && $e_jobValidation) {
+            //Save employee data in array
+            $employeesList.push({
+                e_name: $employeeInputs[0].value,
+                e_nif: $employeeInputs[1].value,
+                e_job: $employeeInputs[2].value
             });
-    
-            employeeData.array.forEach(element => {
-                console.log( element );
-            });
-        } 
-        
 
+            $('#modal_add_employee').css('display', 'none');
+            $('#modal_employee_created').css('display', 'block');
+        }
     });
 
+    //Close modal add employee when click on cancel button
+    $('#btn_modal_exit_employee').click(function () {
+        $('#modal_add_employee').css('display', 'none');
+    });
 
     //Close modal add employee when click on cancel button
     $('#btn_modal_cancel_employee').click(function () {
-        $('#modal_delete_employee').css('display', 'none');
-        window.location.reload();
+        $('#modal_add_employee').css('display', 'none');
+    });
+
+    //Close employee created confirmation modal
+    $('#btn_modal_created_employee').click(function () {
+        $('#modal_employee_created').css('display', 'none');
     });
 
     //Close modal add employee when click on X
-    $("#btn_modal_exit_employee > span").click(function () {
-        $('#modal_delete_employee').css('display', 'none');
-        window.location.reload();
-    });
+    // $("#modal_employee_created  button").click(function () {
+    //     $('#modal_delete_employee').css('display', 'none');
+    // });
+
+    //Close created employee modal
+    // $('#close_created_employee').click(function () {
+    //     $('#modal_employee_created').hide();
+    // });
 
     /**
      * Searh employee box
      */
-    $("#input_search_employee").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#table_body_employees tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
-    });
+    // $("#input_search_employee").on("keyup", function () {
+    //     var value = $(this).val().toLowerCase();
+    //     $("#table_body_employees tr").filter(function () {
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    //     });
+    // });
 });
