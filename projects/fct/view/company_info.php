@@ -26,28 +26,24 @@ require_once "../app/Config/constantes.php";
 
     <form method="post" action="" enctype="multipart/form-data" id="form_company_info">
 
-        <!--Section company-->
-        <!-- <div class=" card mx-4 my-2 col-md d-flex flex-column align-items-center bg-warning"> -->
-        <div class=" card mx-4 my-2 d-flex flex-column align-items-center bg-warning">
+        <div class=" card mx-4 my-2 d-flex flex-column align-items-center">
+
             <div class="card-header py-3 bg-secondary w-100 d-flex justify-content-center">
                 <h5 class="mb-0 text-light">Alta empresa</h5>
             </div>
-        </div>
 
+            <div class="card-body w-100 d-flex" id="card_company">
 
+                <!--Left section-->
+                <div class='card d-flex flex-column w-100 mx-1 p-1 bg-light'>
 
-
-        <div class="col-md-10 ">
-            <div class="card mb-4">
-                <div class="card-body" id="card_company">
-                    <!-- Text input -->
                     <div class="form-outline mb-4">
                         <label class="form-label mb-3" for="company name">Nombre</label>
                         <span class="error_span"></span>
                         <input type="text" id="c_name" name="c_name" class="form-control" />
                     </div>
-                    <!-- 2 column grid layout with text inputs for the first and last names -->
 
+                    <!--Phone and email-->
                     <div class="row mb-4">
                         <div class="col">
                             <!-- Phone input -->
@@ -67,9 +63,9 @@ require_once "../app/Config/constantes.php";
                         </div>
                     </div>
 
+                    <!-- Address and cif -->
                     <div class="row mb-4">
                         <div class="col">
-                            <!-- Address input -->
                             <div class="form-outline">
                                 <label class="form-label mb-3" for="company address">Dirección</label>
                                 <span class="error_span"></span>
@@ -77,15 +73,18 @@ require_once "../app/Config/constantes.php";
                             </div>
                         </div>
                         <div class="col">
-                            <!-- Cif input -->
                             <div class="form-outline">
                                 <label class="form-label mb-3" for="company cif">Cif</label>
                                 <span class="error_span"></span>
-                                <input type="text" id="c_cif" name="c_cif" class="form-control" />
+                                <input type="text" id="c_cif" name="c_cif" class="form-control" value='G39114111' />
                             </div>
                         </div>
                     </div>
+                </div>
 
+
+                <!--Right section-->
+                <div class='card d-flex flex-column w-75 mx-1 p-1 bg-light'>
                     <!--Logo section-->
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Imagen logo</label>
@@ -95,69 +94,25 @@ require_once "../app/Config/constantes.php";
                     <!-- Message input -->
                     <div class="form-outline mb-4">
                         <label class="form-label mb-3" for="company description">Información adicional</label>
-                        <textarea class="form-control" id="c_description" name="c_description" rows="4"></textarea>
-                    </div>
-
-                    <!--Buttons div-->
-                    <div class="form-outline mb-4 d-flex justify-content-lg-end">
-                        <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee" name="btn_add_employee">
-                            Añadir Empleados
-                        </button>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
-                            Crear Empresa
-                        </button>
+                        <textarea class="form-control" id="c_description" name="c_description" rows="6"></textarea>
                     </div>
                 </div>
+            </div>
+            <?php
+                require_once('../view/require/section_employee.php');
+            ?>
+            <!--Buttons div-->
+            <div class="form-outline mb-4 d-flex justify-content-lg-end">
+                <button type="button" class="btn btn-primary btn-lg btn-block mx-2" id="btn_add_employee" name="btn_add_employee">
+                    Añadir Empleados
+                </button>
+                <button type="submit" class="btn btn-success btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
+                    Crear Empresa
+                </button>
             </div>
         </div>
         </div>
 
-        <!--Section employee-->
-        <div class="mx-4 col-md d-flex flex-column align-items-center d-none" id="section_employees">
-            <div class="col-md-10 ">
-                <div class="card" id='card_container'>
-                    <div class="card-header py-3 bg-secondary" id="card_header">
-                        <h5 class="mb-0 text-light">Datos Empleados</h5>
-                    </div>
-
-                    <!--Info employees-->
-                    <div id="card_employee_0" class="card-body mx-4 my-4 bg-light border rounded shadow-sm p-3 mb-5 bg-white rounded d-none">
-
-                        <!-- Delete employee -->
-                        <div class="d-flex justify-content-end mb-3">
-                            <button type="text" class="delete_btn btn btn-secondary text-lg border-rounded">X</button>
-                        </div>
-
-                        <!-- Name input -->
-                        <div class="form-outline">
-                            <label class="form-label" for="employee name">Nombre</label>
-                            <input type="text" id="e_name" name="e_name[]" class="form-control" value='Empleado Prueba' />
-                        </div>
-
-                        <!--Box: nif and job-->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <!-- Nif input -->
-                                <div class="form-outline">
-                                    <label class="form-label" for="employee nif">Nif</label>
-                                    <input type="text" id="e_nif" name="e_nif[]" class="form-control" value="76586343T" />
-                                </div>
-                            </div>
-
-                            <!-- Job input -->
-                            <div class="col">
-                                <div class="form-outline">
-                                    <label class="form-label" for="employee job">Puesto</label>
-                                    <input type="text" id="e_job" name="e_job[]" class="form-control" value="Developer" />
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </form>
 
 
