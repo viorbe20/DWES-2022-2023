@@ -90,6 +90,14 @@ class Company extends DBAbstractModel
         return $this->rows;
     }
 
+    public function getByCif(){
+        $this->query = "SELECT * FROM companies WHERE c_cif=:c_cif";
+        $this->parametros['c_cif'] = $this->c_cif;
+        $this->get_results_from_query();
+        $result = $this->rows;
+        return $result;
+    }
+
     //Get an employee by company id
     public function getEmployeesFromOneCompany()
     {

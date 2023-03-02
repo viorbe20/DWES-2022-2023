@@ -15,19 +15,16 @@ require_once "../app/Config/constantes.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/header.js"></script>
     <script src="http://localhost/dwes/projects/fct/assets/js/company_info.js"></script>
-    <script src="http://localhost/dwes/projects/fct/assets/js/employees.js"></script>
     <title>Company info</title>
 </head>
 
 <body>
     <?php
     require_once '../view/require/header.php';
-    require_once('../view/require/modal_add_employee.php');
-    require_once('../view/require/modal_employee_created.php');
-    if (isset($_POST['e_name'])) {
-        print_r($_POST['e_name']);
+    if ($data) {
+        print_r($data);
     } else {
-        echo 'no';
+        echo 'no hay data';
     }
     ?>
 
@@ -121,8 +118,4 @@ require_once "../app/Config/constantes.php";
 
 
 </body>
-<?php
-require_once '../view/require/modal_add_company.php';
-?>
-
 </html>
