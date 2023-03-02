@@ -1,4 +1,14 @@
+function getCompanyId() {
+    $url = window.location.href;
+    $segments = $url.split('/');
+    $id_company = $segments[$segments.length - 1];
+    $id_company = $id_company.toString();
+    return $id_company;
+}
+
 function showAllEmployees() {
+    $id_company = getCompanyId();
+    console.log($id_company);
     fetch(
         "http://localhost/dwes/projects/fct/public/index.php/employees_table/" + $id_company
     )
@@ -25,6 +35,8 @@ function showAllEmployees() {
 }
 
 function showAutocompleteEmployees() {
+    $id_company = getCompanyId();
+
     $tableBody.empty();
     fetch(
         "http://localhost/dwes/projects/fct/public/index.php/employees_table/" + $id_company
@@ -60,13 +72,12 @@ function showAutocompleteEmployees() {
 $(document).ready(function () {
 
     console.log('company_employees.js loaded');
-    $url = window.location.href;
-    $segments = $url.split('/');
-    $id_company = $segments[$segments.length - 1];
-    $id_company = $id_company.toString();
+    getCompanyId();
     $tableBody = $('#table_body_employees');
     $shownEmployees = 5;
     $inputSearchEmployee = $('#input_search_employee');
+
+
 
 
     showAllEmployees();
@@ -81,3 +92,5 @@ $(document).ready(function () {
         }
     });
 });
+
+

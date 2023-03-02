@@ -23,7 +23,7 @@ class CompanyController extends BaseController
         $rest = explode("/", $request);
         $companyId = (int)end($rest);
         $company->setId($companyId);
-        //$company->delete();
+        $company->delete();
     }
 
     /**
@@ -229,6 +229,7 @@ class CompanyController extends BaseController
             $this->renderHTML('../view/company_employees.php', $data);
         }
     }
+
     /**
      * Get all the employees given a company id
      */
@@ -244,7 +245,7 @@ class CompanyController extends BaseController
             $rest = explode("/", $request);
             $companyId = (int)end($rest);
             $company->setId($companyId);
-            echo json_encode($company->getAllEmployees());
+            echo json_encode($company->getEmployeesByCompanyId());
         }
     }
     /**
