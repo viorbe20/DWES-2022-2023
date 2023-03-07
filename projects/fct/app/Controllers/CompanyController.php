@@ -191,14 +191,14 @@ class CompanyController extends BaseController
                 header('Location: ' . DIRBASEURL . "/companies/create_company");
             } else { //By default
                 $company = Company::getInstancia();
-                $data['table_companies'] = $company->getAll();
+                $data['table_companies'] = $company->getAllActive();
 
-                if ($company->getAll() != null) { //Show companies
+                if ($company->getAllActive() != null) { //Show companies
                     
-                    if ($company->getAll() <= 5) { //Control the number of companies to show
-                        $data['table_companies'] = $company->getAll();
+                    if ($company->getAllActive() <= 5) { //Control the number of companies to show
+                        $data['table_companies'] = $company->getAllActive();
                     } else {
-                        $data['table_companies'] = array_slice($company->getAll(), 0, 5);
+                        $data['table_companies'] = array_slice($company->getAllActive(), 0, 5);
                     }
                     
                 } else {

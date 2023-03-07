@@ -41,8 +41,10 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
         return $this->rows;
     }
-    public function getAll(){
-        $this->query = "SELECT * FROM companies ORDER BY id DESC";
+
+    //get all only if status == alta
+    public function getAllActive(){
+        $this->query = "SELECT * FROM companies WHERE status_fk = 'alta' ORDER BY id DESC";
         $this->get_results_from_query();
         return $this->rows;
     }
