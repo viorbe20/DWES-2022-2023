@@ -7,6 +7,7 @@ use App\Controllers\DefaultController;
 use App\Controllers\CompanyController;
 use App\Controllers\AdminController;
 use App\Controllers\EmployeeController;
+use App\Controllers\UserController;
 
 session_start();
 
@@ -18,6 +19,13 @@ if (!isset($_SESSION['user']['profile'])) {
 }
 
 $router = new Router();
+
+$router->add(array(
+    'name' => 'cancel assignment',
+    'path' => '/^\/assignment\/cancel\/\d{1,3}$/',
+    'action' => [UserController::class, 'cancelAssignmentAction'],
+    'auth' => ["admin, user"]
+));
 
 $router->add(array(
     'name' => 'delete employee',

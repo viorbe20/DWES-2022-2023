@@ -29,8 +29,13 @@ class EmployeeController extends BaseController
                 $data['company_id'] = $value['company_id_fk'];
             }
 
+            if ($employee->checkIfEmployeeHasAssignment() != null) {
+                echo "El empleado tiene asignaciones, no se puede eliminar";
+            } else {
+                header('Location: ' . DIRBASEURL . "/companies/employees/" . $data['company_id'] . "");
+            }
+            
 
-            header('Location: ' . DIRBASEURL . "/companies/employees/" . $data['company_id'] . "");
         } else {
             $this->renderHTML('../view/home.php',);
         }

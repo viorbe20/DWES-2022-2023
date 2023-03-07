@@ -33,7 +33,14 @@ class Employee extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
-    //Thorugh employuee id get assigment id with status alta
+    //check if there is an assignment with status alta and with the employee id
+    public function checkIfEmployeeHasAssignment()
+    {
+        $this->query = "SELECT a.* FROM assignments a INNER JOIN employees e ON a.id_employee = e.id WHERE e.id = :id AND a.status_fk = 'alta'";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     public function getAssigmentIdByEmployeeId()
     {
         $this->query = "SELECT a.*

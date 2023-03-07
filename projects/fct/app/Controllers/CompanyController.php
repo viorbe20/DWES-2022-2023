@@ -42,6 +42,7 @@ class CompanyController extends BaseController
                             $employee->setId($value['id']);
                             $assignmentId = $employee->getAssigmentIdByEmployeeId();
                             $employeeData['id_student'] = (!empty($assignmentId)) ? $assignmentId[0]['id_student'] : '';
+                            $employeeData['assignment_id'] = (!empty($assignmentId)) ? $assignmentId[0]['id'] : '';
                             if (!empty($assignmentId)) {
                                 $student->setId($assignmentId[0]['id_student']);
                                 $studentData = $student->getById();
@@ -52,6 +53,7 @@ class CompanyController extends BaseController
                         } else {
                             $employeeData['id_student'] = '';
                             $employeeData['name_student'] = '';
+                            $employeeData['assignment_id'] = '';
                         }
                         $data['table_employees'][] = $employeeData;
                     }

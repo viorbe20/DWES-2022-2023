@@ -1,7 +1,7 @@
 <?php
-echo '<pre>';
-print_r($data['table_employees']);
-echo '</pre>';
+// echo '<pre>';
+// print_r($data['table_employees']);
+// echo '</pre>';
 ?>
 <section class='w-100'>
     <table class="table text-center mt-1">
@@ -19,15 +19,13 @@ echo '</pre>';
                 <tr>
                     <td><?php echo $employee['name'] . ' ' . $employee['surnames'] ?></td>
                     <td><?php echo $employee['job'] ?></td>
-                    <td><?php echo $employee['name_student']?></td>
                     <td>
-                        <a href="<?php echo DIRBASEURL ?>/employees/delete_employee/<?php echo $employee['id'] ?>"><span class="material-symbols-outlined">
-                                delete
-                            </span></a>
-                        <a href="<?php echo DIRBASEURL ?>/employees/edit_employee/<?php echo $employee['id'] ?>"><span class="material-symbols-outlined">
-                                edit
-                            </span></a>
-                    </td>
+                        <?php echo $employee['name_student'] == '' ? '<a href="" class=""></a>' : $employee['name_student'] ?>
+                        <td>
+    <a href='' class='btn btn-primary rounded-pill px-4 my-1'>Editar</a>
+    <?php echo $employee['name_student'] == '' ? '<a href="" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>' : '<a href="' . DIRBASEURL . '/assignment/cancel/' . $employee['assignment_id'] . '" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>' ?>
+</td>
+
                 </tr>
             <?php };
             ?>

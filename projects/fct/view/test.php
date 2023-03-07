@@ -6,7 +6,7 @@ $c = Company::getInstancia();
 $e = Employee::getInstancia();
 
 
-$e->setId(2);
-var_dump($e->getAssigmentIdByEmployeeId());
+$e->setId(1);
+var_dump($e->checkIfEmployeeHasAssignment());
 
 ?>
