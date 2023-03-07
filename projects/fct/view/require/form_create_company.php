@@ -1,10 +1,6 @@
-<form method="post" action="" enctype="multipart/form-data" id="form_company_info">
+<form method="post" action="" enctype="multipart/form-data" id="form_company_info" class='w-100'>
 
     <div class="card mx-4 my-2 d-flex flex-column align-items-center">
-
-        <div class="card-header py-3 bg-secondary w-100 d-flex justify-content-center">
-            <h5 class="mb-0 text-light">Alta empresa</h5>
-        </div>
 
         <div class="card-body w-100 d-flex" id="card_company">
 
@@ -14,7 +10,7 @@
                 <div class="form-outline mb-4">
                     <label class="form-label mb-3" for="company name">Nombre</label>
                     <span class="error_span"></span>
-                    <input type="text" id="c_name" name="c_name" class="form-control" />
+                    <input type="text" name="name" class="form-control" value='<?php echo isset($data['company']['name']) ? $data['company']['name'] : '' ?>' />
                 </div>
 
                 <!--Phone and email-->
@@ -24,7 +20,7 @@
                         <div class="form-outline">
                             <label class="form-label mb-3" for="company phone">Teléfono</label>
                             <span class="error_span"></span>
-                            <input type="text" id="c_phone" name="c_phone" class="form-control" />
+                            <input type="text" name="phone" class="form-control" value='<?php echo isset($data['company']['phone']) ? $data['company']['phone'] : ''?>'/>
                         </div>
                     </div>
                     <div class="col">
@@ -32,7 +28,7 @@
                         <div class="form-outline">
                             <label class="form-label mb-3" for="company email">Email</label>
                             <span class="error_span"></span>
-                            <input type="email" id="c_email" name="c_email" class="form-control" />
+                            <input type="email" name="email" class="form-control" value='<?php echo isset($data['company']['email']) ? $data['company']['email'] : ''?>'/>
                         </div>
                     </div>
                 </div>
@@ -43,14 +39,14 @@
                         <div class="form-outline">
                             <label class="form-label mb-3" for="company address">Dirección</label>
                             <span class="error_span"></span>
-                            <input type="text" id="c_address" name="c_address" class="form-control" />
+                            <input type="text" name="address" class="form-control" value='<?php echo isset($data['company']['address']) ? $data['company']['address'] : ''?>'/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-outline">
                             <label class="form-label mb-3" for="company cif">Cif</label>
                             <span class="error_span"></span>
-                            <input type="text" id="c_cif" name="c_cif" class="form-control" value='G39114111' />
+                            <input type="text" name="cif" class="form-control" value='<?php echo isset($data['company']['cif']) ? $data['company']['cif'] : ''?>'/>
                         </div>
                     </div>
                 </div>
@@ -62,13 +58,13 @@
                 <!--Logo section-->
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Imagen logo</label>
-                    <input class="form-control" type="file" id="c_logo" name="c_logo">
+                    <input class="form-control" type="file" name="logo">
                 </div>
 
                 <!-- Message input -->
                 <div class="form-outline mb-4">
                     <label class="form-label mb-3" for="company description">Información adicional</label>
-                    <textarea class="form-control" id="c_description" name="c_description" rows="6"></textarea>
+                    <textarea class="form-control" name="description" rows="6" value='<?php echo isset($data['company']['description']) ? $data['company']['description'] : ''?>'></textarea>
                 </div>
             </div>
         </div>

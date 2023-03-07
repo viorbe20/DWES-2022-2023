@@ -4,8 +4,8 @@ require_once('..\vendor\autoload.php');
 
 use App\Core\Router;
 use App\Controllers\DefaultController;
-use App\Controllers\StudentController;
 use App\Controllers\CompanyController;
+use App\Controllers\AdminController;
 
 session_start();
 
@@ -19,110 +19,16 @@ if (!isset($_SESSION['user']['profile'])) {
 $router = new Router();
 
 $router->add(array(
-    'name' => 'add assignments',
-    'path' => '/^\/test$/',
-    'action' => [StudentController::class, 'testAction'],
-    'auth' => ["admin, user"]
-));
-
-//Assignments
-
-$router->add(array(
-    'name' => 'add assignments',
-    'path' => '/^\/calls\/add_assignment$/',
-    'action' => [DefaultController::class, 'addAssignmentAction'],
+    'name' => 'companies employees',
+    'path' => '/^\/companies\/employees\/\d{1,3}$/',
+    'action' => [CompanyController::class, 'getCompanyEmployeesAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
-    'name' => 'show assignments',
-    'path' => '/^\/calls\/call_assignments\/\d{1,3}$/',
-    'action' => [DefaultController::class, 'showAssignmentsAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'assignments table',
-    'path' => '/^\/assignments_table$/',
-    'action' => [DefaultController::class, 'getAssignmentsTableAction'],
-    'auth' => ["admin, user"]
-));
-
-//CALLS
-
-$router->add(array(
-    'name' => 'calls table',
-    'path' => '/^\/calls_table$/',
-    'action' => [DefaultController::class, 'getCallsTableAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'calls',
-    'path' => '/^\/calls$/',
-    'action' => [DefaultController::class, 'callsAction'],
-    'auth' => ["admin, user"]
-));
-
-//STUDENTS
-
-$router->add(array(
-    'name' => 'students table',
-    'path' => '/^\/students_by_group\/\d{1,3}_\d{1,3}_\d{1,3}$/',
-    'action' => [StudentController::class, 'getStudentsByGroupAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'students table',
-    'path' => '/^\/students_table$/',
-    'action' => [StudentController::class, 'getStudentsTableAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'students',
-    'path' => '/^\/students$/',
-    'action' => [StudentController::class, 'addStudentsAction'],
-    'auth' => ["admin, user"]
-));
-
-//EMPLOYEES
-
-//Get employees given a company id
-$router->add(array(
-    'name' => 'employees table',
-    'path' => '/^\/employees_table\/\d{1,3}$/',
-    'action' => [CompanyController::class, 'getEmployeesTableAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'employees',
-    'path' => '/^\/companies\/company_employees\/\d{1,3}$/',
-    'action' => [CompanyController::class, 'companyEmployeesAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'add employee',
-    'path' => '/^\/companies\/add_employee$/',
-    'action' => [CompanyController::class, 'addEmployeeAction'],
-    'auth' => ["admin, user"]
-));
-
-//Companies
-$router->add(array(
-    'name' => 'delete company',
-    'path' => '/^\/companies\/delete_company\/\d{1,3}$/',
-    'action' => [CompanyController::class, 'deleteCompanyAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
-    'name' => 'add company',
-    'path' => '/^\/companies\/add_company$/',
-    'action' => [CompanyController::class, 'addCompanyAction'],
+    'name' => 'create company',
+    'path' => '/^\/companies\/create_company$/',
+    'action' => [CompanyController::class, 'createCompanyAction'],
     'auth' => ["admin, user"]
 ));
 
@@ -134,17 +40,10 @@ $router->add(array(
 ));
 
 $router->add(array(
-    'name' => 'companies table',
-    'path' => '/^\/companies_table$/',
-    'action' => [CompanyController::class, 'getCompaniesTableAction'],
-    'auth' => ["admin, user"]
-));
-
-$router->add(array(
     'name' => 'home',
     'path' => '/^\/home$/',
-    'action' => [DefaultController::class, 'indexAction'],
-    'auth' => ["admin, user"]
+    'action' => [DefaultController::class, 'homeAction'],
+    'auth' => ["admin, user, guest"]
 ));
 
 $router->add(array(
@@ -154,6 +53,19 @@ $router->add(array(
     'auth' => ["admin, user"]
 ));
 
+$router->add(array(
+    'name' => 'companies db',
+    'path' => '/^\/companies_db$/',
+    'action' => [AdminController::class, 'jqCompaniesAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'test',
+    'path' => '/^\/test$/',
+    'action' => [DefaultController::class, 'testAction'],
+    'auth' => ["admin, user, guest"]
+));
 
 $request = str_replace(DIRBASEURL, '', $_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);

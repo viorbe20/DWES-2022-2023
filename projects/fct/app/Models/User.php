@@ -6,7 +6,6 @@ require_once("DBAbstractModel.php");
 
 class User extends DBAbstractModel
 {
-
     /*CONSTRUCCIÓN DEL MODELO SINGLETON*/
     private static $instancia;
 
@@ -24,176 +23,118 @@ class User extends DBAbstractModel
     }
 
     /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
+    private $id;
+    private $name;
+    private $username;
+    private $psw;
+    private $profile_fk;
+    private $status_fk;
+    private $created_at;
+    private $updated_at;
 
-    private $u_id;
-    private $u_user;
-    private $u_password;
-    private $u_email;
-    private $u_name;
-    private $u_profile;
-    private $u_created_at;
-    private $u_updated_at;
+    
 
-
-    //Métodos de acceso
-    public function get()
+    public function getByLogin()
     {
-        $this->query = "SELECT * FROM users";
+        $this->query = "SELECT * FROM users WHERE username = :username AND psw = :psw";
+        $this->parametros['username'] = $this->username;
+        $this->parametros['psw'] = $this->psw;
         $this->get_results_from_query();
         return $this->rows;
     }
 
-    public function getById()
-    {
-        $this->query = "SELECT * FROM users WHERE u_id=:u_id";
-        $this->parametros['u_id'] = $this->u_id;
-        $this->get_results_from_query();
-        $result = $this->rows;
-        return $result;
-    }
-
-    //Get user and password and validate it
-    public function getByLogin()
-    {
-        $this->query = "SELECT * FROM users WHERE u_user=:u_user AND u_password=:u_password";
-        $this->parametros['u_user'] = $this->u_user;
-        $this->parametros['u_password'] = $this->u_password;
-        $this->get_results_from_query();
-        $result = $this->rows;
-        return $result;
-    }
-
-    //Creation methods
     public function set()
     {
-        $this->query = "INSERT INTO users (u_user, u_password, u_email, u_name, u_profile, u_created_at, u_updated_at) VALUES (:u_user, :u_password, :u_email, :u_name, :u_profile, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-        $this->parametros['u_user'] = $this->u_user;
-        $this->parametros['u_password'] = $this->u_password;
-        $this->parametros['u_email'] = $this->u_email;
-        $this->parametros['u_name'] = $this->u_name;
-        $this->parametros['u_profile'] = $this->u_profile;
-        $this->parametros['u_created_at'] = $this->u_created_at;
-        $this->parametros['u_updated_at'] = $this->u_updated_at;
+        $this->query = "INSERT INTO users (name, username, psw, profile_fk, status_fk, created_at, updated_at)
+        VALUES (:name, :username, :psw, :profile_fk, :status_fk, CURRENT_TIMESTAMP, :updated_at)";
+        $this->parametros['name'] = $this->name;
+        $this->parametros['username'] = $this->username;
+        $this->parametros['psw'] = $this->psw;
+        $this->parametros['profile_fk'] = $this->profile_fk;
+        $this->parametros['status_fk'] = $this->status_fk;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
     }
-
-    //Métodos de modificación
-    public function edit()
-    {
-        $this->query = "UPDATE users SET u_user=:u_user, u_password=:u_password, u_email=:u_email, u_name=:u_name, u_profile=:u_profile, u_updated_at=CURRENT_TIMESTAMP WHERE u_id=:u_id";
-        $this->parametros['u_id'] = $this->u_id;
-        $this->parametros['u_user'] = $this->u_user;
-        $this->parametros['u_password'] = $this->u_password;
-        $this->parametros['u_email'] = $this->u_email;
-        $this->parametros['u_name'] = $this->u_name;
-        $this->parametros['u_profile'] = $this->u_profile;
-        $this->parametros['u_updated_at'] = $this->u_updated_at;
-        $this->get_results_from_query();
-    }
-
-    //Métodos de eliminación
-    public function delete()
-    {
-        $this->query = "DELETE FROM users WHERE u_id=:u_id";
-        $this->parametros['u_id'] = $this->u_id;
-        $this->get_results_from_query();
-    }
-
-
 
     //Getters & setters
     public function getId()
     {
-        return $this->u_id;
+        return $this->id;
     }
 
-    public function setId($u_id)
+    public function setId($id)
     {
-        $this->u_id = $u_id;
-    }
-
-    public function getUser()
-    {
-        return $this->u_user;
-    }
-
-    public function setUser($u_user)
-    {
-        $this->u_user = $u_user;
-    }
-
-    public function getPassword()
-    {
-        return $this->u_password;
-    }
-
-    public function setPassword($u_password)
-    {
-        $this->u_password = $u_password;
-    }
-
-    public function getEmail()
-    {
-        return $this->u_email;
-    }
-
-    public function setEmail($u_email)
-    {
-        $this->u_email = $u_email;
+        $this->id = $id;
     }
 
     public function getName()
     {
-        return $this->u_name;
+        return $this->name;
     }
 
-    public function setName($u_name)
+    public function setName($name)
     {
-        $this->u_name = $u_name;
+        $this->name = $name;
     }
 
-    public function getProfile()
+    public function getUsername()
     {
-        return $this->u_profile;
+        return $this->username;
     }
 
-    public function setProfile($u_profile)
+    public function setUsername($username)
     {
-        $this->u_profile = $u_profile;
+        $this->username = $username;
     }
 
-    public function getCreatedAt()
+    public function getPsw()
     {
-        return $this->u_created_at;
+        return $this->psw;
     }
 
-    public function setCreatedAt($u_created_at)
+    public function setPsw($psw)
     {
-        $this->u_created_at = $u_created_at;
+        $this->psw = $psw;
     }
 
-    public function getUpdatedAt()
+    public function getProfile_fk()
     {
-        return $this->u_updated_at;
+        return $this->profile_fk;
     }
 
-    public function setUpdatedAt($u_updated_at)
+    public function setProfile_fk($profile_fk)
     {
-        $this->u_updated_at = $u_updated_at;
+        $this->profile_fk = $profile_fk;
     }
 
-    //Métodos que pide la clase para no dar error
-    public function getEntity($id)
+    public function getStatus_fk()
     {
-    }
-    public function setEntity()
-    {
+        return $this->status_fk;
     }
 
-    public function deleteEntity($id)
+    public function setStatus_fk($status_fk)
     {
+        $this->status_fk = $status_fk;
     }
-    public function editEntity()
+
+    public function getCreated_at()
     {
+        return $this->created_at;
+    }
+
+    public function setCreated_at($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdated_at($updated_at)
+    {
+        $this->updated_at = $updated_at;
     }
 }

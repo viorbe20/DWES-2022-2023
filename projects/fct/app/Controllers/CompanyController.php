@@ -2,143 +2,124 @@
 
 namespace App\Controllers;
 
-use App\Models\Company;
-use App\Models\Employee;
-
 require_once '../app/Config/constantes.php';
-require_once '../../fct/utils/my_utils.php';
+require_once '../utils/my_utils.php';
+require_once '../utils/validations.php';
 
-$_SESSION['currentAcademicYear'] = getCurrentAcademicYear();
-$_SESSION['currentTerm'] = getCurrentTerm();
+
+use App\Models\Company;
+
 
 class CompanyController extends BaseController
 {
-
-    /**
-     * Get id from url and delete the company
-     */
-    public function deleteCompanyAction($request)
-    {
-        $company = Company::getInstancia();
-        $rest = explode("/", $request);
-        $companyId = (int)end($rest);
-        $company->setId($companyId);
-        $company->delete();
-    }
-
-    /**
-     * Add a new company
-     * data added with jquery on assets/js/companies.js
-     */
-    public function addCompanyAction()
+    public function getCompanyEmployeesAction()
     {
         $data = array();
-        $company = Company::getInstancia();
-        $c_validateInputs = false;
-        $c_validateSpans = false;
-        $c_validateEmail = false;
-        $c_validatePhone = false;
-        $c_validateCif = false;
 
+        $this->renderHTML('../view/company_employees.php', $data);
+    }
+    public function createCompanyAction()
+    {
+        $data = array();
 
-        //Empty fields validation
-        if (
-            empty($_POST['c_name']) || empty($_POST['c_phone']) ||
-            empty($_POST['c_email']) || empty($_POST['c_address']) ||
-            empty($_POST['c_cif'])
-        ) {
-            error_log('AdminController::createCompanyAction() - Empty company field');
-        } else {
-            $c_validateInputs = true;
-        }
+        if (isset($_POST['btn_create_company'])) {
 
-        //Validate email
-        if (!empty($_POST['c_email'])) {
-            if (!filter_var($_POST['c_email'], FILTER_VALIDATE_EMAIL)) {
-                error_log('AdminController::createCompanyAction() - Invalid company email');
+            if (emptyInput(clearData($_POST['name']), 'Nombre')) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
             } else {
-                $c_validateEmail = true;
+                $data['company']['name'] = clearData($_POST['name']);
             }
-        }
 
-        //Validate phone
-        if (!empty($_POST['c_phone'])) {
-            if (!preg_match("/^(\+34|0034|34)?[6789]\d{8}$/", $_POST['c_phone'])) {
-                error_log('AdminController::createCompanyAction() - Invalid company phone');
+            if (emptyInput(clearData($_POST['phone']), 'Teléfono')) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
+            } else if (!validatePhone(clearData($_POST['phone']))) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
             } else {
-                $c_validatePhone = true;
+                $data['company']['phone'] = clearData($_POST['phone']);
             }
-        }
 
-        //Validate cif
-        if (!empty($_POST['c_cif'])) {
-            if (!preg_match("/^[ABCDEFGHJNPQRSUVW][\d]{7}[\dA-J]$/i", $_POST['c_cif'])) {
-                error_log('AdminController::createCompanyAction() - Invalid company cif');
+            if (emptyInput(clearData($_POST['email']), 'Email')) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
+            } else if (!validateEmail(clearData($_POST['email']))) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
             } else {
-                $c_validateCif = true;
+                $data['company']['email'] = clearData($_POST['email']);
             }
-        }
+
+            if (!empty(clearData($_POST['address']))) {
+                $data['company']['address'] = clearData($_POST['address']);
+            } else {
+                $data['company']['address'] = '';
+            }
+
+            if (emptyInput(clearData($_POST['cif']), 'CIF')) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
+            } else if (!validateCif(clearData($_POST['cif']))) {
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
+            } else {
+                $data['company']['address2'] = clearData($_POST['cif']);
+                $data['company']['cif'] = clearData($_POST['cif']);
+            }
 
 
-        //Validate spans
-        if (empty($_POST['c_name_span']) && empty($_POST['c_phone_span']) && empty($_POST['c_email_span']) && empty($_POST['c_address_span'])) {
-            $c_validateSpans = true;
-        } else {
-            error_log('AdminController::createCompanyAction() - Error in company spans');
-        }
-
-        //If all validations are true, create company
-        if ($c_validateInputs && $c_validateEmail && $c_validatePhone && $c_validateCif && $c_validateSpans) {
+            if (!empty(clearData($_POST['description']))) {
+                $data['company']['description'] = clearData($_POST['description']);
+            } else {
+                $data['company']['description'] = '';
+            }
 
             //Check if company exists
-            $company->setCif($_POST['c_cif']);
+            $company = Company::getInstancia();
+            $company->setCif($data['company']['cif']);
 
-            if ($company->getByCif() != null) {
-                echo "<script>alert('Ese CIF ya existe.');</script>";
-                $this->renderHTML('../view/add_company.php', $data);
-            } else {
-                $company->setName($_POST[clearData('c_name')]);
-                $company->setAddress($_POST[clearData('c_address')]);
-                $company->setPhone($_POST[clearData('c_phone')]);
-                $company->setEmail($_POST[clearData('c_email')]);
+            var_dump(count($company->existingCif()));
 
-                //In case, set description
-                if (isset($_POST['c_description'])) {
-                    $company->setDescription($_POST['c_description']);
-                } else {
-                    $company->setDescription("");
-                }
-
-                //Save company
-                $company->setCreatedAt(date('Y-m-d H:i:s'));
-                $company->setUpdatedAt(date('Y-m-d H:i:s'));
+            if ($company->existingCif() == null) {
+                print_r($company->existingCif());
+                $company->setName($data['company']['name']);
+                $company->setCif($data['company']['cif']);
+                $company->setDescription($data['company']['description']);
+                $company->setAddress($data['company']['address']);
+                $company->setEmail($data['company']['email']);
+                $company->setPhone($data['company']['phone']);
+                $company->setStatus_fk('alta');
+                $company->setCreated_at(date('Y-m-d H:i:s'));
+                $company->setUpdated_at(date('Y-m-d H:i:s'));
                 $company->set();
 
-
+                //Insert logo
                 //Get last company id
                 $lastCompany = $company->lastInsert();
-                $lastCompanyId = $lastCompany[0]['c_id'];
+
+                $lastCompanyId = $lastCompany[0]['id'];
                 $company->setId($lastCompanyId);
 
                 //Insert logo after company is saved and use the company id as the name of the file
-                if (file_exists($_FILES['c_logo']['tmp_name']) || is_uploaded_file($_FILES['c_logo']['tmp_name'])) {
+                if (file_exists($_FILES['logo']['tmp_name']) || is_uploaded_file($_FILES['logo']['tmp_name'])) {
                     //Logo name is the company id
                     $logoId = $lastCompanyId;
 
                     //Get logo extension
-                    $pieces = explode(".", $_FILES['c_logo']['name']);
+                    $pieces = explode(".", $_FILES['logo']['name']);
                     $logoExtension = $pieces[1];
 
                     //Complete logo name
-                    $_FILES["c_logo"]["name"] = $logoId . "." . $logoExtension;
+                    $_FILES["logo"]["name"] = $logoId . "." . $logoExtension;
                     $target_dir = "../assets/img/logos/";
                     $uploadOk = 1;
-                    $target_file = $target_dir . basename($_FILES["c_logo"]["name"]);
+                    $target_file = $target_dir . basename($_FILES["logo"]["name"]);
                     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
                     // Check if image file is a actual image or fake image
                     if (isset($_POST["submit"])) {
-                        $check = getimagesize($_FILES["c_logo"]["tmp_name"]);
+                        $check = getimagesize($_FILES["logo"]["tmp_name"]);
                         if ($check !== false) {
                             $data['logoError'] = "El archivo es una imagen - " . $check["mime"] . ".";
                             $uploadOk = 1;
@@ -176,100 +157,58 @@ class CompanyController extends BaseController
                         // if everything is ok, try to upload file
                     } else {
                         //When save in the database, the name of the logo is the same as the id of de company
-                        if (move_uploaded_file($_FILES["c_logo"]["tmp_name"], $target_file)) {
-                            $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["c_logo"]["name"])) . " ha sido subido.";
-                            $company->setLogo($_FILES['c_logo']['name']);
-                            $company->insert_logo();
+                        if (move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+                            $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["logo"]["name"])) . " ha sido subido.";
+                            $company->setLogo($_FILES['logo']['name']);
+                            $company->insertLogo();
                         } else {
                             $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
                         }
                     }
                 } else {
                     $company->setLogo("unknown.png");
-                    $company->insert_logo();
+                    $company->insertLogo();
+                }
+                echo "<script>alert('Empresa creada correctamente.');</script>";
+                header('Location: ' . DIRBASEURL . "/companies");
+            } else {
+                echo "<script>alert('La empresa ya existe.');</script>";
+                $this->renderHTML('../view/create_company.php', $data);
+                die();
+            }
+        } else {
+            $this->renderHTML('../view/create_company.php', $data);
+        }
+    }
+    public function companiesaction()
+    {
+
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+
+            if (isset($_POST['btn_create_company'])) {
+                header('Location: ' . DIRBASEURL . "/companies/create_company");
+            } else { //By default
+                $company = Company::getInstancia();
+                $data['table_companies'] = $company->getAll();
+
+                if ($company->getAll() != null) { //Show companies
+                    
+                    if ($company->getAll() <= 5) { //Control the number of companies to show
+                        $data['table_companies'] = $company->getAll();
+                    } else {
+                        $data['table_companies'] = array_slice($company->getAll(), 0, 5);
+                    }
+                    
+                } else {
+                    echo "<script>alert('No hay empresas registradas.');</script>";
                 }
 
-                //Go to http://localhost/dwes/projects/fct/public/index.php/companies/company_employees/196
-                header('Location: ' . DIRBASEURL . '/companies/company_employees/' . $lastCompanyId);
+                $this->renderHTML('../view/companies.php', $data);
             }
         } else {
-            $this->renderHTML('../view/add_company.php', $data);
+            $this->renderHTML('../view/home.php');
         }
-    }
-
-    /**
-     * Show employees from a selected company
-     */
-    public function companyEmployeesAction($request)
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') { //If the user is not logged in
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $company = Company::getInstancia();
-            $rest = explode("/", $request);
-            $companyId = (int)end($rest);
-            $company->setId($companyId);
-            
-            $employee = Employee::getInstancia();
-            $employee->setCompanyId($companyId);
-            $companyName = $company->getById();
-
-            foreach ($company->getById() as $key => $value) {
-                $companyName = $value['c_name'];
-            }
-            $data['companyName'] = $companyName;
-
-            foreach ($employee->getEmployeesByCompanyId() as $key => $value) {
-                $data['employees'][] = $value;
-            }
-
-            $this->renderHTML('../view/company_employees.php', $data);
-        }
-    }
-
-    /**
-     * Get all the employees given a company id
-     */
-    public function getEmployeesTableAction($request)
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') {
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $company = Company::getInstancia();
-            $rest = explode("/", $request);
-            $companyId = (int)end($rest);
-            $company->setId($companyId);
-            echo json_encode($company->getEmployeesByCompanyId());
-        }
-    }
-    /**
-     * Get all companies from dtabase
-     */
-    public function getCompaniesTableAction()
-    {
-
-        if ($_SESSION['user']['profile'] == 'guest') {
-            $data = array();
-            $this->renderHTML('../view/home.php', $data);
-        } else {
-            $data = array();
-            $company = Company::getInstancia();
-            echo json_encode($company->get());
-        }
-    }
-
-    /**
-     * Show companies view
-     */
-    public function companiesAction()
-    {
-        $data = array();
-        $this->renderHTML('../view/companies.php', $data);
     }
 }

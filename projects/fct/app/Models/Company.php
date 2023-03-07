@@ -23,279 +23,181 @@ class Company extends DBAbstractModel
     }
 
     /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
+    private $id;
+    private $name;
+    private $cif;
+    private $description;
+    private $address;
+    private $email;
+    private $phone;
+    private $logo;
+    private $status_fk;
+    private $created_at;
+    private $updated_at;
 
-    //Propiedades del objeto
-    private $c_id;
-    private $c_cif;
-    private $c_name;
-    private $c_description;
-    private $c_address;
-    private $c_email;
-    private $c_phone;
-    private $c_logo;
-    private $c_created_at;
-    private $c_updated_at;
-
-
-    //Métodos de acceso
-        /**
-     * Get name and id
-     * @return void
-     */
-    public function getAll()
-    {
-        $this->query = "SELECT c_id, c_name FROM companies";
+    public function existingCif(){
+        $this->query = "SELECT * FROM companies WHERE cif = :cif";
+        $this->parametros['cif'] = $this->cif;
         $this->get_results_from_query();
         return $this->rows;
     }
-
-    public function get()
-    {
-        $this->query = "SELECT * FROM companies order by c_id desc";
-        $this->get_results_from_query();
-        return $this->rows;
-    }
-    
-    //Get last companies
-    public function getSome()
-    {
-        $this->query = "SELECT * FROM companies";
-        $this->get_results_from_query();
-        //Show last 5 companies
-        $last = array_slice(array_reverse($this->rows), 0, 5);
-        return $last;
-    }
-
-    public function getById()
-    {
-        $this->query = "SELECT * FROM companies WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->get_results_from_query();
-        $result = $this->rows;
-        return $result;
-    }
-
-    public function getByName()
-    {
-        $this->query = "SELECT * FROM companies WHERE c_name LIKE CONCAT('%',:c_name,'%')";
-        $this->parametros['c_name'] = $this->c_name;
-        $this->get_results_from_query();
-        return $this->rows;
-    }
-
-    //Get employees given a company id
-    public function getAllEmployees()
-    {
-        $this->query = "SELECT emp_name, emp_nif, emp_job, emp_id FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id";
-        $this->get_results_from_query();
-        return $this->rows;
-    }
-
-    public function getByCif(){
-        $this->query = "SELECT * FROM companies WHERE c_cif=:c_cif";
-        $this->parametros['c_cif'] = $this->c_cif;
-        $this->get_results_from_query();
-        return $this->rows;
-    }
-
-    public function getEmployeesByCompanyId()
-    {
-        $this->query = "SELECT emp_id, emp_name, emp_nif, emp_job FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->get_results_from_query();
-        return $this->rows;
-    }
-
-    //Get an employee by company id
-    public function getEmployeesFromOneCompany()
-    {
-        $this->query = "SELECT * FROM companies INNER JOIN employees ON companies.c_id = employees.emp_company_id WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
+    public function getAll(){
+        $this->query = "SELECT * FROM companies ORDER BY id DESC";
         $this->get_results_from_query();
         return $this->rows;
     }
 
     public function lastInsert()
     {
-        $this->query = "SELECT * FROM companies ORDER BY c_id DESC LIMIT 1";
+        $this->query = "SELECT * FROM companies ORDER BY id DESC LIMIT 1";
         $this->get_results_from_query();
         return $this->rows;
     }
 
-
-    //Métodos de creación
-    public function set()
+    
+    public function insertLogo()
     {
-        $this->query = "INSERT INTO companies (c_cif, c_name, c_description, c_address, c_email, c_phone, c_created_at, c_updated_at) VALUES (:c_cif, :c_name, :c_description, :c_address, :c_email, :c_phone, :c_created_at, :c_updated_at)";
-        $this->parametros['c_cif'] = $this->c_cif;
-        $this->parametros['c_name'] = $this->c_name;
-        $this->parametros['c_description'] = $this->c_description;
-        $this->parametros['c_address'] = $this->c_address;
-        $this->parametros['c_email'] = $this->c_email;
-        $this->parametros['c_phone'] = $this->c_phone;
-        $this->parametros['c_created_at'] = $this->c_created_at;
-        $this->parametros['c_updated_at'] = $this->c_updated_at;
+        $this->query = "UPDATE companies SET logo=:logo, updated_at=CURRENT_TIMESTAMP WHERE id=:id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['logo'] = $this->logo;
+        $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
     }
 
-    public function insert_logo()
-    {
-        $this->query = "UPDATE companies SET c_logo=:c_logo, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->parametros['c_logo'] = $this->c_logo;
-        $this->parametros['c_updated_at'] = $this->c_updated_at;
+    public function set(){
+        $this->query = "INSERT INTO companies (name, cif, description, address, email, phone, status_fk, created_at, updated_at) 
+        VALUES (:name, :cif, :description, :address, :email, :phone, :status_fk, :created_at, :updated_at)";
+        $this->parametros['name'] = $this->name;
+        $this->parametros['cif'] = $this->cif;
+        $this->parametros['description'] = $this->description;
+        $this->parametros['address'] = $this->address;
+        $this->parametros['email'] = $this->email;
+        $this->parametros['phone'] = $this->phone;
+        $this->parametros['status_fk'] = $this->status_fk;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
     }
 
-    //Métodos de modificación
-    public function edit()
-    {
-        $this->query = "UPDATE companies SET c_cif=:c_cif, c_name=:c_name, c_description=:c_description, c_address=:c_address, 
-        c_email=:c_email, c_phone=:c_phone, c_logo=:c_logo, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->parametros['c_cif'] = $this->c_cif;
-        $this->parametros['c_name'] = $this->c_name;
-        $this->parametros['c_description'] = $this->c_description;
-        $this->parametros['c_address'] = $this->c_address;
-        $this->parametros['c_email'] = $this->c_email;
-        $this->parametros['c_phone'] = $this->c_phone;
-        $this->parametros['c_logo'] = $this->c_logo;
-        $this->parametros['c_updated_at'] = $this->c_updated_at;
+    //set name and cif and status
+    public function set2(){
+        $this->query = "INSERT INTO companies (name, cif, status_fk, created_at, updated_at) 
+        VALUES (:name, :cif, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $this->parametros['name'] = $this->name;
+        $this->parametros['cif'] = $this->cif;
+        $this->parametros['status_fk'] = $this->status_fk;
         $this->get_results_from_query();
     }
-
-    public function editName()
-    {
-        $this->query = "UPDATE companies SET c_name=:c_name, c_updated_at=CURRENT_TIMESTAMP WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->parametros['c_name'] = $this->c_name;
-        $this->parametros['c_updated_at'] = $this->c_updated_at;
-        $this->get_results_from_query();
-    }
-
-    //Métodos de eliminación
-    public function delete()
-    {
-        $this->query = "DELETE FROM companies WHERE c_id=:c_id";
-        $this->parametros['c_id'] = $this->c_id;
-        $this->get_results_from_query();
-    }
-
 
 
     //Getters & setters
     public function getId()
     {
-        return $this->c_id;
+        return $this->id;
     }
 
-    public function setId($c_id)
+    public function setId($id)
     {
-        $this->c_id = $c_id;
-    }
-
-    public function getCif()
-    {
-        return $this->c_cif;
-    }
-
-    public function setCif($c_cif)
-    {
-        $this->c_cif = $c_cif;
+        $this->id = $id;
     }
 
     public function getName()
     {
-        return $this->c_name;
+        return $this->name;
     }
 
-    public function setName($c_name)
+    public function setName($name)
     {
-        $this->c_name = $c_name;
+        $this->name = $name;
+    }
+
+    public function getCif()
+    {
+        return $this->cif;
+    }
+
+    public function setCif($cif)
+    {
+        $this->cif = $cif;
     }
 
     public function getDescription()
     {
-        return $this->c_description;
+        return $this->description;
     }
 
-    public function setDescription($c_description)
+    public function setDescription($description)
     {
-        $this->c_description = $c_description;
+        $this->description = $description;
     }
 
     public function getAddress()
     {
-        return $this->c_address;
+        return $this->address;
     }
 
-    public function setAddress($c_address)
+    public function setAddress($address)
     {
-        $this->c_address = $c_address;
+        $this->address = $address;
     }
 
     public function getEmail()
     {
-        return $this->c_email;
+        return $this->email;
     }
 
-    public function setEmail($c_email)
+    public function setEmail($email)
     {
-        $this->c_email = $c_email;
+        $this->email = $email;
     }
 
     public function getPhone()
     {
-        return $this->c_phone;
+        return $this->phone;
     }
 
-    public function setPhone($c_phone)
+    public function setPhone($phone)
     {
-        $this->c_phone = $c_phone;
+        $this->phone = $phone;
     }
 
     public function getLogo()
     {
-        return $this->c_logo;
+        return $this->logo;
     }
 
-    public function setLogo($c_logo)
+    public function setLogo($logo)
     {
-        $this->c_logo = $c_logo;
+        $this->logo = $logo;
     }
 
-    public function getCreatedAt()
+    public function getStatus_fk()
     {
-        return $this->c_created_at;
+        return $this->status_fk;
     }
 
-    public function setCreatedAt($c_created_at)
+    public function setStatus_fk($status_fk)
     {
-        $this->c_created_at = $c_created_at;
+        $this->status_fk = $status_fk;
     }
 
-    public function getUpdatedAt()
+    public function getCreated_at()
     {
-        return $this->c_updated_at;
+        return $this->created_at;
     }
 
-    public function setUpdatedAt($c_updated_at)
+    public function setCreated_at($created_at)
     {
-        $this->c_updated_at = $c_updated_at;
+        $this->created_at = $created_at;
     }
 
-    //Métodos que pide la clase para no dar error
-    public function getEntity($id)
+    public function getUpdated_at()
     {
-    }
-    public function setEntity()
-    {
+        return $this->updated_at;
     }
 
-    public function deleteEntity($id)
+    public function setUpdated_at($updated_at)
     {
-    }
-    public function editEntity()
-    {
+        $this->updated_at = $updated_at;
     }
 }
