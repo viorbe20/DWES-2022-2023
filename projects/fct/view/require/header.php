@@ -64,7 +64,6 @@ require_once '../app/Config/constantes.php';
                 </ul>
 
                 <!--User info-->
-                <!-- <section id='box_user_info' class='w-25 text-bg-dark'> -->
                 <section id='box_user_info' class='d-flex justify-content-center align-items-center text-bg-dark'>
                     <div class="d-flex">
                         <div class="d-flex align-items: center">

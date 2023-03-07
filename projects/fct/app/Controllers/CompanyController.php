@@ -95,7 +95,7 @@ class CompanyController extends BaseController
 
             if ($company->getByCif() != null) {
                 echo "<script>alert('Ese CIF ya existe.');</script>";
-                $this->renderHTML('../view/company_info.php', $data);
+                $this->renderHTML('../view/add_company.php', $data);
             } else {
                 $company->setName($_POST[clearData('c_name')]);
                 $company->setAddress($_POST[clearData('c_address')]);
@@ -193,7 +193,7 @@ class CompanyController extends BaseController
                 header('Location: ' . DIRBASEURL . '/companies/company_employees/' . $lastCompanyId);
             }
         } else {
-            $this->renderHTML('../view/company_info.php', $data);
+            $this->renderHTML('../view/add_company.php', $data);
         }
     }
 
