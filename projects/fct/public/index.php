@@ -6,6 +6,7 @@ use App\Core\Router;
 use App\Controllers\DefaultController;
 use App\Controllers\CompanyController;
 use App\Controllers\AdminController;
+use App\Controllers\EmployeeController;
 
 session_start();
 
@@ -17,6 +18,21 @@ if (!isset($_SESSION['user']['profile'])) {
 }
 
 $router = new Router();
+
+$router->add(array(
+    'name' => 'delete employee',
+    'path' => '/^\/employees\/delete_employee\/\d{1,3}$/',
+    'action' => [EmployeeController::class, 'deleteEmployeeAction'],
+    'auth' => ["admin, user"]
+));
+
+$router->add(array(
+    'name' => 'edit employee',
+    'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
+    'action' => [EmployeeController::class, 'editEmployeeAction'],
+    'auth' => ["admin, user"]
+));
+
 
 $router->add(array(
     'name' => 'companies employees',
@@ -47,7 +63,7 @@ $router->add(array(
 ));
 
 $router->add(array(
-    'name' => 'home',
+    'name' => 'logout',
     'path' => '/^\/logout$/',
     'action' => [DefaultController::class, 'logoutAction'],
     'auth' => ["admin, user"]

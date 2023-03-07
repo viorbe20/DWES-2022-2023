@@ -8,15 +8,65 @@ require_once '../utils/validations.php';
 
 
 use App\Models\Company;
+use App\Models\Employee;
+use App\Models\Student;
 
 
 class CompanyController extends BaseController
 {
-    public function getCompanyEmployeesAction()
+    public function getCompanyEmployeesAction($request)
     {
-        $data = array();
+        if ($_SESSION['user']['status'] == 'login') {
 
-        $this->renderHTML('../view/company_employees.php', $data);
+            $data = array();
+            $rest = explode("/", $request);
+            $id = (int)end($rest);
+            $company = Company::getInstancia();
+            $company->setId($id);
+
+            foreach ($company->getNameById() as $value) {
+                $data['company_name'] = $value['name'];
+            }
+
+            if (isset($_POST['btn_add_employee'])) {
+                # code...
+            } else {
+                $employee = Employee::getInstancia();
+                $student = Student::getInstancia();
+                $employee->setCompany_id_fk($id);
+
+                if ($employee->getAllActiveByCompanyId() != null) {
+                    foreach ($employee->getAllActiveByCompanyId() as $value) {
+                        $employeeData = $value;
+                        if ($value['id']) {
+                            $employee->setId($value['id']);
+                            $assignmentId = $employee->getAssigmentIdByEmployeeId();
+                            $employeeData['id_student'] = (!empty($assignmentId)) ? $assignmentId[0]['id_student'] : '';
+                            if (!empty($assignmentId)) {
+                                $student->setId($assignmentId[0]['id_student']);
+                                $studentData = $student->getById();
+                                $employeeData['name_student'] = (!empty($studentData)) ? $studentData[0]['name']. ' ' .$studentData[0]['surnames']: '';
+                            } else {
+                                $employeeData['name_student'] = '';
+                            }
+                        } else {
+                            $employeeData['id_student'] = '';
+                            $employeeData['name_student'] = '';
+                        }
+                        $data['table_employees'][] = $employeeData;
+                    }
+                } else {
+                    echo "<script>alert(Esta empresa no tiene empleados activos)</script>";
+                    $this->renderHTML('../view/companies.php', $data);
+                    die();
+                }
+
+
+                $this->renderHTML('../view/employees.php', $data);
+            }
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
     }
     public function createCompanyAction()
     {
@@ -194,13 +244,12 @@ class CompanyController extends BaseController
                 $data['table_companies'] = $company->getAllActive();
 
                 if ($company->getAllActive() != null) { //Show companies
-                    
+
                     if ($company->getAllActive() <= 5) { //Control the number of companies to show
                         $data['table_companies'] = $company->getAllActive();
                     } else {
                         $data['table_companies'] = array_slice($company->getAllActive(), 0, 5);
                     }
-                    
                 } else {
                     echo "<script>alert('No hay empresas registradas.');</script>";
                 }

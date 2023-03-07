@@ -35,14 +35,18 @@ class Company extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function getNameById(){
+        $this->query = "SELECT name FROM companies WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     public function existingCif(){
         $this->query = "SELECT * FROM companies WHERE cif = :cif";
         $this->parametros['cif'] = $this->cif;
         $this->get_results_from_query();
         return $this->rows;
     }
-
-    //get all only if status == alta
     public function getAllActive(){
         $this->query = "SELECT * FROM companies WHERE status_fk = 'alta' ORDER BY id DESC";
         $this->get_results_from_query();
@@ -55,7 +59,6 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
         return $this->rows;
     }
-
     
     public function insertLogo()
     {
@@ -80,17 +83,6 @@ class Company extends DBAbstractModel
         $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
     }
-
-    //set name and cif and status
-    public function set2(){
-        $this->query = "INSERT INTO companies (name, cif, status_fk, created_at, updated_at) 
-        VALUES (:name, :cif, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-        $this->parametros['name'] = $this->name;
-        $this->parametros['cif'] = $this->cif;
-        $this->parametros['status_fk'] = $this->status_fk;
-        $this->get_results_from_query();
-    }
-
 
     //Getters & setters
     public function getId()
