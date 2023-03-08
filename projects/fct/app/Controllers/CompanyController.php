@@ -29,37 +29,37 @@ class CompanyController extends BaseController
 
             if (isset($_POST['btn_save_employee'])) {
 
-                
+
                 $validateName = false;
                 $validateSurnames = false;
                 $validateNif = false;
                 $validateJob = false;
 
-                
+
                 $data['employee']['name'] = clearData($_POST['name']);
                 $data['employee']['surnames'] = clearData($_POST['surnames']);
                 $data['employee']['nif'] = clearData($_POST['nif']);
                 $data['employee']['job'] = clearData($_POST['job']);
-                
+
                 if (!emptyInput(clearData($_POST['name']), 'Nombre')) {
                     $validateName = true;
                 }
-                
-                
+
+
                 if (!emptyInput(clearData($_POST['surnames']), 'Apellidos')) {
                     $validateSurnames = true;
                 }
-                
+
                 if (!emptyInput(clearData($_POST['nif']), 'Nif')) {
                     if (validateNif(clearData($_POST['nif']))) {
                         $validateNif = true;
                     }
                 }
-                
+
                 if (!emptyInput(clearData($_POST['job']), 'Puesto')) {
                     $validateJob = true;
                 }
-                
+
                 var_dump($validateName, $validateSurnames, $validateNif, $validateJob);
 
                 if ($validateName && $validateSurnames && $validateNif && $validateJob) {
@@ -75,15 +75,14 @@ class CompanyController extends BaseController
                     $employee->set();
 
                     echo "<script>alert('Empleado añadido correctamente');</script>";
-                    
+
                     $data['employee'] = array(
                         'name' => '',
                         'surnames' => '',
                         'nif' => '',
                         'job' => ''
                     );
-                    
-                } 
+                }
 
                 $this->renderHTML('../view/profile_employee.php', $data);
             } else {
@@ -326,159 +325,149 @@ class CompanyController extends BaseController
 
         if (isset($_POST['btn_save_company'])) {
 
-            if (emptyInput(clearData($_POST['name']), 'Nombre')) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else {
-                $data['company']['name'] = clearData($_POST['name']);
+            $validateName = false;
+            $validatePhone = false;
+            $validateEmail = false;
+            $validateCif = false;
+            $validateAddress = false;
+
+            $data['company']['name'] = clearData($_POST['name']);
+            $data['company']['phone'] = clearData($_POST['phone']);
+            $data['company']['email'] = clearData($_POST['email']);
+            $data['company']['cif'] = clearData($_POST['cif']);
+            $data['company']['address'] = clearData($_POST['address']);
+            $data['company']['description'] = clearData($_POST['description']);
+
+            //Validate inputs
+            if (!emptyInput(clearData($_POST['name']), 'Nombre')) {
+                $validateName = true;
             }
 
-            if (emptyInput(clearData($_POST['phone']), 'Teléfono')) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else if (!validatePhone(clearData($_POST['phone']))) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else {
-                $data['company']['phone'] = clearData($_POST['phone']);
+            if (!emptyInput(clearData($_POST['phone']), 'Teléfono')) {
+                if (validatePhone(clearData($_POST['phone']))) {
+                    $validatePhone = true;
+                }
             }
 
-            if (emptyInput(clearData($_POST['email']), 'Email')) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else if (!validateEmail(clearData($_POST['email']))) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else {
-                $data['company']['email'] = clearData($_POST['email']);
+            if (!emptyInput(clearData($_POST['email']), 'Email')) {
+                if (validateEmail(clearData($_POST['email']))) {
+                    $validateEmail = true;
+                }
             }
 
-            if (!empty(clearData($_POST['address']))) {
-                $data['company']['address'] = clearData($_POST['address']);
-            } else {
-                $data['company']['address'] = '';
+            if (!emptyInput(clearData($_POST['cif']), 'CIF')) {
+                if (validateCif(clearData($_POST['cif']))) {
+                    $validateCif = true;
+                }
             }
 
-            if (emptyInput(clearData($_POST['cif']), 'CIF')) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else if (!validateCif(clearData($_POST['cif']))) {
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
-            } else {
-                $data['company']['address2'] = clearData($_POST['cif']);
-                $data['company']['cif'] = clearData($_POST['cif']);
+            if (!emptyInput(clearData($_POST['address']), 'Dirección')) {
+                $validateAddress = true;
             }
 
-
-            if (!empty(clearData($_POST['description']))) {
-                $data['company']['description'] = clearData($_POST['description']);
-            } else {
-                $data['company']['description'] = '';
-            }
-
-            //Check if company exists
-            $company = Company::getInstancia();
-            $company->setCif($data['company']['cif']);
-
-
-            if ($company->existingCif() == null) {
-                $company->setName($data['company']['name']);
+            if ($validateName && $validatePhone && $validateEmail && $validateCif && $validateAddress) {
+                //Check if company exists
+                $company = Company::getInstancia();
                 $company->setCif($data['company']['cif']);
-                $company->setDescription($data['company']['description']);
-                $company->setAddress($data['company']['address']);
-                $company->setEmail($data['company']['email']);
-                $company->setPhone($data['company']['phone']);
-                $company->setStatus_fk('alta');
-                $company->setCreated_at(date('Y-m-d H:i:s'));
-                $company->setUpdated_at(date('Y-m-d H:i:s'));
-                $company->set();
 
-                //Insert logo
-                //Get last company id
-                $lastCompany = $company->lastInsert();
 
-                $lastCompanyId = $lastCompany[0]['id'];
-                $company->setId($lastCompanyId);
+                if ($company->existingCif() == null) {
+                    $company->setName($data['company']['name']);
+                    $company->setCif($data['company']['cif']);
+                    $company->setDescription($data['company']['description']);
+                    $company->setAddress($data['company']['address']);
+                    $company->setEmail($data['company']['email']);
+                    $company->setPhone($data['company']['phone']);
+                    $company->setStatus_fk('alta');
+                    $company->setCreated_at(date('Y-m-d H:i:s'));
+                    $company->setUpdated_at(date('Y-m-d H:i:s'));
+                    $company->set();
 
-                //Insert logo after company is saved and use the company id as the name of the file
-                if (file_exists($_FILES['logo']['tmp_name']) || is_uploaded_file($_FILES['logo']['tmp_name'])) {
-                    //Logo name is the company id
-                    $logoId = $lastCompanyId;
+                    //Insert logo
+                    //Get last company id
+                    $lastCompany = $company->lastInsert();
 
-                    //Get logo extension
-                    $pieces = explode(".", $_FILES['logo']['name']);
-                    $logoExtension = $pieces[1];
+                    $lastCompanyId = $lastCompany[0]['id'];
+                    $company->setId($lastCompanyId);
 
-                    //Complete logo name
-                    $_FILES["logo"]["name"] = $logoId . "." . $logoExtension;
-                    $target_dir = "../assets/img/logos/";
-                    $uploadOk = 1;
-                    $target_file = $target_dir . basename($_FILES["logo"]["name"]);
-                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    //Insert logo after company is saved and use the company id as the name of the file
+                    if (file_exists($_FILES['logo']['tmp_name']) || is_uploaded_file($_FILES['logo']['tmp_name'])) {
+                        //Logo name is the company id
+                        $logoId = $lastCompanyId;
 
-                    // Check if image file is a actual image or fake image
-                    if (isset($_POST["submit"])) {
-                        $check = getimagesize($_FILES["logo"]["tmp_name"]);
-                        if ($check !== false) {
-                            $data['logoError'] = "El archivo es una imagen - " . $check["mime"] . ".";
-                            $uploadOk = 1;
-                        } else {
-                            $data['logoError'] = "El archivo no es una imagen.";
+                        //Get logo extension
+                        $pieces = explode(".", $_FILES['logo']['name']);
+                        $logoExtension = $pieces[1];
+
+                        //Complete logo name
+                        $_FILES["logo"]["name"] = $logoId . "." . $logoExtension;
+                        $target_dir = "../assets/img/logos/";
+                        $uploadOk = 1;
+                        $target_file = $target_dir . basename($_FILES["logo"]["name"]);
+                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                        // Check if image file is a actual image or fake image
+                        if (isset($_POST["submit"])) {
+                            $check = getimagesize($_FILES["logo"]["tmp_name"]);
+                            if ($check !== false) {
+                                $data['logoError'] = "El archivo es una imagen - " . $check["mime"] . ".";
+                                $uploadOk = 1;
+                            } else {
+                                $data['logoError'] = "El archivo no es una imagen.";
+                                $uploadOk = 0;
+                            }
+                        }
+
+                        // Check if file already exists
+                        if (file_exists($target_file)) {
+                            $data['logoError'] = "El archivo ya existe.";
                             $uploadOk = 0;
                         }
-                    }
 
-                    // Check if file already exists
-                    if (file_exists($target_file)) {
-                        $data['logoError'] = "El archivo ya existe.";
-                        $uploadOk = 0;
-                    }
-
-                    if ($_FILES["c_logo"]["size"] > 500000) {
-                        $data['logoError'] = "El archivo es demasiado pesado.";
-                        $uploadOk = 0;
-                    }
-
-                    // Allow certain file formats
-                    if (
-                        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                        && $imageFileType != "jfif"
-                    ) {
-                        $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & JFIF.";
-                        $uploadOk = 0;
-                    }
-
-                    // Check if $uploadOk is set to 0 by an error
-                    if ($uploadOk == 0) {
-                        $data['logoError'] = "No se ha subido el archivo.";
-
-
-                        // if everything is ok, try to upload file
-                    } else {
-                        //When save in the database, the name of the logo is the same as the id of de company
-                        if (move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
-                            $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["logo"]["name"])) . " ha sido subido.";
-                            $company->setLogo($_FILES['logo']['name']);
-                            $company->insertLogo();
-                        } else {
-                            $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
+                        if ($_FILES["c_logo"]["size"] > 500000) {
+                            $data['logoError'] = "El archivo es demasiado pesado.";
+                            $uploadOk = 0;
                         }
+
+                        // Allow certain file formats
+                        if (
+                            $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                            && $imageFileType != "jfif"
+                        ) {
+                            $data['logoError'] = "Sólo se admiten los siguientes formatos: JPG, JPEG, PNG & JFIF.";
+                            $uploadOk = 0;
+                        }
+
+                        // Check if $uploadOk is set to 0 by an error
+                        if ($uploadOk == 0) {
+                            $data['logoError'] = "No se ha subido el archivo.";
+
+
+                            // if everything is ok, try to upload file
+                        } else {
+                            //When save in the database, the name of the logo is the same as the id of de company
+                            if (move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+                                $data['logoError'] = "El archivo " . htmlspecialchars(basename($_FILES["logo"]["name"])) . " ha sido subido.";
+                                $company->setLogo($_FILES['logo']['name']);
+                                $company->insertLogo();
+                            } else {
+                                $data['logoError'] = "Ha ocurrido un error al subir el archivo.";
+                            }
+                        }
+                    } else {
+                        $company->setLogo("unknown.png");
+                        $company->insertLogo();
                     }
+                    header('Location: ' . DIRBASEURL . "/companies");
                 } else {
-                    $company->setLogo("unknown.png");
-                    $company->insertLogo();
+                    echo "<script>alert('Ese CIF ya existe.');</script>";
+                    $this->renderHTML('../view/create_company.php', $data);
+                    die();
                 }
-                echo "<script>alert('Empresa creada correctamente.');</script>";
-                header('Location: ' . DIRBASEURL . "/companies");
-            } else {
-                echo "<script>alert('La empresa ya existe.');</script>";
-                $this->renderHTML('../view/create_company.php', $data);
-                die();
             }
-        } else {
-            $this->renderHTML('../view/create_company.php', $data);
         }
+
+        $this->renderHTML('../view/create_company.php', $data);
     }
     public function companiesaction()
     {

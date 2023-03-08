@@ -18,22 +18,13 @@ function showMatchingCompanies() {
                     <td><img src="${$dirbase}/assets/img/logos/unknown.png"></td>
                     <td>${company["name"]}</td>
                     <td>${company["phone"]}</td>
-                    <td><a href="${window.location.href}/${company['id']}"><span class="material-symbols-outlined">
-                    groups
-                </span></a></td>
-        <td>
-        <a href="${$dirbaseurl}/companies/assignments/${company['id']}">
-        <span class="material-symbols-outlined">assignment</span></a>
-        </td>
-        <td>
-        <a href="${$dirbaseurl}/companies/delete_company/${company['id']}">
-        <span class="material-symbols-outlined">delete</span></a>
-        </td>
-        <td>
-        <a href="${$dirbaseurl}/companies/view_company/${company['id']}">
-        <span class="material-symbols-outlined">visibility</span></a>
-        </td>
-        </tr>`
+                    <td>
+                    <a href="${$dirbaseurl}/companies/delete_company/${company['id']}">
+                    <span class="material-symbols-outlined">delete</span></a>
+                    <a href="${$dirbaseurl}/companies/company_profile/${company['id']}">
+                    <span class="material-symbols-outlined">visibility</span></a>
+                    </td>
+                    </tr>`
                 );
             });
         }
