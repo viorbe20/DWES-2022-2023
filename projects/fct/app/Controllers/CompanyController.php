@@ -65,7 +65,6 @@ class CompanyController extends BaseController
 
             if (isset($_POST['btn_save_employee'])) {
 
-
                 $validateName = false;
                 $validateSurnames = false;
                 $validateNif = false;
@@ -96,8 +95,6 @@ class CompanyController extends BaseController
                     $validateJob = true;
                 }
 
-                var_dump($validateName, $validateSurnames, $validateNif, $validateJob);
-
                 if ($validateName && $validateSurnames && $validateNif && $validateJob) {
                     $employee = Employee::getInstancia();
                     $employee->setName($data['employee']['name']);
@@ -118,9 +115,11 @@ class CompanyController extends BaseController
                         'nif' => '',
                         'job' => ''
                     );
-                }
 
-                $this->renderHTML('../view/profile_employee.php', $data);
+                    header('Location: ' . DIRBASEURL . '/companies/company_profile/' . $id);
+                } else { //If there is an error, show the form again
+                    $this->renderHTML('../view/profile_employee.php', $data);
+                }
             } else {
                 $this->renderHTML('../view/profile_employee.php', $data);
             }
