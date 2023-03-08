@@ -15,6 +15,42 @@ use App\Models\Student;
 class CompanyController extends BaseController
 {
 
+    public function deleteCompanyAction($request)
+    {
+
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+            $rest = explode("/", $_SERVER['REQUEST_URI']);
+            $id = (int)end($rest);
+
+            $company = Company::getInstancia();
+            $company->setId($id);
+            $company->setStatus_fk('baja');
+            $company->setUpdated_at(date('Y-m-d H:i:s'));
+            $company->changeStatus();
+
+            echo "<script>alert('Empresa eliminada correctamente.');</script>";
+
+            $company = Company::getInstancia();
+            $data['table_companies'] = $company->getAllActive();
+
+            if ($company->getAllActive() != null) { //Show companies
+
+                if ($company->getAllActive() <= 5) { //Control the number of companies to show
+                    $data['table_companies'] = $company->getAllActive();
+                } else {
+                    $data['table_companies'] = array_slice($company->getAllActive(), 0, 5);
+                }
+            } else {
+                echo "<script>alert('No hay empresas registradas.');</script>";
+            }
+
+            $this->renderHTML('../view/companies.php', $data);
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
+    }
     public function addEmployeeAction($request)
     {
 
