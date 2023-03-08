@@ -33,6 +33,17 @@ class Employee extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function update(){
+        $this->query = "UPDATE employees SET name = :name, surnames = :surnames, nif = :nif, job = :job, updated_at = :updated_at WHERE id = :id";
+        $this->parametros['name'] = $this->name;
+        $this->parametros['surnames'] = $this->surnames;
+        $this->parametros['nif'] = $this->nif;
+        $this->parametros['job'] = $this->job;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+    }
+
     public function getById(){
         $this->query = "SELECT * FROM employees WHERE id = :id";
         $this->parametros['id'] = $this->id;

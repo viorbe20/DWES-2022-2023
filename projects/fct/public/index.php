@@ -50,12 +50,13 @@ $router->add(array(
     'auth' => ["admin, user"]
 ));
 
-// $router->add(array(
-//     'name' => 'edit employee',
-//     'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
-//     'action' => [EmployeeController::class, 'editEmployeeAction'],
-//     'auth' => ["admin, user"]
-// ));
+$router->add(array(
+    'name' => 'edit employee',
+    'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
+    'action' => [EmployeeController::class, 'editEmployeeAction'],
+    'auth' => ["admin, user"]
+));
+
 $router->add(array(
     'name' => 'add employee',
     'path' => '/^\/companies\/add_employee\/\d{1,3}$/',
