@@ -71,8 +71,8 @@
 
         <!--Buttons div-->
         <div class="form-outline mb-4 d-flex justify-content-lg-end">
-            <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" id="btn_create_company" name="btn_create_company">
-                Crear Empresa
+            <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" name="btn_save_company">
+                Guardar
             </button>
         </div>
     </div>

@@ -60,12 +60,33 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
         return $this->rows;
     }
+
+    public function getLogoById(){
+        $this->query = "SELECT logo FROM companies WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     
     public function insertLogo()
     {
         $this->query = "UPDATE companies SET logo=:logo, updated_at=CURRENT_TIMESTAMP WHERE id=:id";
         $this->parametros['id'] = $this->id;
         $this->parametros['logo'] = $this->logo;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+
+    public function update(){
+        $this->query = "UPDATE companies SET name=:name, cif=:cif, description=:description, address=:address, email=:email, phone=:phone, status_fk=:status_fk, updated_at=CURRENT_TIMESTAMP WHERE id=:id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['name'] = $this->name;
+        $this->parametros['cif'] = $this->cif;
+        $this->parametros['description'] = $this->description;
+        $this->parametros['address'] = $this->address;
+        $this->parametros['email'] = $this->email;
+        $this->parametros['phone'] = $this->phone;
+        $this->parametros['status_fk'] = $this->status_fk;
         $this->parametros['updated_at'] = $this->updated_at;
         $this->get_results_from_query();
     }

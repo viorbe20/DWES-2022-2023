@@ -1,3 +1,8 @@
+<?php
+// echo '<pre>';
+// print_r($data);
+// echo '</pre>';
+?>
 <section class='w-100'>
     <table class="table text-center mt-1">
         <thead>
@@ -12,7 +17,7 @@
             <?php
             foreach ($data['table_companies'] as $company) { ?>
                 <tr>
-                    <td><img src="<?php echo DIRBASE ?>/assets/img/logos/unknown.png"></td>
+                    <td><img src="<?php echo DIRBASE ?>/assets/img/logos/<?php echo $company['logo'] ?>" style='width: 2rem'></td>
                     <td><?php echo $company['name'] ?></td>
                     <td><?php echo $company['phone'] ?></td>
                     <td>

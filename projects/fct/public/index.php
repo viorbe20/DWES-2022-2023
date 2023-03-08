@@ -50,20 +50,25 @@ $router->add(array(
     'auth' => ["admin, user"]
 ));
 
+// $router->add(array(
+//     'name' => 'edit employee',
+//     'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
+//     'action' => [EmployeeController::class, 'editEmployeeAction'],
+//     'auth' => ["admin, user"]
+// ));
 $router->add(array(
-    'name' => 'edit employee',
-    'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
-    'action' => [EmployeeController::class, 'editEmployeeAction'],
+    'name' => 'add employee',
+    'path' => '/^\/companies\/add_employee\/\d{1,3}$/',
+    'action' => [CompanyController::class, 'addEmployeeAction'],
     'auth' => ["admin, user"]
 ));
 
-
-// $router->add(array(
-//     'name' => 'companies employees',
-//     'path' => '/^\/companies\/employees\/\d{1,3}$/',
-//     'action' => [CompanyController::class, 'getCompanyEmployeesAction'],
-//     'auth' => ["admin, user"]
-// ));
+$router->add(array(
+    'name' => 'edit company',
+    'path' => '/^\/companies\/edit_company\/\d{1,3}$/',
+    'action' => [CompanyController::class, 'editCompanyAction'],
+    'auth' => ["admin, user"]
+));
 
 $router->add(array(
     'name' => 'company profile',
