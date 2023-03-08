@@ -29,6 +29,7 @@ class Assignment extends DBAbstractModel
     private $id_employee;
     private $ayear;
     private $term;
+    private $group_name;
     private $date_start;
     private $date_end;
     private $eval_student;
@@ -36,6 +37,18 @@ class Assignment extends DBAbstractModel
     private $status;
     private $updated_at;
     private $created_at;
+
+    public function getTermNameByTermId(){
+        $this->query = "SELECT terms.term FROM assigment INNER JOIN terms 
+        ON assigment.term = terms.id WHERE assigment.id = :id";
+        $this->parametros['id'] = $this->id;
+        return $this->rows;
+    }
+    public function getAll(){
+        $this->query = "SELECT * FROM assignments";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
 
     public function getAllActive(){
         $this->query = "SELECT * FROM assignments WHERE status = alta";
@@ -108,6 +121,14 @@ class Assignment extends DBAbstractModel
 
     public function setTerm($term){
         $this->term = $term;
+    }
+
+    public function getGroupName(){
+        return $this->group_name;
+    }
+
+    public function setGroupName($group_name){
+        $this->group_name = $group_name;
     }
 
     public function getDateStart(){

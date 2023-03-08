@@ -1,21 +1,22 @@
-<?php
-// echo '<pre>';
-// print_r($data['table_employees']);
-// echo '</pre>';
+
+
+
+<?php foreach ($data['ayears'] as $ayear) { ?>
+    
+    <section class="card my-3">
+        <div class="card-header">
+            <?php echo $ayear['ayear']; ?>
+        </div>
+        
+        <div class="card-body d-flex m-2">
+            <?php foreach ($data['groups_names'] as $value) { 
 ?>
-
-
-<section class="card">
-    <div class="card-header">
-        Año académico
-    </div>
-    <div class="card-body d-flex">
-        <?php for ($i = 0; $i < 5; $i++) { ?>
-            <div class="card d-flex flex-column mx-2 p-2">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        <?php } ?>
-    </div>
-</section>
+                <div class="card d-flex flex-column mx-2 text-center text-bg-secondary">
+                    <a href='' style='text-decoration:none'><p class="card-title p-2 text-white"><?php echo $value['group_name']?></p></a>
+                </div>
+            <?php } ?> 
+        </div>
+        </section>
+    <?php
+    }
+    ?>

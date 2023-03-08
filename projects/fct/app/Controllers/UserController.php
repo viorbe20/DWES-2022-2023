@@ -41,7 +41,7 @@ class UserController extends BaseController
             $id = (int)end($rest);
             $assignment = Assignment::getInstancia();
             $assignment->setId($id);
-            $assignment->setStatus_fk('baja');
+            $assignment->setStatus('baja');
             $assignment->changeStatus();
 
             $employee = Employee::getInstancia();

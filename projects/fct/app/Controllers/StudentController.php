@@ -7,8 +7,8 @@ require_once '../utils/my_utils.php';
 require_once '../utils/validations.php';
 
 
-use App\Models\Company;
-use App\Models\Employee;
+use App\Models\Admin;
+use App\Models\Assignment;
 use App\Models\Student;
 
 
@@ -22,43 +22,24 @@ class StudentController extends BaseController
 
             $data = array();
 
-            $student = new Student();
+            $admin = Admin::getInstancia();
 
-            // foreach ($student->getAllActive() as $value) {
-            //     $data['students']['id'] = $value['id'];
-            //     $data['students']['name'] = $value['name'];
-            //     $data['students']['surnames'] = $value['surnames'];
-            //     $data['students']['nif'] = $value['nif'];
-            // }
+            $currentAYear = getCurrentAcademicYear();
 
-            $data = array(
-                'students' => array(
-                    array(
-                        'id' => 1,
-                        'name' => 'Juan',
-                        'surnames' => 'García Pérez',
-                        'nif' => '12345678A',
-                    ),
-                    array(
-                        'id' => 2,
-                        'name' => 'María',
-                        'surnames' => 'Martínez López',
-                        'nif' => '23456789B',
-                    ),
-                    array(
-                        'id' => 3,
-                        'name' => 'Josemi',
-                        'surnames' => 'Pérez Sánchez',
-                        'nif' => '72113860M',
-                    ),
-                    array(
-                        'id' => 4,
-                        'name' => 'Pablo',
-                        'surnames' => 'González Ruiz',
-                        'nif' => '34567890C',
-                    ))
-            );
+            foreach ($admin->getAllAYears() as $value) {
+                if ($value['ayear'] == $currentAYear) {
+                    //get the index of the current academic year
+                    $index = array_search($value, $admin->getAllAYears());
+                    //extract the rest of the array
+                    $data['ayears'] = array_slice($admin->getAllAYears(), $index);
+                } 
+                
+            }
 
+            foreach ($admin->getAllGroupsNames() as $value) {
+                $data['groups_names'][] = $value;
+
+            }
 
 
             $this->renderHTML('../view/students.php', $data);
