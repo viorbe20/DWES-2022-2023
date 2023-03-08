@@ -12,7 +12,27 @@ use App\Models\Company;
 
 class UserController extends BaseController
 {
+    public function createAssignmentAction($request)
+    {
+        if ($_SESSION['user']['status'] == 'login') {
 
+            $rest = explode("/", $request);
+            $id = (int)end($rest);
+            $employee = Employee::getInstancia();
+            $employee->setId($id);
+
+            foreach ($employee->getCompanyIdByEmployeeId() as $value) {
+                $data['company_id'] = $value['company_id_fk'];
+            }
+            
+            echo "<script>alert('Asignación cancelada');</script>";
+            header('Location: ' . DIRBASEURL . "/companies/employees/" . $data['company_id']);
+
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
+
+    }
     public function cancelAssignmentAction($request)
     {
         if ($_SESSION['user']['status'] == 'login') {

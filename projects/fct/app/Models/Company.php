@@ -35,12 +35,13 @@ class Company extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
-    public function getNameById(){
-        $this->query = "SELECT name FROM companies WHERE id = :id";
+    public function getById(){
+        $this->query = "SELECT * FROM companies WHERE id = :id";
         $this->parametros['id'] = $this->id;
         $this->get_results_from_query();
         return $this->rows;
     }
+
     public function existingCif(){
         $this->query = "SELECT * FROM companies WHERE cif = :cif";
         $this->parametros['cif'] = $this->cif;

@@ -8,6 +8,7 @@ use App\Controllers\CompanyController;
 use App\Controllers\AdminController;
 use App\Controllers\EmployeeController;
 use App\Controllers\UserController;
+use App\Controllers\StudentController;
 
 session_start();
 
@@ -19,6 +20,21 @@ if (!isset($_SESSION['user']['profile'])) {
 }
 
 $router = new Router();
+
+$router->add(array(
+    'name' => 'students',
+    'path' => '/^\/students$/',
+    'action' => [StudentController::class, 'studentsAction'],
+    'auth' => ["admin, user"]
+));
+
+
+$router->add(array(
+    'name' => 'create assignment',
+    'path' => '/^\/assignment\/create\/\d{1,3}$/',
+    'action' => [UserController::class, 'createAssignmentAction'],
+    'auth' => ["admin, user"]
+));
 
 $router->add(array(
     'name' => 'cancel assignment',
@@ -42,10 +58,17 @@ $router->add(array(
 ));
 
 
+// $router->add(array(
+//     'name' => 'companies employees',
+//     'path' => '/^\/companies\/employees\/\d{1,3}$/',
+//     'action' => [CompanyController::class, 'getCompanyEmployeesAction'],
+//     'auth' => ["admin, user"]
+// ));
+
 $router->add(array(
-    'name' => 'companies employees',
-    'path' => '/^\/companies\/employees\/\d{1,3}$/',
-    'action' => [CompanyController::class, 'getCompanyEmployeesAction'],
+    'name' => 'company profile',
+    'path' => '/^\/companies\/company_profile\/\d{1,3}$/',
+    'action' => [CompanyController::class, 'companyProfileAction'],
     'auth' => ["admin, user"]
 ));
 

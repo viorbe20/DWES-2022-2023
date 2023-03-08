@@ -1,4 +1,4 @@
-<section class='w-50 mb-4 d-flex'>
+<section class='card w-75 my-2 p-2 d-flex flex-row bg-light'>
     <form method="post" class="d-flex flex-column align-items-center justify-content-center w-100">
         <div class='d-flex w-50 my-2 w-100'>
             <input name="input_search_company" id="input_search_company" class="form-control" type="text" placeholder="Buscar empresa">
@@ -10,3 +10,4 @@
             </span></a>
     </div>
 </section>
+

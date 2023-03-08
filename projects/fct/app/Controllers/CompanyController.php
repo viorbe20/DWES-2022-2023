@@ -14,7 +14,7 @@ use App\Models\Student;
 
 class CompanyController extends BaseController
 {
-    public function getCompanyEmployeesAction($request)
+    public function companyProfileAction($request)
     {
         if ($_SESSION['user']['status'] == 'login') {
 
@@ -24,8 +24,10 @@ class CompanyController extends BaseController
             $company = Company::getInstancia();
             $company->setId($id);
 
-            foreach ($company->getNameById() as $value) {
+            foreach ($company->getById() as $value) {
                 $data['company_name'] = $value['name'];
+                $data['company_id'] = $value['id'];
+                $data['company_logo'] = $value['logo'];
             }
 
             if (isset($_POST['btn_add_employee'])) {
@@ -62,9 +64,7 @@ class CompanyController extends BaseController
                     $this->renderHTML('../view/companies.php', $data);
                     die();
                 }
-
-
-                $this->renderHTML('../view/employees.php', $data);
+                $this->renderHTML('../view/profile_company.php', $data);
             }
         } else {
             $this->renderHTML('../view/home.php',);
