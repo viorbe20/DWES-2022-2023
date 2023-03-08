@@ -26,11 +26,18 @@ class Student extends DBAbstractModel
     private $id;
     private $name;
     private $surnames;
-    private $status_fk;
+    private $nif;
+    private $status;
     private $created_at;
     private $updated_at;
 
-    
+    public function getAllActive()
+    {
+        $this->query = "SELECT * FROM students WHERE status = 'alta' ORDER BY id DESC";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
 
     public function getById()
     {
@@ -71,14 +78,24 @@ class Student extends DBAbstractModel
         $this->surnames = $surnames;
     }
 
-    public function getStatus_fk()
+    public function getNif()
     {
-        return $this->status_fk;
+        return $this->nif;
     }
 
-    public function setStatus_fk($status_fk)
+    public function setNif($nif)
     {
-        $this->status_fk = $status_fk;
+        $this->nif = $nif;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     public function getCreated_at()

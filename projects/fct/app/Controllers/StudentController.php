@@ -22,27 +22,50 @@ class StudentController extends BaseController
 
             $data = array();
 
-            if (isset($_POST['btn_create_company'])) {
-                header('Location: ' . DIRBASEURL . "/companies/create_company");
-            } else { //By default
-                $company = Company::getInstancia();
-                $data['table_companies'] = $company->getAllActive();
+            $student = new Student();
 
-                if ($company->getAllActive() != null) { //Show companies
+            // foreach ($student->getAllActive() as $value) {
+            //     $data['students']['id'] = $value['id'];
+            //     $data['students']['name'] = $value['name'];
+            //     $data['students']['surnames'] = $value['surnames'];
+            //     $data['students']['nif'] = $value['nif'];
+            // }
 
-                    if ($company->getAllActive() <= 5) { //Control the number of companies to show
-                        $data['table_companies'] = $company->getAllActive();
-                    } else {
-                        $data['table_companies'] = array_slice($company->getAllActive(), 0, 5);
-                    }
-                } else {
-                    echo "<script>alert('No hay empresas registradas.');</script>";
-                }
+            $data = array(
+                'students' => array(
+                    array(
+                        'id' => 1,
+                        'name' => 'Juan',
+                        'surnames' => 'García Pérez',
+                        'nif' => '12345678A',
+                    ),
+                    array(
+                        'id' => 2,
+                        'name' => 'María',
+                        'surnames' => 'Martínez López',
+                        'nif' => '23456789B',
+                    ),
+                    array(
+                        'id' => 3,
+                        'name' => 'Josemi',
+                        'surnames' => 'Pérez Sánchez',
+                        'nif' => '72113860M',
+                    ),
+                    array(
+                        'id' => 4,
+                        'name' => 'Pablo',
+                        'surnames' => 'González Ruiz',
+                        'nif' => '34567890C',
+                    ))
+            );
 
-                $this->renderHTML('../view/students.php', $data);
-            }
+
+
+            $this->renderHTML('../view/students.php', $data);
+            
         } else {
             $this->renderHTML('../view/home.php');
         }
     }
+    
 }

@@ -28,6 +28,13 @@ $router->add(array(
     'auth' => ["admin, user"]
 ));
 
+$router->add(array(
+    'name' => 'students db',
+    'path' => '/^\/students_db$/',
+    'action' => [AdminController::class, 'jqStudentsAction'],
+    'auth' => ["admin"]
+));
+
 
 $router->add(array(
     'name' => 'create assignment',
