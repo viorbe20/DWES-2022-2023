@@ -15,10 +15,83 @@ use App\Models\Student;
 class CompanyController extends BaseController
 {
 
-    public function addEmployeeAction()
+    public function addEmployeeAction($request)
     {
-        $data = array();
-        $this->renderHTML('profile_employee.php', $data);
+
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+            $rest = explode("/", $request);
+            $id = (int)end($rest);
+            $company = Company::getInstancia();
+            $company->setId($id);
+
+
+            if (isset($_POST['btn_save_employee'])) {
+
+                
+                $validateName = false;
+                $validateSurnames = false;
+                $validateNif = false;
+                $validateJob = false;
+
+                
+                $data['employee']['name'] = clearData($_POST['name']);
+                $data['employee']['surnames'] = clearData($_POST['surnames']);
+                $data['employee']['nif'] = clearData($_POST['nif']);
+                $data['employee']['job'] = clearData($_POST['job']);
+                
+                if (!emptyInput(clearData($_POST['name']), 'Nombre')) {
+                    $validateName = true;
+                }
+                
+                
+                if (!emptyInput(clearData($_POST['surnames']), 'Apellidos')) {
+                    $validateSurnames = true;
+                }
+                
+                if (!emptyInput(clearData($_POST['nif']), 'Nif')) {
+                    if (validateNif(clearData($_POST['nif']))) {
+                        $validateNif = true;
+                    }
+                }
+                
+                if (!emptyInput(clearData($_POST['job']), 'Puesto')) {
+                    $validateJob = true;
+                }
+                
+                var_dump($validateName, $validateSurnames, $validateNif, $validateJob);
+
+                if ($validateName && $validateSurnames && $validateNif && $validateJob) {
+                    $employee = Employee::getInstancia();
+                    $employee->setName($data['employee']['name']);
+                    $employee->setSurnames($data['employee']['surnames']);
+                    $employee->setNif($data['employee']['nif']);
+                    $employee->setJob($data['employee']['job']);
+                    $employee->setCompany_id_fk($id);
+                    $employee->setStatus_fk('alta');
+                    $employee->setCreated_at(date('Y-m-d H:i:s'));
+                    $employee->setUpdated_at(date('Y-m-d H:i:s'));
+                    $employee->set();
+
+                    echo "<script>alert('Empleado añadido correctamente');</script>";
+                    
+                    $data['employee'] = array(
+                        'name' => '',
+                        'surnames' => '',
+                        'nif' => '',
+                        'job' => ''
+                    );
+                    
+                } 
+
+                $this->renderHTML('../view/profile_employee.php', $data);
+            } else {
+                $this->renderHTML('../view/profile_employee.php', $data);
+            }
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
     }
     public function editCompanyAction($request)
     {
@@ -238,7 +311,7 @@ class CompanyController extends BaseController
                         $data['table_employees'][] = $employeeData;
                     }
                 } else { //Company without employees
-                    $data['table_employees'] = array() ;
+                    $data['table_employees'] = array();
                     echo "<script>alert('La empresa no tiene empleados.');</script>";
                 }
                 $this->renderHTML('../view/profile_company.php', $data);

@@ -28,13 +28,11 @@
     <main class='d-flex flex-column justify-content-center align-items-center' style='padding: 2% 8%'>
 
         <section class='d-flex'>
-            <img src="<?php echo DIRBASE ?>/assets/img/logos/<?php echo $data['company_logo'] ?>">
-            <h3 class='d-flex text-center py-2 mx-5 text-secondary'><?php echo $data['company_name'] ?></h3>
+            <h3 class='d-flex text-center py-2 mx-5 text-secondary'>Datos Empleado</h3>
         </section>
 
         <?php
-        require_once '../view/require/search_box_employee.php';
-        require_once '../view/require/table_employees.php';
+        require_once '../view/require/form_create_employee.php';
         ?>
 
     </main>

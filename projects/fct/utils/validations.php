@@ -45,3 +45,31 @@ function validateCif($cif)
         return false;
     }
 }
+
+function validateNif($nif)
+{
+    // Eliminar espacios en blanco y guiones
+    $nif = str_replace(array(' ', '-'), '', $nif);
+    
+    // Comprobar longitud y formato
+    if (preg_match('/^[0-9]{8}[A-Za-z]$/', $nif)) {
+        // Comprobar letra de control
+        $numero = substr($nif, 0, 8);
+        $letra = substr($nif, -1);
+        $letra_correcta = substr('TRWAGMYFPDXBNJZSQVHLCKE', $numero % 23, 1);
+        if (strtoupper($letra) == $letra_correcta) {
+            // Si la última letra es minúscula, convertirla a mayúscula
+            if (ctype_lower($letra)) {
+                $letra = strtoupper($letra);
+                $nif = substr($nif, 0, -1) . $letra;
+            }
+            return true;
+        }
+    }
+
+    // Si el NIF no es válido, mostrar mensaje de error
+    echo "<script>alert('El campo NIF no es válido.');</script>";
+    return false;
+}
+
+
