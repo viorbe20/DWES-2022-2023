@@ -1,11 +1,11 @@
 <?php
 echo '<pre>';
-print_r($data);
+//print_r($data);
 echo '</pre>';
-?>
-<form method="post" class='w-100'>
 
-    <div class="card mx-4 my-2 p-1 d-flex flex-row" style='height:25rem'>
+?>
+<form action="" method="post" class='d-flex flex-column'>
+    <div class="card mx-4 my-2 p-1 d-flex flex-row" style='height:26rem'>
         <!--left-->
         <div class='card d-flex flex-column w-100 m-2 p-2 bg-light'>
 
@@ -99,6 +99,8 @@ echo '</pre>';
                     </div>
                 </div>
             </div>
+
+
         </div>
 
         <!--right-->
@@ -135,14 +137,14 @@ echo '</pre>';
                 </div>
             </div>
 
+            <div class="row p-6 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg btn-block w-25" name="btn_create_assignment">
+                    Guardar
+                </button>
+            </div>
 
         </div>
+
     </div>
 
-    <!--Buttons div-->
-    <div class="form-outline d-flex justify-content-center mb-4">
-        <button type="submit" class="btn btn-primary btn-lg btn-block mx-2" name="btn_save_employee">
-            Guardar
-        </button>
-    </div>
 </form>

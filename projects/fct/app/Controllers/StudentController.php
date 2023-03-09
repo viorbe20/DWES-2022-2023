@@ -19,21 +19,23 @@ use App\Models\Employee;
 class StudentController extends BaseController
 {
 
-    public function studentAssignmentsAction($request){
+    public function studentAssignmentsAction($request)
+    {
         if ($_SESSION['user']['status'] == 'login') {
 
             $data = array();
             $assignment = Assignment::getInstancia();
             $student = Student::getInstancia();
             $teacher = Teacher::getInstancia();
-            $company = Company::getInstancia();
             $employee = Employee::getInstancia();
+            $company = Company::getInstancia();
 
             $data['teachers_list'] = $teacher->getAllActive();
 
+            $rest = explode("/", $request);
 
-            $rest = explode("/", $_SERVER['REQUEST_URI']);
 
+            // $rest = explode("/", $_SERVER['REQUEST_URI']);
             $assignment->setIdStudent(end($rest));
             $assignment->setAyear(prev($rest));
             $assignment->setGroupName(prev($rest));
@@ -42,18 +44,17 @@ class StudentController extends BaseController
             $student->getCompleteNameById();
             $data['student'] = $student->getCompleteNameById();
             $data['student'] = $data['student'][0];
-            
+
             $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
-            $data['assignments'] = $data['assignments'][0]; 
-            
+            $data['assignments'] = $data['assignments'][0];
+
             $teacher->setId($data['assignments']['id_teacher']);
             $data['teacher'] = $teacher->getCompleteNameById();
             $data['teacher'] = $data['teacher'][0];
             $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
 
 
-            $employee->setId($data['assignments']['id_employee']);
-            ;
+            $employee->setId($data['assignments']['id_employee']);;
             foreach ($employee->getIdCompanyByIdEmployee() as $value) {
                 $companyId = $value['company_id_fk'];
             }
@@ -61,7 +62,49 @@ class StudentController extends BaseController
             $employee->setCompany_id_fk($companyId);
             $data['employees'] = $employee->getAllActiveByCompanyId();
 
-            $this->renderHTML('../view/assignments.php', $data);
+
+
+            if (isset($_POST['btn_create_assignment'])) {
+
+                $validateCompany = false;
+                $validateEmployee = false;
+
+
+                if (!isset($_POST['company'])) {
+                    echo '<script>alert("Debes seleccionar una empresa existente.")</script>';
+                    $this->renderHTML('../view/assignments.php', $data);
+                } else {
+                    $validateCompany = true;
+                    if (!isset($_POST['employee'])) {
+                        echo '<script>alert("Debes seleccionar un empleado.")</script>';
+                        $this->renderHTML('../view/assignments.php', $data);
+                    } else {
+                        $validateEmployee = true;
+                    }
+                }
+
+
+                if ($validateCompany && $validateEmployee) {
+                    $assignment->setId($data['assignments']['id']);
+                    $assignment->setIdStudent($data['assignments']['id_student']);
+                    $assignment->setIdTeacher(clearData($_POST['teacher']));
+                    $assignment->setIdEmployee(clearData($_POST['employee']));
+                    $assignment->setAyear($data['assignments']['ayear']);
+                    $assignment->setTerm($data['assignments']['term']);
+                    $assignment->setGroupName($data['assignments']['group_name']);
+                    $assignment->setDateStart($_POST['start_date']);
+                    $assignment->setDateEnd($_POST['end_date']);
+                    $assignment->setStatus('alta');
+                    $assignment->setUpdatedAt(date('Y-m-d H:i:s'));
+                    $assignment->update();
+
+                    header('Location: ' . DIRBASEURL . '/' .'students/' . $data['assignments']['ayear'] . '/' . $data['assignments']['group_name']);
+                } else {
+                    $this->renderHTML('../view/assignments.php', $data);
+                }
+            } else { //By default, render the form
+                $this->renderHTML('../view/assignments.php', $data);
+            }
         } else {
             $this->renderHTML('../view/home.php');
         }
@@ -85,12 +128,12 @@ class StudentController extends BaseController
             $enrollment->setGroupName($data['group']);
 
             $assigned = array();
-            $notAssigned = array(); 
-            
+            $notAssigned = array();
+
             foreach ($enrollment->getAllByAYearAndGroup() as $value) {
                 $assignment->setIdStudent($value['student_id']);
                 $assignments = $assignment->getAllByIdStudentAndAYearAndGroup();
-                
+
                 if (empty($assignments)) {
                     $student->setId($value['student_id']);
                     $name = $student->getCompleteNameById();
@@ -104,7 +147,7 @@ class StudentController extends BaseController
             }
 
             $data['assigned'] = $assigned;
-            $data['not_assigned'] = $notAssigned; 
+            $data['not_assigned'] = $notAssigned;
 
             $this->renderHTML('../view/groups.php', $data);
         } else {

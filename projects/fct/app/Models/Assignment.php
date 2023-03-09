@@ -38,6 +38,32 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+
+    public function update()
+    {
+        $this->query = "UPDATE assignments 
+        SET id_student = :id_student, id_teacher = :id_teacher, 
+        id_employee = :id_employee, ayear = :ayear, term = :term,
+        group_name = :group_name, date_start = :date_start, date_end = :date_end,
+        eval_student = :eval_student, eval_teacher = :eval_teacher, status = :status, updated_at = :updated_at
+        WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['id_student'] = $this->id_student;
+        $this->parametros['id_teacher'] = $this->id_teacher;
+        $this->parametros['id_employee'] = $this->id_employee;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->parametros['date_start'] = $this->date_start;
+        $this->parametros['date_end'] = $this->date_end;
+        $this->parametros['eval_student'] = $this->eval_student;
+        $this->parametros['eval_teacher'] = $this->eval_teacher;
+        $this->parametros['status'] = $this->status;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getStudentNameByIdStudent()
     {
         $this->query = "SELECT students.* 
