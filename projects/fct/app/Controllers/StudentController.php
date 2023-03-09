@@ -16,6 +16,18 @@ use App\Models\Student;
 class StudentController extends BaseController
 {
 
+    public function studentAssignmentsAction($request){
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+            $rest = explode("/", $_SERVER['REQUEST_URI']);
+            $idStudent = end($rest);
+
+            $this->renderHTML('../view/assignments.php', $data);
+        } else {
+            $this->renderHTML('../view/home.php');
+        }
+    }
     public function studentsGroupAction($request)
     {
         if ($_SESSION['user']['status'] == 'login') {

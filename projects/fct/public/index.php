@@ -22,6 +22,13 @@ if (!isset($_SESSION['user']['profile'])) {
 $router = new Router();
 
 $router->add(array(
+    'name' => 'students assignments',
+    'path' => '/^\/assignments\/student\/\d{1,3}$/',
+    'action' => [StudentController::class, 'studentAssignmentsAction'],
+    'auth' => ["admin, user"]
+));
+
+$router->add(array(
     'name' => 'students from a group',
     'path' => '/^\/students\/\d{4}-\d{4}\/(DAW|DAM|ASIR)$/',
     'action' => [StudentController::class, 'studentsGroupAction'],
