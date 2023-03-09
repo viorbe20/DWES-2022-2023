@@ -1,6 +1,6 @@
 <?php
 // echo '<pre>';
-// print_r($_SESSION);
+// print_r($data);
 // echo '</pre>';
 ?>
 <form method="post" class='w-100'>
@@ -13,13 +13,26 @@
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="student name">Alumno</label>
-                        <input type="text" name="student" class="form-control" value='<?php echo isset($data['student']['name']) ? $data['student']['name'] : '' ?>' />
+                        <?php
+                        if (isset($data['student']['name'])) {
+                            echo '<input type="text" name="student" class="form-control" value="' . ($data['student']['name']) . '" readonly/>';
+                        } else {
+                            echo '<input type="text" name="student" class="form-control" value="' . ($data['student']['name']) . '" readonly/>';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="employee surnamesº">Profesor</label>
-                        <input type="text" name="surnames" class="form-control" value='<?php echo isset($data['employee']['surnames']) ? $data['employee']['surnames'] : '' ?>' />
+                        <?php
+                        //PONER EL PROFE POR DEFECTO
+                        echo '<select class="form-select" name="teacher" aria-label="Default select example">';
+                        foreach ($data['teachers_list'] as $value) {
+                            echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surnames'] . '</option>';
+                        }
+                        echo '</select>';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -27,8 +40,10 @@
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
-                        <label class="form-label mb-3" for="employee nif">Empresa</label>
-                        <input type="text" name="nif" class="form-control" value='<?php echo isset($data['employee']['nif']) ? $data['employee']['nif'] : '' ?>' />
+                        <label class="form-label mb-3" for="company">Empresa</label>
+                        <?php
+                        require_once '../view/require/search_box_company2.php';
+                        ?>
                     </div>
                 </div>
                 <div class="col">

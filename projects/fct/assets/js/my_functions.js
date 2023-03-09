@@ -1,3 +1,33 @@
+console.log('my_functions.js loaded');
+
+function selectCompany() {
+    $tableCompanies.empty();
+    
+    fetch(
+        "http://localhost/fct/public/index.php/companies_db"
+        )
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            let query = $companyBar.val().toLowerCase();
+            let filteredCompanies = data.filter(function (company) {
+                return company.name.toLowerCase().indexOf(query) > -1;
+            });
+
+
+            filteredCompanies.forEach(function (company) {
+                $tableCompanies.css('display', 'block');
+                let li = $(`<li class="list-group-item">${company['name']}</li>`);
+                li.click(function () {
+                    $companyBar.val(company['name']);
+                    $tableCompanies.css('display', 'none'); // Oculta la lista desplegable
+                });
+                $tableCompanies.append(li);
+            });
+        }
+        )
+}
+
 function showMatchingStudents() {
 
     $tableStudents.empty();

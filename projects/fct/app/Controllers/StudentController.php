@@ -11,6 +11,9 @@ use App\Models\Admin;
 use App\Models\Assignment;
 use App\Models\Enrollment;
 use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Company;
+use App\Models\Employee;
 
 
 class StudentController extends BaseController
@@ -20,8 +23,42 @@ class StudentController extends BaseController
         if ($_SESSION['user']['status'] == 'login') {
 
             $data = array();
+            $assignment = Assignment::getInstancia();
+            $student = Student::getInstancia();
+            $teacher = Teacher::getInstancia();
+            $company = Company::getInstancia();
+            $employee = Employee::getInstancia();
+
+            $data['teachers_list'] = $teacher->getAllActive();
+
+
             $rest = explode("/", $_SERVER['REQUEST_URI']);
-            $idStudent = end($rest);
+
+            $assignment->setIdStudent(end($rest));
+            $assignment->setAyear(prev($rest));
+            $assignment->setGroupName(prev($rest));
+
+            $student->setId($assignment->getIdStudent());
+            $student->getCompleteNameById();
+            $data['student'] = $student->getCompleteNameById();
+            $data['student'] = $data['student'][0];
+            
+            $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
+            $data['assignments'] = $data['assignments'][0]; 
+            
+            $teacher->setId($data['assignments']['id_teacher']);
+            $data['teacher'] = $teacher->getCompleteNameById();
+            $data['teacher'] = $data['teacher'][0];
+
+
+            $employee->setId($data['assignments']['id_employee']);
+            ;
+            foreach ($employee->getIdCompanyByIdEmployee() as $value) {
+                $companyId = $value['company_id_fk'];
+            }
+
+            $employee->setCompany_id_fk($companyId);
+            $data['employees'] = $employee->getAllActiveByCompanyId();
 
             $this->renderHTML('../view/assignments.php', $data);
         } else {

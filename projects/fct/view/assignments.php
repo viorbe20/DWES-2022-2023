@@ -11,6 +11,8 @@
     <link rel='stylesheet' href="http://localhost/fct/assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?php echo DIRBASE ?>/assets/js/companies.js"></script>
+    <script src="<?php echo DIRBASE ?>/assets/js/my_functions.js"></script>
     <title>Assignments</title>
 </head>
 

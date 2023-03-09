@@ -31,6 +31,7 @@ class Student extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+
     public function getCompleteNameById(){
         $this->query = "SELECT CONCAT(name, ' ', surnames) AS name FROM students WHERE id = :id";
         $this->parametros['id'] = $this->id;

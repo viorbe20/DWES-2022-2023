@@ -23,7 +23,7 @@ $router = new Router();
 
 $router->add(array(
     'name' => 'students assignments',
-    'path' => '/^\/assignments\/student\/\d{1,3}$/',
+    'path' => '/^\/students\/\d{4}-\d{4}\/(DAW|DAM|ASIR)\/\d{1,3}$/',
     'action' => [StudentController::class, 'studentAssignmentsAction'],
     'auth' => ["admin, user"]
 ));

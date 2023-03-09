@@ -43,7 +43,7 @@ class Company extends DBAbstractModel
         $this->get_results_from_query();
     }
     public function getById(){
-        $this->query = "SELECT * FROM companies WHERE id = :id";
+        $this->query = "SELECT * FROM companies WHERE id = :id AND status_fk = 'alta'";
         $this->parametros['id'] = $this->id;
         $this->get_results_from_query();
         return $this->rows;

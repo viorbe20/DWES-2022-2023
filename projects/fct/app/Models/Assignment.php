@@ -38,9 +38,29 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getStudentNameByIdStudent()
+    {
+        $this->query = "SELECT students.* 
+        FROM assignments INNER JOIN students 
+        ON assignments.id_student = students.id 
+        WHERE assignments.id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getAllByIdStudentAndAYearAndGroup(){
         $this->query = "SELECT * FROM assignments WHERE id_student = :id_student ";
         $this->parametros['id_student'] = $this->id_student;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getByIdStudentYearGroup(){
+        $this->query = "SELECT * FROM assignments WHERE id_student = :id_student AND ayear = :ayear AND group_name = :group_name";
+        $this->parametros['id_student'] = $this->id_student;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['group_name'] = $this->group_name;
         $this->get_results_from_query();
         return $this->rows;
     }
@@ -53,12 +73,6 @@ class Assignment extends DBAbstractModel
         return $this->rows;
     }
 
-    public function getTermNameByTermId(){
-        $this->query = "SELECT terms.term FROM assigment INNER JOIN terms 
-        ON assigment.term = terms.id WHERE assigment.id = :id";
-        $this->parametros['id'] = $this->id;
-        return $this->rows;
-    }
     public function getAll(){
         $this->query = "SELECT * FROM assignments";
         $this->get_results_from_query();

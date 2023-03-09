@@ -33,6 +33,20 @@ class Employee extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function getIdCompanyByIdEmployee(){
+        $this->query = "SELECT company_id_fk FROM employees WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getByCompanyId(){
+        $this->query = "SELECT * FROM employees WHERE company_id_fk = :company_id_fk";
+        $this->parametros['company_id_fk'] = $this->company_id_fk;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function update(){
         $this->query = "UPDATE employees SET name = :name, surnames = :surnames, nif = :nif, job = :job, updated_at = :updated_at WHERE id = :id";
         $this->parametros['name'] = $this->name;
@@ -52,7 +66,10 @@ class Employee extends DBAbstractModel
     }
     public function checkIfEmployeeHasAssignment()
     {
-        $this->query = "SELECT a.* FROM assignments a INNER JOIN employees e ON a.id_employee = e.id WHERE e.id = :id AND a.status_fk = 'alta'";
+        $this->query = "SELECT a.* 
+        FROM assignments a INNER JOIN employees e 
+        ON a.id_employee = e.id 
+        WHERE e.id = :id AND a.status_fk = 'alta'";
         $this->parametros['id'] = $this->id;
         $this->get_results_from_query();
         return $this->rows;

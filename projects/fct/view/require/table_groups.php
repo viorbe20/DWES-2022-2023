@@ -15,7 +15,7 @@ echo '</pre>';
                 if ($value['term'] == 'septiembre-diciembre') {
             ?>
             <div class="d-flex flex-column m-1 text-start align-content-center w-50">
-                <a href='<?php echo DIRBASEURL ?>/assignments/student/<?php echo $value['id'] ?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
+                <a href='<?php echo DIRBASEURL ?>/students/<?php echo $data['ayear'] . "/" . $data['group'] . "/" . $value['id']?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
                     <p><?php echo $value['name'] ?></p>
                 </a>
             </div>
@@ -32,7 +32,7 @@ echo '</pre>';
                 if ($value['term'] == 'marzo-junio') {
             ?>
           <div class="d-flex flex-column m-1 text-start align-content-center w-50">
-                <a href='<?php echo DIRBASEURL ?>/assignments/student/<?php echo $value['id'] ?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
+                <a href='<?php echo DIRBASEURL ?>/students/<?php echo $data['ayear'] . "/" . $data['group'] . "/" . $value['id']?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
                     <p><?php echo $value['name'] ?></p>
                 </a>
             </div>
