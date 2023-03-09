@@ -49,6 +49,7 @@ class StudentController extends BaseController
             $teacher->setId($data['assignments']['id_teacher']);
             $data['teacher'] = $teacher->getCompleteNameById();
             $data['teacher'] = $data['teacher'][0];
+            $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
 
 
             $employee->setId($data['assignments']['id_employee']);
