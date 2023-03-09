@@ -38,6 +38,12 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getAllByIdStudentAndAYearAndGroup(){
+        $this->query = "SELECT * FROM assignments WHERE id_student = :id_student ";
+        $this->parametros['id_student'] = $this->id_student;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
 
     public function getAllByAyearAndGroup(){
         $this->query = "SELECT * FROM assignments WHERE ayear = :ayear AND group_name = :group_name";

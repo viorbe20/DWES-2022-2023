@@ -10,6 +10,7 @@ require_once '../utils/validations.php';
 use App\Models\Admin;
 use App\Models\Assignment;
 use App\Models\Enrollment;
+use App\Models\Student;
 
 
 class StudentController extends BaseController
@@ -24,21 +25,36 @@ class StudentController extends BaseController
             $data['ayear'] = $rest[2];
             $data['group'] = $rest[3];
 
+            $enrollment = Enrollment::getInstancia();
             $assignment = Assignment::getInstancia();
+            $student = Student::getInstancia();
+
             $assignment->setAyear($data['ayear']);
             $assignment->setGroupName($data['group']);
-            
-            foreach ($assignment->getAllByAyearAndGroup() as $value) {
-                $data['assignments'][] = $value;
-            }
-
-            $enrollment = Enrollment::getInstancia();
             $enrollment->setAyear($data['ayear']);
             $enrollment->setGroupName($data['group']);
 
+            $assigned = array();
+            $notAssigned = array(); 
+            
             foreach ($enrollment->getAllByAYearAndGroup() as $value) {
-                $data['enrollments'][] = $value;
+                $assignment->setIdStudent($value['student_id']);
+                $assignments = $assignment->getAllByIdStudentAndAYearAndGroup();
+                
+                if (empty($assignments)) {
+                    $student->setId($value['student_id']);
+                    $name = $student->getCompleteNameById();
+                    $notAssigned[] = array('id' => $value['student_id'], 'name' => $name[0]['name']);
+                } else {
+                    $term = ($assignments[0]['term']);
+                    $student->setId($value['student_id']);
+                    $name = $student->getCompleteNameById();
+                    $assigned[] = array('id' => $value['student_id'], 'name' => $name[0]['name'], 'term' => $term);
+                }
             }
+
+            $data['assigned'] = $assigned;
+            $data['not_assigned'] = $notAssigned; 
 
             $this->renderHTML('../view/groups.php', $data);
         } else {

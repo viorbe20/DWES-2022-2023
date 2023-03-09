@@ -31,6 +31,14 @@ class Enrollment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getStudentIdByAYearAndGroup(){
+        $this->query = "SELECT student_id FROM enrollments WHERE ayear = :ayear AND group_name = :group_name AND status = 'alta'";
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
 
     public function getAllByAYearAndGroup(){
         $this->query = "SELECT * FROM enrollments WHERE ayear = :ayear AND group_name = :group_name";
