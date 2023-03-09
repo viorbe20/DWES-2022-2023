@@ -31,6 +31,18 @@ class Student extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function set(){
+        $this->query = "INSERT INTO students (name, surnames, nif, status, created_at, updated_at) 
+        VALUES (:name, :surnames, :nif, :status, :created_at, :updated_at)";
+        $this->parametros['name'] = $this->name;
+        $this->parametros['surnames'] = $this->surnames;
+        $this->parametros['nif'] = $this->nif;
+        $this->parametros['status'] = $this->status;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+
     public function getAllActive()
     {
         $this->query = "SELECT * FROM students WHERE status = 'alta' ORDER BY id DESC";

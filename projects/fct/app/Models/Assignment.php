@@ -38,6 +38,15 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+
+    public function getAllByAyearAndGroup(){
+        $this->query = "SELECT * FROM assignments WHERE ayear = :ayear AND group_name = :group_name";
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getTermNameByTermId(){
         $this->query = "SELECT terms.term FROM assigment INNER JOIN terms 
         ON assigment.term = terms.id WHERE assigment.id = :id";

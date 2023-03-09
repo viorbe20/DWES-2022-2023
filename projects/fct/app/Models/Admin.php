@@ -25,7 +25,6 @@ class Admin extends DBAbstractModel
     /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
     
 
-
     public function getAllAYears()
     {
         $this->query = "SELECT * FROM ayears order by ayear desc";

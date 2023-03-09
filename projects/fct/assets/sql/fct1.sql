@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2023 at 05:18 PM
+-- Generation Time: Mar 08, 2023 at 09:02 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -32,12 +32,25 @@ CREATE TABLE `assignments` (
   `id_student` int(11) NOT NULL,
   `id_teacher` int(11) NOT NULL,
   `id_employee` int(11) NOT NULL,
-  `ayear_fk` varchar(15) NOT NULL,
-  `term_fk` varchar(50) NOT NULL,
-  `status_fk` varchar(11) NOT NULL,
+  `ayear` varchar(15) NOT NULL,
+  `term` varchar(50) NOT NULL,
+  `group_name` varchar(15) NOT NULL,
+  `date_start` date NOT NULL,
+  `date_end` date NOT NULL,
+  `eval_student` varchar(256) NOT NULL,
+  `eval_teacher` varchar(256) NOT NULL,
+  `status` varchar(11) NOT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
   `updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assignments`
+--
+
+INSERT INTO `assignments` (`id`, `id_student`, `id_teacher`, `id_employee`, `ayear`, `term`, `group_name`, `date_start`, `date_end`, `eval_student`, `eval_teacher`, `status`, `created_at`, `updated_at`) VALUES
+(13, 3, 2, 2, '2020-2021', 'marzo-junio', 'DAW-MAÑANA', '2021-03-01', '2021-06-30', '', '', 'baja', '2023-03-08', '2023-03-08'),
+(14, 3, 2, 2, '2023-2024', 'septiembre-diciembre', 'ASIR-MAÑANA', '2023-09-01', '2023-12-21', '', '', 'alta', '2023-03-08', '2023-03-08');
 
 -- --------------------------------------------------------
 
@@ -139,7 +152,30 @@ INSERT INTO `employees` (`id`, `name`, `surnames`, `nif`, `job`, `company_id_fk`
 (16, 'Virginia Ordoño Bernier', 'Pérez', '85666987Z', 'Desarrolladora', 28, 'alta', '2023-03-08', '2023-03-08'),
 (17, 'datasouth', 'Pérez', '26714353Z', 'CEO', 28, 'alta', '2023-03-08', '2023-03-08'),
 (19, 'eee', 'Ordoño Bernier', '12152281R', 'q', 28, 'alta', '2023-03-08', '2023-03-08'),
-(20, 'Sersfín', 'Ordoño Bernier', '91036356X', 'q', 28, 'alta', '2023-03-08', '0000-00-00');
+(20, 'Sersfín', 'Ordoño Bernier', '91036356X', 'q', 28, 'alta', '2023-03-08', '0000-00-00'),
+(21, 'test', 'test', 'tegst', 'test', 1, 'alta', '2023-03-08', '2023-03-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE `groups` (
+  `group_name` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`group_name`) VALUES
+('ASIR-MAÑANA'),
+('ASIR-TARDE'),
+('DAM-MAÑANA'),
+('DAM-TARDE'),
+('DAW-MAÑANA'),
+('DAW-TARDE');
 
 -- --------------------------------------------------------
 
@@ -188,6 +224,7 @@ CREATE TABLE `students` (
   `name` varchar(50) NOT NULL,
   `surnames` varchar(50) NOT NULL,
   `nif` varchar(11) NOT NULL,
+  `status` varchar(10) NOT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
   `updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -196,8 +233,9 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `name`, `surnames`, `nif`, `created_at`, `updated_at`) VALUES
-(1, 'Daniel', 'Ayala Cantador', '44352467P', '2023-03-07', '2023-03-07');
+INSERT INTO `students` (`id`, `name`, `surnames`, `nif`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'Josemi', 'Pérez Sánchez', '72113860M', 'alta', '2023-03-08', '2023-03-08'),
+(6, 'Juan', 'Pérez Sánchez', '72113830M', 'alta', '2023-03-08', '2023-03-08');
 
 -- --------------------------------------------------------
 
@@ -209,13 +247,21 @@ CREATE TABLE `teachers` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `surnames` varchar(100) NOT NULL,
-  `dni` varchar(15) NOT NULL,
+  `nif` varchar(15) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `status` varchar(10) NOT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
   `updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`id`, `name`, `surnames`, `nif`, `phone`, `email`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'José ', 'Aguilera Aguilera', '34195678Z', '957969135', 'jose@gmail.com', 'alta', '2023-03-08', '2023-03-08'),
+(2, 'Jaime', 'Rabasco Ronda', '34195678P', '957969135', 'jose@gmail.com', 'alta', '2023-03-08', '2023-03-08');
 
 -- --------------------------------------------------------
 
@@ -271,9 +317,11 @@ ALTER TABLE `assignments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_student_id` (`id_student`),
   ADD KEY `fk_employee_id` (`id_employee`),
-  ADD KEY `fk_ayear_fk` (`ayear_fk`),
-  ADD KEY `fk_term_fk` (`term_fk`),
-  ADD KEY `fk_teacher_id` (`id_teacher`);
+  ADD KEY `fk_ayear_fk` (`ayear`),
+  ADD KEY `fk_term_fk` (`term`),
+  ADD KEY `fk_teacher_id` (`id_teacher`),
+  ADD KEY `fk_stauts_fk` (`status`),
+  ADD KEY `fk_group` (`group_name`);
 
 --
 -- Indexes for table `ayears`
@@ -299,6 +347,12 @@ ALTER TABLE `employees`
   ADD KEY `fk_status_fk` (`status_fk`);
 
 --
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`group_name`);
+
+--
 -- Indexes for table `profile_t`
 --
 ALTER TABLE `profile_t`
@@ -315,7 +369,8 @@ ALTER TABLE `status_t`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nif` (`nif`);
+  ADD UNIQUE KEY `nif` (`nif`),
+  ADD KEY `fk_students_status` (`status`);
 
 --
 -- Indexes for table `teachers`
@@ -346,7 +401,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -358,19 +413,19 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -386,11 +441,13 @@ ALTER TABLE `users`
 -- Constraints for table `assignments`
 --
 ALTER TABLE `assignments`
-  ADD CONSTRAINT `fk_ayear_fk` FOREIGN KEY (`ayear_fk`) REFERENCES `ayears` (`ayear`),
+  ADD CONSTRAINT `fk_ayear_fk` FOREIGN KEY (`ayear`) REFERENCES `ayears` (`ayear`),
   ADD CONSTRAINT `fk_employee_id` FOREIGN KEY (`id_employee`) REFERENCES `employees` (`id`),
+  ADD CONSTRAINT `fk_group` FOREIGN KEY (`group_name`) REFERENCES `groups` (`group_name`),
+  ADD CONSTRAINT `fk_stauts_fk` FOREIGN KEY (`status`) REFERENCES `status_t` (`status`),
   ADD CONSTRAINT `fk_student_id` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `fk_teacher_id` FOREIGN KEY (`id_teacher`) REFERENCES `teachers` (`id`),
-  ADD CONSTRAINT `fk_term_fk` FOREIGN KEY (`term_fk`) REFERENCES `terms` (`term`);
+  ADD CONSTRAINT `fk_term_fk` FOREIGN KEY (`term`) REFERENCES `terms` (`term`);
 
 --
 -- Constraints for table `companies`
@@ -404,6 +461,12 @@ ALTER TABLE `companies`
 ALTER TABLE `employees`
   ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id_fk`) REFERENCES `companies` (`id`),
   ADD CONSTRAINT `fk_status_fk` FOREIGN KEY (`status_fk`) REFERENCES `status_t` (`status`);
+
+--
+-- Constraints for table `students`
+--
+ALTER TABLE `students`
+  ADD CONSTRAINT `fk_students_status` FOREIGN KEY (`status`) REFERENCES `status_t` (`status`);
 
 --
 -- Constraints for table `teachers`
