@@ -48,8 +48,12 @@
                 </div>
                 <div class="col">
                     <div class="form-outline">
-                        <label class="form-label mb-3" for="employee job">Empleado</label>
-                        <input type="text" name="job" class="form-control" value='<?php echo isset($data['employee']['job']) ? $data['employee']['job'] : '' ?>' />
+                        <label class="form-label mb-3" for="employee name">Empleado</label>
+                        <div id="employee_select_div">
+                            <select id="employee_select" class="form-control">
+                                <option value="">Selecciona un empleado</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

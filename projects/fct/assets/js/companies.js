@@ -18,10 +18,8 @@ $(document).ready(function () {
     //Search box 2
     $companyBar = $('#company_bar');
     $tableCompanies = $('#dropdown_companies');
-
-    console.log($tableCompanies);
-    // $dirbaseurl = "http://localhost/fct/public/index.php";
-    // $dirbase = "http://localhost/fct/";
+    $employeeDiv = $('#employee_select_div');
+    $employeeSelect = $('#employee_select');
 
     $companyBar.keyup(function () {
         if (($companyBar.val() == '') || ($companyBar.val().indexOf(' ') > -1)) {
@@ -32,6 +30,13 @@ $(document).ready(function () {
             selectCompany();
         }
     });
+
+    $companyBar.click(function () {
+        $companyBar.val('');
+        $('#employee_select option:first').val('');
+        
+    });
+    
 
     let clickedOnLi = false;
     $tableCompanies.on('mousedown', function () {

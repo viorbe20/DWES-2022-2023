@@ -13,6 +13,7 @@ use App\Models\Student;
 class AdminController extends BaseController
 {
 
+
     public function jqStudentsAction()
     {
         if ($_SESSION['user']['profile'] == 'admin') {

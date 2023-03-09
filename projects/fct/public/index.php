@@ -143,6 +143,13 @@ $router->add(array(
 ));
 
 $router->add(array(
+    'name' => 'employees',
+    'path' => '/^\/employees_db$/',
+    'action' => [AdminController::class, 'jqEmployeesAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
     'name' => 'test',
     'path' => '/^\/test$/',
     'action' => [DefaultController::class, 'testAction'],
