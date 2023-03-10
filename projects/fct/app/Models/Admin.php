@@ -38,4 +38,10 @@ class Admin extends DBAbstractModel
         return $this->rows;
     }
 
+    public function getAllTerms(){
+        $this->query = "SELECT * FROM terms";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
 }

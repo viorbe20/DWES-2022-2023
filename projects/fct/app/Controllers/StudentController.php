@@ -17,7 +17,113 @@ use App\Models\Employee;
 
 
 class StudentController extends BaseController
+
 {
+
+    public function uploadStudentsAction()
+    {
+
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+            $group = Admin::getInstancia();
+            $ayear = Admin::getInstancia();
+            $term = Admin::getInstancia();
+
+            $data['groups_list'] = $group->getAllGroupsNames();
+            $data['ayears_list'] = $ayear->getAllAYears();
+            $data['terms_list'] = $term->getAllTerms();
+
+            //Push upload file button
+            if (isset($_POST['btn_upload_file'])) {
+
+                if ($_FILES['file']['name'] == '') { //Check if there is a file
+                    echo '<script type="text/javascript">
+                    alert("Ningún archivo seleccionado");</script>';
+                    $this->renderHTML('../view/upload_students.php', $data);
+                } else {
+                    $file_ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+                    if ($file_ext != 'csv') { //Check if file is a csv file based on extension
+                        echo '<script type="text/javascript">
+                        alert("El formato del archivo debe ser csv");</script>';
+                        $this->renderHTML('../view/upload_students.php', $data);
+                    } else {
+                        //Open file
+                        $file = fopen($_FILES['file']['tmp_name'], "r");
+
+                        //Ignore first line (headers)
+                        fgets($file);
+
+                        while (($line = fgets($file)) != false) {
+
+                            //Get data from line
+                            $data = explode(";", $line);
+
+                            echo 'Longitud: ' . count($data) . '<br>';
+
+                            if (count($data) != 5) { //Check if there are 5 fields
+                                echo '<script type="text/javascript">
+                                        alert("El archivo no tiene el formato correcto. Debe tener 5 campos");</script>';
+                                $this->renderHTML('../view/upload_students.php', $data);
+                                die();
+                            } elseif (!mb_check_encoding($line, 'UTF-8')) { //Check if there are invalid characters
+                                echo '<script type="text/javascript">
+                                        alert("Existen caracteres no válidos en el archivo");</script>';
+                                $this->renderHTML('../view/upload_students.php', $data);
+                                die();
+                            } else {
+
+                                $studentsArray[] = array(
+                                    'nif' => str_replace('"', '', $data[0]),
+                                    'name' => str_replace('"', '', $data[1]),
+                                    'surnames' => str_replace('"', '', $data[2]),
+                                    'email' => str_replace('"', '', $data[3]),
+                                    'phone' => str_replace('"', '', $data[4])
+                                );
+                            }
+                        }
+
+                        //Close file
+                        fclose($file);
+
+                        if (isset($studentsArray)) {
+                            // Loop the array and check if each dni exists in database
+                            foreach ($studentsArray as $student) {
+
+                                $studentModel = Student::getInstancia();
+                                $studentModel->setNif($student['nif']);
+
+                                if ($studentModel->getByNif() != null) {
+                                    echo '<script type="text/javascript">
+                                            alert("El alumno con NIF ' . $student['nif'] . ' ya existe en la base de datos");</script>';
+                                } else {
+                                    //Fill student model with data from array and insert into database
+                                    $studentModel->setName($student['name']);
+                                    $studentModel->setSurnames($student['surnames']);
+                                    $studentModel->setEmail($student['email']);
+                                    $studentModel->setPhone($student['phone']);
+                                    $studentModel->setStatus('alta');
+                                    $studentModel->setCreated_at(date('Y-m-d H:i:s'));
+                                    $studentModel->setUpdated_at(date('Y-m-d H:i:s'));
+                                    $studentModel->set();
+
+                                    //Get last inserted student id
+                                    $lastId = $studentModel->lastInsert();
+                                }
+                            }
+                        }
+                    }
+                }
+                header('Location: ' . DIRBASEURL . '/students');
+            } else {
+                //By default
+                $this->renderHTML('../view/upload_students.php', $data);
+            }
+        } else {
+            $this->renderHTML('../view/home.php');
+        }
+    }
 
     public function studentAssignmentsAction($request)
     {
@@ -28,7 +134,8 @@ class StudentController extends BaseController
             $student = Student::getInstancia();
             $teacher = Teacher::getInstancia();
             $employee = Employee::getInstancia();
-            $company = Company::getInstancia();
+            $admin = Admin::getInstancia();
+            $newAssignment = false;
 
             $data['teachers_list'] = $teacher->getAllActive();
 
@@ -37,32 +144,36 @@ class StudentController extends BaseController
 
             // $rest = explode("/", $_SERVER['REQUEST_URI']);
             $assignment->setIdStudent(end($rest));
-            $assignment->setAyear(prev($rest));
             $assignment->setGroupName(prev($rest));
+            $assignment->setAYear(prev($rest));
 
             $student->setId($assignment->getIdStudent());
             $student->getCompleteNameById();
             $data['student'] = $student->getCompleteNameById();
             $data['student'] = $data['student'][0];
 
-            $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
-            $data['assignments'] = $data['assignments'][0];
+            //Check if the student has an assignment
+            if ($assignment->getAllByIdStudentAndAYearAndGroup() != null) {
+                $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
+                $data['assignments'] = $data['assignments'][0];
 
-            $teacher->setId($data['assignments']['id_teacher']);
-            $data['teacher'] = $teacher->getCompleteNameById();
-            $data['teacher'] = $data['teacher'][0];
-            $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
+                $teacher->setId($data['assignments']['id_teacher']);
+                $data['teacher'] = $teacher->getCompleteNameById();
+                $data['teacher'] = $data['teacher'][0];
+                $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
 
+                $employee->setId($data['assignments']['id_employee']);;
+                foreach ($employee->getIdCompanyByIdEmployee() as $value) {
+                    $companyId = $value['company_id_fk'];
+                }
 
-            $employee->setId($data['assignments']['id_employee']);;
-            foreach ($employee->getIdCompanyByIdEmployee() as $value) {
-                $companyId = $value['company_id_fk'];
+                $employee->setCompany_id_fk($companyId);
+                $data['employees'] = $employee->getAllActiveByCompanyId();
+            } else {
+                $newAssignment = true;
+                $data['assignments']['ayear'] = $assignment->getAyear();
+                $data['terms_list'] = $admin->getAllTerms();
             }
-
-            $employee->setCompany_id_fk($companyId);
-            $data['employees'] = $employee->getAllActiveByCompanyId();
-
-
 
             if (isset($_POST['btn_create_assignment'])) {
 
@@ -83,6 +194,10 @@ class StudentController extends BaseController
                     }
                 }
 
+                if ($newAssignment) {
+                    //comporbar que el empleado no está cogido
+                }
+
 
                 if ($validateCompany && $validateEmployee) {
                     $assignment->setId($data['assignments']['id']);
@@ -98,7 +213,7 @@ class StudentController extends BaseController
                     $assignment->setUpdatedAt(date('Y-m-d H:i:s'));
                     $assignment->update();
 
-                    header('Location: ' . DIRBASEURL . '/' .'students/' . $data['assignments']['ayear'] . '/' . $data['assignments']['group_name']);
+                    header('Location: ' . DIRBASEURL . '/' . 'students/' . $data['assignments']['ayear'] . '/' . $data['assignments']['group_name']);
                 } else {
                     $this->renderHTML('../view/assignments.php', $data);
                 }

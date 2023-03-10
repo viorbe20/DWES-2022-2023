@@ -40,7 +40,6 @@ echo '</pre>';
                             }
                         } else {
                             // Si no hay profesor seleccionado, mostramos todos los disponibles
-                            echo '<option value="">Selecciona un profesor</option>';
                             foreach ($data['teachers_list'] as $value) {
                                 echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surnames'] . '</option>';
                             }
@@ -90,11 +89,16 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="term">Convocatoria</label>
                         <?php
+                        echo '<select class="form-select" name="term" aria-label="Default select example">';
                         if (isset($data['assignments']['term'])) {
                             echo '<input type="text" name="term" class="form-control" value="' . $data['assignments']['term'] . '" />';
                         } else {
-                            echo '<input type="text" name="term" class="form-control" value="" />';
+                            // Show all
+                            foreach ($data['terms_list'] as $value) {
+                                echo '<option value="' . $value['term'] . '">' . $value['term']  . '</option>';
+                            }
                         }
+                        echo '</select>';
                         ?>
                     </div>
                 </div>

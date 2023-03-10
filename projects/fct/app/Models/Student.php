@@ -27,9 +27,18 @@ class Student extends DBAbstractModel
     private $name;
     private $surnames;
     private $nif;
+    private $email;
+    private $phone;
     private $status;
     private $created_at;
     private $updated_at;
+
+    public function getByNif(){
+        $this->query = "SELECT * FROM students WHERE nif = :nif";
+        $this->parametros['nif'] = $this->nif;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
 
 
     public function getCompleteNameById(){
@@ -40,11 +49,13 @@ class Student extends DBAbstractModel
     }
 
     public function set(){
-        $this->query = "INSERT INTO students (name, surnames, nif, status, created_at, updated_at) 
-        VALUES (:name, :surnames, :nif, :status, :created_at, :updated_at)";
+        $this->query = "INSERT INTO students (name, surnames, nif, email, phone, status, created_at, updated_at) 
+        VALUES (:name, :surnames, :nif, :email, :phone, :status, :created_at, :updated_at)";
         $this->parametros['name'] = $this->name;
         $this->parametros['surnames'] = $this->surnames;
         $this->parametros['nif'] = $this->nif;
+        $this->parametros['email'] = $this->email;
+        $this->parametros['phone'] = $this->phone;
         $this->parametros['status'] = $this->status;
         $this->parametros['created_at'] = $this->created_at;
         $this->parametros['updated_at'] = $this->updated_at;
@@ -106,6 +117,26 @@ class Student extends DBAbstractModel
     public function setNif($nif)
     {
         $this->nif = $nif;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
     }
 
     public function getStatus()
