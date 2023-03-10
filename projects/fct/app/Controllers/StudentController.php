@@ -110,6 +110,17 @@ class StudentController extends BaseController
 
                                     //Get last inserted student id
                                     $lastId = $studentModel->lastInsert();
+
+                                    //Create enrollment
+                                    $enrollment = Enrollment::getInstancia();
+                                    $enrollment->setStudentId($lastId);
+                                    $enrollment->setAyear($_POST['ayear']);
+                                    $enrollment->setTerm($_POST['term']);
+                                    $enrollment->setGroupName($_POST['group']);
+                                    $enrollment->setStatus('alta');
+                                    $enrollment->setCreatedAt(date('Y-m-d H:i:s'));
+                                    $enrollment->setUpdatedAt(date('Y-m-d H:i:s'));
+                                    $enrollment->set();
                                 }
                             }
                         }

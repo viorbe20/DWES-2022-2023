@@ -26,11 +26,24 @@ class Enrollment extends DBAbstractModel
     private $id;
     private $student_id;
     private $ayear;
+    private $term;
     private $group_name;
     private $status;
     private $updated_at;
     private $created_at;
 
+    public function set(){
+        $this->query = "INSERT INTO enrollments (student_id, ayear, term, group_name, status, updated_at, created_at) VALUES (:student_id, :ayear, :term, :group_name, :status, :updated_at, :created_at)";
+        $this->parametros['student_id'] = $this->student_id;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->parametros['status'] = $this->status;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     public function getStudentIdByAYearAndGroup(){
         $this->query = "SELECT student_id FROM enrollments WHERE ayear = :ayear AND group_name = :group_name AND status = 'alta'";
         $this->parametros['ayear'] = $this->ayear;
@@ -82,6 +95,14 @@ class Enrollment extends DBAbstractModel
 
     public function setAyear($ayear){
         $this->ayear = $ayear;
+    }
+
+    public function getTerm(){
+        return $this->term;
+    }
+
+    public function setTerm($term){
+        $this->term = $term;
     }
 
     public function getGroupName(){
