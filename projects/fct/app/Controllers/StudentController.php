@@ -97,36 +97,35 @@ class StudentController extends BaseController
                                 if ($studentModel->getByNif() != null) {
                                     echo '<script type="text/javascript">
                                             alert("El alumno con NIF ' . $student['nif'] . ' ya existe en la base de datos");</script>';
-                                } else {
-                                    //Fill student model with data from array and insert into database
-                                    $studentModel->setName($student['name']);
-                                    $studentModel->setSurnames($student['surnames']);
-                                    $studentModel->setEmail($student['email']);
-                                    $studentModel->setPhone($student['phone']);
-                                    $studentModel->setStatus('alta');
-                                    $studentModel->setCreated_at(date('Y-m-d H:i:s'));
-                                    $studentModel->setUpdated_at(date('Y-m-d H:i:s'));
-                                    $studentModel->set();
-
-                                    //Get last inserted student id
-                                    $lastId = $studentModel->lastInsert();
-
-                                    //Create enrollment
-                                    $enrollment = Enrollment::getInstancia();
-                                    $enrollment->setStudentId($lastId);
-                                    $enrollment->setAyear($_POST['ayear']);
-                                    $enrollment->setTerm($_POST['term']);
-                                    $enrollment->setGroupName($_POST['group']);
-                                    $enrollment->setStatus('alta');
-                                    $enrollment->setCreatedAt(date('Y-m-d H:i:s'));
-                                    $enrollment->setUpdatedAt(date('Y-m-d H:i:s'));
-                                    $enrollment->set();
                                 }
+                                //Fill student model with data from array and insert into database
+                                $studentModel->setName($student['name']);
+                                $studentModel->setSurnames($student['surnames']);
+                                $studentModel->setEmail($student['email']);
+                                $studentModel->setPhone($student['phone']);
+                                $studentModel->setStatus('alta');
+                                $studentModel->setCreated_at(date('Y-m-d H:i:s'));
+                                $studentModel->setUpdated_at(date('Y-m-d H:i:s'));
+                                $studentModel->set();
+
+                                //Get last inserted student id
+                                $lastId = $studentModel->lastInsert();
+
+                                //Create enrollment
+                                $enrollment = Enrollment::getInstancia();
+                                $enrollment->setStudentId($lastId);
+                                $enrollment->setAyear($_POST['ayear']);
+                                $enrollment->setTerm($_POST['term']);
+                                $enrollment->setGroupName($_POST['group']);
+                                $enrollment->setStatus('alta');
+                                $enrollment->setCreatedAt(date('Y-m-d H:i:s'));
+                                $enrollment->setUpdatedAt(date('Y-m-d H:i:s'));
+                                $enrollment->set();
                             }
                         }
                     }
                 }
-                header('Location: ' . DIRBASEURL . '/students');
+                header('Location: ' . DIRBASEURL . '/students/' . $_POST['ayear'] . '/' . $_POST['group']);
             } else {
                 //By default
                 $this->renderHTML('../view/upload_students.php', $data);
