@@ -38,6 +38,25 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function set(){
+        $this->query = "INSERT INTO assignments (id_student, id_teacher, id_employee, ayear, term, group_name, date_start, date_end, eval_student, eval_teacher, status, updated_at, created_at) VALUES (:id_student, :id_teacher, :id_employee, :ayear, :term, :group_name, :date_start, :date_end, :eval_student, :eval_teacher, :status, :updated_at, :created_at)";
+        $this->parametros['id_student'] = $this->id_student;
+        $this->parametros['id_teacher'] = $this->id_teacher;
+        $this->parametros['id_employee'] = $this->id_employee;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->parametros['date_start'] = $this->date_start;
+        $this->parametros['date_end'] = $this->date_end;
+        $this->parametros['eval_student'] = $this->eval_student;
+        $this->parametros['eval_teacher'] = $this->eval_teacher;
+        $this->parametros['status'] = $this->status;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->parametros['created_at'] = $this->created_at;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getCompanyIdByEmployeeId()
     {
         $this->query = "SELECT company_id_fk FROM employees WHERE id = :id";

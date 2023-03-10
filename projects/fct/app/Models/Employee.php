@@ -33,6 +33,15 @@ class Employee extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function getCompanyInfoByEmployeeId(){
+        $this->query = "SELECT c.* FROM companies c 
+        INNER JOIN employees e ON c.id = e.company_id_fk 
+        WHERE e.id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getIdCompanyByIdAssignment(){
         $this->query = "SELECT e.company_id_fk FROM assignments a 
         INNER JOIN employees e ON a.id_employee = e.id WHERE a.id = :id";

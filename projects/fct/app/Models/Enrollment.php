@@ -32,6 +32,36 @@ class Enrollment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getAllById(){
+        $this->query = "SELECT * FROM enrollments WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getAllByIdStudent(){
+        $this->query = "SELECT * FROM enrollments WHERE student_id = :student_id";
+        $this->parametros['student_id'] = $this->student_id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getIdCurrentStudentsWithoutAssignment(){
+        $this->query = "SELECT s.*, e.*
+        FROM students AS s
+        INNER JOIN enrollments AS e ON s.id = e.student_id
+        WHERE e.status = 'alta'
+        AND e.student_id NOT IN (SELECT id_student FROM assignments WHERE status = 'alta')
+        AND e.ayear = :ayear
+        AND e.term = :term
+        ORDER BY e.student_id DESC;
+        ";
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function set(){
         $this->query = "INSERT INTO enrollments (student_id, ayear, term, group_name, status, updated_at, created_at) VALUES (:student_id, :ayear, :term, :group_name, :status, :updated_at, :created_at)";
         $this->parametros['student_id'] = $this->student_id;

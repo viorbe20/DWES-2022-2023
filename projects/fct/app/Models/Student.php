@@ -33,6 +33,28 @@ class Student extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+
+    public function getStudentsWithAssignment(){
+        $this->query = "SELECT s.*
+        FROM students AS s
+        INNER JOIN assignments AS a ON s.id = a.id_student
+        WHERE s.status = 'alta'
+        AND a.status = 'alta'
+        ORDER BY s.id DESC";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getStudentsWithOutAssignment(){
+        $this->query = "SELECT s.*
+        FROM students AS s
+        WHERE s.status = 'alta'
+        AND s.id NOT IN (SELECT id_student FROM assignments WHERE status = 'alta')
+        ORDER BY s.id DESC;";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getByNif(){
         $this->query = "SELECT * FROM students WHERE nif = :nif";
         $this->parametros['nif'] = $this->nif;

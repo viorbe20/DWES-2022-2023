@@ -17,7 +17,11 @@ echo '</pre>';
                         if (isset($data['student']['name'])) {
                             echo '<input type="text" name="student" class="form-control" value="' . ($data['student']['name']) . '" readonly/>';
                         } else {
-                            echo '<input type="text" name="student" class="form-control" value="' . ($data['student']['name']) . '" readonly/>';
+                            echo '<select class="form-select" name="enrollment_id">';
+                            foreach ($data['students']['not_assigned']  as $value) {
+                                echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surnames'] . '</option>';
+                            }
+                            echo '</select>';
                         }
                         ?>
                     </div>
@@ -53,19 +57,31 @@ echo '</pre>';
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="company">Empresa</label>
+                        <?php if (isset($data['employee']['company_id'])) {
+                            echo '<input type="text" name="company" class="form-control"  value="' . $data['employee']['company_name'] . '"readonly/>';
+                        } else { ?>
+                            <?php
+                            require_once '../view/require/search_box_company2.php';
+                            ?>
                         <?php
-                        require_once '../view/require/search_box_company2.php';
-                        ?>
+                        } ?>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="employee name">Empleado</label>
-                        <div id="employee_select_div">
-                            <select id="employee_select" class="form-control">
-                                <option value="">Selecciona un empleado</option>
-                            </select>
-                        </div>
+                        <?php
+                        if (isset($data['employee']['name'])) {
+                            echo '<input type="text" name="employee" class="form-control" value="' . $data['employee']['name'] . ' ' . $data['employee']['surnames'] . '" readonly/>';
+                        } else { ?>
+                            <div id="employee_select_div">
+                                <select id="employee_select" class="form-control">
+                                    <option value="">Selecciona un empleado</option>
+                                </select>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -77,77 +93,80 @@ echo '</pre>';
                         <?php
                         if (isset($data['assignments']['ayear'])) {
                             echo '<input type="text" name="academic_year" class="form-control" value="' . $data['assignments']['ayear'] . '" />';
-                        } else {
-                            echo '<input type="text" name="academic_year" class="form-control" value="" />';
-                        }
-                        ?>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label mb-3" for="term">Convocatoria</label>
+                        } else { ?>
+                            <input type="text" name="academic_year" class="form-control" value="<?php echo getCurrentAcademicYear() ?>" readonly/>
                         <?php
-                        echo '<select class="form-select" name="term" aria-label="Default select example">';
-                        if (isset($data['assignments']['term'])) {
-                            echo '<input type="text" name="term" class="form-control" value="' . $data['assignments']['term'] . '" />';
-                        } else {
-                            foreach ($data['terms_list'] as $value) {
-                                if($value['term'] == getCurrentTerm()){
-                                    echo '<option value="' . $value['term'] . '" selected>' . $value['term']  . '</option>';
-                                }
-                            }
                         }
-                        echo '</select>';
                         ?>
+                </div>
+                </div>
+                <div class=" col">
+                            <div class="form-outline">
+                                <label class="form-label mb-3" for="term">Convocatoria</label>
+                                <?php
+                                echo '<select class="form-select" name="term" aria-label="Default select example">';
+                                if (isset($data['assignments']['term'])) {
+                                    echo '<input type="text" name="term" class="form-control" value="' . $data['assignments']['term'] . '" />';
+                                } else {
+                                    foreach ($data['terms_list'] as $value) {
+                                        if ($value['term'] == getCurrentTerm()) {
+                                            echo '<option value="' . $value['term'] . '" selected>' . $value['term']  . '</option>';
+                                        } else {
+                                            echo '<option value="' . $value['term'] . '">' . $value['term']  . '</option>';
+                                        }
+                                    }
+                                }
+                                echo '</select>';
+                                ?>
+                            </div>
                     </div>
                 </div>
+
+
             </div>
 
+            <!--right-->
+            <div class='card d-flex flex-column w-100 m-2 p-2 bg-light '>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label mb-3" for="start_date">Fecha comienzo</label>
+                            <input type="date" name="start_date" class="form-control" value="<?php echo isset($data['assignments']['date_start']) ? $data['assignments']['date_start'] : ''; ?>" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label mb-3" for="end_date">Fecha finalización</label>
+                            <input type="date" name="end_date" class="form-control" value="<?php echo isset($data['assignments']['date_end']) ? $data['assignments']['date_end'] : ''; ?>" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label mb-3" for="eval_student">Evaluación alumno</label>
+                            <textarea class="form-control" id="eval_student" name="eval_student" rows="6"><?php echo isset($data['assignments']['eval_student']) ? $data['assignments']['eval_student'] : ''; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label mb-3" for="eval_teacher">Evaluación profesor</label>
+                            <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6"><?php echo isset($data['assignments']['eval_teacher']) ? $data['assignments']['eval_teacher'] : ''; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row p-6 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block w-25" name="btn_create_assignment">
+                        Guardar
+                    </button>
+                </div>
+
+            </div>
 
         </div>
-
-        <!--right-->
-        <div class='card d-flex flex-column w-100 m-2 p-2 bg-light '>
-
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label mb-3" for="start_date">Fecha comienzo</label>
-                        <input type="date" name="start_date" class="form-control" value="<?php echo isset($data['assignments']['date_start']) ? $data['assignments']['date_start'] : ''; ?>" />
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label mb-3" for="end_date">Fecha finalización</label>
-                        <input type="date" name="end_date" class="form-control" value="<?php echo isset($data['assignments']['date_end']) ? $data['assignments']['date_end'] : ''; ?>" />
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label mb-3" for="eval_student">Evaluación alumno</label>
-                        <textarea class="form-control" id="eval_student" name="eval_student" rows="6"><?php echo isset($data['assignments']['eval_student']) ? $data['assignments']['eval_student'] : ''; ?></textarea>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label mb-3" for="eval_teacher">Evaluación profesor</label>
-                        <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6"><?php echo isset($data['assignments']['eval_teacher']) ? $data['assignments']['eval_teacher'] : ''; ?></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row p-6 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-lg btn-block w-25" name="btn_create_assignment">
-                    Guardar
-                </button>
-            </div>
-
-        </div>
-
-    </div>
 
 </form>

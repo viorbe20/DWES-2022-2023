@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 abstract class DBAbstractModel
@@ -36,8 +37,10 @@ abstract class DBAbstractModel
         }
     }
 
+
     #Método que devuelve el último id introducido.
-    public function lastInsert() {
+    public function lastInsert()
+    {
         return $this->conn->lastInsertId();
     }
 
