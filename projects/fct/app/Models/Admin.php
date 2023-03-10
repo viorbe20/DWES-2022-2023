@@ -39,7 +39,7 @@ class Admin extends DBAbstractModel
     }
 
     public function getAllTerms(){
-        $this->query = "SELECT * FROM terms";
+        $this->query = "SELECT * FROM terms order by term desc";
         $this->get_results_from_query();
         return $this->rows;
     }

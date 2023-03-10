@@ -3,63 +3,32 @@ echo '<pre>';
 //print_r($data);
 echo '</pre>';
 ?>
-<section class='bg-light w-100 d-flex flex-column justify-content-center bg-light'>
+<section class='bg-light w-100 d-flex flex-rpw justify-content-center'>
 
-    <section class='d-flex'>
-        <section class="card m-2 bg-white w-75">
-            <div class="card-header">
-                <h5>septiembre-diciembre</h5>
-            </div>
-
-            <?php foreach ($data['assigned'] as $value) {
-                if ($value['term'] == 'septiembre-diciembre') {
-            ?>
-            <div class="d-flex flex-column m-1 text-start align-content-center w-50">
-                <a href='<?php echo DIRBASEURL ?>/students/<?php echo $data['ayear'] . "/" . $data['group'] . "/" . $value['id']?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
-                    <p><?php echo $value['name'] ?></p>
-                </a>
-            </div>
-            <?php
-                }
-            } ?>
-        </section>
+    <?php foreach ($data['terms_list'] as $value) { ?>
 
         <section class="card m-2 bg-white w-75">
             <div class="card-header">
-                <h5>marzo-junio</h5>
+                <h5><?php echo $value ?></h5>
             </div>
-            <?php foreach ($data['assigned'] as $value) {
-                if ($value['term'] == 'marzo-junio') {
-            ?>
-          <div class="d-flex flex-column m-1 text-start align-content-center w-50">
-                <a href='<?php echo DIRBASEURL ?>/students/<?php echo $data['ayear'] . "/" . $data['group'] . "/" . $value['id']?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-primary'>
-                    <p><?php echo $value['name'] ?></p>
-                </a>
+
+            <?php foreach ($data['students'][$value]['assigned'] as $student) { ?>
+                <div class="card-body">
+                <a href='<?php echo DIRBASEURL. '/' . 'students/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-primary'><p><?php echo $student['name'] ?></p></a>
+                </div>
+            <?php } ?>
+
+            <div class="card-header bg-light">
+                    <h6>No asignados</h6>
             </div>
-            <?php
-                }
-            } ?>
+            <?php foreach ($data['students'][$value]['not_assigned'] as $student) { ?>
+                <div class="card-body">
+                    <a href='<?php echo DIRBASEURL. '/' . 'students/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-secondary'><p><?php echo $student['name'] ?></p></a>
+                </div>
+            <?php } ?>
+
         </section>
 
-    </section>
-
-    <section class="card m-2 bg-white">
-        <div class="card-header bg-light">
-            <h5>No asignados</h5>
-        </div>
-
-
-        <?php foreach ($data['not_assigned'] as $value) {
-        ?>
-            <div class="d-flex flex-column m-1 text-start align-content-center w-25">
-            <a href='<?php echo DIRBASEURL ?>/students/<?php echo $data['ayear'] . "/" . $data['group'] . "/" . $value['id']?>' style='text-decoration:none;' class='d-flex m-1 btn btn-outline-secondary'>
-
-                    <p><?php echo $value['name'] ?></p>
-                </a>
-            </div>
-        <?php
-        } ?>
-
-    </section>
+    <?php } ?>
 
 </section>

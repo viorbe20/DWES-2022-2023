@@ -246,33 +246,57 @@ class StudentController extends BaseController
             $enrollment = Enrollment::getInstancia();
             $assignment = Assignment::getInstancia();
             $student = Student::getInstancia();
+            $term = Admin::getInstancia();
+            foreach ($term->getAllTerms() as $value) {
+                $data['terms_list'][] = $value['term'];
+            }
 
             $assignment->setAyear($data['ayear']);
             $assignment->setGroupName($data['group']);
             $enrollment->setAyear($data['ayear']);
             $enrollment->setGroupName($data['group']);
 
-            $assigned = array();
-            $notAssigned = array();
-
+            $students = array(
+                'marzo-junio' => array(
+                    'assigned' => array(),
+                    'not_assigned' => array()
+                ),
+                'septiembre-diciembre' => array(
+                    'assigned' => array(),
+                    'not_assigned' => array()
+                )
+            );
+            
             foreach ($enrollment->getAllByAYearAndGroup() as $value) {
                 $assignment->setIdStudent($value['student_id']);
                 $assignments = $assignment->getAllByIdStudentAndAYearAndGroup();
-
+            
+                $student->setId($value['student_id']);
+                $name = $student->getCompleteNameById();
+            
+                $studentInfo = array('id' => $value['student_id'], 'name' => $name[0]['name']);
+            
                 if (empty($assignments)) {
-                    $student->setId($value['student_id']);
-                    $name = $student->getCompleteNameById();
-                    $notAssigned[] = array('id' => $value['student_id'], 'name' => $name[0]['name']);
+                    if ($value['term'] == 'marzo-junio') {
+                        $students['marzo-junio']['not_assigned'][] = $studentInfo;
+                    } else if ($value['term'] == 'septiembre-diciembre') {
+                        $students['septiembre-diciembre']['not_assigned'][] = $studentInfo;
+                    }
                 } else {
-                    $term = ($assignments[0]['term']);
-                    $student->setId($value['student_id']);
-                    $name = $student->getCompleteNameById();
-                    $assigned[] = array('id' => $value['student_id'], 'name' => $name[0]['name'], 'term' => $term);
+                    $term = $assignments[0]['term'];
+                    $assignedStudentInfo = array('id' => $value['student_id'], 'name' => $name[0]['name'], 'term' => $term);
+            
+                    if ($value['term'] == 'marzo-junio') {
+                        $students['marzo-junio']['assigned'][] = $assignedStudentInfo;
+                    } else if ($value['term'] == 'septiembre-diciembre') {
+                        $students['septiembre-diciembre']['assigned'][] = $assignedStudentInfo;
+                    }
                 }
             }
-
-            $data['assigned'] = $assigned;
-            $data['not_assigned'] = $notAssigned;
+            
+            $data['students'] = $students;
+            
+            
 
             $this->renderHTML('../view/groups.php', $data);
         } else {

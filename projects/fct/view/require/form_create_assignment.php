@@ -29,7 +29,6 @@ echo '</pre>';
                         <?php
                         echo '<select class="form-select" name="teacher" aria-label="Default select example">';
                         if (isset($data['teacher']['id'])) {
-                            // Si ya hay un profesor seleccionado, lo mostramos por defecto
                             $selected_id = $data['teacher']['id'];
                             foreach ($data['teachers_list'] as $value) {
                                 $selected = '';
@@ -39,7 +38,6 @@ echo '</pre>';
                                 echo '<option value="' . $value['id'] . '" ' . $selected . '>' . $value['name'] . ' ' . $value['surnames'] . '</option>';
                             }
                         } else {
-                            // Si no hay profesor seleccionado, mostramos todos los disponibles
                             foreach ($data['teachers_list'] as $value) {
                                 echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surnames'] . '</option>';
                             }
@@ -93,9 +91,10 @@ echo '</pre>';
                         if (isset($data['assignments']['term'])) {
                             echo '<input type="text" name="term" class="form-control" value="' . $data['assignments']['term'] . '" />';
                         } else {
-                            // Show all
                             foreach ($data['terms_list'] as $value) {
-                                echo '<option value="' . $value['term'] . '">' . $value['term']  . '</option>';
+                                if($value['term'] == getCurrentTerm()){
+                                    echo '<option value="' . $value['term'] . '" selected>' . $value['term']  . '</option>';
+                                }
                             }
                         }
                         echo '</select>';
