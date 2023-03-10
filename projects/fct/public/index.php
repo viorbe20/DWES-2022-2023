@@ -30,7 +30,7 @@ $router->add(array(
 
 $router->add(array(
     'name' => 'students assignments',
-    'path' => '/^\/students\/\d{4}-\d{4}\/(DAW|DAM|ASIR)\/\d{1,3}$/',
+    'path' => '/^\/assignment\/student\/\d{4}-\d{4}\/(DAW|DAM|ASIR)\/\d{1,3}$/',
     'action' => [StudentController::class, 'studentAssignmentsAction'],
     'auth' => ["admin, user"]
 ));
@@ -68,6 +68,20 @@ $router->add(array(
     'name' => 'cancel assignment',
     'path' => '/^\/assignment\/cancel\/\d{1,3}$/',
     'action' => [UserController::class, 'cancelAssignmentAction'],
+    'auth' => ["admin, user"]
+));
+
+$router->add(array(
+    'name' => 'employee unassign',
+    'path' => '/^\/unassign\/employee\/\d{1,3}$/',
+    'action' => [EmployeeController::class, 'unassignAction'],
+    'auth' => ["admin, user"]
+));
+
+$router->add(array(
+    'name' => 'employee assignments',
+    'path' => '/^\/assignment\/employee\/\d{1,3}$/',
+    'action' => [EmployeeController::class, 'employeeAssignmentsAction'],
     'auth' => ["admin, user"]
 ));
 

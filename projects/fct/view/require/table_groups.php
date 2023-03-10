@@ -14,7 +14,7 @@ echo '</pre>';
 
             <?php foreach ($data['students'][$value]['assigned'] as $student) { ?>
                 <div class="card-body">
-                <a href='<?php echo DIRBASEURL. '/' . 'students/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-primary'><p><?php echo $student['name'] ?></p></a>
+                <a href='<?php echo DIRBASEURL. '/' . 'assignment/student/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-primary'><p><?php echo $student['name'] ?></p></a>
                 </div>
             <?php } ?>
 
@@ -23,7 +23,7 @@ echo '</pre>';
             </div>
             <?php foreach ($data['students'][$value]['not_assigned'] as $student) { ?>
                 <div class="card-body">
-                    <a href='<?php echo DIRBASEURL. '/' . 'students/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-secondary'><p><?php echo $student['name'] ?></p></a>
+                    <a href='<?php echo DIRBASEURL. '/' . 'assignment/student/' . $data['ayear'] . '/' . $data['group'] . '/' . $student['id']?>' style='text-decoration: none;'class='btn btn-outline-secondary'><p><?php echo $student['name'] ?></p></a>
                 </div>
             <?php } ?>
 

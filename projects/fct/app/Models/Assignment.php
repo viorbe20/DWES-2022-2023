@@ -38,6 +38,20 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getCompanyIdByEmployeeId()
+    {
+        $this->query = "SELECT company_id_fk FROM employees WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+
+    public function delete(){
+        $this->query = "DELETE FROM assignments WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+    }
 
     public function update()
     {

@@ -21,10 +21,19 @@
                     <td><?php echo $employee['job'] ?></td>
                     <td>
                         <?php echo $employee['name_student'] == '' ? '<a href="" class=""></a>' : $employee['name_student'] ?>
-                        <td>
-    <a href="<?php echo DIRBASEURL . '/employees/edit_employee/' . $employee['id'] ?>" class='btn btn-primary rounded-pill px-4 my-1'>Editar</a>
-    <?php echo $employee['name_student'] == '' ? '<a href="' . DIRBASEURL . '/assignment/create/' . $employee['id'] . '" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>' : '<a href="' . DIRBASEURL . '/assignment/cancel/' . $employee['assignment_id'] . '" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>' ?>
-</td>
+                    <td>
+                        <a href="<?php echo DIRBASEURL . '/employees/edit_employee/' . $employee['id'] ?>" class='btn btn-primary rounded-pill px-4 my-1'>Editar</a>
+
+                        <?php
+                        if ($employee['name_student'] == '') { ?>
+                            <a href="<?php echo DIRBASEURL . '/assignment/employee/' . $employee['id']?>" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>
+                        <?php
+                        } else { ?>
+                            <a href="<?php echo DIRBASEURL . '/unassign/employee/' . $employee['assignment_id']?>" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>
+                        <?php
+                        }
+                        ?>
+                    </td>
 
                 </tr>
             <?php };

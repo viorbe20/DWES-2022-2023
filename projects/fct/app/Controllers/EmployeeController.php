@@ -6,12 +6,45 @@ require_once '../app/Config/constantes.php';
 require_once '../utils/my_utils.php';
 require_once '../utils/validations.php';
 
-use App\Models\User;
 use App\Models\Employee;
+use App\Models\Assignment;
 
 
 class EmployeeController extends BaseController
 {
+
+    public function unassignAction($request){
+        if (($_SESSION['user']['status']) == 'login') {
+
+            $data = array();
+            $rest = explode("/", $request);
+            $id = (int)end($rest);
+            $assignment = Assignment::getInstancia();
+            $assignment->setId($id);
+            $assignment->delete();
+            
+            foreach ($assignment->getCompanyIdByEmployeeId() as $value) {
+                $companyId = $value['company_id_fk'];
+            }
+            
+            header('Location: ' . DIRBASEURL . "/companies/company_profile/" . $companyId . "");
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
+    }
+
+    public function employeeAssignmentsAction()
+    {
+        if (($_SESSION['user']['status']) == 'login') {
+
+            $data = array();
+
+
+            $this->renderHTML('../view/assignments.php', $data);
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
+    }
 
     public function deleteEmployeeAction($request)
     {
@@ -78,7 +111,7 @@ class EmployeeController extends BaseController
                 }
 
                 if (!empty(clearData($_POST['nif']))) {
-                    
+
                     if (validateNif($_POST['nif'])) {
                         $validateNif = true;
                         $data['employee']['nif'] = clearData($_POST['nif']);
@@ -105,8 +138,6 @@ class EmployeeController extends BaseController
                 } else {
                     $this->renderHTML('../view/profile_employee.php', $data);
                 }
-
-
             } else { //By default, render the view
                 $this->renderHTML('../view/profile_employee.php', $data);
             }

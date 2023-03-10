@@ -315,41 +315,39 @@ class CompanyController extends BaseController
                 $data['company']['logo'] = $value['logo'];
             }
 
-            if (isset($_POST['btn_add_employee'])) {
-                # code...
-            } else { //Show employees
-                $employee = Employee::getInstancia();
-                $student = Student::getInstancia();
-                $employee->setCompany_id_fk($id);
+            $employee = Employee::getInstancia();
+            $student = Student::getInstancia();
+            $employee->setCompany_id_fk($id);
 
-                if ($employee->getAllActiveByCompanyId() != null) {
-                    foreach ($employee->getAllActiveByCompanyId() as $value) {
-                        $employeeData = $value;
-                        if ($value['id']) {
-                            $employee->setId($value['id']);
-                            $assignmentId = $employee->getAssigmentIdByEmployeeId();
-                            $employeeData['id_student'] = (!empty($assignmentId)) ? $assignmentId[0]['id_student'] : '';
-                            $employeeData['assignment_id'] = (!empty($assignmentId)) ? $assignmentId[0]['id'] : '';
-                            if (!empty($assignmentId)) {
-                                $student->setId($assignmentId[0]['id_student']);
-                                $studentData = $student->getById();
-                                $employeeData['name_student'] = (!empty($studentData)) ? $studentData[0]['name'] . ' ' . $studentData[0]['surnames'] : '';
-                            } else {
-                                $employeeData['name_student'] = '';
-                            }
+            if ($employee->getAllActiveByCompanyId() != null) {
+                //Get all employees by company id
+                foreach ($employee->getAllActiveByCompanyId() as $value) {
+                    $employeeData = $value;
+
+                    if ($value['id']) { //If employee has an assignment
+                        $employee->setId($value['id']);
+                        $assignmentId = $employee->getAssigmentIdByEmployeeId();
+                        $employeeData['id_student'] = (!empty($assignmentId)) ? $assignmentId[0]['id_student'] : '';
+                        $employeeData['assignment_id'] = (!empty($assignmentId)) ? $assignmentId[0]['id'] : '';
+                        if (!empty($assignmentId)) {
+                            $student->setId($assignmentId[0]['id_student']);
+                            $studentData = $student->getById();
+                            $employeeData['name_student'] = (!empty($studentData)) ? $studentData[0]['name'] . ' ' . $studentData[0]['surnames'] : '';
                         } else {
-                            $employeeData['id_student'] = '';
                             $employeeData['name_student'] = '';
-                            $employeeData['assignment_id'] = '';
                         }
-                        $data['table_employees'][] = $employeeData;
+                    } else {
+                        $employeeData['id_student'] = '';
+                        $employeeData['name_student'] = '';
+                        $employeeData['assignment_id'] = '';
                     }
-                } else { //Company without employees
-                    $data['table_employees'] = array();
-                    echo "<script>alert('La empresa no tiene empleados.');</script>";
+                    $data['table_employees'][] = $employeeData;
                 }
-                $this->renderHTML('../view/profile_company.php', $data);
+            } else { //Company without employees
+                $data['table_employees'] = array();
+                echo "<script>alert('La empresa no tiene empleados.');</script>";
             }
+            $this->renderHTML('../view/profile_company.php', $data);
         } else {
             $this->renderHTML('../view/home.php',);
         }
