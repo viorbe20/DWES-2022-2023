@@ -104,7 +104,7 @@ function showMatchingCompanies() {
             filteredCompanies.forEach(function (company) {
                 $tableBody.append(
                     `<tr>
-                    <td><img src="${$dirbase}/assets/img/logos/unknown.png"></td>
+                    <td><img src="${$dirbase}assets/img/logos/${company["logo"]}" style="width: 2rem"></td>
                     <td>${company["name"]}</td>
                     <td>${company["phone"]}</td>
                     <td>

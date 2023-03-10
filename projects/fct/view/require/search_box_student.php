@@ -1,6 +1,6 @@
 <?php
 ?>
-<section class="w-75 my-2 d-flex flex-row justify-content-center">
+<section class="d-flex flex-row justify-content-center w-75 my-2">
 
     <form method="post" class="d-flex flex-row w-75 align-items-center justify-content-end">
 
