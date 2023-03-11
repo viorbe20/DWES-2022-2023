@@ -26,10 +26,11 @@
 
                         <?php
                         if ($employee['name_student'] == '') { ?>
-                            <a href="<?php echo DIRBASEURL . '/assignment/employee/' . $employee['id']?>" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>
+                            <a href="<?php echo DIRBASEURL . '/assignment/employee/' . $employee['id'] ?>" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>
                         <?php
-                        } else { ?>
-                            <a href="<?php echo DIRBASEURL . '/unassign/employee/' . $employee['assignment_id']?>" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>
+                        } else {
+                        ?>
+                            <a href="<?php echo DIRBASEURL . '/unassign/employee/' . $employee['assignment_id'] . '_' . $employee['id'] ?>" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>
                         <?php
                         }
                         ?>

@@ -16,21 +16,24 @@ use App\Models\Company;
 class EmployeeController extends BaseController
 {
 
-    public function unassignAction($request){
+    public function unassignAction($request)
+    {
         if (($_SESSION['user']['status']) == 'login') {
 
             $data = array();
             $rest = explode("/", $request);
-            $id = (int)end($rest);
+            $last = explode("_", end($rest));
+            $employee = Employee::getInstancia();
             $assignment = Assignment::getInstancia();
-            $assignment->setId($id);
+            $assignment->setId((int)$last[0]);
             $assignment->delete();
-            
-            foreach ($assignment->getCompanyIdByEmployeeId() as $value) {
+
+            $employee->setId((int)$last[1]);
+            foreach ($employee->getById() as $value) {
                 $companyId = $value['company_id_fk'];
             }
-            
-            header('Location: ' . DIRBASEURL . "/companies/company_profile/" . $companyId . "");
+
+            header('Location: ' . DIRBASEURL . "/companies/company_profile/" . $companyId);
         } else {
             $this->renderHTML('../view/home.php',);
         }
@@ -52,13 +55,13 @@ class EmployeeController extends BaseController
                 $data['employee']['name'] = $value['name'];
                 $data['employee']['surnames'] = $value['surnames'];
             }
-            
-            
+
+
             foreach ($employee->getCompanyInfoByEmployeeId() as  $value) {
                 $data['employee']['company_id'] = $value['id'];
                 $data['employee']['company_name'] = $value['name'];
             }
-            
+
             //Get teachers list
             $teacher = Teacher::getInstancia();
             $data['teachers_list'] = $teacher->getAllActive();
@@ -66,7 +69,7 @@ class EmployeeController extends BaseController
             //Get terms list
             $term = Admin::getInstancia();
             $data['terms_list'] = $term->getAllTerms();
-            
+
             //Select current students with no assignment
             $enrollment = Enrollment::getInstancia();
             $enrollment->setAyear(getCurrentAcademicYear());
@@ -76,11 +79,11 @@ class EmployeeController extends BaseController
             //Create assignment button
             if (isset($_POST['btn_create_assignment'])) {
                 //array(11) { ["student_select"]=> string(2) "26" 
-                    //["teacher"]=> string(1) "4" ["company"]=> string(9) "W3Schools" 
-                    //["employee"]=> string(25) "Federico González Pérez" 
-                    //["academic_year"]=> string(9) "2022-2023" ["term"]=> string(11) "marzo-junio" 
-                    //["start_date"]=> string(0) "" ["end_date"]=> string(0) "" 
-                    //["eval_student"]=> string(0) "" ["eval_teacher"]=> string(0) "" ["btn_create_assignment"]=> string(0) "" }
+                //["teacher"]=> string(1) "4" ["company"]=> string(9) "W3Schools" 
+                //["employee"]=> string(25) "Federico González Pérez" 
+                //["academic_year"]=> string(9) "2022-2023" ["term"]=> string(11) "marzo-junio" 
+                //["start_date"]=> string(0) "" ["end_date"]=> string(0) "" 
+                //["eval_student"]=> string(0) "" ["eval_teacher"]=> string(0) "" ["btn_create_assignment"]=> string(0) "" }
                 $assignment = Assignment::getInstancia();
                 $enrollment->setId(clearData($_POST['enrollment_id']));
 
@@ -103,11 +106,9 @@ class EmployeeController extends BaseController
                 $assignment->set();
 
                 header('Location: ' . DIRBASEURL . "/companies/company_profile/" .  $data['employee']['company_id'] . "");
-
             } else { //By default, show the view
                 $this->renderHTML('../view/assignments.php', $data);
             }
-
         } else {
             $this->renderHTML('../view/home.php',);
         }

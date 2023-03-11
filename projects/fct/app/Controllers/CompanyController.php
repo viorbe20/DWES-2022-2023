@@ -29,6 +29,8 @@ class CompanyController extends BaseController
             $company->setStatus_fk('baja');
             $company->setUpdated_at(date('Y-m-d H:i:s'));
             $company->changeStatus();
+            $company->changeEmployeesStatus();
+
 
             echo "<script>alert('Empresa eliminada correctamente.');</script>";
 

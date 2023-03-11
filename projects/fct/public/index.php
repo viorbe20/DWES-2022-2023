@@ -79,7 +79,7 @@ $router->add(array(
 
 $router->add(array(
     'name' => 'employee unassign',
-    'path' => '/^\/unassign\/employee\/\d{1,4}$/',
+    'path' => '/^\/unassign\/employee\/\d{1,4}_\d{1,4}$/',
     'action' => [EmployeeController::class, 'unassignAction'],
     'auth' => ["admin, user"]
 ));

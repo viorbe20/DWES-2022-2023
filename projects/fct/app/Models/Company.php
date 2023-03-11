@@ -35,6 +35,14 @@ class Company extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
+    public function changeEmployeesStatus(){
+        $this->query = "UPDATE employees SET status_fk=:status_fk, updated_at=:updated_at WHERE id=:company_id";
+        $this->parametros['company_id'] = $this->id;
+        $this->parametros['status_fk'] = $this->status_fk;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+
     public function checkName()
     {
         $this->query = "SELECT name FROM companies WHERE name = :name";
