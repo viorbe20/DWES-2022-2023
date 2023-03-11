@@ -14,9 +14,11 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="student name">Alumno</label>
                         <?php
-                        if (isset($data['new_assignment'])) {
-                            echo '<input type="text" name="student" class="form-control" value="' . ($data['assignment']['student_name']) . " " . ($data['assignment']['student_surnames']) . '" readonly/>';
-                        } else {
+                        if (isset($data['assignment'])) {
+                            echo '<input type="text" name="student_name" class="form-control" value="' . ($data['assignment']['student_name']) . " " . ($data['assignment']['student_surnames']) . '" readonly/>';
+                        } else if (isset($data['student'])){
+                            echo '<input type="text" name="student_name" class="form-control" value="' . ($data['student']['name']) . " " . ($data['student']['surnames']) . '" readonly/>';
+                        }else {
                             echo '<select class="form-select" name="enrollment_id">';
                             foreach ($data['students']['not_assigned']  as $value) {
                                 echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surnames'] . '</option>';
@@ -31,7 +33,7 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="teacher">Profesor</label>
                         <?php
-                        if (isset($data['new_assignment'])) {
+                        if (isset($data['assignment'])) {
                             echo '<input type="text" name="teacher" class="form-control" value="' . ($data['assignment']['teacher_name']) . " " . ($data['assignment']['teacher_surnames']) . '" readonly/>';
                         } else {
                             echo '<select class="form-select" name="teacher" aria-label="Default select example">';
@@ -50,7 +52,7 @@ echo '</pre>';
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="company">Empresa</label>
-                        <?php if (isset($data['new_assignment'])) {
+                        <?php if (isset($data['assignment'])) {
                             echo '<input type="text" name="company" class="form-control" value="' . ($data['assignment']['company_name']) . '" readonly/>';
                         } else { ?>
                             <?php
@@ -64,7 +66,7 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="employee name">Empleado</label>
                         <?php
-                        if (isset($data['new_assignment'])) {
+                        if (isset($data['assignment'])) {
                             echo '<input type="text" name="employee" class="form-control" value="' . ($data['assignment']['employee_name']) . " " . ($data['assignment']['employee_surnames']) . '" readonly/>';
                         } else { ?>
                             <div id="employee_select_div">
@@ -84,11 +86,10 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="academic_year">Año académico</label>
                         <?php
-                        if (isset($data['new_assignment'])) {
+                        if (isset($data['assignment'])) {
                             echo '<input type="text" name="ayear" class="form-control" value="' . ($data['assignment']['ayear']) . '" readonly/>';
-                        } else { ?>
-                            <input type="text" name="academic_year" class="form-control" value="<?php echo getCurrentAcademicYear() ?>" readonly />
-                        <?php
+                        } else {
+                            echo '<input type="text" name="ayear" class="form-control" value="' . ($data['student']['ayear']) . '" readonly />';
                         }
                         ?>
                     </div>
@@ -97,17 +98,10 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="term">Convocatoria</label>
                         <?php
-                        if (isset($data['new_assignment'])) {
+                        if (isset($data['assignment'])) {
                             echo '<input type="text" name="term" class="form-control" value="' . ($data['assignment']['term']) . '" readonly/>';
                         } else {
-                            echo '<select class="form-select" name="term" aria-label="Default select example">';
-                            foreach ($data['terms_list'] as $value) {
-                                if ($value['term'] == getCurrentTerm()) {
-                                    echo '<option value="' . $value['term'] . '" selected>' . $value['term']  . '</option>';
-                                } else {
-                                    echo '<option value="' . $value['term'] . '">' . $value['term']  . '</option>';
-                                }
-                            }
+                            echo '<input type="text" name="term" class="form-control" value="' . ($data['student']['term']) . '" readonly />';
                         }
                         echo '</select>';
                         ?>
@@ -141,10 +135,10 @@ echo '</pre>';
                         <label class="form-label mb-3" for="end_date">Fecha finalización</label>
                         <?php
                         if (isset($data['new_assignment'])) { ?>
-                            <input type="date" name="start_date" class="form-control" value="<?php echo $data['assignment']['date_end'] ?>" />
+                            <input type="date" name="end_date" class="form-control" value="<?php echo $data['assignment']['date_end'] ?>" />
                         <?php
                         } else {
-                            echo '<input type="date" name="start_date" class="form-control" value="" />';
+                            echo '<input type="date" name="end_date" class="form-control" value="" />';
                         }
                         ?>
                     </div>
@@ -156,27 +150,46 @@ echo '</pre>';
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="eval_student">Evaluación alumno</label>
-                        <textarea class="form-control" id="eval_student" name="eval_student" rows="6" readonly><?php echo isset($data['new_assignment']) ? $data['assignment']['eval_student'] : ''; ?></textarea>
+                        <?php if (isset($data['assignment'])) { ?>
+                            <textarea class="form-control" id="eval_student" name="eval_student" rows="6" readonly><?php echo $data['assignment']['eval_student']; ?></textarea>
+                        <?php
+                        } else { ?>
+                            <textarea class="form-control" id="eval_student" name="eval_student" rows="6"></textarea>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label mb-3" for="eval_teacher">Evaluación profesor</label>
-                        <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6" readonly><?php echo isset($data['new_assignment']) ? $data['assignment']['eval_teacher'] : ''; ?></textarea>
+                        <?php if (isset($data['assignment'])) { ?>
+                            <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6" readonly><?php echo $data['assignment']['eval_teacher']; ?></textarea>
+                        <?php
+                        } else { ?>
+                            <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6"></textarea>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
 
             <div class="row p-6 d-flex justify-content-center">
-                <?php if (isset($data['new_assignment'])) { ?>
+                <?php if (isset($data['assignment'])) { ?>
                     <a href="<?php echo DIRBASEURL?>/assignment/student/delete/<?php echo $data['assignment']['assignments_id']?>" class="btn btn-danger btn-lg btn-block w-25 mx-2" name="btn_delete_assignment">
                         Eliminar
                 </a>
+                <button type='submit' name='btn_update_assignment'class="btn btn-primary btn-lg btn-block w-25 mx-2" name="btn_delete_assignment">
+                        Guardar
+                </button>
                 <?php
-                } ?>
-                <button type="submit" class="btn btn-primary btn-lg btn-block w-25" name="btn_create_assignment">
+                } else { ?>
+                    <button type='submit' name='btn_save_assignment' class="btn btn-primary btn-lg btn-block w-25 mx-2" name="btn_delete_assignment">
                     Guardar
                 </button>
+                <?php
+                }?>
 
             </div>
 
