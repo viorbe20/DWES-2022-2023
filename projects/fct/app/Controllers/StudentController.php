@@ -208,7 +208,7 @@ class StudentController extends BaseController
                     $assignment->setUpdatedAt(date('Y-m-d H:i:s'));
                     $assignment->set();
                     
-                    header('Location: ' . DIRBASEURL . 'students/' . $data['student']['ayear'] . '/' . $data['student']['group']);
+                    header('Location: ' . DIRBASEURL . '/students/' . $data['student']['ayear'] . '/' . $data['student']['group']);
                 } 
             } else if (isset($_POST['btn_update_assignment'])) {
                 /////////////////////
