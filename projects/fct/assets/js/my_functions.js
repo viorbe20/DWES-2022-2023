@@ -17,7 +17,7 @@ function showMatchingAssignments() {
             filteredAssignments.forEach(function (assignment) {
                 $tableStudents.css('display', 'block');
                 $tableStudents.append(
-                    `<a href="${$dirbaseurl}/assignment/student/${assignment.ayear}/${assignment.group_name}/${assignment.students_id}"" style="text-decoration:none; color:black;">
+                    `<a href="${$dirbaseurl}/students/${assignment.ayear}/${assignment.group_name}" style="text-decoration:none; color:black;">
                     <li class="list-group-item">${assignment.student_name} ${assignment.student_surnames} (${assignment.ayear}/${assignment.group_name}) </li></a>`
                 );
 

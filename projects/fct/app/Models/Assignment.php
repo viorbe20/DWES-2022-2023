@@ -38,6 +38,23 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function updataDateAndEvaluation(){
+        $this->query = "UPDATE assignments SET 
+        eval_student = :eval_student,
+        eval_teacher = :eval_teacher,
+        date_start = :date_start,
+        date_end = :date_end,
+        updated_at = :updated_at
+        WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['eval_student'] = $this->eval_student;
+        $this->parametros['eval_teacher'] = $this->eval_teacher;
+        $this->parametros['date_start'] = $this->date_start;
+        $this->parametros['date_end'] = $this->date_end;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+
     public function getCompleteAssignments()
     {
         $this->query = "SELECT 

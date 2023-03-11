@@ -211,7 +211,14 @@ class StudentController extends BaseController
                     header('Location: ' . DIRBASEURL . '/students/' . $data['student']['ayear'] . '/' . $data['student']['group']);
                 } 
             } else if (isset($_POST['btn_update_assignment'])) {
-                /////////////////////
+                $assignment->setDateStart($_POST['start_date']);
+                $assignment->setDateEnd($_POST['end_date']);
+                $assignment->setEvalStudent($_POST['eval_student']);
+                $assignment->setEvalTeacher($_POST['eval_teacher']);
+                $assignment->setUpdatedAt(date('Y-m-d H:i:s'));
+                $assignment->updataDateAndEvaluation();
+                header('Location: ' . DIRBASEURL . '/students/' . $data['assignment']['ayear'] . '/' . 
+                $data['assignment']['group_name']);
             } else { //By default, render the form
                 $this->renderHTML('../view/assignments.php', $data);
             }

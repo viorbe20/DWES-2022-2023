@@ -151,7 +151,7 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="eval_student">Evaluación alumno</label>
                         <?php if (isset($data['assignment'])) { ?>
-                            <textarea class="form-control" id="eval_student" name="eval_student" rows="6" readonly><?php echo $data['assignment']['eval_student']; ?></textarea>
+                            <textarea class="form-control" id="eval_student" name="eval_student" rows="6"><?php echo $data['assignment']['eval_student']; ?></textarea>
                         <?php
                         } else { ?>
                             <textarea class="form-control" id="eval_student" name="eval_student" rows="6"></textarea>
@@ -164,7 +164,7 @@ echo '</pre>';
                     <div class="form-outline">
                         <label class="form-label mb-3" for="eval_teacher">Evaluación profesor</label>
                         <?php if (isset($data['assignment'])) { ?>
-                            <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6" readonly><?php echo $data['assignment']['eval_teacher']; ?></textarea>
+                            <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6"><?php echo $data['assignment']['eval_teacher']; ?></textarea>
                         <?php
                         } else { ?>
                             <textarea class="form-control" id="eval_teacher" name="eval_teacher" rows="6"></textarea>
