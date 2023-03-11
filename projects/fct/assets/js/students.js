@@ -4,18 +4,24 @@ $(document).ready(function () {
 
     $studentBar = $('#student_bar');
     $tableStudents = $('#dropdown_students');
+    $dirbaseurl = "http://localhost/fct/public/index.php";
 
-    console.log($tableStudents);
-    // $dirbaseurl = "http://localhost/fct/public/index.php";
-    // $dirbase = "http://localhost/fct/";
-
+    //ets students assignemts
     $studentBar.keyup(function () {
         if (($studentBar.val() == '') || ($studentBar.val().indexOf(' ') > -1)) {
-            console.log('ddddddd');
             location.reload();
-        } else { 
-            console.log('aaaa');
-            showMatchingStudents();
+        } else {
+            showMatchingAssignments();
         }
     });
+
+    // $studentBar.keyup(function () {
+    //     if (($studentBar.val() == '') || ($studentBar.val().indexOf(' ') > -1)) {
+    //         console.log('ddddddd');
+    //         location.reload();
+    //     } else { 
+    //         console.log('aaaa');
+    //         showMatchingStudents();
+    //     }
+    // });
 });

@@ -8,11 +8,20 @@ require_once '../utils/my_utils.php';
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\Student;
+use App\Models\Assignment;
 
 
 class AdminController extends BaseController
 {
 
+    public function jqCompleteAssignments(){
+        if ($_SESSION['user']['profile'] == 'admin') {
+            $assignment = new Assignment();
+            echo json_encode($assignment->getCompleteAssignments());
+        } else {
+            header('Location: ' . DIRBASEURL . "/home");
+        }
+    }
 
     public function jqStudentsAction()
     {

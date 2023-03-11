@@ -173,7 +173,7 @@ class StudentController extends BaseController
                 $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
 
                 $employee->setId($data['assignments']['id_employee']);;
-                foreach ($employee->getIdCompanyByIdEmployee() as $value) {
+                foreach ($employee->getById() as $value) {
                     $companyId = $value['company_id_fk'];
                 }
 

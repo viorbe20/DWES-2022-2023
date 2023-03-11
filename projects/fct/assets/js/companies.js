@@ -7,6 +7,8 @@ $(document).ready(function () {
     $dirbaseurl = "http://localhost/fct/public/index.php";
     $dirbase = "http://localhost/fct/";
 
+    console.log($dirbaseurl);
+
     $inputSearch.keyup(function () {
         if (($inputSearch.val() == '') || ($inputSearch.val().indexOf(' ') > -1)) {
             location.reload();
@@ -48,6 +50,18 @@ $(document).ready(function () {
     $companyBar.on('input', function () {
         if (!clickedOnLi) {
             selectCompany();
+        }
+    });
+
+    //Search box employees
+    $searchEmployee = $('#input_search_employee');
+    $tableBodyEmployees = $('#table_body_employees');
+
+    $searchEmployee.keyup(function () {
+        if (($searchEmployee.val() == '') || ($searchEmployee.val().indexOf(' ') > -1)) {
+            location.reload();
+        } else {
+            showMatchingEmployees();
         }
     });
 

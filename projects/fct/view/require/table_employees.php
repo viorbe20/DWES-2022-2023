@@ -13,7 +13,7 @@
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider" id="table_body_companies">
+        <tbody class="table-group-divider" id="table_body_employees">
             <?php
             foreach ($data['table_employees'] as $employee) { ?>
                 <tr>

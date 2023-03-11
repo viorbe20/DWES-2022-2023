@@ -1,5 +1,31 @@
 console.log('my_functions.js loaded');
 
+function showMatchingAssignments() {
+
+    $tableStudents.empty();
+
+    fetch(
+        "http://localhost/fct/public/index.php/complete_assignments_db"
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            let query = $studentBar.val().toLowerCase();
+            let filteredAssignments = data.filter(function (assignment) {
+                return assignment.student_name.toLowerCase().indexOf(query) > -1 || assignment.student_surnames.toLowerCase().indexOf(query) > -1;
+            });
+
+            filteredAssignments.forEach(function (assignment) {
+                $tableStudents.css('display', 'block');
+                $tableStudents.append(
+                    `<a href="${$dirbaseurl}/assignment/student/${assignment.ayear}/${assignment.group_name}/${assignment.students_id}"" style="text-decoration:none; color:black;">
+                    <li class="list-group-item">${assignment.student_name} ${assignment.student_surnames} (${assignment.ayear}/${assignment.group_name}) </li></a>`
+                );
+
+            });
+        }
+        )
+}
+
 function getEmployees(companyId) {
     fetch(
         "http://localhost/fct/public/index.php/employees_db/" + companyId
@@ -17,7 +43,7 @@ function getEmployees(companyId) {
 
 function selectCompany() {
     $tableCompanies.empty();
-    
+
     fetch("http://localhost/fct/public/index.php/companies_db")
         .then((response) => response.json())
         .then((data) => {
@@ -43,7 +69,7 @@ function selectCompany() {
                             });
 
                             let select = $('<select class="form-select" name="employee"></select>');
-                            
+
                             filteredEmployees.forEach(function (employee) {
                                 let option = $(`<option value="${employee.id}">${employee.name} ${employee.surnames}</option>`);
                                 select.append(option);
@@ -59,8 +85,6 @@ function selectCompany() {
         })
         .catch((error) => console.log(error));
 }
-
-
 
 function showMatchingStudents() {
 
@@ -79,7 +103,7 @@ function showMatchingStudents() {
             filteredStudents.forEach(function (student) {
                 $tableStudents.css('display', 'block');
                 $tableStudents.append(
-                    `<a href="url_del_destino" style="text-decoration:none; color:black;"><li class="list-group-item">${student['name']} ${student['surnames']}</li></a>`
+                    `<a href="${$dirbaseurl}/assignment/student/" style="text-decoration:none; color:black;"><li class="list-group-item">${student['name']} ${student['surnames']}</li></a>`
                 );
 
             });
@@ -120,3 +144,39 @@ function showMatchingCompanies() {
         )
 }
 
+function showMatchingEmployees() {
+
+    $tableBodyEmployees.empty();
+
+    fetch(
+        "http://localhost/fct/public/index.php/employees_db"
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            let query = $searchEmployee.val().toLowerCase();
+            let filteredEmployees = data.filter(function (employee) {
+                return employee.name.toLowerCase().indexOf(query) > -1 || employee.surnames.toLowerCase().indexOf(query) > -1;
+            });
+            console.log(filteredEmployees);
+
+            filteredEmployees.forEach(function (employee) {
+                $tableBodyEmployees.append(
+                    `<tr>
+                <td>${employee["name"]} ${employee["surnames"]}</td>
+                <td>${employee["job"]}</td>
+                <td>
+                <?php echo ${employee['name_student']} == '' ? '<a href="" class=""></a>' : $employee['name_student'] ?>
+                <td>
+                <td>
+                <a href="${$dirbaseurl}/employees/edit_employee/${employee['id']}" class='btn btn-primary rounded-pill px-4 my-1'>Editar</a>
+                ${employee["name_student"] == '' ?
+                `<a href="${$dirbaseurl}/assignment/employee/${employee['id']}" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>` :
+                `<a href="${$dirbaseurl}/unassign/employee/${employee['assignment_id']}" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>`
+            }
+                </td>
+                </tr>`
+                );
+            });
+        }
+        )
+}

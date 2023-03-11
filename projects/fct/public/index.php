@@ -169,6 +169,12 @@ $router->add(array(
     'action' => [AdminController::class, 'jqEmployeesAction'],
     'auth' => ["admin"]
 ));
+$router->add(array(
+    'name' => 'jq assignments',
+    'path' => '/^\/complete_assignments_db$/',
+    'action' => [AdminController::class, 'jqCompleteAssignments'],
+    'auth' => ["admin"]
+));
 
 $router->add(array(
     'name' => 'test',

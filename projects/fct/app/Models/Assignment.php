@@ -38,6 +38,34 @@ class Assignment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getCompleteAssignments(){
+        $this->query = "SELECT 
+        assignments.id as assignments_id,
+        assignments.ayear,
+        assignments.group_name,
+        students.id as students_id,
+        students.name as student_name,
+        students.surnames as student_surnames,
+        teachers.id as teachers_id,
+        teachers.name as teacher_name,
+        teachers.surnames as teacher_surnames,
+        employees.id as employees_id,
+        employees.name as employee_name,
+        employees.surnames as employee_surnames,
+        companies.id as companies_id,
+        companies.name as company_name,
+        assignments.date_start,
+        assignments.date_end,
+        assignments.status
+    FROM assignments 
+    INNER JOIN students ON assignments.id_student = students.id 
+    INNER JOIN teachers ON assignments.id_teacher = teachers.id 
+    INNER JOIN employees ON assignments.id_employee = employees.id
+    INNER JOIN companies ON employees.company_id_fk = companies.id";
+$this->get_results_from_query();
+return $this->rows;
+    }
+
     public function set(){
         $this->query = "INSERT INTO assignments (id_student, id_teacher, id_employee, ayear, term, group_name, date_start, date_end, eval_student, eval_teacher, status, updated_at, created_at) VALUES (:id_student, :id_teacher, :id_employee, :ayear, :term, :group_name, :date_start, :date_end, :eval_student, :eval_teacher, :status, :updated_at, :created_at)";
         $this->parametros['id_student'] = $this->id_student;
