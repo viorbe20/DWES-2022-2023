@@ -50,8 +50,9 @@ class EmployeeController extends BaseController
             //Get employee's company
             $employee = Employee::getInstancia();
             $employee->setId($idEmployee);
-
-            foreach ($employee->getAllActive() as  $value) {
+            
+            
+            foreach ($employee->getById() as  $value) {
                 $data['employee']['name'] = $value['name'];
                 $data['employee']['surnames'] = $value['surnames'];
             }
@@ -72,40 +73,56 @@ class EmployeeController extends BaseController
 
             //Select current students with no assignment
             $enrollment = Enrollment::getInstancia();
-            $enrollment->setAyear(getCurrentAcademicYear());
-            $enrollment->setTerm(getCurrentTerm());
-            $data['students']['not_assigned'] = $enrollment->getIdCurrentStudentsWithoutAssignment();
+            $data['students']['not_assigned'] = $enrollment->getStudentsNoAssignment();
 
             //Create assignment button
-            if (isset($_POST['btn_create_assignment'])) {
-                //array(11) { ["student_select"]=> string(2) "26" 
-                //["teacher"]=> string(1) "4" ["company"]=> string(9) "W3Schools" 
-                //["employee"]=> string(25) "Federico González Pérez" 
-                //["academic_year"]=> string(9) "2022-2023" ["term"]=> string(11) "marzo-junio" 
-                //["start_date"]=> string(0) "" ["end_date"]=> string(0) "" 
-                //["eval_student"]=> string(0) "" ["eval_teacher"]=> string(0) "" ["btn_create_assignment"]=> string(0) "" }
-                $assignment = Assignment::getInstancia();
-                $enrollment->setId(clearData($_POST['enrollment_id']));
+            //Save new assignment
+            if (isset($_POST['btn_save_assignment'])) {
 
-                foreach ($enrollment->getAllById() as $value) {
-                    $assignment->setIdStudent($value['student_id']);
-                    $assignment->setGroupName($value['group_name']);
+                $validateCompany = false;
+                $validateEmployee = false;
+
+                if (!isset($_POST['company'])) {
+                    echo '<script>alert("Debes seleccionar una empresa existente.")</script>';
+                    $this->renderHTML('../view/assignments.php', $data);
+                } else {
+                    $validateCompany = true;
+                    if (!isset($_POST['employee'])) {
+                        echo '<script>alert("Debes seleccionar un empleado.")</script>';
+                        $this->renderHTML('../view/assignments.php', $data);
+                    } else {
+                        $validateEmployee = true;
+                    }
                 }
 
-                $assignment->setIdTeacher(clearData($_POST['teacher']));
-                $assignment->setIdEmployee($idEmployee);
-                $assignment->setAyear(clearData($_POST['academic_year']));
-                $assignment->setTerm(clearData($_POST['term']));
-                $assignment->setDateStart(clearData($_POST['start_date']));
-                $assignment->setDateEnd(clearData($_POST['end_date']));
-                $assignment->setEvalStudent(clearData($_POST['eval_student']));
-                $assignment->setEvalTeacher(clearData($_POST['eval_teacher']));
-                $assignment->setStatus('alta');
-                $assignment->setUpdatedAt(date("Y-m-d H:i:s"));
-                $assignment->setCreatedAt(date("Y-m-d H:i:s"));
-                $assignment->set();
+                if ($validateCompany && $validateEmployee) {
+                    $assignment = Assignment::getInstancia();
+                    $assignment->setIdStudent(clearData($_POST['student_id']));
+                    $assignment->setIdTeacher(clearData($_POST['teacher']));
+                    $assignment->setIdEmployee($idEmployee);
+                    $assignment->setAyear(getCurrentAcademicYear());
+                    $assignment->setTerm(getCurrentTerm());
+                    
+                    //Get term
+                    $enrollment = Enrollment::getInstancia();
+                    $enrollment->setStudentId($assignment->getIdStudent());
+                    $enrollment->setAYear($assignment->getAyear());
 
-                header('Location: ' . DIRBASEURL . "/companies/company_profile/" .  $data['employee']['company_id'] . "");
+                    foreach ($enrollment->getGroupByStudentIdAndYear() as $value) {
+                        $assignment->setGroupName($value['group_name']);
+                    }
+                    
+                    $assignment->setDateStart($_POST['start_date']);
+                    $assignment->setDateEnd($_POST['end_date']);
+                    $assignment->setEvalStudent($_POST['eval_student']);
+                    $assignment->setEvalTeacher($_POST['eval_teacher']);
+                    $assignment->setStatus('alta');
+                    $assignment->setCreatedAt(date('Y-m-d H:i:s'));
+                    $assignment->setUpdatedAt(date('Y-m-d H:i:s'));
+                    $assignment->set();
+
+                    header('Location: ' . DIRBASEURL . '/companies/company_profile/' . $data['employee']['company_id']);
+                }
             } else { //By default, show the view
                 $this->renderHTML('../view/assignments.php', $data);
             }

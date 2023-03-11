@@ -145,27 +145,33 @@ class StudentController extends BaseController
             $teacher = Teacher::getInstancia();
             $enrollment = Enrollment::getInstancia();
 
-
             //Check is the request is a new assignment
             $rest = explode("/", $request);
             $last = explode("_", end($rest));
-
-            if ($last[1] == 0) { //student with no assignment
-                $student->setId($last[0]);
-                $data['student'] = $student->getById();
-                $data['student'] = $data['student'][0];
+            $studentId = (int)$last[0];
+            $assignmentId = (int)$last[1];
+            
+            if ($assignmentId == 0) { //student with no assignment
                 $data['student']['group'] = prev($rest);
                 $data['student']['ayear'] = prev($rest);
+                $data['student']['students_id'] = ($studentId);
 
-                $enrollment->setStudentId($student->getId());
                 $enrollment->setAyear($data['student']['ayear']);
-                foreach ($enrollment->getTermByStudentIdAnYear() as  $value) {
+                $enrollment->setStudentId($studentId);
+                foreach ($enrollment->getTermByStudentIdAndYear() as  $value) {
                     $data['student']['term'] = $value['term'];
+                }
+
+                $student->setId($studentId);
+                foreach($student->getById() as $value){
+                    $data['student']['student_name'] = $value['name'];
+                    $data['student']['student_surnames'] = $value['surnames'];
+
                 }
             } else {
                 $assignment->setId($last[1]);
                 foreach ($assignment->getCompleteAssignmentById() as $value) {
-                    $data['assignment'] = $value;
+                    $data['student'] = $value;
                 }
             }
 

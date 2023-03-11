@@ -32,9 +32,31 @@ class Enrollment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
-    public function getTermByStudentIdAnYear()
+    public function getStudentsNoAssignment(){
+        $this->query = "SELECT s.*, e.*
+        FROM students AS s
+        INNER JOIN enrollments AS e ON s.id = e.student_id
+        WHERE e.status = 'alta'
+        AND e.student_id NOT IN (SELECT id_student FROM assignments WHERE status = 'alta')
+        ORDER BY e.student_id DESC;
+        ";
+        $this->parametros['ayear'] = $this->ayear;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getTermByStudentIdAndYear()
     {
         $this->query = "SELECT term FROM enrollments WHERE student_id = :student_id AND ayear = :ayear";
+        $this->parametros['student_id'] = $this->student_id;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function getGroupByStudentIdAndYear()
+    {
+        $this->query = "SELECT group_name FROM enrollments WHERE student_id = :student_id AND ayear = :ayear";
         $this->parametros['student_id'] = $this->student_id;
         $this->parametros['ayear'] = $this->ayear;
         $this->get_results_from_query();

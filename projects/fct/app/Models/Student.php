@@ -34,6 +34,7 @@ class Student extends DBAbstractModel
     private $updated_at;
 
 
+
     public function getStudentsWithAssignment(){
         $this->query = "SELECT s.*
         FROM students AS s
