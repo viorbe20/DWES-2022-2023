@@ -12,6 +12,29 @@ use App\Models\Company;
 
 class UserController extends BaseController
 {
+    public function deleteAssignmentStudentAction($request)
+    {
+
+        if ($_SESSION['user']['status'] == 'login') {
+
+            $data = array();
+            $rest = explode("/", $request);
+            $idAssignment = (int)end($rest);
+            $assignment = Assignment::getInstancia();
+            $assignment->setId($idAssignment);
+
+            foreach ($assignment->getCompleteAssignmentById() as $value) {
+                $data['ayear'] = $value['ayear'];
+                $data['group_name'] = $value['group_name'];
+            }
+
+            $assignment->delete();
+
+            header('Location: ' . DIRBASEURL . "/students/" . $data['ayear'] . "/" . $data['group_name']);
+        } else {
+            $this->renderHTML('../view/home.php',);
+        }
+    }
     public function createAssignmentAction($request)
     {
         if ($_SESSION['user']['status'] == 'login') {
@@ -24,14 +47,12 @@ class UserController extends BaseController
             foreach ($employee->getCompanyIdByEmployeeId() as $value) {
                 $data['company_id'] = $value['company_id_fk'];
             }
-            
+
             echo "<script>alert('Asignación cancelada');</script>";
             header('Location: ' . DIRBASEURL . "/companies/employees/" . $data['company_id']);
-
         } else {
             $this->renderHTML('../view/home.php',);
         }
-
     }
     public function cancelAssignmentAction($request)
     {
@@ -52,15 +73,11 @@ class UserController extends BaseController
             foreach ($employee->getCompanyIdByEmployeeId() as $value) {
                 $data['company_id'] = $value['company_id_fk'];
             }
-            
+
             echo "<script>alert('Asignación cancelada');</script>";
             header('Location: ' . DIRBASEURL . "/companies/employees/" . $data['company_id']);
-
         } else {
             $this->renderHTML('../view/home.php',);
         }
-
     }
-
-
 }

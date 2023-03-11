@@ -32,6 +32,23 @@ class Enrollment extends DBAbstractModel
     private $updated_at;
     private $created_at;
 
+    public function getAllFromAGroup(){
+        $this->query = "SELECT s.*, e.*
+        FROM students AS s
+        INNER JOIN enrollments AS e ON s.id = e.student_id
+        WHERE e.status = 'alta'
+        AND e.group_name = :group_name
+        AND e.ayear = :ayear
+        AND e.term = :term
+        ORDER BY e.student_id DESC;
+        ";
+        $this->parametros['group_name'] = $this->group_name;
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
     public function getAllById(){
         $this->query = "SELECT * FROM enrollments WHERE id = :id";
         $this->parametros['id'] = $this->id;
@@ -54,13 +71,35 @@ class Enrollment extends DBAbstractModel
         AND e.student_id NOT IN (SELECT id_student FROM assignments WHERE status = 'alta')
         AND e.ayear = :ayear
         AND e.term = :term
+        AND e.group_name = :group_name
         ORDER BY e.student_id DESC;
         ";
         $this->parametros['ayear'] = $this->ayear;
         $this->parametros['term'] = $this->term;
+        $this->parametros['group_name'] = $this->group_name;
         $this->get_results_from_query();
         return $this->rows;
     }
+
+    public function getIdCurrentStudentsWithtAssignment(){
+        $this->query = "SELECT s.*, e.*, a.id AS assignment_id
+        FROM students AS s
+        INNER JOIN enrollments AS e ON s.id = e.student_id
+        INNER JOIN assignments AS a ON s.id = a.id_student
+        WHERE e.status = 'alta'
+        AND a.status = 'alta'
+        AND e.ayear = :ayear
+        AND e.term = :term
+        AND e.group_name = :group_name
+        ORDER BY e.student_id DESC;
+        ";
+        $this->parametros['ayear'] = $this->ayear;
+        $this->parametros['term'] = $this->term;
+        $this->parametros['group_name'] = $this->group_name;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+    
 
     public function set(){
         $this->query = "INSERT INTO enrollments (student_id, ayear, term, group_name, status, updated_at, created_at) VALUES (:student_id, :ayear, :term, :group_name, :status, :updated_at, :created_at)";

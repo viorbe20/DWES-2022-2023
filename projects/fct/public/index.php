@@ -22,6 +22,13 @@ if (!isset($_SESSION['user']['profile'])) {
 $router = new Router();
 
 $router->add(array(
+    'name' => 'delete assignment students',
+    'path' => '/^\/assignment\/student\/delete\/\d{1,4}$/',
+    'action' => [UserController::class, 'deleteAssignmentStudentAction'],
+    'auth' => ["admin, user"]
+));
+
+$router->add(array(
     'name' => 'upload students',
     'path' => '/^\/students\/upload_students$/',
     'action' => [StudentController::class, 'uploadStudentsAction'],
@@ -30,7 +37,7 @@ $router->add(array(
 
 $router->add(array(
     'name' => 'students assignments',
-    'path' => '/^\/assignment\/student\/\d{4}-\d{4}\/(DAW|DAM|ASIR)\/\d{1,3}$/',
+    'path' => '/^\/assignment\/student\/\d{4}-\d{4}\/(DAW|DAM|ASIR)\/\d{1,4}_\d{1,4}$/',
     'action' => [StudentController::class, 'studentAssignmentsAction'],
     'auth' => ["admin, user"]
 ));
@@ -56,73 +63,72 @@ $router->add(array(
     'auth' => ["admin"]
 ));
 
-
 $router->add(array(
     'name' => 'create assignment',
-    'path' => '/^\/assignment\/create\/\d{1,3}$/',
+    'path' => '/^\/assignment\/create\/\d{1,4}$/',
     'action' => [UserController::class, 'createAssignmentAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'cancel assignment',
-    'path' => '/^\/assignment\/cancel\/\d{1,3}$/',
+    'path' => '/^\/assignment\/cancel\/\d{1,4}$/',
     'action' => [UserController::class, 'cancelAssignmentAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'employee unassign',
-    'path' => '/^\/unassign\/employee\/\d{1,3}$/',
+    'path' => '/^\/unassign\/employee\/\d{1,4}$/',
     'action' => [EmployeeController::class, 'unassignAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'employee assignments',
-    'path' => '/^\/assignment\/employee\/\d{1,3}$/',
+    'path' => '/^\/assignment\/employee\/\d{1,4}$/',
     'action' => [EmployeeController::class, 'employeeAssignmentsAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'delete employee',
-    'path' => '/^\/employees\/delete_employee\/\d{1,3}$/',
+    'path' => '/^\/employees\/delete_employee\/\d{1,4}$/',
     'action' => [EmployeeController::class, 'deleteEmployeeAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'edit employee',
-    'path' => '/^\/employees\/edit_employee\/\d{1,3}$/',
+    'path' => '/^\/employees\/edit_employee\/\d{1,4}$/',
     'action' => [EmployeeController::class, 'editEmployeeAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'add employee',
-    'path' => '/^\/companies\/add_employee\/\d{1,3}$/',
+    'path' => '/^\/companies\/add_employee\/\d{1,4}$/',
     'action' => [CompanyController::class, 'addEmployeeAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'edit company',
-    'path' => '/^\/companies\/edit_company\/\d{1,3}$/',
+    'path' => '/^\/companies\/edit_company\/\d{1,4}$/',
     'action' => [CompanyController::class, 'editCompanyAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'company profile',
-    'path' => '/^\/companies\/company_profile\/\d{1,3}$/',
+    'path' => '/^\/companies\/company_profile\/\d{1,4}$/',
     'action' => [CompanyController::class, 'companyProfileAction'],
     'auth' => ["admin, user"]
 ));
 
 $router->add(array(
     'name' => 'delete company',
-    'path' => '/^\/companies\/delete_company\/\d{1,3}$/',
+    'path' => '/^\/companies\/delete_company\/\d{1,4}$/',
     'action' => [CompanyController::class, 'deleteCompanyAction'],
     'auth' => ["admin, user"]
 ));

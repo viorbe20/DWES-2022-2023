@@ -145,45 +145,47 @@ class StudentController extends BaseController
             $teacher = Teacher::getInstancia();
             $employee = Employee::getInstancia();
             $admin = Admin::getInstancia();
-            $newAssignment = false;
+
+            //Check is the request is a new assignment
+            $rest = explode("/", $request);
+            $last = explode("_", end($rest));
+
+            if ($last[1] == 0) {
+                $data['new_assignment'] = true;
+            } else {
+                $data['new_assignment'] = false;
+                $assignment->setId($last[1]);
+                foreach ($assignment->getCompleteAssignmentById() as $value) {
+                    $data['assignment'] = $value;
+                }
+            }
+
+            //var_dump($data['assignment']);
 
             $data['teachers_list'] = $teacher->getAllActive();
 
-            $rest = explode("/", $request);
-
-
-            // $rest = explode("/", $_SERVER['REQUEST_URI']);
-            $assignment->setIdStudent(end($rest));
-            $assignment->setGroupName(prev($rest));
-            $assignment->setAYear(prev($rest));
-
-            $student->setId($assignment->getIdStudent());
-            $student->getCompleteNameById();
-            $data['student'] = $student->getCompleteNameById();
-            $data['student'] = $data['student'][0];
 
             //Check if the student has an assignment
-            if ($assignment->getAllByIdStudentAndAYearAndGroup() != null) {
-                $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
-                $data['assignments'] = $data['assignments'][0];
+            // if ($assignment->getAllByIdStudentAndAYearAndGroup() != null) {
+            //     $data['assignments'] = $assignment->getAllByIdStudentAndAYearAndGroup();
+            //     $data['assignments'] = $data['assignments'][0];
 
-                $teacher->setId($data['assignments']['id_teacher']);
-                $data['teacher'] = $teacher->getCompleteNameById();
-                $data['teacher'] = $data['teacher'][0];
-                $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
+            //     $teacher->setId($data['assignments']['id_teacher']);
+            //     $data['teacher'] = $teacher->getCompleteNameById();
+            //     $data['teacher'] = $data['teacher'][0];
+            //     $data['teacher'] = array('id' => $teacher->getId(), 'name' => $data['teacher']['name']);
 
-                $employee->setId($data['assignments']['id_employee']);;
-                foreach ($employee->getById() as $value) {
-                    $companyId = $value['company_id_fk'];
-                }
+            //     $employee->setId($data['assignments']['id_employee']);;
+            //     foreach ($employee->getById() as $value) {
+            //         $companyId = $value['company_id_fk'];
+            //     }
 
-                $employee->setCompany_id_fk($companyId);
-                $data['employees'] = $employee->getAllActiveByCompanyId();
-            } else {
-                $newAssignment = true;
-                $data['assignments']['ayear'] = $assignment->getAyear();
-                $data['terms_list'] = $admin->getAllTerms();
-            }
+            //     $employee->setCompany_id_fk($companyId);
+            //     $data['employees'] = $employee->getAllActiveByCompanyId();
+            // } else {
+            //     $data['assignments']['ayear'] = $assignment->getAyear();
+            //     $data['terms_list'] = $admin->getAllTerms();
+            // }
 
             if (isset($_POST['btn_create_assignment'])) {
 
@@ -203,11 +205,6 @@ class StudentController extends BaseController
                         $validateEmployee = true;
                     }
                 }
-
-                if ($newAssignment) {
-                    //comporbar que el empleado no está cogido
-                }
-
 
                 if ($validateCompany && $validateEmployee) {
                     $assignment->setId($data['assignments']['id']);
@@ -245,59 +242,28 @@ class StudentController extends BaseController
 
             $enrollment = Enrollment::getInstancia();
             $assignment = Assignment::getInstancia();
-            $student = Student::getInstancia();
             $term = Admin::getInstancia();
-            foreach ($term->getAllTerms() as $value) {
-                $data['terms_list'][] = $value['term'];
-            }
 
-            $assignment->setAyear($data['ayear']);
-            $assignment->setGroupName($data['group']);
             $enrollment->setAyear($data['ayear']);
             $enrollment->setGroupName($data['group']);
 
-            $students = array(
-                'marzo-junio' => array(
-                    'assigned' => array(),
-                    'not_assigned' => array()
-                ),
-                'septiembre-diciembre' => array(
-                    'assigned' => array(),
-                    'not_assigned' => array()
-                )
-            );
+            foreach ($term->getAllTerms() as $value) {
+                $enrollment->setTerm($value['term']);
             
-            foreach ($enrollment->getAllByAYearAndGroup() as $value) {
-                $assignment->setIdStudent($value['student_id']);
-                $assignments = $assignment->getAllByIdStudentAndAYearAndGroup();
+                $unassignedStudents = $enrollment->getIdCurrentStudentsWithoutAssignment();
+                $assignedStudents = $enrollment->getIdCurrentStudentsWithtAssignment();
+
+                echo '<pre>';
+                print_r($assignedStudents);
+                echo '</pre>';
             
-                $student->setId($value['student_id']);
-                $name = $student->getCompleteNameById();
-            
-                $studentInfo = array('id' => $value['student_id'], 'name' => $name[0]['name']);
-            
-                if (empty($assignments)) {
-                    if ($value['term'] == 'marzo-junio') {
-                        $students['marzo-junio']['not_assigned'][] = $studentInfo;
-                    } else if ($value['term'] == 'septiembre-diciembre') {
-                        $students['septiembre-diciembre']['not_assigned'][] = $studentInfo;
-                    }
-                } else {
-                    $term = $assignments[0]['term'];
-                    $assignedStudentInfo = array('id' => $value['student_id'], 'name' => $name[0]['name'], 'term' => $term);
-            
-                    if ($value['term'] == 'marzo-junio') {
-                        $students['marzo-junio']['assigned'][] = $assignedStudentInfo;
-                    } else if ($value['term'] == 'septiembre-diciembre') {
-                        $students['septiembre-diciembre']['assigned'][] = $assignedStudentInfo;
-                    }
-                }
+                $termData = array(
+                    'unassignedStudents' => $unassignedStudents,
+                    'assignedStudents' => $assignedStudents
+                );
+                $data['terms'][$value['term']] = $termData;
             }
             
-            $data['students'] = $students;
-            
-            
-
             $this->renderHTML('../view/groups.php', $data);
         } else {
             $this->renderHTML('../view/home.php');
@@ -308,7 +274,6 @@ class StudentController extends BaseController
     {
 
         if ($_SESSION['user']['status'] == 'login') {
-
             $data = array();
 
             $admin = Admin::getInstancia();
