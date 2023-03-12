@@ -24,7 +24,18 @@ class Admin extends DBAbstractModel
 
     /*FIN DE LA CONSTRUCCIÓN DEL MODELO SINGLETON*/
     
-
+    public function getAllUsers(){
+        $this->query = "SELECT * FROM users 
+        ORDER BY id DESC";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+    
+    public function getAllProfiles(){
+        $this->query = "SELECT * FROM profile_t";
+        $this->get_results_from_query();
+        return $this->rows;
+    }
     public function getAllAYears()
     {
         $this->query = "SELECT * FROM ayears order by ayear desc";

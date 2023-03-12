@@ -6,8 +6,14 @@
                 <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/companies">Empresas</a>
             </li>
             <li class="nav-item px-2 mx-2">
-                <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/students">Alumnos</a>
+                <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/students">Convocatorias</a>
             </li>
+            <?php if ($_SESSION['user']['profile'] == 'admin') {?>
+                <li class="nav-item px-2 mx-2">
+                <a class="nav-link active" aria-current="page" href="<?php echo DIRBASEURL; ?>/users">Usuarios</a>
+            </li>
+            <?php
+        } ?>
         <?php
         } ?>
     </ul>

@@ -11,25 +11,20 @@
     <link rel='stylesheet' href="http://localhost/fct/assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="<?php echo DIRBASE?>/assets/js/students.js"></script>
-    <script src="<?php echo DIRBASE?>/assets/js/my_functions.js"></script>
-    <title>Concocatorias</title>
+    <title>Creación de Usuarios</title>
 </head>
 
 <body class='d-flex flex-column'>
 
     <?php
     require_once '../view/require/header.php';
+
     ?>
-
-<main class='d-flex flex-column justify-content-center align-items-center' style='padding: 2% 8%'>
-    <h3 class='d-flex text-center mx-5 text-secondary'>Convocatorias</h3>
-
-    <?php
-    require_once '../view/require/search_box_student.php';
-    require_once '../view/require/table_students.php';
-    ?>
-
+    <main class='d-flex flex-column justify-content-center align-items-center' style='padding: 2% 8%'>
+    <h3 class='d-flex text-center mx-5 mb-4 text-secondary'>Creación de usuarios</h3>
+<?php
+require_once '../view/require/form_create_user.php';
+?>
     </main>
 </body>
 

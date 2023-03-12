@@ -11,6 +11,7 @@ function emptyInput($value, $name)
 }
 
 
+
 function validatePhone($value)
 {
     // Eliminar cualquier carácter no numérico

@@ -32,7 +32,44 @@ class User extends DBAbstractModel
     private $created_at;
     private $updated_at;
 
-    
+    public function changeStatus(){
+        $this->query = "UPDATE users SET status_fk = :status_fk, updated_at = CURRENT_TIMESTAMP WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['status_fk'] = $this->status_fk;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+
+    public function getById(){
+        $this->query = "SELECT * FROM users WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
+
+    public function update(){
+        $this->query = "UPDATE users SET name = :name, username = :username, psw = :psw, profile_fk = :profile_fk, status_fk = :status_fk, updated_at = CURRENT_TIMESTAMP WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->parametros['name'] = $this->name;
+        $this->parametros['username'] = $this->username;
+        $this->parametros['psw'] = $this->psw;
+        $this->parametros['profile_fk'] = $this->profile_fk;
+        $this->parametros['status_fk'] = $this->status_fk;
+        $this->parametros['updated_at'] = $this->updated_at;
+        $this->get_results_from_query();
+    }
+    public function delete(){
+        $this->query = "DELETE FROM users WHERE id = :id";
+        $this->parametros['id'] = $this->id;
+        $this->get_results_from_query();
+    }
+
+    public function existingUsername(){
+        $this->query = "SELECT username FROM users WHERE username = :username";
+        $this->parametros['username'] = $this->username;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
 
     public function getByLogin()
     {
@@ -98,22 +135,22 @@ class User extends DBAbstractModel
         $this->psw = $psw;
     }
 
-    public function getProfile_fk()
+    public function getProfile()
     {
         return $this->profile_fk;
     }
 
-    public function setProfile_fk($profile_fk)
+    public function setProfile($profile_fk)
     {
         $this->profile_fk = $profile_fk;
     }
 
-    public function getStatus_fk()
+    public function getStatus()
     {
         return $this->status_fk;
     }
 
-    public function setStatus_fk($status_fk)
+    public function setStatus($status_fk)
     {
         $this->status_fk = $status_fk;
     }

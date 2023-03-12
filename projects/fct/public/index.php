@@ -189,6 +189,48 @@ $router->add(array(
     'auth' => ["admin, user, guest"]
 ));
 
+$router->add(array(
+    'name' => 'activate user',
+    'path' => '/^\/users\/activate_user\/\d{1,4}$/',
+    'action' => [AdminController::class, 'activateUserAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'cancel user',
+    'path' => '/^\/users\/cancel_user\/\d{1,4}$/',
+    'action' => [AdminController::class, 'cancelUserAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'edit user',
+    'path' => '/^\/users\/edit_user\/\d{1,4}$/',
+    'action' => [AdminController::class, 'editUserAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'delete user',
+    'path' => '/^\/users\/delete_user\/\d{1,4}$/',
+    'action' => [AdminController::class, 'deleteUserAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'add user',
+    'path' => '/^\/users\/add_user$/',
+    'action' => [AdminController::class, 'addUserAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'users',
+    'path' => '/^\/users$/',
+    'action' => [AdminController::class, 'usersAction'],
+    'auth' => ["admin"]
+));
+
 $request = str_replace(DIRBASEURL, '', $_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);
 
