@@ -119,7 +119,7 @@ class StudentController extends BaseController
                         }
                     }
                 }
-                header('Location: ' . DIRBASEURL . '/students/' . $_POST['ayear'] . '/' . $_POST['group']);
+                //header('Location: ' . DIRBASEURL . '/students/' . $_POST['ayear'] . '/' . $_POST['group']);
             } else {
                 //By default
                 $this->renderHTML('../view/upload_students.php', $data);
