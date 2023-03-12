@@ -25,7 +25,33 @@ function showMatchingUsers() {
         )
 }
 
+function showMatchingEmployeesAssignments() {
+    $tableEmployees.empty();
+
+    fetch("http://localhost/fct/public/index.php/employees_db")
+        .then((response) => response.json())
+        .then((data) => {
+            let query = $employeeBar.val().toLowerCase();
+            let filteredEmployees = data.filter(function (emp) {
+                return (
+                    emp.name.toLowerCase().indexOf(query) > -1 ||
+                    emp.surnames.toLowerCase().indexOf(query) > -1
+                );
+            });
+
+            filteredEmployees.forEach(function (emp) {
+                $tableEmployees.css("display", "block");
+                $tableEmployees.append(
+                    `<a href="${$dirbaseurl}/assignment/employee/${emp.id}" style="text-decoration:none; color:black;">
+                    <li class="list-group-item">${emp.name} ${emp.surnames} </li></a>`
+                );
+            });
+        });
+}
+
+
 function showMatchingAssignments() {
+
 
     $tableStudents.empty();
 
@@ -137,18 +163,20 @@ function showMatchingStudents() {
 }
 
 function showMatchingCompanies() {
-    $tableBody.empty();
 
+    $tableBody.empty();
+    
     fetch(
         "http://localhost/fct/public/index.php/companies_db"
-    )
+        )
         .then((response) => response.json())
         .then((data) => {
             let query = $inputSearch.val().toLowerCase();
+            console.log(query);
             let filteredCompanies = data.filter(function (company) {
                 return company.name.toLowerCase().indexOf(query) > -1;
             });
-
+            
 
             filteredCompanies.forEach(function (company) {
                 $tableBody.append(

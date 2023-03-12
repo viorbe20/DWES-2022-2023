@@ -36,7 +36,8 @@ class DefaultController extends BaseController
                         $_SESSION['user']['name'] = $value['name'];
                         $_SESSION['user']['username'] = $value['username'];
                         $_SESSION['user']['profile'] = $value['profile_fk'];
-                        header('Location: ' . DIRBASEURL . "/companies");                        
+                        var_dump($_SESSION['user']);
+                        header('Location: ' . DIRBASEURL . "/home");                        
                     }
                 }
             } else {

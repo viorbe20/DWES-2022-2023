@@ -11,15 +11,17 @@ use App\Models\Student;
 use App\Models\Assignment;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Ayears;
 
 
 class AdminController extends BaseController
 {
 
+
     public function cancelUserAction($request)
     {
 
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $user = User::getInstancia();
             $rest = explode("/", $request);
             $user->setId(end($rest));
@@ -34,7 +36,7 @@ class AdminController extends BaseController
     public function activateUserAction($request)
     {
 
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $user = User::getInstancia();
             $rest = explode("/", $request);
             $user->setId(end($rest));
@@ -49,7 +51,7 @@ class AdminController extends BaseController
     public function editUserAction($request)
     {
 
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
 
             $data = [];
             $admin = Admin::getInstancia();
@@ -129,7 +131,7 @@ class AdminController extends BaseController
     public function deleteUserAction($request)
     {
 
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $user = User::getInstancia();
             $rest = explode("/", $request);
             $user->setId(end($rest));
@@ -142,7 +144,7 @@ class AdminController extends BaseController
     public function addUserAction()
     {
 
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
 
             $data = [];
 
@@ -199,7 +201,7 @@ class AdminController extends BaseController
     }
     public function usersAction()
     {
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $data = [];
             $admin = Admin::getInstancia();
             $data['users_list'] = $admin->getAllUsers();
@@ -221,7 +223,7 @@ class AdminController extends BaseController
     }
 
     public function jqUsers(){
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $admin = Admin::getInstancia();
             echo json_encode($admin->getAllUsers());
         } else {
@@ -231,7 +233,7 @@ class AdminController extends BaseController
 
     public function jqCompleteAssignments()
     {
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $assignment = new Assignment();
             echo json_encode($assignment->getCompleteAssignments());
         } else {
@@ -241,7 +243,7 @@ class AdminController extends BaseController
 
     public function jqStudentsAction()
     {
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $student = new Student();
             echo json_encode($student->getAllActive());
         } else {
@@ -251,7 +253,7 @@ class AdminController extends BaseController
 
     public function jqEmployeesAction()
     {
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $employee = new Employee();
             echo json_encode($employee->getAllActive());
         } else {
@@ -261,7 +263,7 @@ class AdminController extends BaseController
 
     public function jqCompaniesAction()
     {
-        if ($_SESSION['user']['profile'] == 'admin') {
+        if ($_SESSION['user']['status'] == 'login') {
             $company = new Company();
             echo json_encode($company->getAllActive());
         } else {

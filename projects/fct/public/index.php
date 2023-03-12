@@ -22,6 +22,20 @@ if (!isset($_SESSION['user']['profile'])) {
 $router = new Router();
 
 $router->add(array(
+    'name' => 'add calls',
+    'path' => '/^\/calls\/add_call$/',
+    'action' => [AdminController::class, 'addCallsAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
+    'name' => 'calls',
+    'path' => '/^\/calls$/',
+    'action' => [AdminController::class, 'callsAction'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
     'name' => 'delete assignment students',
     'path' => '/^\/assignment\/student\/delete\/\d{1,4}$/',
     'action' => [UserController::class, 'deleteAssignmentStudentAction'],

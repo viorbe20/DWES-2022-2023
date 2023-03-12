@@ -54,14 +54,16 @@ $(document).ready(function () {
     });
 
     //Search box employees
-    $searchEmployee = $('#input_search_employee');
-    $tableBodyEmployees = $('#table_body_employees');
+    $employeeBar = $('#employee_bar');
+    $tableEmployees = $('#dropdown_employees');
+    $dirbaseurl = "http://localhost/fct/public/index.php";
 
-    $searchEmployee.keyup(function () {
-        if (($searchEmployee.val() == '') || ($searchEmployee.val().indexOf(' ') > -1)) {
+    //students assignmets
+    $employeeBar.keyup(function () {
+        if (($employeeBar.val() == '') || ($employeeBar.val().indexOf(' ') > -1)) {
             location.reload();
         } else {
-            showMatchingEmployees();
+            showMatchingEmployeesAssignments();
         }
     });
 
