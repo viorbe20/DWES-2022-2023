@@ -1,5 +1,30 @@
 console.log('my_functions.js loaded');
 
+function showMatchingUsers() {
+
+    $tableUsers.empty();
+
+    fetch(
+        "http://localhost/fct/public/index.php/users_db"
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            let query = $userBar.val().toLowerCase();
+            let filteredUsers = data.filter(function (user) {
+                return user.name.toLowerCase().indexOf(query) > -1 || user.username.toLowerCase().indexOf(query) > -1;
+            });
+
+            filteredUsers.forEach(function (user) {
+                $tableUsers.css('display', 'block');
+                $tableUsers.append(
+                    `<a href="${$dirbaseurl}/users/edit_user/${user['id']}" style="text-decoration:none; color:black;"><li class="list-group-item">${user['name']} - ${user['username']}</li></a>`
+                );
+
+            });
+        }
+        )
+}
+
 function showMatchingAssignments() {
 
     $tableStudents.empty();
@@ -170,9 +195,9 @@ function showMatchingEmployees() {
                 <td>
                 <a href="${$dirbaseurl}/employees/edit_employee/${employee['id']}" class='btn btn-primary rounded-pill px-4 my-1'>Editar</a>
                 ${employee["name_student"] == '' ?
-                `<a href="${$dirbaseurl}/assignment/employee/${employee['id']}" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>` :
-                `<a href="${$dirbaseurl}/unassign/employee/${employee['assignment_id']}" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>`
-            }
+                        `<a href="${$dirbaseurl}/assignment/employee/${employee['id']}" class="btn btn-success rounded-pill px-4 my-1">Asignar</a>` :
+                        `<a href="${$dirbaseurl}/unassign/employee/${employee['assignment_id']}" class="btn btn-warning rounded-pill px-4 my-1">Desasignar</a>`
+                    }
                 </td>
                 </tr>`
                 );

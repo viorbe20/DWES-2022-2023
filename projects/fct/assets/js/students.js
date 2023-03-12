@@ -6,7 +6,7 @@ $(document).ready(function () {
     $tableStudents = $('#dropdown_students');
     $dirbaseurl = "http://localhost/fct/public/index.php";
 
-    //ets students assignemts
+    //students assignmets
     $studentBar.keyup(function () {
         if (($studentBar.val() == '') || ($studentBar.val().indexOf(' ') > -1)) {
             location.reload();
@@ -14,14 +14,4 @@ $(document).ready(function () {
             showMatchingAssignments();
         }
     });
-
-    // $studentBar.keyup(function () {
-    //     if (($studentBar.val() == '') || ($studentBar.val().indexOf(' ') > -1)) {
-    //         console.log('ddddddd');
-    //         location.reload();
-    //     } else { 
-    //         console.log('aaaa');
-    //         showMatchingStudents();
-    //     }
-    // });
 });

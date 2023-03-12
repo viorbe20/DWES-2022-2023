@@ -203,7 +203,27 @@ class AdminController extends BaseController
             $data = [];
             $admin = Admin::getInstancia();
             $data['users_list'] = $admin->getAllUsers();
+            
+            if ($admin->getAllUsers() != null) { //Show users
+
+                if ($admin->getAllUsers() <= 5) { //Control the number of users to show
+                    $data['users_list'] = $admin->getAllUsers();
+                } else {
+                    $data['users_list'] = array_slice($admin->getAllUsers(), 0, 5);
+                }
+            } else {
+                echo "<script>alert('No hay usuarios registrados.');</script>";
+            }
             $this->renderHTML('../view/users.php', $data);
+        } else {
+            header('Location: ' . DIRBASEURL . "/home");
+        }
+    }
+
+    public function jqUsers(){
+        if ($_SESSION['user']['profile'] == 'admin') {
+            $admin = Admin::getInstancia();
+            echo json_encode($admin->getAllUsers());
         } else {
             header('Location: ' . DIRBASEURL . "/home");
         }

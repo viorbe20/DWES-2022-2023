@@ -190,6 +190,13 @@ $router->add(array(
 ));
 
 $router->add(array(
+    'name' => 'jq users',
+    'path' => '/^\/users_db$/',
+    'action' => [AdminController::class, 'jqUsers'],
+    'auth' => ["admin"]
+));
+
+$router->add(array(
     'name' => 'activate user',
     'path' => '/^\/users\/activate_user\/\d{1,4}$/',
     'action' => [AdminController::class, 'activateUserAction'],
