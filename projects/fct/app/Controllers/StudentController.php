@@ -144,6 +144,7 @@ class StudentController extends BaseController
             $last = explode("_", end($rest));
             $studentId = (int)$last[0];
             $assignmentId = (int)$last[1];
+
             
             if ($assignmentId == 0) { //student with no assignment
                 $data['student']['group'] = prev($rest);
@@ -177,7 +178,7 @@ class StudentController extends BaseController
 
                 $validateCompany = false;
                 $validateEmployee = false;
-
+                
                 if (!isset($_POST['company'])) {
                     echo '<script>alert("Debes seleccionar una empresa existente.")</script>';
                     $this->renderHTML('../view/assignments.php', $data);
@@ -190,10 +191,10 @@ class StudentController extends BaseController
                         $validateEmployee = true;
                     }
                 }
-
+                
                 if ($validateCompany && $validateEmployee) {
 
-                    $assignment->setIdStudent($data['student']['id']);
+                    $assignment->setIdStudent($studentId);
                     $assignment->setIdTeacher(clearData($_POST['teacher']));
                     $assignment->setIdEmployee(clearData($_POST['employee']));
                     $assignment->setAyear($data['student']['ayear']);
